@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人博客-Gem</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      --imageWidth: 600px;
+      --arrowWidth: 100px;
+      --height: 200px;
+    }
+
+    .flex-center-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .flex-between-center {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flex-around-center {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    ul,
+    li {
+      list-style: none;
+    }
+
+    .banner {
+      width: var(--imageWidth);
+      height: 400px;
+      margin: 100px auto;
+      overflow: hidden;
+    }
+
+    .box {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .arrow-left,
+    .arrow-right {
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+      width: 50px;
+      height: 100px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #ffffff;
+      z-index: 10;
+    }
+
+    .arrow-left {
+      left: 0;
+    }
+
+    .arrow-right {
+      right: 0;
+    }
+
+    .multi-circles {
+      position: absolute;
+      bottom: 10px;
+      right: 50px;
+      z-index: 5;
+    }
+
+    .multi-circles li {
+      float: left;
+      width: 20px;
+      height: 20px;
+      background-color: #000000;
+      border-radius: 50%;
+      margin: 0 5px;
+    }
+
+    .multi-circles li.active {
+      background-color: #ff0000;
+    }
+
+    .multi-images {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(var(--imageWidth)*5);
+      height: 100%;
+    }
+
+    .multi-images img {
+      float: left;
+      width: var(--imageWidth);
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h1>欢迎来到Gem的个人博客</h1>
+    <div class="banner">
+      <div class="box">
+        <div class="arrow-left flex-center-center" @click="handleClickPre" v-if="index > 0">&lt;</div>
+        <div class="arrow-right flex-center-center" @click="handleClickNext" v-if="index < (_self.imglist.length - 1)">
+          &gt;</div>
+        <ul class="multi-circles">
+          <li @click="handleClickIndex(idx)" v-for="(item, idx) in imglist" :key="idx"
+            :class="idx == index ? 'active' : ''">
+          </li>
+        </ul>
+        <div class="multi-images" :style="'left:' + -(index * 600) + 'px;transition: 1s;'">
+          <img :src="item" v-for="(item, index) in imglist" :key="index">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./js/vue.min.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          imglist: [
+            'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2646629351,1830923198&fm=26&gp=0.jpg',
+            'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4184278089,1373760144&fm=26&gp=0.jpg',
+            'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1294082173,3333931346&fm=26&gp=0.jpg',
+            'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1419817777,3647793771&fm=26&gp=0.jpg',
+            'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1618453098,2599275984&fm=26&gp=0.jpg'
+          ],
+          index: 0,
+          moveFlag: true
+        }
+      },
+      mounted() {
+        var _self = this;
+      },
+      methods: {
+        // 左移
+        handleClickPre() {
+          var _self = this;
+          _self.moveFun(_self.index--);
+        },
+        // 右移
+        handleClickNext() {
+          var _self = this;
+          _self.moveFun(_self.index++);
+        },
+        // 点小圆点移动图片
+        handleClickIndex(idx) {
+          var _self = this;
+          _self.moveFun(idx);
+        },
+        // 图片移动 封装
+        moveFun(idx) {
+          var _self = this;
+          if (_self.moveFlag && _self.index < _self.imglist.length - 1) {
+            _self.index = idx;
+          }
+          _self.moveFlag = false;
+          var liear = Number(document.querySelector('.multi-images').style.transition.substr(4, 1));
+          console.log(liear);
+          setTimeout(() => {
+            _self.moveFlag = true;
+          }, liear * 1000);
+        },
+        // 防抖
+        handleFanDou() {
+
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
