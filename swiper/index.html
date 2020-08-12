@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轮播图</title>
+  <link rel="stylesheet" href="../css/normal.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div id="app">
+    <h1>轮播图</h1>
+    <div class="banner">
+      <div class="swiper" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+        <div class="swiper-left flex-center-center" @click="handleClickPre" v-if="PreNextShow && index > 0">&lt;</div>
+        <div class="swiper-right flex-center-center" @click="handleClickNext"
+          v-if="PreNextShow && index < (_self.imglist.length - 1)">
+          &gt;</div>
+        <ul class="swiper-circles">
+          <li @click="handleClickIndex(idx)" v-for="(item, idx) in imglist" :key="idx"
+            :class="idx == index ? 'active' : ''">
+          </li>
+        </ul>
+        <div class="swiper-images" :style="'left:' + -(index * 600) + 'px;transition: 1s;'">
+          <img :src="item" v-for="(item, index) in imglist" :key="index">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/vue.min.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>

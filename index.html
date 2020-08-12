@@ -9,9 +9,26 @@
     * {
       margin: 0;
       padding: 0;
-      --imageWidth: 600px;
+      --imageWidth: 500px;
       --arrowWidth: 100px;
       --height: 200px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+    }
+
+    html {
+      overflow: hidden;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    a {
+      color: #000000;
+      text-decoration: none;
     }
 
     .flex-center-center {
@@ -39,16 +56,16 @@
 
     .banner {
       width: var(--imageWidth);
-      height: 400px;
-      margin: 100px auto;
-      overflow: hidden;
+      height: 300px;
+      margin: 200px auto;
+      /* overflow: hidden; */
     }
 
     .box {
       position: relative;
       width: 100%;
       height: 100%;
-      overflow: hidden;
+      /* overflow: hidden; */
     }
 
     .arrow-left,
@@ -61,6 +78,7 @@
       background-color: rgba(0, 0, 0, 0.5);
       color: #ffffff;
       z-index: 10;
+      cursor: pointer;
     }
 
     .arrow-left {
@@ -74,8 +92,10 @@
     .multi-circles {
       position: absolute;
       bottom: 10px;
-      right: 50px;
+      left: 50%;
+      transform: translate(-50%, 0);
       z-index: 5;
+      cursor: pointer;
     }
 
     .multi-circles li {
@@ -97,12 +117,39 @@
       left: 0;
       width: calc(var(--imageWidth)*5);
       height: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
     }
 
-    .multi-images img {
-      float: left;
+    .multi-images .swiper.active {
       width: var(--imageWidth);
       height: 100%;
+      background-color: rgba(135, 9, 238, 0.7);
+    }
+
+    .multi-images .swiper.active a {
+      color: #ffffff;
+    }
+
+    .multi-images .swiper {
+      width: 200px;
+      height: 100px;
+      background-color: rgba(135, 9, 238, 0.3);
+      text-align: center;
+      transition: 1s;
+      box-sizing: border-box;
+      padding: 30px 0 0 0;
+      box-shadow: 0 0 1px rgba(135, 9, 238, 0.7);
+    }
+
+    .multi-images .swiper div {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+
+    .multi-images .swiper a {
+      color: rgba(255, 255, 255, 0.6);
     }
   </style>
 </head>
@@ -112,16 +159,27 @@
     <h1>欢迎来到Gem的个人博客</h1>
     <div class="banner">
       <div class="box">
-        <div class="arrow-left flex-center-center" @click="handleClickPre" v-if="index > 0">&lt;</div>
-        <div class="arrow-right flex-center-center" @click="handleClickNext" v-if="index < (_self.imglist.length - 1)">
-          &gt;</div>
+        <!-- <div class="arrow-left flex-center-center" @click="handleClickPre" v-if="index > 0">&lt;</div>
+        <div class="arrow-right flex-center-center" @click="handleClickNext"
+          v-if="index < (_self.labelList.length - 1)">
+          &gt;</div> -->
         <ul class="multi-circles">
-          <li @click="handleClickIndex(idx)" v-for="(item, idx) in imglist" :key="idx"
+          <li @click="handleClickIndex(idx)" v-for="(item, idx) in labelList" :key="idx"
             :class="idx == index ? 'active' : ''">
           </li>
         </ul>
-        <div class="multi-images" :style="'left:' + -(index * 600) + 'px;transition: 1s;'">
-          <img :src="item" v-for="(item, index) in imglist" :key="index">
+        <div class="multi-images" :style="'left:' + -(index * 200) + 'px;transition: 1s;'">
+          <div class="swiper" :class="idx == index ? 'active' : ''" v-for="(item, idx) in labelList" :key="idx"
+            @click="handleClickIndex(idx)">
+            <template v-if="idx == index">
+              <h1><a :href="item.nameUrl">{{item.name}}</a></h1>
+              <div><a href="https://github.com/hejiajun530">MyGithub</a></div>
+              <div><a :href="item.codeUrl">代码地址</a></div>
+            </template>
+            <template v-else>
+              <h1><a>{{item.name}}</a></h1>
+            </template>
+          </div>
         </div>
       </div>
     </div>
@@ -132,15 +190,25 @@
       el: '#app',
       data() {
         return {
-          imglist: [
-            'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2646629351,1830923198&fm=26&gp=0.jpg',
-            'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4184278089,1373760144&fm=26&gp=0.jpg',
-            'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1294082173,3333931346&fm=26&gp=0.jpg',
-            'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1419817777,3647793771&fm=26&gp=0.jpg',
-            'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1618453098,2599275984&fm=26&gp=0.jpg'
+          labelList: [
+            {
+              name: '后台管理系统',
+              nameUrl: './admin/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '轮播图',
+              nameUrl: './swiper/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: 'tab栏切换',
+              nameUrl: './tab/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            }
           ],
           index: 0,
-          moveFlag: true
+          timer: null
         }
       },
       mounted() {
@@ -150,34 +218,41 @@
         // 左移
         handleClickPre() {
           var _self = this;
-          _self.moveFun(_self.index--);
+          let idx = _self.index - 1;
+          _self.throttle(idx, 200);
         },
         // 右移
         handleClickNext() {
           var _self = this;
-          _self.moveFun(_self.index++);
+          let idx = _self.index + 1;
+          _self.throttle(idx, 200);
         },
         // 点小圆点移动图片
         handleClickIndex(idx) {
           var _self = this;
-          _self.moveFun(idx);
+          _self.throttle(idx, 200);
         },
-        // 图片移动 封装
-        moveFun(idx) {
+        // 节流  图片移动 封装
+        throttle(idx, delay) {
           var _self = this;
-          if (_self.moveFlag && _self.index < _self.imglist.length - 1) {
+          // 节流  一定时间内只能 触发一次事件
+          // if (!_self.timer) {
+          //   _self.timer = setTimeout(() => {
+          //     console.log(idx);
+          //     _self.index = idx;
+          //     _self.timer = null;
+          //   }, delay);
+          // }
+          // 防抖  如果一直点击 只触发最后一次事件
+          if (_self.timer !== null) {
+            clearTimeout(_self.timer);
+          } else {
             _self.index = idx;
           }
-          _self.moveFlag = false;
-          var liear = Number(document.querySelector('.multi-images').style.transition.substr(4, 1));
-          console.log(liear);
-          setTimeout(() => {
-            _self.moveFlag = true;
-          }, liear * 1000);
-        },
-        // 防抖
-        handleFanDou() {
-
+          _self.timer = setTimeout(() => {
+            console.log(idx);
+            _self.timer = null;
+          }, delay);
         }
       }
     })

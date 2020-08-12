@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台管理系统</title>
+  <link rel="stylesheet" href="../css/normal.css">
+  <link rel="stylesheet" href="./assets/iconfont.css">
+  <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+  <div id="app">
+    <!-- 头部 -->
+    <div class="header flex-between-center">
+      <div class="header-title flex-center-center">{{headTitle}}</div>
+      <div class="header-user flex-between-center">
+        <div class="iconfont icongengduo header-user-left flex-center-center" @click="handleClickNavShow"></div>
+        <div class="header-user-right flex-around-center">
+          <div class="header-user-right-avator"><img
+              src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=767866275,4292143841&fm=26&gp=0.jpg"
+              alt="用户头像"></div>
+          <div class="header-user-right-username">用户</div>
+          <div class="iconfont iconguanji header-user-right-icon flex-center-center" @click="handleClickCheckOut"></div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-between-center box">
+      <!-- 侧边栏 -->
+      <div class="nav" v-if="navShowFlag">
+        <div class="nav-list" v-for="(item, index) in navlist" :key="index" @click="handleClickNav(index)"
+          :class="index == navIndex ? 'active' : ''">
+          <!-- 一级菜单 -->
+          <div class="nav-item flex-between-center">
+            <div class="nav-item-left flex-start-center">
+              <div class="iconfont nav-item-margin15" :class="item.icon"></div>
+              <div class="nav-item-left-title">{{item.name}}</div>
+            </div>
+            <div class="iconfont iconyoujiantou nav-item-margin15"></div>
+          </div>
+          <!-- 子级菜单 -->
+          <div class="nav-item-submenu" v-for="(subitem, idx) in item.sub" :key="idx"><a
+              :href="subitem.router">{{subitem.subname}}</a></div>
+        </div>
+      </div>
+      <div class="navSmall" v-else>
+        <div class="navSmall-list" v-for="(item, index) in navlist" :key="index" @click="handleClickNav(index)"
+          :class="index == navIndex ? 'active' : ''">
+          <!-- 一级菜单 -->
+          <div class="navSmall-item flex-center-center">
+            <div class="iconfont" :class="item.icon"></div>
+          </div>
+          <!-- 子级菜单 -->
+          <div class="navSmall-item-submenu">
+            <div class="navSmall-item-submenu-item" v-for="(subitem, idx) in item.sub" :key="idx">
+              <a :href="subitem.router">{{subitem.subname}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 主体 -->
+      <div class="content">
+        <iframe src="../swiper/index.html" frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+  </div>
+  <script src="../js/vue.min.js"></script>
+  <script src="./js/index.js"></script>
+</body>
+
+</html>
