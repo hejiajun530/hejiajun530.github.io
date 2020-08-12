@@ -14,7 +14,11 @@ new Vue({
       timer: null,
       timeInterval: null,
       temp: 1,
-      PreNextShow: false
+      PreNextShow: false,
+      // 移动初始位置
+      startX: 0,
+      // 移动移动位置
+      moveX: 0
     }
   },
   mounted() {
@@ -70,6 +74,11 @@ new Vue({
     // 图片移动 封装
     throttle(idx, delay) {
       var _self = this;
+      if (idx < 0) {
+        return false;
+      } else if (idx > _self.imglist.length - 1) {
+        return false;
+      }
       // 节流
       // if (!_self.timer) {
       //   _self.timer = setTimeout(() => {
@@ -88,6 +97,49 @@ new Vue({
         console.log(idx);
         _self.timer = null;
       }, delay);
+    },
+    // 移动端 手指 初始
+    handleTouchStart (e) {
+      var _self = this;
+      // 手指移开屏幕后 停止自动播放
+      clearInterval(_self.timeInterval);
+      _self.startX = e.targetTouches[0].clientX;
+    },
+    // 移动端 手指 移动
+    handleTouchMove (e) {
+      var _self = this;
+      var images = document.querySelector('.swiper-images');
+      // 移动位置
+      _self.moveX = e.targetTouches[0].clientX - _self.startX;
+      // 设置元素随着手指移动而移动
+		  images.style.transition = "none";
+      images.style.transform = "translateX("+_self.moveX+"px)";
+    },
+    // 移动端 手指 结束
+    handleTouchEnd (e) {
+      var _self = this;
+      var idx = 0;
+      // 手指移开屏幕后 开启自动播放
+      clearInterval(_self.timeInterval);
+      _self.autoplay();
+      // 初始化 style
+      var images = document.querySelector('.swiper-images');
+		  images.style.transition = "1s";
+      images.style.transform = "translateX(0px)";
+      // 移动位置 超过50 就切换
+      if (Math.abs(_self.moveX) > 50) {
+        if (_self.moveX > 0) {
+          idx = _self.index - 1;
+          _self.throttle(idx, 1000);
+        } else {
+          // _self.index++;
+          idx = _self.index + 1;
+          _self.throttle(idx, 1000);
+        }
+      }
+      // 初始化 位置坐标
+      _self.startX = 0;
+      _self.moveX = 0;
     }
   }
 })

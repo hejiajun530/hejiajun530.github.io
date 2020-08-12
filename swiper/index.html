@@ -23,8 +23,9 @@
             :class="idx == index ? 'active' : ''">
           </li>
         </ul>
-        <div class="swiper-images" :style="'left:' + -(index * 600) + 'px;transition: 1s;'">
+        <div class="swiper-images" :style="'left:' + -(index * 600) + 'px;transition: 1s;'" @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
           <img :src="item" v-for="(item, index) in imglist" :key="index">
+          <div class="swiper-mask"></div>
         </div>
       </div>
     </div>
