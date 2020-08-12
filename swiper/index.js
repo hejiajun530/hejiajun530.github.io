@@ -71,23 +71,23 @@ new Vue({
     throttle(idx, delay) {
       var _self = this;
       // 节流
-      if (!_self.timer) {
-        _self.timer = setTimeout(() => {
-          console.log(idx);
-          _self.index = idx;
-          _self.timer = null;
-        }, delay);
-      }
-      // 防抖
-      // if (_self.timer !== null) {
-      //   clearTimeout(_self.timer);
-      // } else {
-      //   _self.index = idx;
+      // if (!_self.timer) {
+      //   _self.timer = setTimeout(() => {
+      //     console.log(idx);
+      //     _self.index = idx;
+      //     _self.timer = null;
+      //   }, delay);
       // }
-      // _self.timer = setTimeout(() => {
-      //   console.log(idx);
-      //   _self.timer = null;
-      // }, delay);
+      // 防抖
+      if (_self.timer !== null) {
+        clearTimeout(_self.timer);
+      } else {
+        _self.index = idx;
+      }
+      _self.timer = setTimeout(() => {
+        console.log(idx);
+        _self.timer = null;
+      }, delay);
     }
   }
 })
