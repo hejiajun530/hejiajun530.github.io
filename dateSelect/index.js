@@ -18,8 +18,7 @@ new Vue({
     daylist: [],
     showOtherMonth: true,
     firstClickTimeFlag: true,
-    startTime: '',
-    endTime: ''
+    startTime: ''
   },
   created() {
     this.handleDefaultTime();
@@ -135,18 +134,6 @@ new Vue({
         // console.log('ruzhu');
         return "active"
       }
-      // 离店
-      else if (this.dateDiff(day, this.endTime).Today) {
-        // console.log('lidian');
-        return "tuifang"
-      }
-      // 今天
-      // else if (day.getDate() == new Date().getDate() && day.getMonth() == new Date().getMonth() && day.getFullYear() == new Date().getFullYear()) {
-      //   return "active"
-      // }
-      else if (this.dateDiff(this.startTime, day).day > 0 && this.dateDiff(this.endTime, day).day < 0) {
-        return 'activeColor'
-      }
     },
     //切换月份
     changeMonth(a) {
@@ -173,25 +160,7 @@ new Vue({
       var _self = this;
       console.log(val);
       if (val == null || _self.dateDiff(new Date(), val.ymd).day < 0) return false;
-      if (_self.firstClickTimeFlag) {
-        // firstClickTimeFlag  为 true，选择入住日期
-        _self.firstClickTimeFlag = false;
-        _self.endTime = '';
-        _self.startTime = val.day;
-      } else {
-        // firstClickTimeFlag  为 false，选择离店日期
-        _self.endTime = val.day;
-        console.log(_self.dateDiff(_self.startTime, _self.endTime).day);
-        if (_self.dateDiff(_self.startTime, _self.endTime).day > 0) {
-          _self.firstClickTimeFlag = true;
-          _self.endTime = val.day;
-          let night = _self.dateDiff(_self.startTime, _self.endTime);
-        } else {
-          _self.startTime = val.day;
-          _self.endTime = '';
-        }
-      }
-      // console.log(_self.startTime +"--"+ _self.endTime +"--"+ val.ymd);
+      _self.startTime = val.day;
     },
     // 初始时间
     handleDefaultTime(flag) {
@@ -202,9 +171,7 @@ new Vue({
         let m = date.getMonth() + 1;
         m = m < 10 ? '0' + m : m;
         let d = date.getDate();
-        let currentEndDay = date.getDate() + 1;
         d = d < 10 ? '0' + d : d;
-        currentEndDay = currentEndDay < 10 ? '0' + currentEndDay : currentEndDay;
         return y + '-' + m + '-' + currentEndDay;
       } else {
         let date = new Date();
@@ -212,13 +179,9 @@ new Vue({
         _self.currentMonth = date.getMonth() + 1;
         _self.currentMonth = _self.currentMonth < 10 ? '0' + _self.currentMonth : _self.currentMonth;
         _self.currentDay = date.getDate();
-        let currentEndDay = date.getDate() + 1;
         _self.currentDay = _self.currentDay < 10 ? '0' + _self.currentDay : _self.currentDay;
-        currentEndDay = currentEndDay < 10 ? '0' + currentEndDay : currentEndDay;
         _self.startTime = _self.currentYear + '-' + _self.currentMonth + '-' + _self.currentDay;
-        _self.endTime = _self.currentYear + '-' + _self.currentMonth + '-' + currentEndDay;
         console.log(_self.startTime);
-        console.log(_self.endTime);
       }
     },
     // 计算时间差

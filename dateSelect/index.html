@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日期选择器</title>
+  <link rel="stylesheet" href="../css/normal.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div id="app">
+    <h1>日期选择器</h1>
+    <div class="banner">
+      <div class="dateSelect flex-center-center">
+        <input type="text" class="dateSelect-start" placeholder="年-月-日">
+        <div class="dateSelect-text flex-center-center">至</div>
+        <input type="text" class="dateSelect-end" placeholder="年-月-日">
+        <!-- 日历 -->
+        <div id="calendar">
+          <!-- 标题 -->
+          <div class="calendar-arrow flex-around-center">
+            <div class="calendar-left" @click="changeMonth('pre')"> ❮ </div>
+            <div class="calendar-ym">{{currentYear}}年{{currentMonth}}月</div>
+            <div class="calendar-right" @click="changeMonth('next')"> ❯ </div>
+          </div>
+          <!-- 月日星期 -->
+          <div class="calendar-list">
+            <!-- 星期行 -->
+            <ul class="calendar-weekdays flex-around-center">
+              <li v-for='(val,key) in weeks'>
+                <span>{{val}}</span>
+              </li>
+            </ul>
+            <!-- 日期 -->
+            <ul class="calendar-days flex-around-center">
+              <li v-for='(val,key) in daylist' :key="key" @click="handleClickTime(val, key)"
+                :class="chooseClass(val.day)">
+                <div class="calendar-days-li-item-one flex-column-around-center" v-if="val">
+                  <h4 v-if="val">{{val.day.getDate() | twoNumber}}</h4>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/vue.min.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>
