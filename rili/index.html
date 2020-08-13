@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日历</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div id="app">
+    <div id="calendar">
+      <!-- 标题 -->
+      <div class="arrow-left" @click="changeMonth('pre')"> ❮ </div>
+      <div class="arrow-right" @click="changeMonth('next')"> ❯ </div>
+      <!-- 月日星期 -->
+      <div class="day-list-item">
+        <!-- 星期行 -->
+        <ul class="weekdays">
+          <li v-for='(val,key) in weeks'>
+            <span>{{val}}</span>
+          </li>
+        </ul>
+        <!-- 日期 -->
+        <ul class="days">
+          <li v-for='(val,key) in daylist' :key="key" @click="handleClickTime(val, key)">
+            <div v-if="val">
+              <div class="days-li-item-one">
+                <h4 v-if="val" :class="chooseClass(val.day)">
+                  {{currentYear.toString()}}-{{val.day.getMonth() + 1 | twoNumber}}-{{val.day.getDate() | twoNumber}}
+                </h4>
+                <!-- 星期几 -->
+                <!-- <h4 v-if="val" :class="chooseClass(val.day)">
+                  {{showWeeks[val.week]}}</h4> -->
+                <p v-if="chooseClass(val.day) == 'active'" style="color: green;">入住</p>
+                <p v-else-if="chooseClass(val.day) == 'tuifang'" style="color: green;">离店</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="../js/vue.min.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>

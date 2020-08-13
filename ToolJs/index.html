@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./date.js"></script>
+  <script>
+    console.log(DateTime().today('2020-07-02', '2020-07-02'));
+    console.log(DateTime().tomonth('2020-07-02', '2020-07-13'));
+    console.log(DateTime().toyear('2020-07-02', '2020-07-13'));
+    console.log(DateTime().dateDiff('2020-07-02', '2020-07-02'));
+    console.log(DateTime().toymd(new Date(), 'yy-MM-dd'));
+    console.log(DateTime().toymd(new Date(), 'MM-dd'));
+    console.log(DateTime().toymd(new Date(), 'yy-MM-dd hh:mm'));
+    console.log(DateTime().toymd(new Date(), 'yy-MM-dd hh:mm:ss'));
+    console.log(DateTime().toTwo(6));
+    console.log(DateTime().toTwo(16));
+    console.log(DateTime().toymd(AddDay('2020-07-02 00:00:00', 1), 'yy-MM-dd hh:mm:ss'));
+    console.log(DateTime().AddWeek('2020-07-02 00:00:00', 1));
+    console.log(DateTime().AddMonth('2020-07-02 00:00:00', 1));
+    console.log(DateTime().AddYear('2020-07-02 00:00:00', 1));
+    console.log(DateTime().AddH('2020-07-02 00:00:00', 1));
+    console.log(DateTime().AddM('2020-07-02 00:00:00', 1));
+    console.log(DateTime().AddS('2020-07-02 00:00:00', 1));
+    console.log(DateTime().AddF('2020-07-02 00:00:00', 1));
+    console.log(DateTime().monthDays('2020-07-02 00:00:00'));
+    console.log(DateTime().monthFirstDay('2020-07-02 00:00:00'));
+    console.log(DateTime().monthLastDay('2020-07-02 00:00:00'));
+  </script>
+</body>
+
+</html>

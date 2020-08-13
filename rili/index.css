@@ -1,0 +1,122 @@
+
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+    }
+
+    #calendar {
+      position: relative;
+      width: 650px;
+      /* height: 700px; */
+      margin: 100px auto;
+      border-radius: 2px;
+    }
+
+    .arrow-left,
+    .arrow-right {
+      position: absolute;
+      top: 50%;
+      padding: 50px 3px;
+      background-color: #81DAD0;
+      transform: translate(0, -50%);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .arrow-left {
+      left: 0;
+    }
+
+    .arrow-right {
+      right: 0;
+    }
+
+    .weekdays {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      font-size: 20px;
+      margin: 0;
+      padding: 15px 0;
+      background-color: #eee;
+    }
+
+    .weekdays li {
+      display: inline-block;
+      width: 13.6%;
+      text-align: center;
+    }
+
+    .day-list-item {
+      height: 88%;
+    }
+
+    .days {
+      display: inline-block;
+      padding: 0;
+      background: #ffffff;
+      margin: 0;
+      height: 90%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-content: center;
+      font-size: 14px;
+    }
+
+    .days li {
+      display: inline-block;
+      width: 14.285%;
+      height: 60px;
+      text-align: center;
+      padding-bottom: 8px;
+      padding-top: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .days li:hover {
+      background-color: #E2FAFA;
+    }
+
+    /* 可以选择的日期 */
+    .days-li-item-one h4 {
+      text-align: center;
+      font-weight: 400;
+      color: #000000;
+    }
+
+    /* 不是本月的日期 */
+    .days-li-item-one h4.other {
+      color: #ccc;
+    }
+
+    /* 今日 */
+    .days-li-item-one h4.active,
+    .days-li-item-one h4.tuifang {
+      color: #FF8900;
+    }
+    .days-li-item-one h4.activeColor {
+      color: #ff0000;
+    }
+
+    /* 今日之前的日期 */
+    .days-li-item-one h4.hui {
+      color: #ccc;
+    }

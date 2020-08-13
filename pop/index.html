@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pop-气泡提示</title>
+  <link rel="stylesheet" href="../css/normal.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div id="app">
+    <h1>pop-气泡提示</h1>
+    <div class="banner flex-around-center">
+      <!-- 气泡提示 -->
+      <button @click="handleClickPopTop">气泡提示</button>
+      <div class="pop">
+        <div class="pop-title">标题</div>
+        <div class="pop-content">这是气泡提示框内容</div>
+      </div>
+      <!-- alert 弹出提示 -->
+      <button @click="handleClickAlert">alert</button>
+      <div class="alert-mask" v-if="alertShow">
+        <div class="alert">
+          <div class="alert-title flex-between-center">
+            <div>提示</div>
+            <div class="alert-title-close flex-center-center" @click="handleClickAlert">×</div>
+          </div>
+          <div class="alert-content">这是弹出框提示</div>
+          <div class="alert-bottom flex-end-center">
+            <button @click="handleClickAlertBtn('cancle')">取消</button>
+            <button @click="handleClickAlertBtn('confirm')">确定</button>
+          </div>
+        </div>
+      </div>
+      <!-- 消息提示 -->
+      <button @click="handleClickMessage">消息提示</button>
+      <div class="message flex-start-center" :class="messageShow ? 'active' : ''">
+        <div class="iconfont">√</div>
+        <div>消息提示(字体图标)</div>
+      </div>
+      <!-- 加载动画 -->
+      <button @click="handleClickLoad">加载动画</button>
+      <div class="loading-mask" v-if="loadShow">
+        <div class="loading"><img src="./loading.png" alt=""></div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/vue.min.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>

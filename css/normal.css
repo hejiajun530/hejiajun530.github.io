@@ -5,6 +5,9 @@
   -moz-user-select: none;
   -o-user-select: none;
   user-select: none;
+  outline: none;
+  -webkit-tap-highlight-color: #000000;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 a {
   color: #000000;

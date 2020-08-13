@@ -13,6 +13,20 @@
   <div id="app">
     <h1>tab栏切换</h1>
     <div class="banner">
+      <div class="tab">
+        <div class="tab-head">
+          <div class="tab-head-list flex-around-center">
+            <div class="tab-head-list-item flex-center-center" :class="tabIndex == index ? 'active' : ''"
+              v-for="(item, index) in tablist" :key="index" @click="handleClickTab(index)">{{item.name}}</div>
+          </div>
+        </div>
+        <div class="tab-content">
+          <div class="tab-content-list flex-center-center" :style="'left:' +(-tabIndex * 600)+ 'px;'"
+            @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
+            <div class="tab-content-list-item" v-for="(item, index) in tablist" :key="index">{{item.content}}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <script src="../js/vue.min.js"></script>
