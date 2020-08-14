@@ -17,14 +17,79 @@ new Vue({
     currentWeek: 1,
     daylist: [],
     showOtherMonth: true,
-    firstClickTimeFlag: true,
-    startTime: ''
+    startTime: '',
+    endTime: '',
+    // 判断是选择起始日期还是结束日期
+    chooseTimeFlag: true,
+    // 是否显示日历
+    showRiliFlag: false
   },
   created() {
-    this.handleDefaultTime();
+    // this.handleDefaultTime();
     this.init();
   },
+  // watch: {
+  //   // 判断日期是否为 日期格式
+  //   startTime() {
+  //     var _self = this;
+  //     var reg = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+  //     if (reg.test(_self.startTime.toString())) {
+  //       // console.log('yes')
+  //       _self.startTime = _self.startTime.toString();
+  //     } else {
+  //       // console.log('no')
+  //       _self.startTime = '';
+  //     }
+  //   },
+  //   // 判断日期是否为 日期格式
+  //   endTime() {
+  //     var _self = this;
+  //     var reg = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+  //     if (reg.test(_self.endTime.toString())) {
+  //       // console.log('yes')
+  //       _self.endTime = _self.endTime.toString();
+  //     } else {
+  //       // console.log('no')
+  //       _self.endTime = '';
+  //     }
+  //   }
+  // },
   methods: {
+    // 判断选择 起始日期或结束日期
+    handleFocusDate(type) {
+      var _self = this;
+      _self.showRiliFlag = true;
+      if (type == 'startTime') {
+        _self.chooseTimeFlag = true;
+        if (_self.startTime) {
+          _self.changeMonth('toYm');
+        }
+      } else {
+        _self.chooseTimeFlag = false;
+      }
+    },
+    // 判断日期是否为 日期格式
+    handleBlurDate(type) {
+      var _self = this;
+      var reg = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+      if (type == 'startTime') {
+        if (reg.test(_self.startTime)) {
+          // console.log('yes')
+          _self.startTime = _self.startTime;
+        } else {
+          // console.log('no')
+          _self.startTime = '';
+        }
+      } else {
+        if (reg.test(_self.endTime)) {
+          // console.log('yes')
+          _self.endTime = _self.endTime;
+        } else {
+          // console.log('no')
+          _self.endTime = '';
+        }
+      }
+    },
     // 获取本月所有日期
     init(data) {
       let day;
@@ -134,33 +199,72 @@ new Vue({
         // console.log('ruzhu');
         return "active"
       }
+      // 入住时间
+      else if (this.dateDiff(day, this.endTime).Today) {
+        // console.log('ruzhu');
+        return "tuifang"
+      }
     },
     //切换月份
     changeMonth(a) {
-      let d = new Date(this.formDate(this.currentYear, this.currentMonth, 1));
+      var _self = this;
+      let d = new Date(_self.formDate(_self.currentYear, _self.currentMonth, 1));
 
       // setDate(0); 上月最后一天
       // setDate(-1); 上月倒数第二天
       // setDate(n) 参数n为 上月最后一天的前后n天
+      if (a === 'toYm') {
+        _self.init(_self.formDate(new Date(_self.startTime).getFullYear(), new Date(_self.startTime).getMonth() + 1, 1));
+        return false;
+      }
       a === "pre" ? d.setDate(0) : d.setDate(35);
 
-      this.init(this.formDate(d.getFullYear(), d.getMonth() + 1, 1));
+      _self.init(_self.formDate(d.getFullYear(), d.getMonth() + 1, 1));
     },
     //返回字符串个格式的日期
     formDate(year, month, day) {
       return year + "-" + month + "-" + day;
+    },
+    // 返回日期格式
+    toYmd(val) {
+      let date = new Date(val);
+      let y = date.getFullYear();
+      let m = date.getMonth() + 1;
+      m = m < 10 ? '0' + m : m;
+      let d = date.getDate();
+      d = d < 10 ? '0' + d : d;
+      return y + '-' + m + '-' + d;
     },
     // 获取本月有多少天数
     mGetDate(year, month) {
       var d = new Date(year, month, 0);
       return d.getDate();
     },
+    // 隐藏日历
+    handleClickShow() {
+      var _self = this;
+      _self.showRiliFlag = false;
+    },
     // 选择日期
     handleClickTime(val, index) {
       var _self = this;
+      if (val == null || _self.dateDiff(new Date(), val.day).day < 0) return false;
       console.log(val);
-      if (val == null || _self.dateDiff(new Date(), val.ymd).day < 0) return false;
-      _self.startTime = val.day;
+      if (_self.chooseTimeFlag) {
+        _self.startTime = _self.toYmd(val.day);
+        if (_self.dateDiff(_self.startTime, _self.endTime).day <= 0) {
+          _self.endTime = '';
+        }
+      } else {
+        _self.endTime = _self.toYmd(val.day);
+        if (_self.dateDiff(_self.startTime, _self.endTime).day <= 0) {
+          _self.endTime = '';
+          return false;
+        }
+      }
+      setTimeout(() => {
+        _self.showRiliFlag = false;
+      }, 300)
     },
     // 初始时间
     handleDefaultTime(flag) {

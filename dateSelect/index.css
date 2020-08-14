@@ -40,12 +40,25 @@ ul {
 #calendar {
   position: absolute;
   top: 40px;
-  left: 0;
+  left: 50%;
   width: 350px;
   padding: 0 15px 15px 15px;
   border-radius: 10px;
   overflow: hidden;
   background-color: #f2f2f2;
+  transform: translate(-50%, 0);
+  z-index: 9999;
+}
+.calendar-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+  background-color: #ffffff;
+  cursor: pointer;
 }
 
 .calendar-arrow {
@@ -120,9 +133,12 @@ ul {
 }
 
 /* 今日 */
-.calendar-days li.active,
-.calendar-days li.tuifang {
+.calendar-days li.active {
   background-color: #62ABA0;
+  color: #ffffff;
+}
+.calendar-days li.tuifang {
+  background-color: #FF6666;
   color: #ffffff;
 }
 .calendar-days li.activeColor {

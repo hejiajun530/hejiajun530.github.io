@@ -1,0 +1,13 @@
+技术点:
+1.html5
+2.css3/less&sass
+3.javascript/es5、es6
+4.jquery
+5.vue
+6.node/express
+7.webpack
+8.gulp
+9.react
+10.canvas
+11.typescript
+12.WebScoket

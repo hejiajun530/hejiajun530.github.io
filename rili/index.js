@@ -171,8 +171,8 @@ new Vue({
     // 选择日期
     handleClickTime(val, index) {
       var _self = this;
+      if (val == null || _self.dateDiff(new Date(), val.day).day < 0) return false;
       console.log(val);
-      if (val == null || _self.dateDiff(new Date(), val.ymd).day < 0) return false;
       if (_self.firstClickTimeFlag) {
         // firstClickTimeFlag  为 true，选择入住日期
         _self.firstClickTimeFlag = false;
@@ -191,7 +191,6 @@ new Vue({
           _self.endTime = '';
         }
       }
-      // console.log(_self.startTime +"--"+ _self.endTime +"--"+ val.ymd);
     },
     // 初始时间
     handleDefaultTime(flag) {

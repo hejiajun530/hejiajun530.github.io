@@ -14,11 +14,15 @@
     <h1>日期选择器</h1>
     <div class="banner">
       <div class="dateSelect flex-center-center">
-        <input type="text" class="dateSelect-start" placeholder="年-月-日">
+        <input type="text" class="dateSelect-start" placeholder="年-月-日" v-model="startTime"
+          @blur="handleBlurDate('startTime')" @focus="handleFocusDate('startTime')">
         <div class="dateSelect-text flex-center-center">至</div>
-        <input type="text" class="dateSelect-end" placeholder="年-月-日">
+        <input type="text" class="dateSelect-end" placeholder="年-月-日" v-model="endTime"
+          @blur="handleBlurDate('endTime')" @focus="handleFocusDate('endTime')">
         <!-- 日历 -->
-        <div id="calendar">
+        <div id="calendar" v-if="showRiliFlag">
+          <!-- 关闭 -->
+          <div class="calendar-close" @click="handleClickShow">x</div>
           <!-- 标题 -->
           <div class="calendar-arrow flex-around-center">
             <div class="calendar-left" @click="changeMonth('pre')"> ❮ </div>
