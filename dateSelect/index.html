@@ -20,9 +20,7 @@
         <input type="text" class="dateSelect-end" placeholder="年-月-日" v-model="endTime"
           @blur="handleBlurDate('endTime')" @focus="handleFocusDate('endTime')">
         <!-- 日历 -->
-        <div id="calendar" v-if="showRiliFlag">
-          <!-- 关闭 -->
-          <div class="calendar-close" @click="handleClickShow">x</div>
+        <div id="calendar" v-if="showRiliFlag" @click="handleClickInputFocus">
           <!-- 标题 -->
           <div class="calendar-arrow flex-around-center">
             <div class="calendar-left" @click="changeMonth('pre')"> ❮ </div>

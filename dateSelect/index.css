@@ -49,17 +49,6 @@ ul {
   transform: translate(-50%, 0);
   z-index: 9999;
 }
-.calendar-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 35px;
-  height: 35px;
-  text-align: center;
-  line-height: 35px;
-  background-color: #ffffff;
-  cursor: pointer;
-}
 
 .calendar-arrow {
   position: relative;

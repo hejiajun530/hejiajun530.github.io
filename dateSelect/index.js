@@ -22,7 +22,8 @@ new Vue({
     // 判断是选择起始日期还是结束日期
     chooseTimeFlag: true,
     // 是否显示日历
-    showRiliFlag: false
+    showRiliFlag: false,
+    focusFlag: true
   },
   created() {
     // this.handleDefaultTime();
@@ -55,10 +56,24 @@ new Vue({
   //   }
   // },
   methods: {
+    // 表单获取焦点
+    handleClickInputFocus() {
+      var _self = this;
+      var ipts = document.querySelectorAll('.dateSelect input');
+      _self.focusFlag = false;
+      if (_self.chooseTimeFlag) {
+        ipts[0].focus();
+        _self.handleFocusDate('startTime');
+      } else {
+        ipts[1].focus();
+        _self.handleFocusDate('endTime');
+      }
+    },
     // 判断选择 起始日期或结束日期
     handleFocusDate(type) {
       var _self = this;
       _self.showRiliFlag = true;
+      _self.focusFlag = false;
       if (type == 'startTime') {
         _self.chooseTimeFlag = true;
         if (_self.startTime) {
@@ -89,6 +104,12 @@ new Vue({
           _self.endTime = '';
         }
       }
+      _self.focusFlag = true;
+      setTimeout(() => {
+        if (_self.focusFlag) {
+          _self.showRiliFlag = false;
+        }
+      }, 200)
     },
     // 获取本月所有日期
     init(data) {
