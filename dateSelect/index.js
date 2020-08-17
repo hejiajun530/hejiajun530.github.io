@@ -22,8 +22,7 @@ new Vue({
     // 判断是选择起始日期还是结束日期
     chooseTimeFlag: true,
     // 是否显示日历
-    showRiliFlag: false,
-    focusFlag: true
+    showRiliFlag: false
   },
   created() {
     // this.handleDefaultTime();
@@ -86,21 +85,20 @@ new Vue({
     // 判断日期是否为 日期格式
     handleBlurDate(type) {
       var _self = this;
-      var reg = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
       if (type == 'startTime') {
-        if (reg.test(_self.startTime)) {
-          // console.log('yes')
-          _self.startTime = _self.startTime;
+        _self.startTime = new Date(_self.startTime).getTime();
+        if (_self.startTime) {
+          _self.startTime = _self.toYmd(_self.startTime);
         } else {
-          // console.log('no')
+          // 当new Date(_self.startTime).getTime() 值为NaN
           _self.startTime = '';
         }
       } else {
-        if (reg.test(_self.endTime)) {
-          // console.log('yes')
-          _self.endTime = _self.endTime;
+        _self.endTime = new Date(_self.endTime).getTime();
+        if (_self.endTime) {
+          _self.endTime = _self.toYmd(_self.endTime);
         } else {
-          // console.log('no')
+          // 当new Date(_self.endTime).getTime() 值为NaN
           _self.endTime = '';
         }
       }
