@@ -28,32 +28,6 @@ new Vue({
     // this.handleDefaultTime();
     this.init();
   },
-  // watch: {
-  //   // 判断日期是否为 日期格式
-  //   startTime() {
-  //     var _self = this;
-  //     var reg = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
-  //     if (reg.test(_self.startTime.toString())) {
-  //       // console.log('yes')
-  //       _self.startTime = _self.startTime.toString();
-  //     } else {
-  //       // console.log('no')
-  //       _self.startTime = '';
-  //     }
-  //   },
-  //   // 判断日期是否为 日期格式
-  //   endTime() {
-  //     var _self = this;
-  //     var reg = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
-  //     if (reg.test(_self.endTime.toString())) {
-  //       // console.log('yes')
-  //       _self.endTime = _self.endTime.toString();
-  //     } else {
-  //       // console.log('no')
-  //       _self.endTime = '';
-  //     }
-  //   }
-  // },
   methods: {
     // 表单获取焦点
     handleClickInputFocus() {
