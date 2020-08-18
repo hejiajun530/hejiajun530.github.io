@@ -1,0 +1,30 @@
+.banner {
+  background-color: #dddddd;
+  margin: 100px auto;
+}
+.renwchoose-right-add {
+  display: flex;
+  justify-content: space-between;
+  width: 402px;
+  height: 102px;
+  background: url("./矩形.png");
+  margin: 0 auto;
+}
+.renwchoose-right-add input {
+  width: 202px;
+  height: 98px;
+  background: transparent;
+  border: none;
+  text-align: center;
+  font-size: 40px;
+  color: #fff;
+  vertical-align: top;
+  outline: none;
+}
+.renwchoose-right-add button {
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(255, 255, 255, 0.12);
+  outline: none;
+}

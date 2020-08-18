@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星级评分</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div id="app">
+    <h1>星级评分</h1>
+    <div class="banner">
+      <div class="star">
+        <div class="star-box" @mouseleave="handleMouseLeaveStarNum">
+          <img :src="starIndex >= index ? './star-active.png' : './star.png'" v-for="index in 5" :key="index"
+            @click="handleClickStarNum(index)" @mouseenter="handleMouseEnterStarNum(index)">
+        </div>
+        <div class="star-text">{{starText[starIndex - 1]}}</div>
+      </div>
+      <h3>不可修改评分</h3>
+      <div class="star">
+        <div class="star-box">
+          <block v-for="index in 5" :key="index">
+            <img src="./star.png" v-if="index > Math.ceil(showIndex)">
+            <img src="./star-helf.png" v-if="Math.ceil(showIndex) == index" style="transform: scale(1.6);">
+            <img src="./star-active.png" v-if="showIndex > index">
+          </block>
+        </div>
+        <div class="star-text">{{showIndex}}分</div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/vue.min.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>

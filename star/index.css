@@ -1,0 +1,27 @@
+.star {
+  width: 180px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.star-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 120px;
+  height: 20px;
+  /* overflow: hidden; */
+}
+.star-box img {
+  width: 20px;
+  height: 20px;
+  transition: 1s;
+  cursor: pointer;
+}
+.star-box img:hover {
+  transform: scale(1.4);
+}
+.star-text {
+  flex: 1;
+  text-align: center;
+}

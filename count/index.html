@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>计数器</title>
+  <link rel="stylesheet" href="../css/normal.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div id="app">
+    <h1>计数器</h1>
+    <div class="banner">
+      <div class="renwchoose-right-add">
+        <button @click="handleClickSubDay">
+          <img src="./减.png">
+        </button>
+        <input type="text" v-model="xuzhuDay" disabled>
+        <button @click="handleClickAddDay">
+          <img src="./加.png">
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="../js/vue.min.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>

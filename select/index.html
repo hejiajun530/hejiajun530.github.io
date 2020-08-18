@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>select-选择器</title>
+  <link rel="stylesheet" href="../css/normal.css">
+  <link rel=" stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div id="app">
+    <h1>select-选择器</h1>
+    <div class="banner">
+      <div class="select">
+        <!-- @mouseLeave="handleClickSelectShow" -->
+        <div class="select-title" :class="selectShow ? 'active' : ''" @click="handleClickSelectShow">
+          <!-- 单选 -->
+          <div v-if="chooseIndex == 0">{{selectList[selectIndex]}}</div>
+          <!-- 多选 -->
+          <div v-if="chooseIndex == 1" class="select-title-list">
+            <div v-if="chooseList.length == 0">请选择学校</div>
+            <div class="select-title-list-item" v-for="(subitem, idx) in chooseList" :key="idx">
+              <span>{{subitem}}</span> <span @click.stop="handleClickDelChoose(idx)">×</span></div>
+          </div>
+        </div>
+        <div class="select-box" v-show="selectShow">
+          <!--  :class="index == selectIndex ? 'active' : ''" -->
+          <div class="select-option" @click="handleClickChooseSelect(index, $event)" v-for="(item, index) in selectList"
+            :key="index">{{item}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/vue.min.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>
