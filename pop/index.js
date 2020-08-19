@@ -4,13 +4,19 @@ new Vue({
     return {
       alertShow: false,
       messageShow: false,
-      loadShow: false
+      loadShow: false,
+      warnShow: true
     }
   },
   mounted() {
     var _self = this;
   },
   methods: {
+    // 关闭警告框
+    handleClickCloseWarn() {
+      var _self = this;
+      _self.warnShow = false;
+    },
     // 上方显示
     handleClickPopTop(e) {
       var _self = this;

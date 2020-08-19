@@ -13,6 +13,21 @@
   <div id="app">
     <h1>pop-气泡提示</h1>
     <div class="banner flex-around-center">
+      <!-- 警告 -->
+      <div class="warn" v-if="warnShow">
+        <span>成功提示</span>
+        <span @click="handleClickCloseWarn">×</span>
+      </div>
+      <!-- advert 广告滚动条 -->
+      <div class="advert">
+        <div class="advert-icon">√</div>
+        <div class="advert-text">
+          <div class="advert-text-list">
+            <div class="advert-text-list-item">这是一段广告语!</div>
+            <div class="advert-text-list-item">这是一段广告语!</div>
+          </div>
+        </div>
+      </div>
       <!-- 气泡提示 -->
       <button @click="handleClickPopTop">气泡提示</button>
       <div class="pop">
