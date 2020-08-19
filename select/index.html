@@ -12,8 +12,9 @@
 <body>
   <div id="app">
     <h1>select-选择器</h1>
+    <test></test>
     <div class="banner">
-      <div class="select">
+      <div class="select" v-clickOutSide="handleClickSelectShow">
         <!-- @mouseLeave="handleClickSelectShow" -->
         <div class="select-title" :class="selectShow ? 'active' : ''" @click="handleClickSelectShow">
           <!-- 单选 -->
