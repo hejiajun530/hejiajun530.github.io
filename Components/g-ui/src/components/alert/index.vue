@@ -10,7 +10,7 @@
           <div>{{text.title}}</div>
           <div
             class="alert-title-close flex-center-center"
-            @click="cancel"
+            @click="cancel('close')"
           >×</div>
         </div>
         <div class="alert-content">{{text.msg}}</div>
@@ -48,10 +48,18 @@ export default {
     };
   },
   methods: {
-    cancel() {
+    cancel(name) {
+      var type = "";
+      if (name == "close") {
+        type = "close";
+      } else {
+        type = "cancel";
+      }
+      this.callback(type);
       this.isShow = false;
     },
     confirm() {
+      this.callback("confirm");
       this.isShow = false;
     }
   }

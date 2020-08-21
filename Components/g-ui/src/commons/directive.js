@@ -1,5 +1,4 @@
 export const clickOutSide = {
-  // 自定义点击组件外部指令
   // 初始化指令
   bind(el, binding, vnode) {
     function documentHandler(e) {
@@ -23,7 +22,8 @@ export const clickOutSide = {
     document.removeEventListener('click', el.__vueClickOutside__);
     delete el.__vueClickOutside__;
   },
-}
+};
+// 导入 import { clickOutSide } from "../../commons/directive";  必须加 {}
 // 引用 directives: {
 //   clickOutSide
 // }
