@@ -42,6 +42,7 @@
       :selectList="selectList"
       chooseIndex="0"
     ></g-select>
+    <g-timeCount startTime="2020-10-19 00:00:00" endTime="2020-10-19 12:12:00"></g-timeCount>
   </div>
 </template>
 
@@ -51,6 +52,7 @@ import warn from "../components/warn/index";
 import advert from "../components/advert/index";
 import swiper from "../components/swiper/index";
 import select from "../components/select/index";
+import timeCount from "../components/timeCount/index";
 export default {
   data() {
     return {
@@ -81,7 +83,8 @@ export default {
     "g-warn": warn,
     "g-advert": advert,
     "g-swiper": swiper,
-    "g-select": select
+    "g-select": select,
+    "g-timeCount": timeCount
   },
   methods: {
     // 显示alert
