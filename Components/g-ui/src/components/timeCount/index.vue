@@ -14,15 +14,19 @@ export default {
       Seconds: ''
     }
   },
+  mounted () {
+    var _self = this;
+    _self.dateDiff();
+  },
   methods:{
-    dateDiff(startDate, EndDate) {
+    dateDiff() {
       var _self = this;
-      var dateStart = new Date(_self.startDate);
-      var dateEnd = new Date(_self.EndDate);
+      var dateStart = new Date(_self.startTime);
+      var dateEnd = new Date(_self.endTime);
       _self.day = parseInt((dateEnd - dateStart) / (1000 * 60 * 60 * 24));
       _self.Hours = parseInt((dateEnd - dateStart) / (1000 * 60 * 60));
-      _self.Minutes = parseInt((dateEnd - dateStart) / (1000 * 60));
-      _self.Seconds = parseInt((dateEnd - dateStart) / (1000));
+      _self.Minutes = parseInt((dateEnd - dateStart) / (1000 * 60) % 60);
+      _self.Seconds = parseInt((dateEnd - dateStart) / (1000) % 60);
     }
   }
 }

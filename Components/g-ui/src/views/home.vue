@@ -42,7 +42,12 @@
       :selectList="selectList"
       chooseIndex="0"
     ></g-select>
-    <g-timeCount startTime="2020-10-19 00:00:00" endTime="2020-10-19 12:12:00"></g-timeCount>
+    <g-select
+      :selectList="selectList"
+      chooseIndex="0"
+    ></g-select>
+    <g-timeCount startTime="2020-10-19 00:00:00" endTime="2020-10-19 12:12:10"></g-timeCount>
+    <g-timeCount startTime="2020-10-19 00:00:00" endTime="2020-10-19 13:13:15"></g-timeCount>
   </div>
 </template>
 

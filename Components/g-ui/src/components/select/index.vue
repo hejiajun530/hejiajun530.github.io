@@ -3,7 +3,6 @@
     class="select"
     v-clickOutSide="handleClickSelectHide"
   >
-    <!-- @mouseLeave="handleClickSelectShow" -->
     <div
       class="select-title"
       :class="selectShow ? 'active' : ''"
