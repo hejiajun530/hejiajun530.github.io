@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="warn"
+      class="warnning"
       :class="type"
       v-if="warnShow"
     >
@@ -20,7 +20,7 @@
         ></span>
         <span
           class="iconfont icon-jingshigantanhao2"
-          v-if="type == 'warnning'"
+          v-if="type == 'warn'"
         ></span>
         <span>{{title}}</span>
       </div>
@@ -46,7 +46,7 @@ export default {
 };
 </script>
 <style scoped>
-.warn {
+.warnning {
   width: 500px;
   height: 35px;
   display: flex;
@@ -58,26 +58,26 @@ export default {
   color: #93c78f;
   border-radius: 5px;
 }
-.warn .iconfont {
+.warnning .iconfont {
   margin: 0 10px 0 5px;
 }
-.warn.success {
+.warnning.success {
   background-color: #f0f9eb;
   color: #74c55c;
 }
-.warn.warnning {
+.warnning.warn {
   background-color: #fdf6ec;
   color: #e7b291;
 }
-.warn.info {
+.warnning.info {
   background-color: #edf2fc;
   color: #a8b0b6;
 }
-.warn.error {
+.warnning.error {
   background-color: #fef0f0;
   color: #f69c9b;
 }
-.warn > span:nth-child(2) {
+.warnning > span:nth-child(2) {
   display: inline-block;
   padding: 5px;
   color: #c5d3de;

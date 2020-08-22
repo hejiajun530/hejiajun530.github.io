@@ -2,6 +2,8 @@
   <div
     class="select"
     v-clickOutSide="handleClickSelectHide"
+    @mouseenter="clearShow = true"
+    @mouseleave="clearShow = false"
   >
     <div
       class="select-title"
@@ -9,13 +11,20 @@
       @click="handleClickSelectShow"
     >
       <!-- 单选 -->
-      <div v-if="chooseIndex == 0">{{selectList[selectIndex]}}</div>
+      <div v-if="chooseIndex == 0">
+        <span>{{selectIndex >= 0 ? chooseList[0] : title}}</span>
+        <span
+          v-if="clearShow"
+          class="select-title-clear"
+          @click.stop="handleClickClear"
+        >×</span>
+      </div>
       <!-- 多选 -->
       <div
         v-if="chooseIndex == 1"
         class="select-title-list"
       >
-        <div v-if="chooseList.length == 0">请选择学校</div>
+        <div v-if="chooseList.length == 0">{{title}}</div>
         <div
           class="select-title-list-item"
           v-for="(subitem, idx) in chooseList"
@@ -31,6 +40,7 @@
       <!--  :class="index == selectIndex ? 'active' : ''" -->
       <div
         class="select-option"
+        :class="id"
         @click="handleClickChooseSelect(index, $event)"
         v-for="(item, index) in selectList"
         :key="index"
@@ -42,13 +52,14 @@
 <script>
 import { clickOutSide } from "@/commons/directive.js";
 export default {
-  props: ["selectList", "chooseIndex"],
+  props: ["selectList", "chooseIndex", "title", "id"],
   data() {
     return {
+      clearShow: false,
       // 控制下拉框是否显示
       selectShow: false,
       // 选择下拉框
-      selectIndex: 0,
+      selectIndex: -1,
       // 控制模式 0 单选  1 多选
       // chooseIndex: 1,
       // 选择中的下来框
@@ -59,29 +70,42 @@ export default {
   directives: {
     clickOutSide
   },
+  watch: {
+    chooseList() {
+      var _self = this;
+      var options = document.querySelectorAll(`.${_self.id}.select-option`);
+      // console.log(options[0]);
+      for (let i = 0; i < options.length; i++) {
+        options[i].classList.remove("active");
+      }
+      _self.selectIndexList.forEach((item, index) => {
+        options[item].classList.add("active");
+      });
+    }
+  },
   mounted() {
     var _self = this;
   },
   methods: {
+    // 清空选择的值
+    handleClickClear() {
+      var _self = this;
+      _self.chooseList = [];
+      _self.selectIndex = -1;
+    },
     // 控制 select隐藏
     handleClickSelectHide() {
       var _self = this;
       _self.selectShow = false;
     },
     // 控制 select显示
-    handleClickSelectShow() {
+    handleClickSelectShow(e) {
       var _self = this;
+      // console.log(e.target);
       if (_self.selectShow) {
         _self.selectShow = false;
       } else {
         _self.selectShow = true;
-        var options = document.querySelectorAll(".select-option");
-        for (let i = 0; i < options.length; i++) {
-          options[i].classList.remove("active");
-        }
-        _self.selectIndexList.forEach((item, index) => {
-          options[item].classList.add("active");
-        });
       }
     },
     // 选择下拉框中的值
@@ -90,8 +114,12 @@ export default {
       if (_self.chooseIndex == 0) {
         // 0 单选模式
         _self.selectIndexList = [];
+        _self.chooseList = [];
         _self.selectIndex = index;
         _self.selectIndexList.push(index);
+        _self.chooseList.push(_self.selectList[index]);
+        _self.handleClickSelectShow();
+        // console.log(_self.chooseList);
       } else if (_self.chooseIndex == 1) {
         // 1 多选模式
         _self.selectIndex = index;
@@ -113,13 +141,14 @@ export default {
           );
         }
       }
-      _self.handleClickSelectShow();
+      _self.$emit("g-selectValue", _self.chooseList);
     },
     // 删除选中列表中的值
     handleClickDelChoose(index) {
       var _self = this;
       _self.chooseList.splice(index, 1);
       _self.selectIndexList.splice(index, 1);
+      _self.$emit("g-selectValue", _self.chooseList);
     }
   }
 };
@@ -145,6 +174,14 @@ export default {
   min-height: 30px;
   border: 1px solid #dddddd;
 }
+.select-title-clear {
+  position: absolute;
+  top: 0;
+  right: 22px;
+  padding: 0 5px;
+  cursor: pointer;
+  z-index: 10;
+}
 .select-title::after,
 .select-title.active::after {
   content: "";
@@ -165,12 +202,16 @@ export default {
   border-color: transparent transparent #666666 transparent;
 }
 .select-box {
+  position: relative;
+  min-height: 100px;
   max-height: 200px;
+  background-color: #ffffff;
   border: 1px solid #dddddd;
   border-top: 0;
   font-size: 14px;
   box-sizing: border-box;
   overflow-y: auto;
+  z-index: 9999;
 }
 .select-option {
   height: 30px;

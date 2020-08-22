@@ -75,6 +75,7 @@ export default {
   transform: translate(-50%, -100%);
   border-radius: 15px;
   text-align: left;
+  z-index: 900;
 }
 .pop::after {
   content: "";

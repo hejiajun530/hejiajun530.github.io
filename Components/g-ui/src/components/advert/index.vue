@@ -2,28 +2,28 @@
   <div>
     <div
       class="advert"
-      :class="color"
+      :class="type"
     >
       <div
         class="advert-icon iconfont icon-dui"
-        v-if="color == 'success'"
+        v-if="type == 'success'"
       ></div>
       <div
         class="advert-icon iconfont icon-cuowu"
-        v-if="color == 'error'"
+        v-if="type == 'error'"
       ></div>
       <div
         class="advert-icon iconfont icon-info"
-        v-if="color == 'info'"
+        v-if="type == 'info'"
       ></div>
       <div
         class="advert-icon iconfont icon-jingshigantanhao2"
-        v-if="color == 'warnning'"
+        v-if="type == 'warn'"
       ></div>
       <div class="advert-text">
         <div
           class="advert-text-list"
-          :class="type"
+          :class="direction"
         >
           <div
             class="advert-text-list-item"
@@ -42,7 +42,7 @@
 </template>
 <script>
 export default {
-  props: ["type", "title", "color"],
+  props: ["type", "title", "direction"],
   data() {
     return {
       warnShow: true
@@ -73,7 +73,7 @@ export default {
   background-color: #f0f9eb;
   color: #74c55c;
 }
-.advert.warnning {
+.advert.warn {
   background-color: #fdf6ec;
   color: #e7b291;
 }

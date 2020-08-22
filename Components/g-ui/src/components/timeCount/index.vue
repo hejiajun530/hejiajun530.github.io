@@ -1,36 +1,46 @@
 <template>
   <div>
-    {{day}}-{{Hours}}:{{Minutes}}:{{Seconds}}
+    剩{{day}}天{{Hours}}时{{Minutes}}分{{Seconds}}秒
   </div>
 </template>
 <script>
 export default {
-  props: ['startTime', 'endTime'],
-  data(){
+  props: ["startTime", "endTime"],
+  data() {
     return {
-      day: '',
-      Hours: '',
-      Minutes: '',
-      Seconds: ''
-    }
+      day: "",
+      Hours: "",
+      Minutes: "",
+      Seconds: ""
+    };
   },
-  mounted () {
+  mounted() {
     var _self = this;
-    _self.dateDiff();
+    setInterval(function() {
+      _self.dateDiff();
+    }, 1000);
   },
-  methods:{
+  methods: {
     dateDiff() {
       var _self = this;
-      var dateStart = new Date(_self.startTime);
-      var dateEnd = new Date(_self.endTime);
+      var dateStart = new Date(_self.startTime).getTime();
+      var dateEnd = new Date(_self.endTime).getTime();
       _self.day = parseInt((dateEnd - dateStart) / (1000 * 60 * 60 * 24));
-      _self.Hours = parseInt((dateEnd - dateStart) / (1000 * 60 * 60));
-      _self.Minutes = parseInt((dateEnd - dateStart) / (1000 * 60) % 60);
-      _self.Seconds = parseInt((dateEnd - dateStart) / (1000) % 60);
+      _self.Hours = _self.towNumber(
+        parseInt((dateEnd - dateStart) / (1000 * 60 * 60))
+      );
+      _self.Minutes = _self.towNumber(
+        parseInt(((dateEnd - dateStart) / (1000 * 60)) % 60)
+      );
+      _self.Seconds = _self.towNumber(
+        parseInt(((dateEnd - dateStart) / 1000) % 60)
+      );
+    },
+    towNumber(num) {
+      return num < 10 ? "0" + num : num;
     }
   }
-}
+};
 </script>
 <style scoped>
-
 </style>

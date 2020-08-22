@@ -63,6 +63,7 @@ export default {
   border-radius: 6px;
   transform: translate(-50%, 0);
   animation: dowm 1s forwards;
+  z-index: 999;
 }
 .message.success {
   background-color: #f0f9eb;
