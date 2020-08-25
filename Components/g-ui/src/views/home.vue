@@ -119,25 +119,27 @@
     <!-- switch 开关组件 -->
     <g-switch @g-switchFlag="handleGetSwitchFlag"></g-switch>
     <!-- table 表格 -->
-    <g-table :tableData="tableData">
+    <g-table :data="tableData">
       <g-tableColumn
         label="日期"
-        :tableData="tableData"
         prop="date"
+        width="300"
       ></g-tableColumn>
       <g-tableColumn
         label="姓名"
-        :tableData="tableData"
+        width="200"
         prop="name"
       ></g-tableColumn>
       <g-tableColumn
         label="地址"
-        :tableData="tableData"
         prop="address"
       ></g-tableColumn>
-      <g-tableColumn label="操作">
+      <g-tableColumn
+        label="操作"
+        type="make"
+      >
         <template slot-scope="scope">
-          <button>删除</button>
+          <button @click="handleClickDelTabelData(scope.row)">删除</button>
         </template>
       </g-tableColumn>
     </g-table>
@@ -145,23 +147,23 @@
 </template>
 
 <script>
-import pop from "../components/pop/index";
-import warn from "../components/warn/index";
-import advert from "../components/advert/index";
-import swiper from "../components/swiper/index";
-import select from "../components/select/index";
-import timeCount from "../components/timeCount/index";
-import rili from "../components/rili/index";
-import star from "../components/star/index";
-import count from "../components/count/index";
-import upload from "../components/upload/index";
-import dateSelect from "../components/dateSelect/index";
-import cascader from "../components/cascader/index";
-import radio from "../components/radio/index";
-import checkbox from "../components/checkbox/index";
-import gswitch from "../components/switch/index";
-import table from "../components/table/index";
-import tableColumn from "../components/table/tableColumn";
+import pop from "@/components/pop/index";
+import warn from "@/components/warn/index";
+import advert from "@/components/advert/index";
+import swiper from "@/components/swiper/index";
+import select from "@/components/select/index";
+import timeCount from "@/components/timeCount/index";
+import rili from "@/components/rili/index";
+import star from "@/components/star/index";
+import count from "@/components/count/index";
+import upload from "@/components/upload/index";
+import dateSelect from "@/components/dateSelect/index";
+import cascader from "@/components/cascader/index";
+import radio from "@/components/radio/index";
+import checkbox from "@/components/checkbox/index";
+import gswitch from "@/components/switch/index";
+import table from "@/components/table/index";
+import tableColumn from "@/components/table/tableColumn";
 export default {
   data() {
     return {
@@ -464,23 +466,27 @@ export default {
       checkboxGroup: ["软件技术", "会计专业", "英语专业", "历史专业", "教师"],
       tableData: [
         {
+          id: 1,
           date: "2016-05-02",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄"
         },
         {
+          id: 2,
           date: "2016-05-04",
-          name: "王小虎",
+          name: "小唐",
           address: "上海市普陀区金沙江路 1517 弄"
         },
         {
+          id: 3,
           date: "2016-05-01",
-          name: "王小虎",
+          name: "小文",
           address: "上海市普陀区金沙江路 1519 弄"
         },
         {
+          id: 4,
           date: "2016-05-03",
-          name: "王小虎",
+          name: "唐州",
           address: "上海市普陀区金沙江路 1516 弄"
         }
       ]
@@ -518,16 +524,13 @@ export default {
       var _self = this;
       _self.$gAlert({
         title: "标题",
-        msg: "这是一段弹出框内容!",
+        content: "这是一段弹出框内容!",
         btn: {
           confirmVal: "确1定",
           cancelVal: "取1消"
         },
         success: function(res) {
           console.log(res);
-        },
-        err: function(err) {
-          console.log(err);
         }
       });
       // console.log(test);
@@ -605,6 +608,24 @@ export default {
     handleGetSwitchFlag(value) {
       var _self = this;
       console.log(value);
+    },
+    // 删除表格数据
+    handleClickDelTabelData(row) {
+      var _self = this;
+      // console.log(row);
+      _self.$gAlert({
+        title: "提示",
+        content: `您确定要删除'${row.name}'吗?`,
+        success: res => {
+          if (res == "confirm") {
+            console.log(res);
+            _self.tableData = _self.tableData.filter((item, index) => {
+              return item.id != row.id;
+            });
+            console.log(_self.tableData);
+          }
+        }
+      });
     }
   }
 };

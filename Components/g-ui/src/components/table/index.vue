@@ -6,7 +6,16 @@
 <script>
 import tableColumn from "./tableColumn";
 export default {
-  props: ["tableData"],
+  props: ["data"],
+  provide() {
+    return { tableData: this.data };
+  },
+  watch: {
+    data() {
+      // console.log(this.tableData);
+      console.log("tableData-chage");
+    }
+  },
   data() {
     return {};
   },
@@ -20,5 +29,6 @@ export default {
   display: flex;
   justify-content: flex-start;
   background-color: #ffffff;
+  overflow-x: auto;
 }
 </style>

@@ -15,7 +15,7 @@ let theConfirm = function (text) {
         text.success('confirm');
         confirmDom.$el.remove();
       } else if (action == 'cancel') {
-        text.err('cancel');
+        text.success('cancel');
         confirmDom.$el.remove();
       } else if (action == 'close') {
         confirmDom.$el.remove();
@@ -44,7 +44,4 @@ export default theConfirm;
   //   success: function(res) {
   //     console.log(res);
   //   },
-  //   err: function(err) {
-  //     console.log(err);
-  //   }
   // });

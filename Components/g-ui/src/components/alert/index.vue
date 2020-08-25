@@ -10,17 +10,17 @@
           <div>{{text.title}}</div>
           <div
             class="alert-title-close flex-center-center"
-            @click="cancel('close')"
+            @click="handleClickOk('close')"
           >×</div>
         </div>
-        <div class="alert-content">{{text.msg}}</div>
+        <div class="alert-content">{{text.content}}</div>
         <div class="alert-bottom flex-end-center">
           <button
-            @click="cancel"
+            @click="handleClickOk('cancel')"
             v-if="text.cancel"
           >{{text.btn.cancelVal}}</button>
           <button
-            @click="confirm"
+            @click="handleClickOk('confirm')"
             v-if="text.confirm"
           >{{text.btn.confirmVal}}</button>
         </div>
@@ -37,7 +37,7 @@ export default {
       isShow: true,
       text: {
         title: "",
-        msg: "",
+        content: "",
         cancel: true,
         confirm: true,
         btn: {
@@ -48,20 +48,33 @@ export default {
     };
   },
   methods: {
-    cancel(name) {
+    handleClickOk(name) {
+      var _self = this;
       var type = "";
       if (name == "close") {
         type = "close";
-      } else {
+      } else if (name == "cancel") {
         type = "cancel";
+      } else if (name == "confirm") {
+        type = "confirm";
       }
       this.callback(type);
       this.isShow = false;
-    },
-    confirm() {
-      this.callback("confirm");
-      this.isShow = false;
     }
+    // cancel(name) {
+    //   var type = "";
+    //   if (name == "close") {
+    //     type = "close";
+    //   } else {
+    //     type = "cancel";
+    //   }
+    //   this.callback(type);
+    //   this.isShow = false;
+    // },
+    // confirm() {
+    //   this.callback("confirm");
+    //   this.isShow = false;
+    // }
   }
   // data() {
   //   return {
