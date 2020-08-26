@@ -1,21 +1,27 @@
 <template>
-  <div class="pop-box">
-    <!-- v-clickOutSide="handleClickHide" 加了这个，同时调用多个组件时就会无法显示 -->
-    <div class="pop">
-      <div class="pop-title">{{title}}</div>
-      <div class="pop-content">{{content}}</div>
+  <div
+    class="pop-mask"
+    v-clickOutSide="handleClickHide"
+  >
+    <div class="pop-box">
+      <div :class="'pop' + num + ' pop'">
+        <div class="pop-title">{{title}}</div>
+        <div class="pop-content">{{content}}</div>
+      </div>
     </div>
+    <slot></slot>
   </div>
 </template>
 <script>
 import { clickOutSide } from "../../commons/directive";
 export default {
-  // props: ["title", "content"],
+  props: ["title", "content"],
   data() {
     return {
-      // show: true
-      title: "",
-      content: ""
+      popShow: false,
+      num: Math.random()
+        .toString()
+        .substr(2, 10)
     };
   },
   directives: {
@@ -23,26 +29,21 @@ export default {
   },
   methods: {
     handleClickHide() {
-      var pop = document.querySelector(".pop");
-      // if (_self.show) {
-      //   _self.show = false;
-      // } else {
-      //   _self.show = true;
-      // }
+      var _self = this;
+      var pop = document.querySelector(`.pop${_self.num}`);
       pop.style.display = "none";
+      _self.popShow = false;
     },
     // 上方显示
-    handleClickPopTop(title, content, e) {
+    handleClickPopTop(e) {
       var _self = this;
-      _self.title = title;
-      _self.content = content;
+      let className =
+        e.target.previousElementSibling.firstElementChild.classList[0];
+      // console.log(
+      //   e.target.previousElementSibling.firstElementChild.classList[0]
+      // );
       // console.log(e);
-      var pop = document.querySelector(".pop");
-      // if (_self.show) {
-      //   _self.show = false;
-      // } else {
-      //   _self.show = true;
-      // }
+      var pop = document.querySelector(`.${className}`);
       if (
         pop.style.display == "none" ||
         pop.style.display == "" ||
@@ -63,6 +64,9 @@ export default {
 };
 </script>
 <style scoped>
+.pop-mask {
+  display: inline-block;
+}
 .pop-box {
   width: 100%;
 }

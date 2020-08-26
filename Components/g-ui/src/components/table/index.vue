@@ -7,9 +7,6 @@
 import tableColumn from "./tableColumn";
 export default {
   props: ["data"],
-  provide() {
-    return { tableData: this.data };
-  },
   watch: {
     data() {
       // console.log(this.tableData);

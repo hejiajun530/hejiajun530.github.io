@@ -85,57 +85,57 @@ function toTwo(time) {
 // 增加一天
 function AddDay(time, num) {
   var date = new Date(time);
-  data = date.setDate(date.getDate() + num);
-  return new Date(data);
+  date = date.setDate(date.getDate() + num);
+  return new Date(date);
 }
 
 // 增加一周
 function AddWeek(time, num) {
   var date = new Date(time);
-  data = date.setDate(date.getDate() + (num * 7));
-  return new Date(data);
+  date = date.setDate(date.getDate() + (num * 7));
+  return new Date(date);
 }
 
 // 增加一个月
 function AddMonth(time, num) {
   var date = new Date(time);
-  data = date.setMonth(date.getMonth() + num);
-  return new Date(data);
+  date = date.setMonth(date.getMonth() + num);
+  return new Date(date);
 }
 
 // 增加一年
 function AddYear(time, num) {
   var date = new Date(time);
-  data = date.setFullYear(date.getFullYear() + num);
-  return new Date(data);
+  date = date.setFullYear(date.getFullYear() + num);
+  return new Date(date);
 }
 
 //增加一小时
 function AddH(time, num) {
   var date = new Date(time);
-  data = date.setHours(date.getHours() + (num));
-  return new Date(data);
+  date = date.setHours(date.getHours() + (num));
+  return new Date(date);
 }
 
 // 增加一分钟
 function AddM(time, num) {
   var date = new Date(time);
-  data = date.setMinutes(date.getMinutes() + (num));
-  return new Date(data);
+  date = date.setMinutes(date.getMinutes() + (num));
+  return new Date(date);
 }
 
 // 增加一秒
 function AddS(time, num) {
   var date = new Date(time);
-  data = date.setSeconds(date.getSeconds() + (num));
-  return new Date(data);
+  date = date.setSeconds(date.getSeconds() + (num));
+  return new Date(date);
 }
 
 // 增加一毫秒
 function AddF(time, num) {
   var date = new Date(time);
-  data = date.setMilliseconds(date.getMilliseconds() + (num));
-  return new Date(data);
+  date = date.setMilliseconds(date.getMilliseconds() + (num));
+  return new Date(date);
 }
 
 // 获取本月的天数

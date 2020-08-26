@@ -8,8 +8,27 @@
     <!-- load 加载动画 -->
     <button @click="handleClickLoadShow">loading</button>
     <!-- 气泡提示 -->
-    <button @click="handleClickPopShow">pop</button>
-    <g-pop ref="pop"></g-pop>
+    <g-pop
+      ref="pop"
+      title="标题1"
+      content="内容1"
+    >
+      <button @click="handleClickPopShow">pop</button>
+    </g-pop>
+    <g-pop
+      ref="pop"
+      title="标题2"
+      content="内容2"
+    >
+      <button @click="handleClickPopShow">pop</button>
+    </g-pop>
+    <g-pop
+      ref="pop"
+      title="标题3"
+      content="内容3"
+    >
+      <button @click="handleClickPopShow">pop</button>
+    </g-pop>
     <!-- warn 提示 -->
     <g-warn
       type="success"
@@ -62,15 +81,17 @@
       chooseIndex="1"
       @g-selectValue="handleGetSelectValue"
     ></g-select>
-    <!-- timeCount 倒计时 -->
+    <!-- timeCount 倒计时
+    nowTime 为空时，自动取现在的时间 -->
     <g-timeCount
-      :startTime="startTime"
-      :endTime="endTime"
+      :nowTime="nowTime"
+      :targetTime="targetTime"
     ></g-timeCount>
     <g-timeCount
-      startTime="2020-10-19 00:00:00"
-      endTime="2020-10-19 13:13:15"
+      nowTime="2020-10-19 00:00:00"
+      targetTime="2020-10-19 13:13:15"
     ></g-timeCount>
+    <g-timeCount targetTime="2020-08-30 13:13:15"></g-timeCount>
     <!-- 日历 -->
     <g-rili @g-riliStartTime="handleGetTime"></g-rili>
     <!-- 星级评分
@@ -167,8 +188,8 @@ import tableColumn from "@/components/table/tableColumn";
 export default {
   data() {
     return {
-      startTime: "",
-      endTime: "",
+      nowTime: new Date(),
+      targetTime: "2020-10-19 09:33:15",
       gAlertShow: false,
       imglist: [
         "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2646629351,1830923198&fm=26&gp=0.jpg",
@@ -513,10 +534,9 @@ export default {
   },
   mounted() {
     var _self = this;
-    setInterval(function() {
-      _self.startTime = new Date().getTime();
-    }, 1000);
-    _self.endTime = new Date("2020-10-19 09:33:15").getTime();
+    // setInterval(function() {
+    //   _self.startTime = new Date().getTime();
+    // }, 1000);
   },
   methods: {
     // 显示alert
@@ -555,9 +575,7 @@ export default {
     // 显示pop
     handleClickPopShow(e) {
       var _self = this;
-      let title = "这是标题";
-      let content = "这是气泡提示框内容";
-      _self.$refs.pop.handleClickPopTop(title, content, e);
+      _self.$refs.pop.handleClickPopTop(e);
     },
     // 获取select下拉框组件选择的值 数组形式
     handleGetSelectValue(value) {
@@ -634,6 +652,7 @@ export default {
 <style scoped>
 .home {
   background: #dddddd;
+  padding: 50px 0 0 0;
 }
 .banner {
   width: 600px;

@@ -5,8 +5,17 @@
       class="alert-mask"
       v-if="isShow"
     >
-      <div class="alert">
-        <div class="alert-title flex-between-center">
+      <div
+        class="alert"
+        ref="alertDom"
+      >
+        <div
+          class="alert-title flex-between-center"
+          @mousedown.self="handleMouseDownAlert"
+          @mousemove.self="handleMouseMoveAlert"
+          @mouseup.self="handleMouseUpAlert"
+        >
+          <!-- @mouseleave.self="handleMouseLeaveAlert" -->
           <div>{{text.title}}</div>
           <div
             class="alert-title-close flex-center-center"
@@ -44,10 +53,17 @@ export default {
           confirmVal: "确定",
           cancelVal: "取消"
         }
-      }
+      },
+      // 是否随着鼠标移动
+      moveFlag: false,
+      moveX: 0,
+      moveY: 0,
+      offsetX: 0,
+      offsetY: 0
     };
   },
   methods: {
+    // 确定/取消/关闭 事件
     handleClickOk(name) {
       var _self = this;
       var type = "";
@@ -60,6 +76,47 @@ export default {
       }
       this.callback(type);
       this.isShow = false;
+    },
+    // 鼠标按下事件
+    handleMouseDownAlert(e) {
+      var _self = this;
+      // console.log("按下");
+      // console.log(e);
+      _self.moveFlag = true;
+      _self.offsetX = e.offsetX;
+      _self.offsetY = e.offsetY;
+      _self.$refs.alertDom.style.cursor = "move";
+    },
+    // 鼠标移动事件
+    handleMouseMoveAlert(e) {
+      var _self = this;
+      if (_self.moveFlag) {
+        var dom = _self.$refs.alertDom;
+        _self.moveX = e.clientX - _self.offsetX;
+        _self.moveY = e.clientY - _self.offsetY;
+        if (_self.moveX < 0) {
+          _self.moveX = 0;
+        }
+        if (_self.moveY < 0) {
+          _self.moveY = 0;
+        }
+        // console.log(_self.moveX, _self.moveY, e.clientX, e.clientY);
+        dom.style.top = _self.moveY + "px";
+        dom.style.left = _self.moveX + "px";
+      }
+    },
+    // 鼠标弹起事件
+    handleMouseUpAlert(e) {
+      var _self = this;
+      // console.log("弹起");
+      _self.moveFlag = false;
+      _self.$refs.alertDom.style.cursor = "default";
+    },
+    // 鼠标离开事件
+    handleMouseLeaveAlert(e) {
+      var _self = this;
+      // console.log("离开");
+      _self.moveFlag = false;
     }
     // cancel(name) {
     //   var type = "";
@@ -116,12 +173,11 @@ export default {
 
 .alert {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 37%;
+  left: 37%;
   min-width: 300px;
   height: 200px;
   background-color: #ffffff;
-  transform: translate(-50%, -50%);
 }
 
 .alert-title {

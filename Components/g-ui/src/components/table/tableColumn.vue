@@ -4,7 +4,7 @@
     <div
       class="table-column-item"
       :style="'width: '+width+'px;'"
-      v-for="(item,index) in returntableData"
+      v-for="(item,index) in $parent.data"
       :key="index"
     >
       <template v-if="type">
@@ -19,23 +19,11 @@
 <script>
 export default {
   props: ["label", "prop", "type", "width"], // "tableData",
-  inject: ["tableData"],
   data() {
     return {
       max: 0,
       arr: []
     };
-  },
-  computed: {
-    returntableData() {
-      // console.log("tableColumn-tableData-chage");
-      return this.tableData;
-    }
-  },
-  watch: {
-    returntableData() {
-      console.log("tableColumn-tableData-chage");
-    }
   },
   mounted() {
     var _self = this;
@@ -86,8 +74,5 @@ export default {
 }
 .table-column-label {
   height: 50px;
-}
-.table-column-item:hover {
-  background-color: #f5f5f5;
 }
 </style>

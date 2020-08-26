@@ -5,29 +5,43 @@
 </template>
 <script>
 export default {
-  props: ["startTime", "endTime"],
+  props: ["nowTime", "targetTime"],
   data() {
     return {
       day: "",
       Hours: "",
       Minutes: "",
-      Seconds: ""
+      Seconds: "",
+      startTime: this.nowTime || new Date(),
+      endTime: this.targetTime
     };
   },
   mounted() {
     var _self = this;
-    setInterval(function() {
-      _self.dateDiff();
+    // console.log(_self.startTime, _self.endTime);
+    setInterval(() => {
+      _self.startTime = _self.AddS(_self.startTime, 1);
     }, 1000);
+    _self.dateDiff();
+    // setInterval(function() {
+    //   _self.dateDiff();
+    // }, 1000);
+  },
+  watch: {
+    startTime() {
+      var _self = this;
+      _self.dateDiff();
+    }
   },
   methods: {
     dateDiff() {
       var _self = this;
       var dateStart = new Date(_self.startTime).getTime();
       var dateEnd = new Date(_self.endTime).getTime();
+      // console.log(dateStart, dateEnd);
       _self.day = parseInt((dateEnd - dateStart) / (1000 * 60 * 60 * 24));
       _self.Hours = _self.towNumber(
-        parseInt((dateEnd - dateStart) / (1000 * 60 * 60))
+        parseInt(((dateEnd - dateStart) / (1000 * 60 * 60)) % 24)
       );
       _self.Minutes = _self.towNumber(
         parseInt(((dateEnd - dateStart) / (1000 * 60)) % 60)
@@ -35,9 +49,17 @@ export default {
       _self.Seconds = _self.towNumber(
         parseInt(((dateEnd - dateStart) / 1000) % 60)
       );
+      // console.log(_self.startTime, _self.Hours, _self.Minutes, _self.Seconds);
     },
     towNumber(num) {
+      // console.log(num);
       return num < 10 ? "0" + num : num;
+    },
+    // 增加一秒
+    AddS(time, num) {
+      var date = new Date(time);
+      date = date.setSeconds(date.getSeconds() + num);
+      return new Date(date);
     }
   }
 };
