@@ -1,7 +1,26 @@
 <template>
   <div class="home">
     <div class="home-left">
-      <div class="home-left-item">弹出框</div>
+      <div class="home-left-item" @click="$router.push('/')">弹出框</div>
+      <div class="home-left-item" @click="$router.push('/advert')">广告</div>
+      <div class="home-left-item" @click="$router.push('/cascader')">级联</div>
+      <div class="home-left-item" @click="$router.push('/checkbox')">多选框</div>
+      <div class="home-left-item" @click="$router.push('/count')">计数</div>
+      <div class="home-left-item" @click="$router.push('/dateSelect')">日期选择框</div>
+      <div class="home-left-item" @click="$router.push('/echarts')">图表</div>
+      <div class="home-left-item" @click="$router.push('/load')">加载</div>
+      <div class="home-left-item" @click="$router.push('/message')">消息提示框</div>
+      <div class="home-left-item" @click="$router.push('/pop')">上方提示框</div>
+      <div class="home-left-item" @click="$router.push('/radio')">单选按钮</div>
+      <div class="home-left-item" @click="$router.push('/rili')">日历</div>
+      <div class="home-left-item" @click="$router.push('/select')">下拉选择框</div>
+      <div class="home-left-item" @click="$router.push('/star')">星级评分</div>
+      <div class="home-left-item" @click="$router.push('/swiper')">轮播图</div>
+      <div class="home-left-item" @click="$router.push('/switch')">开关</div>
+      <div class="home-left-item" @click="$router.push('/table')">表格</div>
+      <div class="home-left-item" @click="$router.push('/timeCount')">倒计时</div>
+      <div class="home-left-item" @click="$router.push('/upload')">上传图片/文件</div>
+      <div class="home-left-item" @click="$router.push('/warn')">警告框</div>
     </div>
     <div class="home-right">
       <router-view></router-view>
@@ -41,10 +60,17 @@ export default {
   overflow-y: auto;
 }
 .home-right {
-  float: 1;
+  flex: 1;
   height: 100%;
   padding: 50px 30px 30px 30px;
   box-sizing: border-box;
+  overflow-y: auto;
+}
+.home-left-item {
+  height: 35px;
+  line-height: 35px;
+  border-bottom: 1px solid #000000;
+  cursor: pointer;
 }
 .banner {
   width: 600px;

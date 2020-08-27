@@ -70,11 +70,11 @@ export default {
         } //4
       ],
       swiperAnimaImg: [
-        "https://yys.res.netease.com/pc/fab/20200814150927/img/pic04_848c266.jpg",
-        "https://yys.res.netease.com/pc/fab/20200814150927/img/pic05_2eee599.jpg",
-        "https://yys.res.netease.com/pc/fab/20200814150927/img/pic01_f905e53.jpg",
-        "https://yys.res.netease.com/pc/fab/20200814150927/img/pic02_d9b8dd5.jpg",
-        "https://yys.res.netease.com/pc/fab/20200814150927/img/pic03_d886e74.jpg"
+        "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2646629351,1830923198&fm=26&gp=0.jpg",
+        "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4184278089,1373760144&fm=26&gp=0.jpg",
+        "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1294082173,3333931346&fm=26&gp=0.jpg",
+        "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1419817777,3647793771&fm=26&gp=0.jpg",
+        "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1618453098,2599275984&fm=26&gp=0.jpg"
       ],
       imglist: [
         "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2646629351,1830923198&fm=26&gp=0.jpg",
