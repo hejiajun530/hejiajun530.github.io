@@ -91,18 +91,18 @@ export default {
     handleClickPre() {
       var _self = this;
       let idx = _self.index - 1;
-      _self.throttle(idx, 1000);
+      _self.index = idx;
     },
     // 下一张
     handleClickNext() {
       var _self = this;
       let idx = _self.index + 1;
-      _self.throttle(idx, 1000);
+      _self.index = idx;
     },
     // 点小圆点移动图片
     handleClickIndex(idx) {
       var _self = this;
-      _self.throttle(idx, 1000);
+      _self.index = idx;
     },
     // 自动轮播
     autoplay() {
@@ -116,33 +116,6 @@ export default {
         }
         _self.index = _self.index + _self.temp;
       }, _self.duration);
-    },
-    // 图片移动 封装
-    throttle(idx, delay) {
-      var _self = this;
-      if (idx < 0) {
-        return false;
-      } else if (idx > _self.imglist.length - 1) {
-        return false;
-      }
-      // 节流
-      // if (!_self.timer) {
-      //   _self.timer = setTimeout(() => {
-      //     console.log(idx);
-      //     _self.index = idx;
-      //     _self.timer = null;
-      //   }, delay);
-      // }
-      // 防抖
-      if (_self.timer !== null) {
-        clearTimeout(_self.timer);
-      } else {
-        _self.index = idx;
-      }
-      _self.timer = setTimeout(() => {
-        console.log(idx);
-        _self.timer = null;
-      }, delay);
     },
     // 移动端 手指 初始
     handleTouchStart(e) {
