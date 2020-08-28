@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #222;
+    }
+    h1 {
+      /* font-size: 2.5em; */
+      font-size: 5em;
+      position: relative;
+      color: #333;
+      /* background: rgba(243, 70, 4, .3); */
+      box-shadow: 0 0 10px yellow;
+      animation: rotate 5s infinite;
+      padding: 5px 10px;
+      border-radius: 10px;
+    }
+    h1::after {
+      /* content: "If you find a path with no obstacles, it probably doesn’t lead anywhere."; */
+      content: "YELLOW";
+      position: absolute;
+      color: transparent;
+      top: 0;
+      left: 0;
+      padding: 5px 10px;
+      background: -webkit-linear-gradient(left, #c23616, #192a56, #00d2d3, yellow, #6d214f, #2e86de, #4cd137, #e84118);
+      background-clip: text;
+      -webkit-background-clip: text;
+      clip-path: circle(80px at 0% 50%);
+      -webkit-clip-path: circle(80px at 0% 50%);
+      animation: light 5s infinite;
+    }
+    @keyframes rotate {
+      0% {
+      filter: hue-rotate(0deg);
+      }
+      100% {
+      filter: hue-rotate(360deg);
+      }
+    }
+    @keyframes light {
+      0% {
+        clip-path: circle(80px at 0% 50%);
+      -webkit-clip-path: circle(80px at 0% 50%);
+      }
+      50% {
+        clip-path: circle(80px at 100% 50%);
+      -webkit-clip-path: circle(80px at 100% 50%);
+      }
+      100% {
+        clip-path: circle(80px at 0% 50%);
+      -webkit-clip-path: circle(80px at 0% 50%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- <h1>If you find a path with no obstacles, it probably doesn’t lead anywhere.</h1> -->
+  <h1>
+    <span>Y</span><span>E</span><span>L</span><span>L</span><span>O</span><span>W</span>
+  </h1>
+</body>
+</html>

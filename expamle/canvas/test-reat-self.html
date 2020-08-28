@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>填充三角形</title>
+</head>
+<body>
+  <canvas id="myCanvas" width="500" height="400" style="border: 1px solid #ccc;"></canvas>
+  <script>
+    var canvas = document.querySelector('#myCanvas');
+    var ctx = canvas.getContext('2d');
+    
+    // 绘制三角形
+    ctx.moveTo(100, 100);
+    ctx.lineTo(200, 100);
+    ctx.lineTo(200, 200);
+    ctx.lineWidth = 20;
+    // ctx.lineTo(100, 100);//会有缺口，当线条的宽度明显时，会出现缺口
+    ctx.closePath();//自动闭合，不会有缺口
+
+    // 描边
+    ctx.stroke();
+    // 填充
+    // ctx.fill();
+  </script>
+</body>
+</html>

@@ -1,11 +1,14 @@
 import Vue from 'vue';
 import load from './index.vue';
 let loadBox = Vue.extend(load);
-let loadBoxCut = function (text) {
+let loadBoxCut = function (text, type) {
   return new Promise((res, rej) => {
     let loadDom = new loadBox({
       el: document.createElement('div')
     });
+    if (type) {
+      loadDom.type = type;
+    }
     if (text) {
       document.body.appendChild(loadDom.$el);
     } else {

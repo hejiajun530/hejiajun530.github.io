@@ -25,4 +25,10 @@ body {
   text-align: center;
   color: #2c3e50;
 }
+button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: none;
+  cursor: pointer;
+}
 </style>

@@ -349,12 +349,13 @@ export default {
       } else {
         _self.endTime = _self.toYmd(val.day);
         if (_self.dateDiff(_self.startTime, _self.endTime).day <= 0) {
+          _self.startTime = _self.toYmd(val.day);
           _self.endTime = "";
-          _self.$gMessage({
-            title: "结束日期不能小于开始日期",
-            duration: 3000,
-            type: "success"
-          });
+          // _self.$gMessage({
+          //   title: "结束日期不能小于开始日期",
+          //   duration: 3000,
+          //   type: "success"
+          // });
           return false;
         }
         _self.$emit("g-dateSelectTime", _self.startTime, _self.endTime);

@@ -13,7 +13,7 @@ export default {
     // 显示loading
     handleClickLoadShow() {
       var _self = this;
-      _self.$gLoad(true);
+      _self.$gLoad(true, 4);
       setTimeout(function() {
         _self.$gLoad(false);
       }, 5000);

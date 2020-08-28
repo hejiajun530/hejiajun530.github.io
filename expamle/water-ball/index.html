@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>波浪水球</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      height: 100vh;
+      background: -webkit-linear-gradient(rgb(95, 95, 250) 10%, rgb(3, 3, 110));
+    }
+    .main,
+    .wave {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .main {
+      padding: 10px;
+      border: 3px solid darkturquoise;
+    }
+    .wave {
+      background: darkturquoise;
+      overflow: hidden;
+    }
+    .wave::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, .8);
+      border-radius: 40%;
+      animation: wave 5s linear infinite;
+    }
+    @keyframes wave {
+      100% {
+        transform: translate(-50%, -60%)  rotate(360deg);
+      }
+    }
+    .wave::before {
+      content: "water-ball";
+      color: darkturquoise;
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translate(-50%);
+      z-index: 99;
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div class="wave"></div>
+  </div>
+</body>
+</html>

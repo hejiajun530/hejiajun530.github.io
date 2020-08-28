@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>砖块掉落</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      height: 100vh;
+      background: url(./img/bk.jpg) no-repeat;
+      background-size: 100% 100%;
+      overflow: hidden;
+    }
+    span {
+      display: inline-flex;
+      width: 9.7%;
+      height: 40px;
+      margin: 0 0 0 .201rem;
+      border: 1px solid rgba(0,0,0,.2);
+      box-sizing: border-box;
+      box-shadow: 0 2px 5px rgba(0,0,0,1);
+    }
+    span.fall {
+      z-index: 1000;
+      transition: 0.2s;
+      animation: fall 1s linear forwards;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0);
+      }
+      100% {
+        transform: translateY(1000px) rotate(20deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <script src="./jq/jquery-3.4.1.min.js"></script>
+  <script>
+    $(function(){
+      var width = $(window).width();
+      var height = $(window).height();
+      var spanWidth = width * 0.097;
+      var spanHeight = height / 45.5;
+      var num = Math.floor((width / spanWidth) * spanHeight);
+      var arr = ['red', 'white', 'black', 'yellow', 'orange', 'green', 'pink', 'skyblue', 'lightblue'];
+      for (let i = 0; i < num; i++) {
+        var random  = Math.floor(Math.random()*(arr.length - 0) + 0);
+        console.log(random)
+        $(document.body).append($(`<span style="background: ${arr[random]};"></span>`));
+      }
+      $('span').mouseover(function() {
+        var random  = Math.floor(Math.random()*(arr.length - 0) + 0);
+        $(this).css('background', arr[random]);
+        $(this).addClass('fall');
+      })
+      var count = 1;
+      var timer = setInterval(function() {
+        if (count <= num + 2) {
+          var random  = Math.floor(Math.random()*(arr.length - 0) + 0);
+          $(`span:nth-child(${count})`).css('background', arr[random]);
+          $(`span:nth-child(${count})`).addClass('fall');
+        } else {
+          clearInterval(timer);
+        }
+        count++;
+        console.log(count);
+      }, 10);
+    })
+  </script>
+</body>
+</html>

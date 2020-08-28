@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>渐变矩形</title>
+</head>
+<body>
+  <canvas id="myCanvas" width="600" height="500" style="border: 1px solid #ccc;"></canvas>
+  <script>
+    var canvas = document.querySelector('#myCanvas');
+    var ctx = canvas.getContext('2d');
+    
+    // 网格大小
+    var grid = 10;
+    // x轴数量
+    var height = canvas.height;
+    var gridXnum = height / grid;
+    // y轴数量
+    var width = canvas.width;
+    var gridYnum = width / grid;
+    console.log(gridXnum, gridYnum);
+    // 绘制网格
+    function fillGrid(x1, y1, x2, y2) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.strokeStyle = "#ddd";
+      ctx.stroke();
+    }
+    // x轴
+    for (let i = 1; i <= gridXnum; i++) {
+      fillGrid(0, grid * i - 0.5, width, grid * i - 0.5);
+    }
+    // y轴
+    for (let i = 1; i <= gridYnum; i++) {
+      fillGrid(grid * i - 0.5, 0, grid * i - 0.5, height);
+    }
+  </script>
+</body>
+</html>

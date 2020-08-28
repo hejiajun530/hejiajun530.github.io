@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>烟雾文字</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+    }
+    section {
+      width: 100%;
+      height: 100%;
+    }
+    h1 {
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+      width: 100%;
+      font-size: 5em;
+      text-align: center;
+      color: #fff;
+      letter-spacing: 0.2em;
+    }
+    h1 span {
+      opacity: 0;
+      display: inline-block;
+      animation: animate 1s linear forwards;
+    }
+    @keyframes animate {
+      0% {
+        opacity: 0;
+        transform: rotateY(90deg);
+        /* 模糊 */
+        filter: blur(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: rotateY(0);
+        filter: blur(0);
+      }
+    }
+    h1 span:nth-child(1) {
+      animation-delay: 1s;
+    }
+    h1 span:nth-child(2) {
+      animation-delay: 2s;
+    }
+    h1 span:nth-child(3) {
+      animation-delay: 2.5s;
+    }
+    h1 span:nth-child(4) {
+      animation-delay: 3s;
+    }
+    h1 span:nth-child(5) {
+      animation-delay: 3.5s;
+    }
+    h1 span:nth-child(6) {
+      animation-delay: 3.75s;
+    }
+    h1 span:nth-child(7) {
+      animation-delay: 4s;
+    }
+    h1 span:nth-child(8) {
+      animation-delay: 4.5s;
+    }
+    video {
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <video src="./video/smoke.mp4" autoplay muted></video>
+    <h1>
+      <span>M</span>
+      <span>U</span>
+      <span>H</span>
+      <span>H</span>
+      <span>M</span>
+      <span>M</span>
+      <span>C</span>
+      <span>D</span>
+    </h1>
+  </section>
+</body>
+</html>

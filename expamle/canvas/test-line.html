@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>线条</title>
+</head>
+<body>
+  <canvas id="myCanvas" width="500" height="400" style="border: 1px solid #ccc;"></canvas>
+  <script>
+    var canvas = document.querySelector('#myCanvas');
+    var ctx = canvas.getContext('2d');
+    
+    // 绘制线条
+    ctx.moveTo(100, 100);
+    ctx.lineTo(300, 100);
+
+    ctx.setLineDash([5])
+    
+    ctx.stroke();
+  </script>
+</body>
+</html>

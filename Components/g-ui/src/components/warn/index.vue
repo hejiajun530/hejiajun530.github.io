@@ -30,7 +30,15 @@
 </template>
 <script>
 export default {
-  props: ["type", "title", "icon"],
+  // props: ["type", "title"],
+  props: {
+    type: {
+      default: "success"
+    },
+    title: {
+      default: "消息提示"
+    }
+  },
   data() {
     return {
       warnShow: true

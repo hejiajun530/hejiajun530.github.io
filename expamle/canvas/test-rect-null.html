@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>镂空正方形</title>
+</head>
+<body>
+  <canvas id="myCanvas" width="500" height="400" style="border: 1px solid #ccc;"></canvas>
+  <script>
+    var canvas = document.querySelector('#myCanvas');
+    var ctx = canvas.getContext('2d');
+    
+    // 绘制正方形
+    ctx.moveTo(100, 100);
+    ctx.lineTo(200, 100);
+    ctx.lineTo(200, 200);
+    ctx.lineTo(100, 200);
+    ctx.closePath();
+
+    ctx.moveTo(125, 175);
+    ctx.lineTo(175, 175);
+    ctx.lineTo(175, 125);
+    ctx.lineTo(125, 125);
+    ctx.closePath();
+
+    ctx.fill();
+  </script>
+</body>
+</html>

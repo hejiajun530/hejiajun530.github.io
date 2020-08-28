@@ -7,6 +7,9 @@ let messageBoxCut = function (text) {
       el: document.createElement('div')
     });
     document.body.appendChild(messageDom.$el); //new一个对象，然后插入body里面
+    if (!text.duration) {
+      text.duration = 1000;
+    }
     messageDom.text = Object.assign(messageDom.text, text);  //为了使confirm的扩展性更强，这个采用对象的方式传入，所有的字段都可以根据需求自定义
     // 回调函数
     // messageDom.callback = function (action) {}

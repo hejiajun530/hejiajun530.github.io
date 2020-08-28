@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+// 解决路由重复报错的问题
+const originalPush = Router.prototype.push;
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 Vue.use(Router);
 
 let routes = [{
@@ -29,6 +35,8 @@ let routes = [{
     { path: '/timeCount', component: () => import('./views/timeCount.vue') },
     { path: '/upload', component: () => import('./views/upload.vue') },
     { path: '/warn', component: () => import('./views/warn.vue') },
+    { path: '/mobile', component: () => import('./views/mobile.vue') },
+    { path: '/styleCss', component: () => import('./views/styleCss.vue') },
   ]
 }]
 
