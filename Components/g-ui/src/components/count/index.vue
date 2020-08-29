@@ -1,12 +1,12 @@
 <template>
-  <div class="renwchoose-right-add">
+  <div class="count-box">
     <button @click="handleClickSubDay">
       <img src="./减.png">
     </button>
+    <!-- disabled -->
     <input
       type="text"
       v-model="xuzhuDay"
-      disabled
     >
     <button @click="handleClickAddDay">
       <img src="./加.png">
@@ -41,30 +41,39 @@ export default {
 };
 </script>
 <style scoped>
-.renwchoose-right-add {
+.count-box {
   display: flex;
   justify-content: space-between;
-  width: 402px;
-  height: 102px;
+  width: 202px;
+  height: 52px;
   background: url("./矩形.png");
+  background-size: 100% 100%;
   margin: 0 auto;
 }
-.renwchoose-right-add input {
-  width: 202px;
-  height: 98px;
+.count-box input {
+  width: 52px;
+  height: 48px;
   background: transparent;
   border: none;
   text-align: center;
-  font-size: 40px;
+  font-size: 20px;
   color: #fff;
   vertical-align: top;
   outline: none;
 }
-.renwchoose-right-add button {
-  width: 100px;
-  height: 100px;
+.count-box button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background-color: rgba(255, 255, 255, 0.12);
+  margin: 0 !important;
+  padding: 0 !important;
   outline: none;
+}
+.count-box button img {
+  width: 50%;
 }
 </style>

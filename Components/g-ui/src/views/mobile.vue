@@ -118,6 +118,7 @@ export default {
     getScroll(e) {
       var _self = this;
       // console.log(document.documentElement.scrollTop);
+      // console.log(window.pageYOffset);
       if (window.pageYOffset > 20) {
         _self.goTopShow = true;
       } else {
@@ -131,12 +132,12 @@ export default {
       var i = window.pageYOffset;
       timer = setInterval(function() {
         if (window.pageYOffset > 0) {
-          console.log("111");
+          // console.log("111");
           window.scrollTo(0, i);
         } else {
           clearInterval(timer);
           timer = null;
-          console.log("222");
+          console.log("回到顶部");
         }
         i -= 20;
       }, 10);

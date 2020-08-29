@@ -38,6 +38,7 @@ export default {
   border: 1px solid #888888;
   box-sizing: border-box;
   transition: 0.5s;
+  cursor: pointer;
 }
 .switch-box.active {
   background-color: #ff000f;

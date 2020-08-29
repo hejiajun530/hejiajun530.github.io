@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>按钮效果-四边滑进</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      background: #0c002b;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn-one {
+      position: relative;
+      color: #1670f0;
+      width: 80px;
+      padding: 30px 60px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: #0c002b;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      cursor: pointer;
+      margin: 50px 50px 50px 0;
+    }
+
+    .btn-one::before {
+      content: "";
+      display: inline-block;
+      width: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      bottom: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+
+    .btn-one span {
+      position: absolute;
+      transition: all 0.3s linear;
+      z-index: 999;
+    }
+
+    .btn-one span:nth-child(1) {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: -webkit-linear-gradient(to right, #0c002b, #1779ff);
+      background: linear-gradient(to right, #0c002b, #1779ff);
+      transform: translate(-100%);
+    }
+
+    .btn-one span:nth-child(2) {
+      top: 0;
+      right: 0;
+      width: 2px;
+      height: 100%;
+      background: -webkit-linear-gradient(to bottom, #0c002b, #1779ff);
+      background: linear-gradient(to bottom, #0c002b, #1779ff);
+      transform: translate(0, -100%);
+    }
+
+    .btn-one span:nth-child(3) {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: -webkit-linear-gradient(to left, #0c002b, #1779ff);
+      background: linear-gradient(to left, #0c002b, #1779ff);
+      transform: translate(100%);
+    }
+
+    .btn-one span:nth-child(4) {
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: -webkit-linear-gradient(to top, #0c002b, #1779ff);
+      background: linear-gradient(to top, #0c002b, #1779ff);
+      transform: translate(0, 100%);
+    }
+
+    .btn-one:hover span:nth-child(1) {
+      transform: translate(0);
+    }
+
+    .btn-one:hover span:nth-child(2) {
+      transform: translate(0, 0);
+    }
+
+    .btn-one:hover span:nth-child(3) {
+      transform: translate(0);
+    }
+
+    .btn-one:hover span:nth-child(4) {
+      transform: translate(0, 0);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="btn-one">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    Button
+  </div>
+</body>
+
+</html>

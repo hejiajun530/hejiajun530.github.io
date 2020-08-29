@@ -325,7 +325,7 @@ ul {
   padding: 0 15px 15px 15px;
   border-radius: 10px;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: #f5f5f5;
 }
 
 .calendar-arrow {

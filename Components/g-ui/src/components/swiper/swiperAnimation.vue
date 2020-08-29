@@ -131,7 +131,6 @@ export default {
 .swiper {
   width: 100%;
   height: 100%;
-  /* margin: 100px auto; */
   overflow: hidden;
 }
 .swiper-box {
@@ -141,7 +140,7 @@ export default {
 }
 .swiper-box-imgs {
   position: absolute;
-  left: 200px;
+  left: 0;
   top: 0;
   width: 100%;
   height: 100%;
@@ -157,8 +156,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 76px;
-  height: 112px;
+  width: 10%;
+  height: 25%;
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
@@ -167,10 +166,10 @@ export default {
   cursor: pointer;
 }
 .prev {
-  left: 15px;
+  left: 10px;
 }
 .next {
-  right: 15px;
+  right: 10px;
 }
 .prev img,
 .next img {

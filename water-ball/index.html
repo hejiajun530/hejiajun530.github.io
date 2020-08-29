@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>波浪水球</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100vh;
+      background: -webkit-linear-gradient(rgb(95, 95, 250) 10%, rgb(3, 3, 110));
+    }
+
+    .water-ball,
+    .water-ball-wave {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      padding: 20px 0 0 0;
+      color: #000;
+      overflow: hidden;
+    }
+
+    .water-ball {
+      padding: 10px;
+      border: 3px solid darkturquoise;
+    }
+
+    .water-ball-wave {
+      background: darkturquoise;
+      box-sizing: border-box;
+    }
+
+    .water-ball-wave::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      width: 135%;
+      height: 135%;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 40%;
+      animation: waterwave 5s linear infinite;
+    }
+
+    @keyframes waterwave {
+      100% {
+        transform: translate(-50%, -60%) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="water-ball">
+    <div class="water-ball-wave">water-ball</div>
+  </div>
+</body>
+
+</html>

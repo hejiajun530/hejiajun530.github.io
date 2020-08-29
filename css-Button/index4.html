@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>按钮效果-流光</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, .8);
+    }
+
+    .btn-four {
+      position: relative;
+      width: 80px;
+      color: #fff;
+      padding: 20px 100px;
+      border-radius: 70px;
+      background: -webkit-linear-gradient(90deg,
+          #03a9f4,
+          #f441a5,
+          #ffeb3b,
+          #03a9f4);
+      background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+      background-size: 400%;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin: 50px 0 0 0;
+    }
+
+    .btn-four::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      bottom: -5px;
+      right: -5px;
+      background: -webkit-linear-gradient(90deg,
+          #03a9f4,
+          #f441a5,
+          #ffeb3b,
+          #03a9f4);
+      background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+      background-size: 400%;
+      border-radius: 80px;
+      filter: blur(30px);
+      opacity: 0.5;
+      /* z-index: -1; */
+    }
+
+    .btn-four:hover {
+      animation: sun 8s infinite;
+    }
+
+    .btn-four:hover::before {
+      animation: sun 8s infinite;
+    }
+
+    @keyframes sun {
+      100% {
+        background-position: 400% 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="btn-four">sunbutton</div>
+</body>
+
+</html>

@@ -19,7 +19,8 @@
     }
 
     html {
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     h1 {
@@ -55,9 +56,9 @@
     }
 
     .banner {
-      width: var(--imageWidth);
+      width: var(--imageWidth) !important;
       height: 300px;
-      margin: 200px auto;
+      margin: 30px auto 50px auto;
       /* overflow: hidden; */
     }
 
@@ -115,7 +116,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: calc(var(--imageWidth)*5);
+      width: calc(var(--imageWidth)*30);
       height: 100%;
       display: flex;
       justify-content: flex-start;
@@ -123,7 +124,7 @@
     }
 
     .multi-images .swiper.active {
-      width: var(--imageWidth);
+      width: var(--imageWidth) !important;
       height: 100%;
       background-color: rgba(135, 9, 238, 0.7);
     }
@@ -133,7 +134,7 @@
     }
 
     .multi-images .swiper {
-      width: 200px;
+      width: 200px !important;
       height: 100px;
       background-color: rgba(135, 9, 238, 0.3);
       text-align: center;
@@ -150,6 +151,21 @@
 
     .multi-images .swiper a {
       color: rgba(255, 255, 255, 0.6);
+    }
+
+    .show-box-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .show-box-list-item {
+      width: 200px;
+      height: 100px;
+      text-align: center;
+      border: 1px solid #222222;
+      margin: 0 -1px -1px 0;
     }
   </style>
 </head>
@@ -180,6 +196,15 @@
               <h1><a>{{item.name}}</a></h1>
             </template>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="show-box">
+      <div class="show-box-list">
+        <div class="show-box-list-item" v-for="(item, idx) in labelList" :key="idx">
+          <h3><a :href="item.nameUrl">{{item.name}}</a></h3>
+          <div><a href="https://github.com/hejiajun530">MyGithub</a></div>
+          <div><a :href="item.codeUrl">代码地址</a></div>
         </div>
       </div>
     </div>
@@ -219,6 +244,126 @@
             {
               name: '日期选择器',
               nameUrl: './dateSelect/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '毛玻璃',
+              nameUrl: './mao-boli/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '烟雾文字',
+              nameUrl: './somke-font/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '墙-动画',
+              nameUrl: './qiang-down/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '聚光灯文字',
+              nameUrl: './spot-lamp/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '加载动画-基因链',
+              nameUrl: './loading-rotate/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '加载动画-月光',
+              nameUrl: './gradient-rotate-cricle/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '加载动画-文字跳动',
+              nameUrl: './font-split/index2.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '文字分割',
+              nameUrl: './font-split/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: 'echarts',
+              nameUrl: './echarts/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: 'css-Button1',
+              nameUrl: './css-Button/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: 'css-Button2',
+              nameUrl: './css-Button/index2.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: 'css-Button3',
+              nameUrl: './css-Button/index3.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: 'css-Button4',
+              nameUrl: './css-Button/index4.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: 'canvas-鼠标附近小球变大',
+              nameUrl: './canvas-study/canvas_ball_cursor.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: 'canvas-碰撞小球',
+              nameUrl: './canvas-study/canvas_ball_detection.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: 'canvas-小球自由落体',
+              nameUrl: './canvas-study/canvas_ball_gravity.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: 'canvas-跟随鼠标移动',
+              nameUrl: './canvas-study/canvas_ball_rotate.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: 'canvas-雨',
+              nameUrl: './canvas-study/canvas_rain.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '3d旋转图片',
+              nameUrl: './3d-rotate-img/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '水球',
+              nameUrl: './water-ball/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '太极',
+              nameUrl: './taiji/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '两面翻转',
+              nameUrl: './overturn/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '2盒子文字滚动',
+              nameUrl: './fontroll/index.html',
+              codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
+            },
+            {
+              name: '3d导航栏',
+              nameUrl: './navbar/index.html',
               codeUrl: 'https://github.com/hejiajun530/hejiajun530.github.io'
             }
           ],

@@ -92,6 +92,7 @@ export default {
       var _self = this;
       _self.chooseList = [];
       _self.selectIndex = -1;
+      _self.selectIndexList = [];
     },
     // 控制 select隐藏
     handleClickSelectHide() {

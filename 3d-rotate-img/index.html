@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3d旋转图片</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background: url(./img/bg.WEBP) no-repeat center center;
+      /* background-size: 100%; */
+    }
+
+    section.content {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 200px auto;
+      transform-origin: center center;
+      animation: rotate1 5s linear infinite;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes rotate1 {
+      0% {
+        transform: rotateX(0) rotateY(0);
+      }
+
+      100% {
+        transform: rotateX(360deg) rotateY(360deg);
+      }
+    }
+
+    section.content img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: .8;
+      transition: all 0.3s linear;
+    }
+
+    section.content img:nth-child(1) {
+      transform: translateZ(150px);
+    }
+
+    section.content img:nth-child(2) {
+      transform: translateZ(-150px);
+    }
+
+    section.content img:nth-child(3) {
+      transform: translateY(150px) rotateX(90deg);
+    }
+
+    section.content img:nth-child(4) {
+      transform: translateY(-150px) rotateX(90deg);
+    }
+
+    section.content img:nth-child(5) {
+      transform: translateX(150px) rotateY(90deg);
+    }
+
+    section.content img:nth-child(6) {
+      transform: translateX(-150px) rotateY(90deg);
+    }
+
+    /* hover */
+    section.content:hover img:nth-child(1) {
+      transform: translateZ(300px);
+    }
+
+    section.content:hover img:nth-child(2) {
+      transform: translateZ(-300px);
+    }
+
+    section.content:hover img:nth-child(3) {
+      transform: translateY(300px) rotateX(90deg);
+    }
+
+    section.content:hover img:nth-child(4) {
+      transform: translateY(-300px) rotateX(90deg);
+    }
+
+    section.content:hover img:nth-child(5) {
+      transform: translateX(300px) rotateY(90deg);
+    }
+
+    section.content:hover img:nth-child(6) {
+      transform: translateX(-300px) rotateY(90deg);
+    }
+
+    section.content section.content-son {
+      position: absolute;
+      top: 25%;
+      left: 27%;
+      /* transform: translate(-50%, -50%); */
+      width: 50%;
+      height: 50%;
+    }
+
+    section.content section.content-son img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: .6;
+    }
+
+    section.content section.content-son img:nth-child(1) {
+      transform: translateZ(75px);
+    }
+
+    section.content section.content-son img:nth-child(2) {
+      transform: translateZ(-75px);
+    }
+
+    section.content section.content-son img:nth-child(3) {
+      transform: translateY(75px) rotateX(90deg);
+    }
+
+    section.content section.content-son img:nth-child(4) {
+      transform: translateY(-75px) rotateX(90deg);
+    }
+
+    section.content section.content-son img:nth-child(5) {
+      transform: translateX(75px) rotateY(90deg);
+    }
+
+    section.content section.content-son img:nth-child(6) {
+      transform: translateX(-75px) rotateY(90deg);
+    }
+
+    /* hover */
+    section.content section.content-son:hover img:nth-child(1) {
+      transform: translateZ(150px);
+    }
+
+    section.content section.content-son:hover img:nth-child(2) {
+      transform: translateZ(-150px);
+    }
+
+    section.content section.content-son:hover img:nth-child(3) {
+      transform: translateY(150px) rotateX(90deg);
+    }
+
+    section.content section.content-son:hover img:nth-child(4) {
+      transform: translateY(-150px) rotateX(90deg);
+    }
+
+    section.content section.content-son:hover img:nth-child(5) {
+      transform: translateX(150px) rotateY(90deg);
+    }
+
+    section.content section.content-son:hover img:nth-child(6) {
+      transform: translateX(-150px) rotateY(90deg);
+    }
+
+    /* 上传图片 */
+    .yg_content {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      min-width: 300px;
+      min-height: 150px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    #upimg {
+      display: none;
+    }
+
+    .yg_content p {
+      padding: 10px;
+      display: inline-block;
+      color: #fff;
+      background: #08c;
+      border: 1px #ccc solid;
+      border-radius: 10px;
+    }
+
+    .showimg {
+      margin: 20px auto;
+      border: 1px #ccc solid;
+      border-radius: 10px;
+      width: 200px;
+      height: 200px;
+    }
+
+    .showimg img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .yg_content p:active {
+      opacity: .5;
+    }
+
+    .yg_content .files {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      border-radius: 10px;
+      border: 1px solid orange;
+      text-align: center;
+      line-height: 100px;
+      cursor: pointer;
+      overflow: hidden;
+      color: rgba(0, 0, 0, .5);
+      margin: 5px;
+    }
+    .yg_content .files img {
+      /* width: 100%; */
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .yg_content .files input {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="content">
+    <img src="./img/12.jpg" class="img">
+    <img src="./img/12.jpg" class="img">
+    <img src="./img/12.jpg" class="img">
+    <img src="./img/12.jpg" class="img">
+    <img src="./img/12.jpg" class="img">
+    <img src="./img/12.jpg" class="img">
+
+    <section class="content-son">
+      <img src="./img/13.jpg" class="img">
+      <img src="./img/13.jpg" class="img">
+      <img src="./img/13.jpg" class="img">
+      <img src="./img/13.jpg" class="img">
+      <img src="./img/13.jpg" class="img">
+      <img src="./img/13.jpg" class="img">
+    </section>
+  </section>
+  <!-- 上传图片 -->
+  <div class="yg_content">
+    <div class="files" onclick="document.querySelector('#iptfile').click()">
+      <span>选择图片</span>
+      <input type="file" id="iptfile" onchange="uplode('all')">
+      <img src="./img/13.jpg" class="iptfileimg">
+    </div>
+    <div class="files" onclick="document.querySelector('#iptbg').click()">
+      <span>选择背景图片</span>
+      <input type="file" id="iptbg" onchange="uplode('bg')">
+      <img src="./img/bg.WEBP" class="iptbgimg">
+    </div>
+  </div>
+</body>
+<script>
+  // 所有旋转图片
+  var imgs = document.querySelectorAll('.img');
+  // 选择图片按钮  背景图
+  var iptfileimg = document.querySelector('.iptfileimg');
+  // 选择背景图片按钮  背景图
+  var iptbgimg = document.querySelector('.iptbgimg');
+  // 获取本地存储图片
+  var img = localStorage.getItem('img');
+  var bgimg = localStorage.getItem('bgimg');
+  if (img) {
+    for (let i = 0; i < imgs.length; i++) {
+      imgs[i].setAttribute('src', img);
+      iptfileimg.setAttribute('src', img);
+    }
+    if (bgimg) {
+      document.body.style.background = "url(" + bgimg + ") no-repeat center center";
+      iptbgimg.setAttribute('src', bgimg);
+    }
+  }
+  function uplode(type) {
+    if (type == "all") {
+      // 选择图片按钮
+      var file = document.querySelector('#iptfile').files[0].name;
+      for (let i = 0; i < imgs.length; i++) {
+        imgs[i].setAttribute('src', './img/'+ file);
+      }
+      iptfileimg.setAttribute('src', './img/'+ file);
+      localStorage.setItem('img', './img/'+ file);
+    } else if (type == "bg") {
+      // 选择背景图片按钮
+      var file = document.querySelector('#iptbg').files[0].name;
+      document.body.style.background = "url(./img/" + file + ") no-repeat center center";
+      iptbgimg.setAttribute('src', './img/'+ file);
+      localStorage.setItem('bgimg', './img/'+ file);
+    }
+  }
+    // base64位图片
+    // var reader = new FileReader();
+    // reader.readAsDataURL(file)
+    // reader.onloadstart = function () {
+    //   console.log('上传中...');
+    // }
+    // reader.onload = function () {
+    //   console.log('上传完毕!');
+    //   // imgbig.setAttribute('src', reader.result);
+    //   for (let i = 0; i < imgs.length; i++) {
+    //     imgs[i].setAttribute('src', reader.result);
+    //   }
+    //   localStorage.setItem('img', reader.result);
+    // }
+</script>
+
+</html>

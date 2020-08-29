@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>按钮效果-鼠标悬停</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      background: #0c002b;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn-thr {
+      position: relative;
+      width: 80px;
+      color: #1670f0;
+      padding: 30px 60px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: #0c002b;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      cursor: pointer;
+      margin: 50px 0 0 0;
+    }
+
+    .btn-thr::before {
+      content: "";
+      display: inline-block;
+      width: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      bottom: 2px;
+      background: rgba(255, 255, 255, 0.05);
+      z-index: -1;
+    }
+
+    .btn-thr span {
+      position: absolute;
+      background: #2196f3;
+      transition: all 0.3s linear;
+      z-index: 999;
+    }
+
+    .btn-thr span:nth-child(1) {
+      top: 0;
+      left: 50%;
+      transform: translate(-50%);
+      width: 300%;
+      height: 2px;
+    }
+
+    .btn-thr span:nth-child(1)::before,
+    .btn-thr span:nth-child(3)::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      display: block;
+      width: 5%;
+      height: 100%;
+      background: #0c002b;
+      transform: skew(60deg);
+      z-index: 999;
+    }
+
+    .btn-thr span:nth-child(1)::before {
+      left: 35%;
+    }
+
+    .btn-thr span:nth-child(2) {
+      top: 0;
+      right: 0;
+      width: 2px;
+      height: 100%;
+    }
+
+    .btn-thr span:nth-child(3) {
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%);
+      width: 300%;
+      height: 2px;
+    }
+
+    .btn-thr span:nth-child(3)::before {
+      right: 35%;
+    }
+
+    .btn-thr span:nth-child(4) {
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 100%;
+    }
+
+    .btn-thr:hover span:nth-child(1) {
+      transform: translate(-26%);
+    }
+
+    .btn-thr:hover span:nth-child(3) {
+      transform: translate(-74%);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="btn-thr">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    Button
+  </div>
+</body>
+
+</html>

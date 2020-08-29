@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    body{margin: 0; padding: 0;}
+    #box{background: black; display: block;}/* canvas为inline */
+    </style>
+</head>
+<body>
+    <canvas id="box" ></canvas>
+    <script>
+    var a = document.getElementById('box');
+    var W = window.innerWidth;
+    var H = window.innerHeight;
+    a.width = W;//如果用a.style.width会出现模糊显现，关于高度自适应问题
+    a.height = H;
+    //设置canvas元素的宽高与浏览器一样
+    window.onresize = function(){//监控可视区的大小，动态调整画布的大小
+        W = window.innerWidth;
+        H = window.innerHeight;
+        a.width = W;
+        a.height = H;
+        
+    }  
+    // //开始绘制图形(矩形、圆形)
+    var can = a.getContext('2d');//首先获取画画的宣纸
+    
+    
+    // can.fillStyle = 'red';//拿到笔 fill画实心
+    // can.fillRect(0,0,100,100);//rect矩形前两个值为左上角的位置，后两个值为所画矩形的宽高
+    
+    
+    // can.strokeStyle = 'blue';
+    // can.strokeRect(100,100, 10, 10);//画空心
+
+    // //画圆，圆心作为标识
+    // can.arc(200,50, 50, 0, Math.PI*2);//先构思
+    // // can.fill();//开始画实心圆(x, y, r, 绘制起始点， 绘制的终点)
+    // can.stroke();//画空心圆
+
+
+
+    //怎么实现动画  用定时器  屏幕刷新之前完成计算和渲染
+    /*var t = 0;
+    setInterval(function(){
+        //can.clearRect(0,0,W,H);//擦一个矩形区域  前两个数为左上角，后两个数为右下角
+        can.fillStyle = 'rgba(0,0,0,0.1)';
+        can.fillRect(0,0,W,H);//绘制雨滴(造毛玻璃)
+        can.fillStyle = 'blue';//拿到笔 fill画实心
+        can.fillRect(100,t++,1,11);//改变位置
+    },1000/60)
+*/
+    function Rain(){
+        
+    };//用构造函数生成很多雨滴(面向对象)
+
+    function raindom(min, max){
+        return Math.random()*(max - min) + min;//随机生成0-w之间的值
+    }
+
+    var rainArry = [];//将每一个生成的雨滴存起来
+
+    function creatRain(){
+        var rain = new Rain();
+        rain.init();
+        rain.draw();
+        rainArry.push(rain);
+    }
+    Rain.prototype = {
+        init:function(){//雨滴最基础的配置
+            this.x=raindom(0, W);//初始x位置不同
+            this.y=0;
+            this.v = raindom(4,5);//速度
+            this.h = raindom(0.8*H,0.9*H);//地面的高度随机
+
+            this.r=1;//定义雨滴的初始半径
+            this.vr = raindom(1,2)//半径扩散速度
+
+            this.b = 1;//涟漪的透明度
+            this.vb = 0.96//透明度变化速率
+        },
+        draw:function(){
+            
+            if(this.y < this.h){//判断是否到达地面了
+                can.fillStyle = 'blue';//拿到笔 fill画实心
+                can.fillRect(this.x,this.y,3,3);//生成雨滴
+            }
+            else{//画涟漪
+                can.strokeStyle = 'rgba(0,0,255,'+this.b+')';
+                can.beginPath();//重新拿起笔，一个笔画多个会连起来
+                can.arc(this.x,this.y, this.r, 0, Math.PI*2);//先构思
+                // can.fill();//开始画实心圆(x, y, r, 绘制起始点， 绘制的终点)
+                can.stroke();
+            }
+        },
+        move:function(){
+            
+            
+            if(this.y < this.h){//判断是否到达地面了
+                this.y += this.v;
+            }
+            else{
+                if(this.b > 0.02){
+                    this.r += this.vr;
+                    if(this.r>50){
+                        this.b *= this.vb;
+                    }
+                    
+                }
+                else{
+                    this.init();
+                }
+            }
+
+            this.draw();//在制造雨滴
+        }
+    }
+    
+    for(var i=0;i<9999;i++){//一个坑，for里面的定时器
+        setTimeout(creatRain,200*i);
+    }
+    
+
+    function moveRain(){//每个雨滴的移动
+        can.fillStyle = 'rgba(0,0,0,0.1)';
+        can.fillRect(0,0,W,H);//绘制雨滴(造毛玻璃)
+        for(var k=0;k<rainArry.length;k++){
+            rainArry[k].move();
+        }
+    }
+    setInterval(moveRain,1000/60)
+    </script>
+</body>
+</html>

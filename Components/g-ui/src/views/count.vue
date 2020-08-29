@@ -1,5 +1,5 @@
 <template>
-  <div class="home-alert">
+  <div class="count">
     <!-- 计数器 -->
     <g-count @g-countNum="handleGetCountNum"></g-count>
   </div>
@@ -22,3 +22,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+.count {
+  display: inline-block;
+  background: #dddddd;
+}
+</style>

@@ -9,13 +9,16 @@
       class="swiper-left flex-center-center"
       @click="handleClickPre"
       v-if="PreNextShow && index > 0"
-    >&lt;</div>
+    >
+      <img src="./prev.png">
+    </div>
     <div
       class="swiper-right flex-center-center"
       @click="handleClickNext"
       v-if="PreNextShow && index < (_self.imglist.length - 1)"
     >
-      &gt;</div>
+      <img src="./next.png">
+    </div>
     <ul class="swiper-circles">
       <li
         @click="handleClickIndex(idx)"
@@ -28,7 +31,7 @@
     <div
       class="swiper-images"
       ref="swiperImages"
-      :style="'left:' + -(index * 600) + 'px;transition: 1s;'"
+      :style="'left:' + -(index * moveWidth) + 'px;transition: 1s;'"
       @touchstart="handleTouchStart"
       @touchmove="handleTouchMove"
       @touchend="handleTouchEnd"
@@ -55,7 +58,8 @@ export default {
       // 移动初始位置
       startX: 0,
       // 移动移动位置
-      moveX: 0
+      moveX: 0,
+      moveWidth: 0
     };
   },
   mounted() {
@@ -63,6 +67,7 @@ export default {
     _self.autoplay();
     _self.$nextTick(function() {
       // console.log(_self.$refs.swiper.clientWidth);
+      _self.moveWidth = _self.$refs.swiper.clientWidth;
       _self.$refs.swiperImages.style.width =
         _self.$refs.swiper.clientWidth * _self.imglist.length + "px";
       var imgs = document.querySelectorAll(".swiper-images img");
@@ -149,11 +154,17 @@ export default {
       if (Math.abs(_self.moveX) > 50) {
         if (_self.moveX > 0) {
           idx = _self.index - 1;
-          _self.throttle(idx, 1000);
+          if (idx < 0 || idx >= _self.imglist.length) {
+            return false;
+          }
+          _self.index = idx;
         } else {
           // _self.index++;
           idx = _self.index + 1;
-          _self.throttle(idx, 1000);
+          if (idx < 0 || idx >= _self.imglist.length) {
+            return false;
+          }
+          _self.index = idx;
         }
       }
       // 初始化 位置坐标
@@ -189,8 +200,8 @@ li {
 
 .swiper {
   position: relative;
-  width: 600px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -199,14 +210,17 @@ li {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  width: 50px;
-  height: 100px;
+  width: 10%;
+  height: 25%;
   background-color: rgba(0, 0, 0, 0.5);
   color: #ffffff;
   z-index: 10;
   cursor: pointer;
 }
-
+.swiper-left img,
+.swiper-right img {
+  width: 100%;
+}
 .swiper-left {
   left: 0;
 }
@@ -217,16 +231,16 @@ li {
 
 .swiper-circles {
   position: absolute;
-  bottom: 10px;
-  right: 50px;
+  bottom: 5%;
+  right: 5%;
   z-index: 10;
   cursor: pointer;
 }
 
 .swiper-circles li {
   float: left;
-  width: 20px;
-  height: 20px;
+  width: 1.45rem;
+  height: 1.45rem;
   background-color: #000000;
   border-radius: 50%;
   margin: 0 5px;

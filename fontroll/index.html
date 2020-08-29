@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="UTF-8">
+	<title>3d 文字在两个盒子循环滚动</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.fontroll {
+			position: relative;
+			width: 300px;
+			height: 200px;
+			margin: 50px auto;
+			/*transform: translateZ(300px) rotateY(60deg);*/
+			transform-style: preserve-3d;
+			perspective: 1000px;
+		}
+
+		.fontroll_l,
+		.fontroll_r {
+			overflow: hidden;
+			position: absolute;
+			top: 0;
+			width: 600px;
+			height: 150px;
+			line-height: 150px;
+			font-size: 50px;
+			color: #fff;
+		}
+
+		.fontroll_l {
+			left: -300px;
+			background-color: purple;
+			transform: rotateY(-60deg);
+		}
+
+		.fontroll_r {
+			right: -300px;
+			background-color: pink;
+			transform: rotateY(60deg);
+		}
+
+		@keyframes move {
+			0% {
+				transform: translateX(600px);
+			}
+
+			100% {
+				transform: translateX(-600px);
+			}
+		}
+
+		.fontroll_r span,
+		.fontroll_l span {
+			display: block;
+			transform: translateX(600px);
+			animation: move 1.5s linear infinite;
+		}
+
+		.fontroll_l span {
+			animation-delay: 0.75s;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="fontroll">
+		<div class="fontroll_l"><span>祁阳第一卤粉</span></div>
+		<div class="fontroll_r"><span>祁阳第一卤粉</span></div>
+	</div>
+</body>
+
+</html>

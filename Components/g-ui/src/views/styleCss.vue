@@ -47,6 +47,47 @@
     </div>
     <!-- 按钮效果 第四种 -->
     <div class="btn-four">sunbutton</div>
+    <!-- 太极 -->
+    <div class="taiji"></div>
+    <!-- 两面翻转 -->
+    <div class="overturn-box">
+      <div class="overturn">
+        <div class="overturn-front">111</div>
+        <div class="overturn-back">aaa</div>
+      </div>
+    </div>
+    <!-- 文字滚动 -->
+    <div class="fontroll">
+      <div class="fontroll_l"><span>祁阳第一卤粉</span></div>
+      <div class="fontroll_r"><span>祁阳第一卤粉</span></div>
+    </div>
+    <!-- 3d导航栏 -->
+    <ul class="navbar">
+      <li class="navbar-list">
+        <div class="navbar-list-item">
+          <div class="navbar-list-item-front">湖南</div>
+          <div class="navbar-list-item-back">祁阳</div>
+        </div>
+      </li>
+      <li class="navbar-list">
+        <div class="navbar-list-item">
+          <div class="navbar-list-item-front">湖南</div>
+          <div class="navbar-list-item-back">祁阳</div>
+        </div>
+      </li>
+      <li class="navbar-list">
+        <div class="navbar-list-item">
+          <div class="navbar-list-item-front">湖南</div>
+          <div class="navbar-list-item-back">祁阳</div>
+        </div>
+      </li>
+      <li class="navbar-list">
+        <div class="navbar-list-item">
+          <div class="navbar-list-item-front">湖南</div>
+          <div class="navbar-list-item-back">祁阳</div>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 <script>
@@ -523,5 +564,162 @@ export default {
   100% {
     background-position: 400% 0;
   }
+}
+/* 太极 */
+.taiji {
+  position: relative;
+  width: 200px;
+  height: 400px;
+  border-left: 200px solid #000;
+  background-color: #fff;
+  border-radius: 50%;
+  animation: rotat 1s linear infinite;
+}
+@keyframes rotat {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.taiji::before,
+.taiji::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin-left: -100px;
+  border-radius: 50%;
+}
+.taiji::before {
+  border: 75px solid #000;
+  background-color: #fff;
+}
+.taiji::after {
+  border: 75px solid #fff;
+  background-color: #000;
+}
+/* 两面翻转 */
+.overturn {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  transition: all 1s linear;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+.overturn-front,
+.overturn-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 300px;
+  color: #fff;
+  border-radius: 50%;
+}
+.overturn-front {
+  background-color: pink;
+  z-index: 1;
+}
+.overturn-back {
+  background-color: purple;
+  transform: rotateY(180deg);
+}
+.overturn-box {
+  display: inline-block;
+}
+.overturn-box:hover .overturn {
+  transform: rotateY(180deg);
+}
+/* 文字滚动 */
+.fontroll {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin: 50px auto;
+  /*transform: translateZ(300px) rotateY(60deg);*/
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+.fontroll_l,
+.fontroll_r {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 600px;
+  height: 150px;
+  line-height: 150px;
+  font-size: 50px;
+  color: #fff;
+}
+.fontroll_l {
+  left: -300px;
+  background-color: purple;
+  transform: rotateY(-60deg);
+}
+.fontroll_r {
+  right: -300px;
+  background-color: pink;
+  transform: rotateY(60deg);
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(600px);
+  }
+  100% {
+    transform: translateX(-600px);
+  }
+}
+.fontroll_r span,
+.fontroll_l span {
+  display: block;
+  transform: translateX(600px);
+  animation: move 1.5s linear infinite;
+}
+.fontroll_l span {
+  animation-delay: 0.75s;
+}
+/* 3d导航栏 */
+.navbar .navbar-list {
+  list-style: none;
+  float: left;
+  perspective: 1000px;
+}
+.navbar-list-item {
+  position: relative;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  transform-style: preserve-3d;
+  transition: all 0.5s linear;
+  cursor: pointer;
+}
+.navbar-list-item-front,
+.navbar-list-item-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.navbar-list-item-front {
+  background-color: pink;
+  z-index: 1;
+  transform: translateZ(15px);
+}
+.navbar-list-item-back {
+  background-color: purple;
+  transform: translateY(15px) rotateX(-90deg);
+}
+.navbar-list-item:hover {
+  transform: rotateX(90deg);
 }
 </style>

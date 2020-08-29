@@ -119,25 +119,31 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background: #dddddd;
 }
+/* .home-alert {
+  background: #dddddd;
+} */
 .home-left {
-  width: 250px;
+  width: 15.625rem;
   height: 100%;
-  box-shadow: 0 0 5px #222222;
+  box-shadow: 0 0 0.3125rem #222222;
   overflow-y: auto;
 }
 .home-right {
   flex: 1;
   height: 100%;
-  padding: 50px 30px 30px 30px;
+  padding: 3.125rem 1.875rem 1.875rem 1.875rem;
   box-sizing: border-box;
   overflow-y: auto;
 }
 .home-left-item {
-  height: 35px;
-  line-height: 35px;
+  width: 100%;
+  height: 2.5rem;
+  line-height: 2.5rem;
   border-bottom: 1px solid #000000;
   cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 </style>

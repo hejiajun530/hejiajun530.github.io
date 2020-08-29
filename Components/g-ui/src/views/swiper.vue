@@ -8,12 +8,13 @@
       ></g-swiper>
     </div>
     <!-- 动画函数 轮播图 -->
-    <div style="width: 1000px;height: 450px;margin: 10px auto;">
+    <div class="banner-new">
       <g-swiperAnima
         :imglist="swiperAnimaImg"
         :configs="configs"
       ></g-swiperAnima>
     </div>
+    <h1 style="text-align: left;">该轮播图中图片不自适应，需手动配置</h1>
   </div>
 </template>
 <script>
@@ -24,7 +25,7 @@ export default {
     return {
       configs: [
         {
-          width: 800,
+          width: 350,
           height: 100,
           top: 0,
           left: -50,
@@ -33,8 +34,8 @@ export default {
           zIndex: 2
         }, //0
         {
-          width: 800,
-          height: 300,
+          width: 350,
+          height: 250,
           top: 50,
           left: -100,
           opacity: 0.8,
@@ -42,25 +43,25 @@ export default {
           zIndex: 3
         }, //1
         {
-          width: 800,
-          height: 400,
-          top: 0,
-          left: 200,
+          width: 350,
+          height: 300,
+          top: 25,
+          left: 120,
           opacity: 1,
           transform: "translate(-12.5%, 0) rotateY(0)",
           zIndex: 4
         }, //2
         {
-          width: 800,
-          height: 300,
+          width: 350,
+          height: 250,
           top: 50,
-          left: 500,
+          left: 250,
           opacity: 0.8,
           transform: "translate(-12.5%, 0) rotateY(-45deg)",
           zIndex: 3
         }, //3
         {
-          width: 800,
+          width: 350,
           height: 100,
           top: 0,
           left: 450,
@@ -98,3 +99,13 @@ export default {
   }
 };
 </script>
+<style scoped>
+.banner {
+  width: 31.25rem;
+  height: 21.875rem;
+}
+.banner-new {
+  width: 31.25rem;
+  height: 21.875rem;
+}
+</style>
