@@ -40,7 +40,7 @@
             <div class="iconfont iconyoujiantou nav-item-margin15"></div>
           </div>
           <!-- 子级菜单 -->
-          <div class="nav-item-submenu" v-for="(subitem, idx) in item.sub" :key="idx"><a
+          <div class="nav-item-submenu" v-for="(subitem, idx) in item.sub" :key="idx" @click.stop=""><a
               :href="subitem.router">{{subitem.subname}}</a></div>
         </div>
       </div>
@@ -52,7 +52,7 @@
             <div class="iconfont" :class="item.icon"></div>
           </div>
           <!-- 子级菜单 -->
-          <div class="navSmall-item-submenu">
+          <div class="navSmall-item-submenu" @click.stop="">
             <div class="navSmall-item-submenu-item" v-for="(subitem, idx) in item.sub" :key="idx">
               <a :href="subitem.router">{{subitem.subname}}</a>
             </div>

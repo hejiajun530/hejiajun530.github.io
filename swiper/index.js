@@ -18,7 +18,8 @@ new Vue({
       // 移动初始位置
       startX: 0,
       // 移动移动位置
-      moveX: 0
+      moveX: 0,
+      duration: 3000
     }
   },
   mounted() {
@@ -29,14 +30,14 @@ new Vue({
     // 鼠标 移入 轮播图区域  停止自动播放
     handleMouseEnter() {
       var _self = this;
-      console.log('enter');
+      // console.log("enter");
       _self.PreNextShow = true;
       clearInterval(_self.timeInterval);
     },
     // 鼠标 移出 轮播图区域  开始自动播放
     handleMouseLeave() {
       var _self = this;
-      console.log('leave');
+      // console.log("leave");
       _self.PreNextShow = false;
       clearInterval(_self.timeInterval);
       _self.autoplay();
@@ -45,18 +46,18 @@ new Vue({
     handleClickPre() {
       var _self = this;
       let idx = _self.index - 1;
-      _self.throttle(idx, 1000);
+      _self.index = idx;
     },
     // 下一张
     handleClickNext() {
       var _self = this;
       let idx = _self.index + 1;
-      _self.throttle(idx, 1000);
+      _self.index = idx;
     },
     // 点小圆点移动图片
     handleClickIndex(idx) {
       var _self = this;
-      _self.throttle(idx, 1000);
+      _self.index = idx;
     },
     // 自动轮播
     autoplay() {
@@ -69,72 +70,51 @@ new Vue({
           _self.temp = -1;
         }
         _self.index = _self.index + _self.temp;
-      }, 2000);
-    },
-    // 图片移动 封装
-    throttle(idx, delay) {
-      var _self = this;
-      if (idx < 0) {
-        return false;
-      } else if (idx > _self.imglist.length - 1) {
-        return false;
-      }
-      // 节流
-      // if (!_self.timer) {
-      //   _self.timer = setTimeout(() => {
-      //     console.log(idx);
-      //     _self.index = idx;
-      //     _self.timer = null;
-      //   }, delay);
-      // }
-      // 防抖
-      if (_self.timer !== null) {
-        clearTimeout(_self.timer);
-      } else {
-        _self.index = idx;
-      }
-      _self.timer = setTimeout(() => {
-        console.log(idx);
-        _self.timer = null;
-      }, delay);
+      }, _self.duration);
     },
     // 移动端 手指 初始
-    handleTouchStart (e) {
+    handleTouchStart(e) {
       var _self = this;
       // 手指移开屏幕后 停止自动播放
       clearInterval(_self.timeInterval);
       _self.startX = e.targetTouches[0].clientX;
     },
     // 移动端 手指 移动
-    handleTouchMove (e) {
+    handleTouchMove(e) {
       var _self = this;
-      var images = document.querySelector('.swiper-images');
+      var images = document.querySelector(".swiper-images");
       // 移动位置
       _self.moveX = e.targetTouches[0].clientX - _self.startX;
       // 设置元素随着手指移动而移动
-		  images.style.transition = "none";
-      images.style.transform = "translateX("+_self.moveX+"px)";
+      images.style.transition = "none";
+      images.style.transform = "translateX(" + _self.moveX + "px)";
     },
     // 移动端 手指 结束
-    handleTouchEnd (e) {
+    handleTouchEnd(e) {
       var _self = this;
       var idx = 0;
       // 手指移开屏幕后 开启自动播放
       clearInterval(_self.timeInterval);
       _self.autoplay();
       // 初始化 style
-      var images = document.querySelector('.swiper-images');
-		  images.style.transition = "1s";
+      var images = document.querySelector(".swiper-images");
+      images.style.transition = "1s";
       images.style.transform = "translateX(0px)";
       // 移动位置 超过50 就切换
       if (Math.abs(_self.moveX) > 50) {
         if (_self.moveX > 0) {
           idx = _self.index - 1;
-          _self.throttle(idx, 1000);
+          if (idx < 0 || idx >= _self.imglist.length) {
+            return false;
+          }
+          _self.index = idx;
         } else {
           // _self.index++;
           idx = _self.index + 1;
-          _self.throttle(idx, 1000);
+          if (idx < 0 || idx >= _self.imglist.length) {
+            return false;
+          }
+          _self.index = idx;
         }
       }
       // 初始化 位置坐标
