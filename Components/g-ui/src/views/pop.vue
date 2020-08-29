@@ -44,6 +44,7 @@ export default {
 </script>
 <style scoped>
 .home-alert {
-  padding: 50px 0 0 0;
+  padding: 100px 0 0 0;
+  background: #888888;
 }
 </style>

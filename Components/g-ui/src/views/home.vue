@@ -8,7 +8,7 @@
       <div
         class="home-left-item"
         @click="$router.push('/advert')"
-      >广告</div>
+      >通知</div>
       <div
         class="home-left-item"
         @click="$router.push('/cascader')"
@@ -139,11 +139,14 @@ export default {
 .home-left-item {
   width: 100%;
   height: 2.5rem;
+  text-align: left;
+  padding: 0 0 0 0.9375rem;
   line-height: 2.5rem;
   border-bottom: 1px solid #000000;
-  cursor: pointer;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  cursor: pointer;
+  box-sizing: border-box;
 }
 </style>

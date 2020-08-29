@@ -88,12 +88,29 @@
         </div>
       </li>
     </ul>
+    <!-- canvas 毛玻璃效果 -->
+    <!-- <div class="canvas-flur">
+      <canvas
+        id="canvasflur"
+        ref="canvasflur"
+        width="300"
+        height="200"
+      ></canvas>
+      <img
+        ref="canvasflurImg"
+        src="../assets/bk.jpg"
+      >
+    </div> -->
   </div>
 </template>
 <script>
+// import StackBlur from "../commons/stackblur.js";
 export default {
   data() {
     return {};
+  },
+  mounted() {
+    var _self = this;
   }
 };
 </script>
@@ -721,5 +738,12 @@ export default {
 }
 .navbar-list-item:hover {
   transform: rotateX(90deg);
+}
+/* canvas 毛玻璃效果 */
+.canvas-flur {
+  width: 100%;
+}
+.canvas-flur img {
+  width: 100%;
 }
 </style>
