@@ -321,7 +321,6 @@ ul {
 #calendar {
   position: relative;
   width: 350px;
-  margin: 100px auto;
   padding: 0 15px 15px 15px;
   border-radius: 10px;
   overflow: hidden;
@@ -389,7 +388,7 @@ ul {
 
 .calendar-days li:hover {
   color: #62aba0;
-  background-color: #f6f8f7;
+  background-color: #e6f8fa;
 }
 .calendar-days-li-item-one h4:nth-child(2) {
   font-size: 10px;
@@ -407,7 +406,7 @@ ul {
   color: #ffffff;
 }
 .calendar-days li.activeColor {
-  background-color: #f6f8f7;
+  background-color: #e6f8fa;
   color: #62aba0;
 }
 

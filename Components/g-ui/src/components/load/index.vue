@@ -173,6 +173,7 @@ export default {
   right: 6px;
   bottom: 6px;
   background: #222;
+  filter: blur(2px);
   border-radius: 50%;
   z-index: 1000;
 }

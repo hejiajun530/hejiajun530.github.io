@@ -30,6 +30,10 @@
       class="strong"
       @click="handleClickStrong"
     >缓存时效性</div>
+    <button @click="handleClickCopy('复制11111')">复制</button>
+    <button @click="handleClickCopy('复制22222')">复制</button>
+    <button @click="handleClickCopy('复制33333')">复制</button>
+    <button @click="handleClickCopy('复制55555')">复制</button>
   </div>
 </template>
 <script>
@@ -149,6 +153,7 @@ export default {
       var _self = this;
       _self.saveStrong("test", "存缓存时效性!", 1, "minutes");
     },
+    // 缓存存储
     saveStrong(key, value, time, type) {
       var _self = this;
       if (type == "day") {
@@ -162,6 +167,19 @@ export default {
       setTimeout(() => {
         localStorage.removeItem(key);
       }, time);
+    },
+    // 复制文字
+    handleClickCopy(info) {
+      var _self = this;
+      var spanCreate = document.createElement("input");
+      spanCreate.value = info;
+      document.body.appendChild(spanCreate);
+      spanCreate.select();
+      document.execCommand("Copy");
+      _self.$gMessage({
+        title: "复制成功"
+      });
+      spanCreate.remove();
     }
   }
 };

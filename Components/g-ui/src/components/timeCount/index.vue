@@ -13,13 +13,14 @@ export default {
       Minutes: "",
       Seconds: "",
       startTime: this.nowTime || new Date(),
-      endTime: this.targetTime
+      endTime: this.targetTime,
+      timer: null
     };
   },
   mounted() {
     var _self = this;
     // console.log(_self.startTime, _self.endTime);
-    setInterval(() => {
+    _self.timer = setInterval(() => {
       _self.startTime = _self.AddS(_self.startTime, 1);
     }, 1000);
     _self.dateDiff();
@@ -39,6 +40,11 @@ export default {
       var dateStart = new Date(_self.startTime).getTime();
       var dateEnd = new Date(_self.endTime).getTime();
       // console.log(dateStart, dateEnd);
+      // console.log(dateEnd - dateStart);
+      // if (parseInt(dateEnd - dateStart) <= 0) {
+      //   clearInterval(_self.timer);
+      //   _self.timer = null;
+      // }
       _self.day = parseInt((dateEnd - dateStart) / (1000 * 60 * 60 * 24));
       _self.Hours = _self.towNumber(
         parseInt(((dateEnd - dateStart) / (1000 * 60 * 60)) % 24)
@@ -53,6 +59,11 @@ export default {
     },
     towNumber(num) {
       // console.log(num);
+      if (num < 0) {
+        num = Number(num.toString().substr(1));
+        num = num < 10 ? "0" + num : num;
+        return "-" + num;
+      }
       return num < 10 ? "0" + num : num;
     },
     // 增加一秒

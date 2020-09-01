@@ -1,7 +1,14 @@
 <template>
   <div class="home-alert">
     <!-- 日历 -->
-    <g-rili @g-riliStartTime="handleGetTime"></g-rili>
+    <g-rili
+      class="home-rili"
+      @g-riliStartTime="handleGetTime"
+    ></g-rili>
+    <g-rili
+      class="home-rili"
+      @g-riliStartTime="handleGetTime"
+    ></g-rili>
   </div>
 </template>
 <script>
@@ -22,3 +29,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.home-rili {
+  margin: 50px auto;
+}
+</style>

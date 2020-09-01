@@ -2,6 +2,7 @@
   <div class="home-alert">
     <!-- dateSelect 日期选择器 -->
     <g-dateSelect @g-dateSelectTime="handleGetDateSelectTime"></g-dateSelect>
+    <g-dateSelect @g-dateSelectTime="handleGetDateSelectTime"></g-dateSelect>
   </div>
 </template>
 <script>
