@@ -17,11 +17,48 @@
         <div class="load-rotateRect-content"></div>
       </div> -->
       <!-- 旋转的三条线 -->
-      <div class="load-rotateLine">
+      <!-- <div class="load-rotateLine">
         <div class="load-rotateLine-item"></div>
         <div class="load-rotateLine-item"></div>
         <div class="load-rotateLine-item"></div>
         <div class="load-rotateLine-dot"></div>
+      </div> -->
+      <!-- box-shadow 旋转球 -->
+      <!-- <div class="load-shadow">
+        <div class="load-shadow-content"></div>
+      </div> -->
+      <!-- 三个点 移动球 -->
+      <!-- <div class="load-moveball">
+        <div class="load-moveball-item"></div>
+        <div class="load-moveball-item"></div>
+        <div class="load-moveball-item"></div>
+      </div> -->
+      <!-- 旋转圈 -->
+      <!-- <div class="load-quan">
+        <div class="load-quan-item"></div>
+        <div class="load-quan-item"></div>
+        <div class="load-quan-item"></div>
+      </div> -->
+      <!-- 来回转圈 -->
+      <!-- <div class="load-quanback">
+        <div class="load-quanback-item"></div>
+        <div class="load-quanback-item"></div>
+        <div class="load-quanback-item"></div>
+        <div class="load-quanback-item"></div>
+        <div class="load-quanback-item"></div>
+      </div> -->
+      <!-- 延时转圈 -->
+      <div class="load-quanDelay">
+        <div class="load-quanDelay-item"></div>
+        <div class="load-quanDelay-item"></div>
+        <div class="load-quanDelay-item"></div>
+        <div class="load-quanDelay-item"></div>
+        <div class="load-quanDelay-item"></div>
+        <div class="load-quanDelay-item"></div>
+        <div class="load-quanDelay-item"></div>
+        <div class="load-quanDelay-item"></div>
+        <div class="load-quanDelay-item"></div>
+        <div class="load-quanDelay-item"></div>
       </div>
     </div>
   </div>
@@ -166,6 +203,7 @@ export default {
     height: 0;
   }
 } */
+/* 旋转的三条线
 .load-rotateLine {
   position: absolute;
   top: 50%;
@@ -230,6 +268,266 @@ export default {
   100% {
     transform: translate(-50%, -50%) rotateX(35deg) rotateY(55deg)
       rotate(360deg);
+  }
+} */
+/* box-shadow 旋转球
+.load-shadow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+}
+.load-shadow-content {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ffffff;
+  animation: rotateShadow 1.5s ease infinite;
+}
+@keyframes rotateShadow {
+  0% {
+    transform: rotate(0);
+    box-shadow: 0 0 0 #ffffff, 0 0 0 #ffffff, 0 0 0 #ffffff, 0 -0 0 #ffffff,
+      0 -0 0 #ffffff, 0 0 0 #ffffff, -0 -0 0 #ffffff, -0 0 0 #ffffff;
+  }
+  25%,
+  75% {
+    box-shadow: 50px 50px 0 #ffffff, -50px 50px 0 #ffffff, 0 70px 0 #ffffff,
+      0 -70px 0 #ffffff, 50px -50px 0 #ffffff, 70px 0 0 #ffffff,
+      -50px -50px 0 #ffffff, -70px 0 0 #ffffff;
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    box-shadow: 0 0 0 #ffffff, 0 0 0 #ffffff, 0 0 0 #ffffff, 0 -0 0 #ffffff,
+      0 -0 0 #ffffff, 0 0 0 #ffffff, -0 -0 0 #ffffff, -0 0 0 #ffffff;
+  }
+} */
+/* 三个点 移动球
+.load-moveball {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 30px;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+}
+.load-moveball-item {
+  position: absolute;
+  top: 0;
+  left: 125px;
+  width: 30px;
+  height: 30px;
+  background: #ffffff;
+  animation: moveBall 1.5s linear infinite;
+}
+.load-moveball-item:nth-child(1) {
+  animation-delay: -1s;
+}
+.load-moveball-item:nth-child(2) {
+  animation-delay: -2s;
+}
+.load-moveball-item:nth-child(3) {
+  animation-delay: -3s;
+}
+@keyframes moveBall {
+  0% {
+    transform: translateX(0) rotate(45deg) scale(0);
+  }
+  50% {
+    transform: translateX(-233%) rotate(45deg) scale(1);
+  }
+  100% {
+    transform: translateX(-466%) rotate(45deg) scale(0);
+  }
+} */
+/* 旋转圈
+.load-quan {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+}
+.load-quan-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.load-quan-item:nth-child(1) {
+  width: 10px;
+  height: 10px;
+  animation: rotateQuan1 1.5s linear infinite;
+}
+.load-quan-item:nth-child(2) {
+  width: 70px;
+  height: 70px;
+  animation: rotateQuan2 1.5s linear infinite;
+}
+.load-quan-item:nth-child(3) {
+  width: 100px;
+  height: 100px;
+  animation: rotateQuan3 1.5s linear infinite;
+}
+@keyframes rotateQuan1 {
+  0% {
+    transform: translate(-50%, -50%) rotate(100deg) rotateX(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) rotateX(360deg);
+  }
+}
+@keyframes rotateQuan2 {
+  0% {
+    transform: translate(-50%, -50%) rotate(100deg) rotateX(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0) rotateX(360deg);
+  }
+}
+@keyframes rotateQuan3 {
+  0% {
+    transform: translate(-50%, -50%) rotate(20deg) rotateY(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(100deg) rotateY(360deg);
+  }
+} */
+/* 来回转圈 
+.load-quanback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+}
+.load-quanback-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 5px solid transparent;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotateQuanBack 2s linear infinite;
+  transform: translate(-50%, -50%);
+}
+.load-quanback-item:nth-child(1) {
+  width: 15px;
+  height: 15px;
+  animation-delay: 0;
+}
+.load-quanback-item:nth-child(2) {
+  width: 40px;
+  height: 40px;
+  animation-delay: 0.15s;
+}
+.load-quanback-item:nth-child(3) {
+  width: 60px;
+  height: 60px;
+  animation-delay: 0.3s;
+}
+.load-quanback-item:nth-child(4) {
+  width: 80px;
+  height: 80px;
+  animation-delay: 0.45s;
+}
+.load-quanback-item:nth-child(5) {
+  width: 100px;
+  height: 100px;
+  animation-delay: 0.6s;
+}
+@keyframes rotateQuanBack {
+  50% {
+    transform: translate(-50%, -50%) rotate(360deg) scale(0.7);
+  }
+} */
+.load-quanDelay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+}
+.load-quanDelay-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 2px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotateQuanDelay 2s cubic-bezier(0.68, -0.75, 0.265, 1.75) infinite;
+  transform: translate(-50%, -50%);
+}
+.load-quanDelay-item:nth-child(1) {
+  width: 15px;
+  height: 15px;
+  animation-delay: 0s;
+}
+.load-quanDelay-item:nth-child(2) {
+  width: 25px;
+  height: 25px;
+  animation-delay: 0.05s;
+}
+.load-quanDelay-item:nth-child(3) {
+  width: 35px;
+  height: 35px;
+  animation-delay: 0.1s;
+}
+.load-quanDelay-item:nth-child(4) {
+  width: 45px;
+  height: 45px;
+  animation-delay: 0.15s;
+}
+.load-quanDelay-item:nth-child(5) {
+  width: 55px;
+  height: 55px;
+  animation-delay: 0.2s;
+}
+.load-quanDelay-item:nth-child(6) {
+  width: 65px;
+  height: 65px;
+  animation-delay: 0.25s;
+}
+.load-quanDelay-item:nth-child(7) {
+  width: 75px;
+  height: 75px;
+  animation-delay: 0.3s;
+}
+.load-quanDelay-item:nth-child(8) {
+  width: 85px;
+  height: 85px;
+  animation-delay: 0.35s;
+}
+.load-quanDelay-item:nth-child(9) {
+  width: 95px;
+  height: 95px;
+  animation-delay: 0.4s;
+}
+.load-quanDelay-item:nth-child(10) {
+  width: 5px;
+  height: 5px;
+}
+@keyframes rotateQuanDelay {
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 </style>
