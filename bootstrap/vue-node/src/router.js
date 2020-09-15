@@ -5,8 +5,17 @@ Vue.use(Router)
 
 const routes = [{
   path: '/',
+  redirect: '/posts/list',
   name: 'helloworld',
-  components: () => import('./components/HelloWorld.vue')
+  component: () => import('./components/HelloWorld.vue')
+}, {
+  path: '/posts/list',
+  name: 'editList',
+  component: () => import('./components/editList.vue')
+}, {
+  path: '/posts/edit',
+  name: 'editCeatroy',
+  component: () => import('./components/editCeatroy.vue')
 }]
 
 export default new Router({

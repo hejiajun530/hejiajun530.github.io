@@ -7,12 +7,12 @@
       >
         <el-menu
           router
-          :default-openeds="['1']"
+          :default-active="$route.path"
         >
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-message"></i>分类管理</template>
-            <el-menu-item index="/posts/create">新建分类</el-menu-item>
-            <el-menu-item index="/posts/edit">分类列表</el-menu-item>
+            <el-menu-item index="/posts/edit">新建分类</el-menu-item>
+            <el-menu-item index="/posts/list">分类列表</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
@@ -34,25 +34,7 @@
         </el-header>
 
         <el-main>
-          <el-table :data="tableData">
-            <el-table-column
-              prop="date"
-              label="日期"
-              width="140"
-            >
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="姓名"
-              width="120"
-            >
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="地址"
-            >
-            </el-table-column>
-          </el-table>
+          <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -62,21 +44,8 @@
 export default {
   data() {
     return {
-      tableData: [
-        {
-          date: "2015-07-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }
-      ]
+      tableData: []
     };
-  },
-  created() {
-    var _self = this;
-    _self.$http.get("/ceatroyList").then(res => {
-      console.log(res);
-      _self.tableData = res.data;
-    });
   }
 };
 </script>
