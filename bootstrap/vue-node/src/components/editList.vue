@@ -1,5 +1,11 @@
 <template>
   <div>
+    <el-input
+      class="search"
+      v-model="searchValue"
+      placeholder="请输入搜索内容"
+      @keyup.enter.native="handleKeyUpSearch"
+    ></el-input>
     <el-table :data="tableData">
       <el-table-column
         prop="userName"
@@ -40,7 +46,8 @@
 export default {
   data() {
     return {
-      tableData: []
+      tableData: [],
+      searchValue: ""
     };
   },
   created() {
@@ -49,10 +56,21 @@ export default {
   },
   methods: {
     // 查询数据
+    handleKeyUpSearch() {
+      var _self = this;
+      // console.log(111);
+      _self.$http
+        .get("/getlistName?userName=" + _self.searchValue)
+        .then(res => {
+          console.log(res.data);
+          _self.tableData = res.data;
+        });
+    },
+    // 获取数据
     handleGetList() {
       var _self = this;
       _self.$http.get("/getlist").then(res => {
-        console.log(res);
+        // console.log(res);
         _self.tableData = res.data;
       });
     },
@@ -93,4 +111,7 @@ export default {
 </script>
 
 <style scoped>
+.search {
+  width: 250px;
+}
 </style>

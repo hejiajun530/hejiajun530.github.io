@@ -66,6 +66,18 @@ router.get('/api/getlist', async (req, res) => {
   })
 })
 
+// 根据姓名查询具体数据
+router.get('/api/getlistName', async (req, res) => {
+  const query = req.query.userName
+  // console.log(query)
+  var selectSql = 'select * from user where userName like "%' + query + '%"';
+  cnt.query(selectSql, function (err, result) {
+    if (err) return console.log(err.toString());
+    // console.log(result);
+    res.send(result)
+  })
+})
+
 // 根据id查询数据
 router.get('/api/getlistId/:id', async (req, res) => {
   const query = req.params.id
