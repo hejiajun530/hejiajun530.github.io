@@ -2685,3 +2685,104 @@ stopPropagation: <span class="hljs-keyword">function</span>(event) {
         event.cancelBubble = <span class="hljs-literal">true</span>;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+### MySQL
+//只有一些简单操作   sql 对大小写不敏感
+1.基本命令
+   1.1 查看数据库
+   show databases;
+   1.2 选择数据库
+   use test;//test为数据库名
+   1.3 查看数据库运行状态
+   status
+   1.4 查看数据库中的表
+   show tables;//查看所有的
+   desc table_name;//查看表结构
+   1.5 结束
+   ctrl + c
+
+2.mysql操作
+   2.1 启动mysql
+   mysql -u root -p
+   2.2 关闭mysql
+   exit
+
+3.查询 select
+   3.1 查看所有
+   select * from table_name;
+   3.2 查看指定列
+   select table_column1, table_column2... from table_name;
+   3.3 返回不重复的数据 distinct
+   select distinct table_column from table_name;
+   3.4 有条件的查询 where
+   select * from table_name where table_column = 'xxx';
+      3.4.1 操作符
+      =等于   <>不等于    >大于   <小于   >=大于等于    <=小于等于    between取两值之间    like通配符
+      3.4.2 and 和 or 运算符
+      between 需要和 and 搭配使用
+      select * from table_name from table_column1 = 'xx' and table_column2 = 'xx';//两个条件都符合才会返回值
+      select * from table_name from table_column1 = 'xx' or table_column2 = 'xx';//两个条件只要满足一个就返回值
+      3.4.3 排序 order by
+      asc 从小到大    desc 从大到小
+      select * from table_name order by table_column asc;//asc 可以省略
+      select * from table_name order by table_column1 asc, table_column2 desc;
+      3.4.4 in 操作符
+      SELECT column_name(s) FROM table_name WHERE column_name IN (value1,value2,...);
+      选取姓氏为 Adams 和 Carter 的人
+      SELECT * FROM Persons WHERE LastName IN ('Adams','Carter');
+      3.4.5 betwwen
+      select * from talbe_name where age between '19' and '30';
+      3.4.6 as 别名
+      select name as '姓名', age as '年龄' from user;
+4.1 插入数据 insert into
+insert into table_name values(列1,列2...);
+insert into table_name (列1名称, 列2名称...) values (列1,列2...);//在指定的列插入数据
+5.1 更新数据 update
+update table_name set 列名称 = 新值 where 列名称 = 某值;
+update user set userName = '张三', userSex = '男' where userId = 1;
+6.1 删除数据 delete
+删除所有行
+delete from table_name;  或  delete * from table_name;
+删除某行
+delete from table_name where id = 1;
+7.1 通配符 %  []  _
+select * from table_name where name like '%三%';//可以返回所有名字带有 三 的数据
+%	替代一个或多个字符
+_	仅替代一个字符
+[abc]	字符列中的任何单一字符
+[^abc] 或者 [!abc]   不在字符列中的任何单一字符
+SELECT * FROM Persons WHERE FirstName LIKE '_eorge';//第一个字符之后是 "eorge"
+8.1 创建数据库
+create database database_name;
+9.1 创建数据库表
+create table table_name (
+   column_name1 datatype,//列名称  数据类型
+   column_name2 datatype,...
+)
+integer(size)/int(size)/smallint(size)/tinyint(size)   仅容纳整数。在括号内规定数字的最大位数。
+decimal(size,d)/numeric(size,d)   容纳带有小数的数字。"size" 规定数字的最大位数。"d" 规定小数点右侧的最大位数。
+char(size)	  容纳固定长度的字符串（可容纳字母、数字以及特殊字符）。在括号中规定字符串的长度。
+varchar(size)	  容纳可变长度的字符串（可容纳字母、数字以及特殊的字符）。在括号中规定字符串的最大长度。
+date(yyyymmdd)	  容纳日期。
+10.1 约束
+not null   不为空  Id int NOT NULL
+unique   唯一性   UNIQUE (Id)  或者   Id int NOT NULL UNIQUE
+primary key   主键   PRIMARY KEY (Id)  或者   Id int NOT NULL PRIMARY KEY
+foreign key   外键   FOREIGN KEY (Id_P) REFERENCES Persons(Id_P) 前提条件，两个表都有着个字段Id_P
+check   约束   CHECK (Id_P>0)  或者   Id_P int NOT NULL CHECK (Id_P>0)
+default    默认约束
+11.1 auto increment 字段  自动创建主键字段的值
+P_Id int PRIMARY KEY IDENTITY
+ALTER TABLE Persons AUTO_INCREMENT=100  设置主键初始值为100，一般初始值为1
+12.1
+curdate timestamp not null default current_timestamp 每次添加数据会自动记录添加数据时的时间
