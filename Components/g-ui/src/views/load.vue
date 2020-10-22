@@ -5,50 +5,58 @@
     <button @click="handleClickLoadShow2">loading样式2</button>
     <button @click="handleClickLoadShow3">loading样式3</button>
     <button @click="handleClickLoadShow4">loading样式4</button>
-    <div class="load-mask">
-      <!-- 三个点 省略号 -->
-      <!-- <div class="load-ellipsis">
+    <button @click="handleClickLoadShow5">loading样式5</button>
+    <button @click="handleClickLoadShow6">loading样式6</button>
+    <button @click="handleClickLoadShow7">loading样式7</button>
+    <button @click="handleClickLoadShow8">loading样式8</button>
+    <button @click="handleClickLoadShow9">loading样式9</button>
+    <button @click="handleClickLoadShow10">loading样式10</button>
+    <button @click="handleClickLoadShow11">loading样式11</button>
+    <button @click="handleClickLoadShow12">loading样式12</button>
+    <!-- <div class="load-mask"> -->
+    <!-- 三个点 省略号 -->
+    <!-- <div class="load-ellipsis">
         <div class="load-ellipsis-item"></div>
         <div class="load-ellipsis-item"></div>
         <div class="load-ellipsis-item"></div>
       </div> -->
-      <!-- 旋转的方块 -->
-      <!-- <div class="load-rotateRect">
+    <!-- 旋转的方块 -->
+    <!-- <div class="load-rotateRect">
         <div class="load-rotateRect-content"></div>
       </div> -->
-      <!-- 旋转的三条线 -->
-      <!-- <div class="load-rotateLine">
+    <!-- 旋转的三条线 -->
+    <!-- <div class="load-rotateLine">
         <div class="load-rotateLine-item"></div>
         <div class="load-rotateLine-item"></div>
         <div class="load-rotateLine-item"></div>
         <div class="load-rotateLine-dot"></div>
       </div> -->
-      <!-- box-shadow 旋转球 -->
-      <!-- <div class="load-shadow">
+    <!-- box-shadow 旋转球 -->
+    <!-- <div class="load-shadow">
         <div class="load-shadow-content"></div>
       </div> -->
-      <!-- 三个点 移动球 -->
-      <!-- <div class="load-moveball">
+    <!-- 三个点 移动球 -->
+    <!-- <div class="load-moveball">
         <div class="load-moveball-item"></div>
         <div class="load-moveball-item"></div>
         <div class="load-moveball-item"></div>
       </div> -->
-      <!-- 旋转圈 -->
-      <!-- <div class="load-quan">
+    <!-- 旋转圈 -->
+    <!-- <div class="load-quan">
         <div class="load-quan-item"></div>
         <div class="load-quan-item"></div>
         <div class="load-quan-item"></div>
       </div> -->
-      <!-- 来回转圈 -->
-      <!-- <div class="load-quanback">
+    <!-- 来回转圈 -->
+    <!-- <div class="load-quanback">
         <div class="load-quanback-item"></div>
         <div class="load-quanback-item"></div>
         <div class="load-quanback-item"></div>
         <div class="load-quanback-item"></div>
         <div class="load-quanback-item"></div>
       </div> -->
-      <!-- 延时转圈 -->
-      <div class="load-quanDelay">
+    <!-- 延时转圈 -->
+    <!-- <div class="load-quanDelay">
         <div class="load-quanDelay-item"></div>
         <div class="load-quanDelay-item"></div>
         <div class="load-quanDelay-item"></div>
@@ -59,8 +67,8 @@
         <div class="load-quanDelay-item"></div>
         <div class="load-quanDelay-item"></div>
         <div class="load-quanDelay-item"></div>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
   </div>
 </template>
 <script>
@@ -97,6 +105,70 @@ export default {
     handleClickLoadShow4() {
       var _self = this;
       _self.$gLoad(true, 4);
+      setTimeout(function() {
+        _self.$gLoad(false);
+      }, 3000);
+    },
+    // 显示loading5
+    handleClickLoadShow5() {
+      var _self = this;
+      _self.$gLoad(true, 5);
+      setTimeout(function() {
+        _self.$gLoad(false);
+      }, 3000);
+    },
+    // 显示loading6
+    handleClickLoadShow6() {
+      var _self = this;
+      _self.$gLoad(true, 6);
+      setTimeout(function() {
+        _self.$gLoad(false);
+      }, 3000);
+    },
+    // 显示loading7
+    handleClickLoadShow7() {
+      var _self = this;
+      _self.$gLoad(true, 7);
+      setTimeout(function() {
+        _self.$gLoad(false);
+      }, 3000);
+    },
+    // 显示loading8
+    handleClickLoadShow8() {
+      var _self = this;
+      _self.$gLoad(true, 8);
+      setTimeout(function() {
+        _self.$gLoad(false);
+      }, 3000);
+    },
+    // 显示loading9
+    handleClickLoadShow9() {
+      var _self = this;
+      _self.$gLoad(true, 9);
+      setTimeout(function() {
+        _self.$gLoad(false);
+      }, 3000);
+    },
+    // 显示loading10
+    handleClickLoadShow10() {
+      var _self = this;
+      _self.$gLoad(true, 10);
+      setTimeout(function() {
+        _self.$gLoad(false);
+      }, 3000);
+    },
+    // 显示loading11
+    handleClickLoadShow11() {
+      var _self = this;
+      _self.$gLoad(true, 11);
+      setTimeout(function() {
+        _self.$gLoad(false);
+      }, 3000);
+    },
+    // 显示loading12
+    handleClickLoadShow12() {
+      var _self = this;
+      _self.$gLoad(true, 12);
       setTimeout(function() {
         _self.$gLoad(false);
       }, 3000);
@@ -152,6 +224,7 @@ export default {
     opacity: 0;
   }
 } */
+
 /* 旋转的方块
 .load-rotateRect {
   position: absolute;
@@ -203,6 +276,7 @@ export default {
     height: 0;
   }
 } */
+
 /* 旋转的三条线
 .load-rotateLine {
   position: absolute;
@@ -270,6 +344,7 @@ export default {
       rotate(360deg);
   }
 } */
+
 /* box-shadow 旋转球
 .load-shadow {
   position: absolute;
@@ -308,6 +383,7 @@ export default {
       0 -0 0 #ffffff, 0 0 0 #ffffff, -0 -0 0 #ffffff, -0 0 0 #ffffff;
   }
 } */
+
 /* 三个点 移动球
 .load-moveball {
   position: absolute;
@@ -347,6 +423,7 @@ export default {
     transform: translateX(-466%) rotate(45deg) scale(0);
   }
 } */
+
 /* 旋转圈
 .load-quan {
   position: absolute;
@@ -404,6 +481,7 @@ export default {
     transform: translate(-50%, -50%) rotate(100deg) rotateY(360deg);
   }
 } */
+
 /* 来回转圈 
 .load-quanback {
   position: absolute;
@@ -456,7 +534,9 @@ export default {
     transform: translate(-50%, -50%) rotate(360deg) scale(0.7);
   }
 } */
-.load-quanDelay {
+
+/* 延时转圈 */
+/* .load-quanDelay {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -529,5 +609,5 @@ export default {
   100% {
     transform: translate(-50%, -50%) rotate(360deg);
   }
-}
+} */
 </style>

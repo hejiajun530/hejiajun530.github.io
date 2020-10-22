@@ -11,6 +11,7 @@
 10.canvas
 11.typescript
 12.WebScoket
+13.mysql
 
 
 ### less基本用法:
