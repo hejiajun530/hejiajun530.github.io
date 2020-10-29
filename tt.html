@@ -1,0 +1,144 @@
+<!DOCTYPE>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>模仿笔画</title>
+  <style type="text/css">
+    #_canvas {
+      background-color: rgb(240, 240, 240);
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="_canvas" width="500" height='500'>sorry, your broswer does not support html5!</canvas>
+
+  <script type="text/javascript">
+    // var canvas_ = document.getElementById("_canvas");
+    // var context = canvas_.getContext("2d");
+    // //线条设置
+    // context.strokeStyle = "red";
+    // context.lineWidth = 2;
+
+    // //线条数组
+    // var array_paint = [];
+
+    //背景图
+    // var img = new Image()
+    // img.src = "https://img2018.cnblogs.com/blog/1250245/201809/1250245-20180917162958202-1506166345.png"
+    // context.drawImage(img, 0, 0);
+
+    var cv = document.getElementById("_canvas");
+    var ctx = cv.getContext('2d');
+    var width = cv.width = window.innerWidth;
+    var height = cv.height = window.innerHeight;
+
+    var percision = 500;// 让 心型 更圆滑
+    function Heart(x, y, size) {
+      this.x = x || Math.random() * width;
+      this.y = y || Math.random() * height;
+      this.size = size || Math.random() * 2 + 1;
+      //this.rotate = (this.speedx / this.speedy) * 100; //旋转度数
+      this.vertices = new Array();//存放爱心坐标数组
+      for (var i = 0; i < percision; i++) {
+        var t = Math.PI * 2 * (i / percision - 0.5);
+        var tx = 12 * Math.sin(t) - 4 * Math.sin(3 * t);
+        var ty = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+        this.vertices.push({ x: tx, y: -ty });
+      }
+      this.draw = function () {
+        ctx.translate(this.x, this.y); //偏移绘制原点
+        ctx.beginPath(); //开始绘制
+        //ctx.rotate(this.rotate); //旋转
+        ctx.scale(this.size, this.size); //缩放
+        this.vertices.forEach(element => {
+          ctx.lineTo(element.x, element.y); //绘制轮廓
+        });
+        ctx.fillStyle = "red";//填充颜色
+        ctx.closePath(); //结束绘制
+        ctx.fill(); //填充轮廓
+        ctx.restore(); //返回之前保存过的路径状态和属性
+      }
+    }
+    new Heart(200, 200, 2).draw();
+
+    // function paint() {
+    //   context.beginPath();
+    //   context.moveTo(array_paint[0][0], array_paint[0][1]);
+    //   if (array_paint.length == 1)
+    //     context.lineTo(array_paint[0][0] + 1, array_paint[0][1] + 1);
+    //   else {
+    //     var i = 1;
+    //     for (i in array_paint) {
+    //       context.lineTo(array_paint[i][0], array_paint[i][1]);
+    //       context.moveTo(array_paint[i][0], array_paint[i][1]);
+    //     }
+
+    //   }
+    //   context.closePath();
+    //   context.stroke();
+    // }
+
+    // let num = -1;
+    // let timer = null;
+    // let list = []
+    // //创建坐标
+    // list = heartShape(20, 50, 20)
+
+    // function people() {
+    //   num++;
+    //   var imgpeople = new Image()
+    //   imgpeople.src = "https://ws1.sinaimg.cn/large/0065nu1aly1fvcmafdhe6j305k05k3ye.jpg"
+    //   context.drawImage(imgpeople, list[num].current_x * 500 / 100 - 10, list[num].current_y * 500 / 100 - 20, 20,
+    //     20);
+    //   context.clearRect(0, 0, screen.width, screen.height);
+    //   context.drawImage(img, 0, 0);
+
+    //   console.log(list[num].current_x * 500 / 100);
+    //   if (num < list.length - 1) {
+    //     let current_x = (Math.random() * 100).toFixed(2);
+    //     let current_y = (Math.random() * 100).toFixed(2);
+    //     array_paint.push([list[num].current_x * 500 / 100, list[num].current_y * 500 / 100]);
+    //     paint();
+    //     if (num > 0) {
+    //       context.drawImage(imgpeople, list[num].current_x * 500 / 100 - 10, list[num].current_y * 500 / 100 -
+    //         20, 20, 20);
+    //     }
+    //   } else {
+    //     array_paint = [];
+    //     for (var i = 0; i < list.length; i++) {
+    //       array_paint.push([list[i].current_x * 500 / 100, list[i].current_y * 500 / 100]);
+    //       paint();
+    //       context.drawImage(imgpeople, list[num].current_x * 500 / 100 - 10, list[num].current_y * 500 / 100 -
+    //         20, 20, 20);
+    //     }
+    //     clearInterval(timer);
+    //   }
+
+    // }
+
+    // timer = setInterval(people, 50)
+
+    // function heartShape(r, dx, dy) { //r:大小;dx:水平偏移;dy:垂直偏移;c:颜色
+    //   var m, n, x, y, i;
+    //   let arr = [];
+    //   for (i = 0; i <= 7.9; i += 0.04) {
+    //     m = i;
+    //     n = -r * (((Math.sin(i) * Math.sqrt(Math.abs(Math.cos(i)))) / (Math.sin(i) + 1.4)) - 2 * Math.sin(i) +
+    //       2);
+    //     x = n * Math.cos(m) + dx;
+    //     y = n * Math.sin(m) + dy;
+    //     arr.push({
+    //       current_x: x,
+    //       current_y: y
+    //     })
+    //   }
+    //   return arr
+    // }
+  </script>
+</body>
+
+</html>

@@ -101,7 +101,7 @@ function animation() {
   requestAnimationFrame(animation);
   // ctx.clearRect(0, 0, canvas.width, canvas.height);
   // 每一帧给之前的帧蒙上一层透明的白色
-  ctx.fillStyle ='rgba(255, 255, 255, 0.1)';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   for (let b of ballArray) {
     b.update();
