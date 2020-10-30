@@ -13,8 +13,8 @@
 
     body {
       height: 100vh;
-      background: url(./img/bk.jpg) no-repeat;
-      background-size: 100% 100%;
+      background: url(./img/12.jpg) no-repeat center center;
+      background-size: 100%;
       overflow: hidden;
     }
 
@@ -55,12 +55,37 @@
       background-color: #ffffff;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
     }
+
+    .toNext {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      z-index: 9999;
+      animation: rotateImg 3s linear infinite;
+    }
+
+    @keyframes rotateImg {
+      0% {
+        transform: rotate(0);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 
 <body>
+  <a href="./canvas-phote.html">
+    <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3742267843,2369280170&fm=11&gp=0.jpg"
+      class="toNext">
+  </a>
   <div id="down"></div>
-  <script src="./jq/jquery-3.4.1.min.js"></script>
+  <script src="./js/jquery-3.4.1.min.js"></script>
   <script>
     $(function () {
       var width = $(window).width();

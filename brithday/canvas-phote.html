@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script type="text/javascript">
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+  canvas.width = width;
+  canvas.height = height;
+  // 随机数-整数
+  function randomNum(max, min) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  // 随机数-小数
+  function randomFloatNum(max, min) {
+    return Math.random() * (max - min + 1) + min;
+  }
+  // 图片数组
+  var imgArr = ['./img/12.jpg'];
+  // 点击形成图片
+  window.addEventListener('click', function (event) {
+    var kgNew = randomNum(150, 250);
+    var kg = randomNum(10, 50);
+    var x = event.clientX;
+    var y = event.clientY;
+    photeArray.push(new Phote(x, y, kg, kgNew, imgArr[randomNum(0, imgArr.length - 1)]));
+  });
+
+  function Phote(x, y, kg, kgNew, imgSrc) {
+    var _self = this;
+    _self.x = x;
+    _self.y = y;
+    _self.kg = kg;
+    _self.kgNew = kgNew;
+    _self.speed = 2;
+
+    _self.draw = function () {
+      var img = new Image();
+      img.src = "" + imgSrc + "";
+      img.onload = function () {
+        ctx.drawImage(img, _self.x, _self.y, _self.kg, _self.kg);
+      }
+    }
+
+    _self.update = function () {
+      if (_self.kg < _self.kgNew) {
+        _self.kg += _self.speed;
+        _self.draw();
+      }
+    }
+  }
+
+  var photeArray = [];
+  setInterval(function () {
+    var kgNew = randomNum(150, 250);
+    var kg = randomNum(10, 50);
+    var x = randomNum(0, width - kgNew);
+    var y = randomNum(0, height - kgNew);
+    photeArray.push(new Phote(x, y, kg, kgNew, imgArr[randomNum(0, imgArr.length - 1)]));
+  }, 1000);
+  // new Phote(300, 300, 50, 600).draw();
+
+  function animation() {
+    requestAnimationFrame(animation);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    for (let b of photeArray) {
+      b.update();
+    }
+  }
+  animation();
+
+</script>
+
+</html>
