@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3d旋转图片</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      html {
+        width: 100%;
+        height: 100%;
+      }
+
+      body {
+        background: url(./img/12.jpg) no-repeat center center;
+        background-size: 100%;
+      }
+
+      section.content {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 200px auto;
+        transform-origin: center center;
+        animation: rotate1 5s linear infinite;
+        transform-style: preserve-3d;
+      }
+
+      @keyframes rotate1 {
+        0% {
+          transform: rotateX(0) rotateY(0);
+        }
+
+        100% {
+          transform: rotateX(360deg) rotateY(360deg);
+        }
+      }
+
+      section.content img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: .8;
+        transition: all 0.3s linear;
+      }
+
+      section.content img:nth-child(1) {
+        transform: translateZ(75px);
+      }
+
+      section.content img:nth-child(2) {
+        transform: translateZ(-75px);
+      }
+
+      section.content img:nth-child(3) {
+        transform: translateY(75px) rotateX(90deg);
+      }
+
+      section.content img:nth-child(4) {
+        transform: translateY(-75px) rotateX(90deg);
+      }
+
+      section.content img:nth-child(5) {
+        transform: translateX(75px) rotateY(90deg);
+      }
+
+      section.content img:nth-child(6) {
+        transform: translateX(-75px) rotateY(90deg);
+      }
+
+      /* hover */
+      section.content img:nth-child(1).active {
+        transform: translateZ(150px);
+      }
+
+      section.content img:nth-child(2).active {
+        transform: translateZ(-150px);
+      }
+
+      section.content img:nth-child(3).active {
+        transform: translateY(150px) rotateX(90deg);
+      }
+
+      section.content img:nth-child(4).active {
+        transform: translateY(-150px) rotateX(90deg);
+      }
+
+      section.content img:nth-child(5).active {
+        transform: translateX(150px) rotateY(90deg);
+      }
+
+      section.content img:nth-child(6).active {
+        transform: translateX(-150px) rotateY(90deg);
+      }
+
+      section.content section.content-son {
+        position: absolute;
+        top: 25%;
+        left: 27%;
+        /* transform: translate(-50%, -50%); */
+        width: 50%;
+        height: 50%;
+      }
+
+      section.content section.content-son img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: .6;
+      }
+
+      section.content section.content-son img:nth-child(1) {
+        transform: translateZ(37px);
+      }
+
+      section.content section.content-son img:nth-child(2) {
+        transform: translateZ(-37px);
+      }
+
+      section.content section.content-son img:nth-child(3) {
+        transform: translateY(37px) rotateX(90deg);
+      }
+
+      section.content section.content-son img:nth-child(4) {
+        transform: translateY(-37px) rotateX(90deg);
+      }
+
+      section.content section.content-son img:nth-child(5) {
+        transform: translateX(37px) rotateY(90deg);
+      }
+
+      section.content section.content-son img:nth-child(6) {
+        transform: translateX(-37px) rotateY(90deg);
+      }
+
+      /* hover */
+      section.content section.content-son img:nth-child(1).active {
+        transform: translateZ(70px);
+      }
+
+      section.content section.content-son img:nth-child(2).active {
+        transform: translateZ(-70px);
+      }
+
+      section.content section.content-son img:nth-child(3).active {
+        transform: translateY(70px) rotateX(90deg);
+      }
+
+      section.content section.content-son img:nth-child(4).active {
+        transform: translateY(-70px) rotateX(90deg);
+      }
+
+      section.content section.content-son img:nth-child(5).active {
+        transform: translateX(70px) rotateY(90deg);
+      }
+
+      section.content section.content-son img:nth-child(6).active {
+        transform: translateX(-70px) rotateY(90deg);
+      }
+
+      /* 上传图片 */
+      .yg_content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      #upimg {
+        display: none;
+      }
+
+      .yg_content p {
+        padding: 10px;
+        display: inline-block;
+        color: #fff;
+        background: #08c;
+        border: 1px #ccc solid;
+        border-radius: 10px;
+      }
+
+      .showimg {
+        margin: 20px auto;
+        border: 1px #ccc solid;
+        border-radius: 10px;
+        width: 200px;
+        height: 200px;
+      }
+
+      .showimg img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .yg_content p:active {
+        opacity: .5;
+      }
+
+      .yg_content .files {
+        position: relative;
+        width: 90px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        overflow: hidden;
+        margin: 5px;
+      }
+
+      .yg_content .files input {
+        display: none;
+      }
+
+      /* 按钮 */
+      .btn-four {
+        position: relative;
+        color: #fff;
+        border-radius: 70px;
+        background: -webkit-linear-gradient(90deg,
+            #03a9f4,
+            #f441a5,
+            #ffeb3b,
+            #03a9f4);
+        background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+        background-size: 400%;
+        text-transform: uppercase;
+        cursor: pointer;
+        margin: 50px 0 0 0;
+      }
+
+      .btn-four::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        bottom: -5px;
+        right: -5px;
+        background: -webkit-linear-gradient(90deg,
+            #03a9f4,
+            #f441a5,
+            #ffeb3b,
+            #03a9f4);
+        background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+        background-size: 400%;
+        border-radius: 80px;
+        filter: blur(30px);
+        opacity: 0.5;
+        /* z-index: -1; */
+      }
+
+      .btn-four:hover {
+        animation: sun 8s infinite;
+      }
+
+      .btn-four:hover::before {
+        animation: sun 8s infinite;
+      }
+
+      @keyframes sun {
+        100% {
+          background-position: 400% 0;
+        }
+      }
+
+
+      .toNext {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        z-index: 9999;
+        animation: rotateImg 3s linear infinite;
+      }
+
+      @keyframes rotateImg {
+        0% {
+          transform: rotate(0);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="./brithday.html">
+      <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3742267843,2369280170&fm=11&gp=0.jpg"
+        class="toNext">
+    </a>
+    <section class="content">
+      <img src="./img/12.jpg" class="img">
+      <img src="./img/12.jpg" class="img">
+      <img src="./img/12.jpg" class="img">
+      <img src="./img/12.jpg" class="img">
+      <img src="./img/12.jpg" class="img">
+      <img src="./img/12.jpg" class="img">
+
+      <section class="content-son">
+        <img src="./img/12.jpg" class="img">
+        <img src="./img/12.jpg" class="img">
+        <img src="./img/12.jpg" class="img">
+        <img src="./img/12.jpg" class="img">
+        <img src="./img/12.jpg" class="img">
+        <img src="./img/12.jpg" class="img">
+      </section>
+    </section>
+    <!-- 上传图片 -->
+    <div class="yg_content">
+      <!-- <div class="files" onclick="document.querySelector('#iptfile').click()">
+        <span>选择图片</span>
+        <img src="./img/12.jpg" class="iptfileimg">
+      </div> -->
+
+      <div class="btn-four files" onclick="document.querySelector('#iptfile').click()">
+        选择图片
+        <input type="file" id="iptfile" onchange="uplode()">
+      </div>
+      <div class="btn-four files" onclick="outsideScale()">外层放大</div>
+      <div class="btn-four files" onclick="sideScale()">内层放大</div>
+      <div class="btn-four files" onclick="document.querySelector('#iptBGfile').click()">
+        背景图片
+        <input type="file" id="iptBGfile" onchange="uplodeBG()">
+      </div>
+    </div>
+  </body>
+  <script>
+    // 所有旋转图片
+    var imgs = document.querySelectorAll('.img');
+    // 选择图片按钮  背景图
+    var iptfileimg = document.querySelector('.iptfileimg');
+    var iptfile = document.querySelector('#iptfile');
+    var iptBGfile = document.querySelector('#iptBGfile');
+    var contentImgs = document.querySelectorAll('.content>.img');
+    var contentSonImgs = document.querySelectorAll('.content-son>.img');
+
+    // 上传图片
+    function uplode() {
+      var fileData = iptfile.files[0];
+      console.log(fileData)
+      // base64位图片
+      var reader = new FileReader();
+      reader.readAsDataURL(fileData)
+      reader.onloadstart = function () {
+        console.log('上传中...');
+      }
+      reader.onload = function () {
+        console.log('上传完毕!');
+        // imgbig.setAttribute('src', reader.result);
+        for (let i = 0; i < imgs.length; i++) {
+          imgs[i].setAttribute('src', reader.result);
+        }
+      }
+    }
+
+    // 上传背景图片
+    function uplodeBG() {
+      var fileData = iptBGfile.files[0];
+      console.log(fileData)
+      // base64位图片
+      var reader = new FileReader();
+      reader.readAsDataURL(fileData)
+      reader.onloadstart = function () {
+        console.log('上传中...');
+      }
+      reader.onload = function () {
+        console.log('上传完毕!');
+        document.body.style.background = "url(" + reader.result + ") no-repeat center center";
+      }
+    }
+
+    // 外层图片 扩散
+    function outsideScale() {
+      console.log(contentImgs[0].classList);
+      for (let i = 0; i < contentImgs.length; i++) {
+        if (contentImgs[i].classList.value.indexOf('active') != -1) {
+          contentImgs[i].classList.remove('active');
+        } else {
+          contentImgs[i].classList.add('active');
+        }
+      }
+    }
+
+    // 内层图片 扩散
+    function sideScale() {
+      for (let i = 0; i < contentSonImgs.length; i++) {
+        if (contentSonImgs[i].classList.value.indexOf('active') != -1) {
+          contentSonImgs[i].classList.remove('active');
+        } else {
+          contentSonImgs[i].classList.add('active');
+        }
+      }
+    }
+  </script>
+
+  </html>
+</body>
+
+</html>

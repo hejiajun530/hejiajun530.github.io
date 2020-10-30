@@ -221,6 +221,7 @@
       color: rgba(0, 0, 0, .5);
       margin: 5px;
     }
+
     .yg_content .files img {
       /* width: 100%; */
       height: 100%;
@@ -229,6 +230,7 @@
       left: 0;
       z-index: -1;
     }
+
     .yg_content .files input {
       display: none;
     }
@@ -292,16 +294,16 @@
       // 选择图片按钮
       var file = document.querySelector('#iptfile').files[0].name;
       for (let i = 0; i < imgs.length; i++) {
-        imgs[i].setAttribute('src', './img/'+ file);
+        imgs[i].setAttribute('src', './img/' + file);
       }
-      iptfileimg.setAttribute('src', './img/'+ file);
-      localStorage.setItem('img', './img/'+ file);
+      iptfileimg.setAttribute('src', './img/' + file);
+      localStorage.setItem('img', './img/' + file);
     } else if (type == "bg") {
       // 选择背景图片按钮
       var file = document.querySelector('#iptbg').files[0].name;
       document.body.style.background = "url(./img/" + file + ") no-repeat center center";
-      iptbgimg.setAttribute('src', './img/'+ file);
-      localStorage.setItem('bgimg', './img/'+ file);
+      iptbgimg.setAttribute('src', './img/' + file);
+      localStorage.setItem('bgimg', './img/' + file);
     }
   }
     // base64位图片
