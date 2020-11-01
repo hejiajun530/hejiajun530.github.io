@@ -2698,6 +2698,7 @@ stopPropagation: <span class="hljs-keyword">function</span>(event) {
 
 
 ### MySQL
+mysql -u root -p    // mysql登录
 //只有一些简单操作   sql 对大小写不敏感
 1.基本命令
    1.1 查看数据库

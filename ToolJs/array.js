@@ -1,3 +1,4 @@
+// 数组去重
 function unique() {
   return this.filter(function (item, index, arr) {
     return arr.indexOf(item, 0) === index;
