@@ -2712,6 +2712,10 @@ mysql -u root -p    // mysql登录
    desc table_name;//查看表结构
    1.5 结束
    ctrl + c
+   1.6 新建数据库
+   create DATABASE RUNOOB;
+   1.7 新建数据表
+   create table table_name (column_name column_type ...);
 
 2.mysql操作
    2.1 启动mysql

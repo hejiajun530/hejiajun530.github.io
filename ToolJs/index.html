@@ -34,9 +34,24 @@
     console.log(DateTime().monthLastDay('2020-07-02 00:00:00'));
   </script> -->
   <script>
-    var test = [1, 1, 1, 'aa', 'aa', '大风', '大风'];
-    var data = test.unique();
-    console.log(data);
+    // var test = [1, 1, 1, 'aa', 'aa', '大风', '大风'];
+    // var data = test.unique();
+    // console.log(data);
+    function dh(data) {
+      var num1 = data.toString().split('.')[0];
+      var result = '';
+      while (num1.length > 3) {
+        result = ',' + num1.slice(-3) + result;
+        num1 = num1.slice(0, num1.length - 3);
+      }
+      if (num1) { result = num1 + result; }
+      result = result + '.' + data.toString().split('.')[1];
+      return result;
+    };
+    console.log(dh(39600354.0334));
+    console.log(dh(8354.0334));
+    console.log(dh(423439600354.0334));
+    console.log(dh(600354.0334));
   </script>
 </body>
 
