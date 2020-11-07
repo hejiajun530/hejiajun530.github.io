@@ -20,7 +20,7 @@
         class="iconfont icon-jingshigantanhao2"
         v-if="text.type == 'warn'"
       ></div>
-      <div>{{text.title}}</div>
+      <div class="message-title">{{text.title}}</div>
     </div>
   </div>
 </template>
@@ -102,5 +102,9 @@ export default {
 }
 .message .iconfont {
   margin-right: 10px;
+}
+.message-title {
+  height: 60px;
+  line-height: 60px;
 }
 </style>
