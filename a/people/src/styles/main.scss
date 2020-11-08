@@ -68,3 +68,12 @@ $algin-text: (
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
+// 手指鼠标
+.pointSB {
+  cursor: pointer;
+}
+// 居中 1000px 中心区域宽度限制
+.w {
+  width: 62.5rem;
+  margin: 0 auto;
+}

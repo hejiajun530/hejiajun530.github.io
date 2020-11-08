@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
 
+// 全局生成一个密钥  用于用户的token
+app.set('secret', 'asfasdfgsdagdsfg')
+
 app.use(require('cors')())
 app.use(express.json())
 

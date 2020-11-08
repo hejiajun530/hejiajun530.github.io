@@ -5,13 +5,13 @@ import axios from 'axios';
 // 引入全局scss
 import './styles/main.scss';
 // 导入自写组件
-import messagejs from './components/message/message.js'
+import messagejs from './components/message/message.js';
+
+import http from './http';
 
 Vue.config.productionTip = false;
 Vue.prototype.$gMessage = messagejs;
-Vue.prototype.$http = axios.create({
-  baseURL: 'http://localhost:3000/web/api'
-})
+Vue.prototype.$http = http;
 
 new Vue({
   router,

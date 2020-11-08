@@ -1,6 +1,7 @@
 module.exports = app => {
   const router = require('express').Router()
   const mysql = require('mysql');
+  const jwt = require('jsonwebtoken')// token
   var cnt = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -10,7 +11,7 @@ module.exports = app => {
   cnt.connect();
 
   // 用户注册
-  router.post('/api/regist', async (req, res) => {
+  router.post('/regist', async (req, res) => {
     // 传过来的值
     const body = req.body
     console.log(body);
@@ -60,7 +61,7 @@ module.exports = app => {
   })
 
   // 用户登录
-  router.get('/api/login', async (req, res) => {
+  router.get('/login', async (req, res) => {
     // 传过来的值
     const query = req.query
     console.log(query);
@@ -100,10 +101,12 @@ module.exports = app => {
             }
             res.send(resultObj)
           } else if (result[0].username == query.username) {
+            const token = jwt.sign({ id: result[0].userid }, app.get('secret'))
             var resultObj = {
               flag: true,
               msg: '登录成功!',
-              res: result
+              res: result,
+              token: token
             }
             res.send(resultObj)
           }
@@ -112,5 +115,41 @@ module.exports = app => {
     })
   })
 
-  app.use('/web', router)
+  // 判断是否登录
+  async function auth(req, res, next) {
+    const token = (req.headers.authorization || '').toString().split(' ').pop()
+    // console.log(token)
+    if (!token) {
+      return res.status(401).send({
+        flag: false,
+        msg: '请先登录!'
+      })
+    }
+    // console.log(req.app.get('secret'))
+    let { id } = jwt.verify(token, req.app.get('secret'))
+    // console.log(id)
+    if (!id) {
+      return res.status(401).send({
+        flag: false,
+        msg: '请先登录!'
+      })
+    }
+    cnt.query('select * from user where userid = "' + id + '"', function (err, result) {
+      if (err) return console.log(err.toString());
+      // console.log(result)
+      if (!result) {
+        return res.status(401).send({
+          flag: false,
+          msg: '请先登录!'
+        })
+      }
+    })
+    await next()
+  }
+  // 测试
+  router.get('/test', auth, async (req, res) => {
+    res.send('true');
+  })
+
+  app.use('/web/api', router)
 }
