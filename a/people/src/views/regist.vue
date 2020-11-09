@@ -169,7 +169,7 @@ export default {
 <style lang="scss" scoped>
 .login {
   width: 100%;
-  height: calc(100% - 6.875rem);
+  height: 100%;
   background: url('../assets/img/loginRegistbk.jpg') no-repeat center center;
   background-size: cover;
 }

@@ -52,16 +52,16 @@ export default {
 <style scoped>
 .message {
   position: fixed;
-  top: -100px;
+  top: -6.25rem;
   left: 50%;
-  min-width: 500px;
-  height: 60px;
-  padding-left: 15px;
+  min-width: 31.25rem;
+  height: 3.75rem;
+  padding-left: 0.9375rem;
   box-sizing: border-box;
   background-color: #f0f9eb;
-  font-size: 22px;
+  font-size: 1.375rem;
   color: #74c55c;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   transform: translate(-50%, 0);
   animation: dowm 1s forwards;
   z-index: 999;
@@ -87,25 +87,25 @@ export default {
 }
 @keyframes dowm {
   0% {
-    top: -100px;
+    top: -6.25rem;
   }
   100% {
-    top: 30px;
+    top: 1.875rem;
   }
 }
 @keyframes up {
   0% {
-    top: 30px;
+    top: 1.875rem;
   }
   100% {
-    top: -100px;
+    top: -6.25rem;
   }
 }
 .message .iconfont {
-  margin-right: 10px;
+  margin-right: 0.625rem;
 }
 .message-title {
-  height: 60px;
-  line-height: 60px;
+  height: 3.75rem;
+  line-height: 3.75rem;
 }
 </style>

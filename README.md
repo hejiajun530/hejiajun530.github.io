@@ -2716,6 +2716,18 @@ mysql -u root -p    // mysql登录
    create DATABASE RUNOOB;
    1.7 新建数据表
    create table table_name (column_name column_type ...);
+   1.8 导出数据库
+   mysqldump -u 用户名 -p 数据库名 > 导出的文件名
+   mysqldump -u dbuser -p dbname > dbname.sql
+   1.9 导入数据库
+   常用source 命令
+   进入mysql数据库控制台，如
+   mysql -u root -p
+   mysql>use 数据库
+   然后使用source命令，后面参数为脚本文件(如这里用到的.sql)
+   mysql>source d:/dbname.sql
+   2.0 mysql修改密码
+   alter user 'root'@'localhost' identified by '新密码';
 
 2.mysql操作
    2.1 启动mysql

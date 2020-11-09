@@ -33,7 +33,7 @@
               id="loginCheckout"
               ref="loginCheckout"
               @click="handleLoginCheckCode"
-            ></canvas>
+            >当前浏览器不支持canvas，请更换浏览器后再试</canvas>
           </div>
           <p>{{checkcodeMsg}}</p>
         </div>
@@ -167,7 +167,7 @@ export default {
 <style lang="scss" scoped>
 .login {
   width: 100%;
-  height: calc(100% - 6.875rem);
+  height: 100%;
   background: url('../assets/img/loginRegistbk.jpg') no-repeat center center;
   background-size: cover;
 }

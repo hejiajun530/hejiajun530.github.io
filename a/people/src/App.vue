@@ -68,6 +68,12 @@ button {
     width: 100% !important;
     margin: 0 auto;
   }
+  .home-box {
+    #canvasTime {
+      width: 122px !important;
+      height: 15px !important;
+    }
+  }
 }
 .tyq-mask {
   height: 6.875rem;

@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
-import axios from 'axios';
 // 引入全局scss
 import './styles/main.scss';
 // 导入自写组件

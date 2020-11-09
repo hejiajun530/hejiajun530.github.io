@@ -134,7 +134,7 @@ module.exports = app => {
         msg: '请先登录!'
       })
     }
-    cnt.query('select * from user where userid = "' + id + '"', function (err, result) {
+    await cnt.query('select * from user where userid = "' + id + '"', function (err, result) {
       if (err) return console.log(err.toString());
       // console.log(result)
       if (!result) {

@@ -1,6 +1,10 @@
 const express = require('express')
 const app = express()
 
+// 历史组件
+var history = require('connect-history-api-fallback')
+app.use(history())
+
 // 全局生成一个密钥  用于用户的token
 app.set('secret', 'asfasdfgsdagdsfg')
 
