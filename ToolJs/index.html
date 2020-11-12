@@ -52,6 +52,17 @@
     console.log(dh(8354.0334));
     console.log(dh(423439600354.0334));
     console.log(dh(600354.0334));
+
+    var arr = ['data', 'aa'];
+    var arr1 = [{
+      name: 'aa',
+      url: '/home'
+    }, {
+      name: 'bb',
+      url: '/me'
+    }];
+    console.log(arr.getIndex('aa'));//1
+    console.log(arr1.getIndex('/home', 'url'));//1
   </script>
 </body>
 

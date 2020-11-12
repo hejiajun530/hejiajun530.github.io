@@ -2,6 +2,12 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
+//获取原型对象上的push函数
+const originalPush = VueRouter.prototype.push
+//修改原型对象中的push方法
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 const routes = [
   {
@@ -21,7 +27,63 @@ const routes = [
   {
     path: '/home',
     name: 'home',
+    redirect: '/home/index',
     component: () => import('../views/home.vue'),
+    children: [
+      {
+        path: '/home/index',
+        name: 'homeIndex',
+        component: () => import('../views/other/index.vue'),
+      },
+      {
+        path: '/home/liuyan',
+        name: 'liuyan',
+        component: () => import('../views/other/liuyan.vue'),
+      },
+      {
+        path: '/home/mood',
+        name: 'mood',
+        component: () => import('../views/other/mood.vue'),
+      },
+      {
+        path: '/home/share',
+        name: 'share',
+        component: () => import('../views/other/share.vue'),
+      },
+      {
+        path: '/home/story',
+        name: 'story',
+        component: () => import('../views/other/story.vue'),
+      },
+      {
+        path: '/home/about',
+        name: 'about',
+        component: () => import('../views/other/about.vue'),
+      },
+    ]
+  },
+  {
+    path: '/me',
+    name: 'me',
+    redirect: '/me/index',
+    component: () => import('../views/me.vue'),
+    children: [
+      {
+        path: '/me/index',
+        name: 'meIndex',
+        component: () => import('../views/me/index.vue'),
+      },
+      {
+        path: '/me/info',
+        name: 'info',
+        component: () => import('../views/me/info.vue'),
+      },
+      {
+        path: '/me/post',
+        name: 'post',
+        component: () => import('../views/me/post.vue'),
+      },
+    ]
   },
 ];
 

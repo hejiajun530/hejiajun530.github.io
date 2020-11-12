@@ -5,15 +5,21 @@
       <div class="home-menu-list d-flex jc-start ai-center w">
         <div
           class="home-menu-list-item text-center pointSB text-ellipsis"
-          :class="menuIndex == index ? 'active' : ''"
+          :class="$route.path == item.url ? 'active' : ''"
           v-for="(item, index) in menuList"
           :key="index"
-          @click="handleClickMenu(index, item.url)"
+          @click="handleClickMenu(index, item.url, $event)"
+          @mouseenter="handleMouseEnterAnimate(index, $event)"
+          @mouseleave="handleMouseLeaveAnimate(index, $event)"
         >{{item.name}}</div>
+        <div
+          class="home-menu-bk"
+          ref="homeBk"
+        ></div>
       </div>
     </div>
     <div class="home-box w">
-      <div
+      <!-- <div
         @click="$router.push('/login')"
         style="width: 200px;height: 30px;background: #E7753A;margin: 10px auto;line-height: 30px;color: #ffffff;"
       >登录</div>
@@ -25,12 +31,12 @@
       <div
         v-else
         style="height: 50px;background: #E7753A;"
-      >未登录</div>
+      >未登录</div> -->
       <canvas
         id="canvasTime"
         ref="canvasTime"
-        @click="h"
       >当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -44,34 +50,33 @@ export default {
       menuList: [
         {
           name: '首页',
-          url: '/home'
+          url: '/home/index'
         },
         {
           name: '心情随笔',
-          url: '/suibi'
+          url: '/home/mood'
         },
         {
           name: '过往故事',
-          url: '/gushi'
+          url: '/home/story'
         },
         {
           name: '技术分享',
-          url: '/fenxiang'
+          url: '/home/share'
         },
         {
           name: 'Blog留言',
-          url: '/liuyan'
+          url: '/home/liuyan'
         },
         {
           name: '关于我',
-          url: '/guanyuwo'
+          url: '/home/about'
         },
         {
           name: 'Me',
           url: '/me'
         }
       ],
-      menuIndex: 0,
       // 数字 canvas  json数组
       digit: [
         [
@@ -207,25 +212,12 @@ export default {
           [0, 0, 0, 0, 0, 0, 0]
         ] //:
       ],
-      colorArray: [
-        '#3BE',
-        '#09C',
-        '#A6C',
-        '#93C',
-        '#9C0',
-        '#690',
-        '#FB3',
-        '#F80',
-        '#F44',
-        '#C00'
-      ]
+      colorArray: ['#fff'],
+      canvasTimer: null
+      // animationTime: null
     };
   },
   methods: {
-    h(e) {
-      var _self = this;
-      console.log(e);
-    },
     // 测试
     test() {
       var _self = this;
@@ -234,10 +226,29 @@ export default {
       });
     },
     // 选择菜单
-    handleClickMenu(index, url) {
+    handleClickMenu(index, url, e) {
       var _self = this;
-      _self.menuIndex = index;
-      console.log(url);
+      _self.animate(_self.$refs.homeBk, _self.handleGetArrIndex(url));
+      // 路由跳转
+      _self.$router.push(url);
+    },
+    // 获取路由地址在数组的下标
+    handleGetArrIndex(path) {
+      var _self = this;
+      return _self.menuList.map(item => item.url).indexOf(path);
+    },
+    // 鼠标移入事件 菜单
+    handleMouseEnterAnimate(index, e) {
+      var _self = this;
+      _self.animate(_self.$refs.homeBk, index);
+    },
+    // 鼠标移出事件 菜单
+    handleMouseLeaveAnimate(index, e) {
+      var _self = this;
+      _self.animate(
+        _self.$refs.homeBk,
+        _self.handleGetArrIndex(_self.$route.path)
+      );
     },
     // canvas 时间
     handleCanvasTime() {
@@ -272,7 +283,7 @@ export default {
             ctx.beginPath();
             ctx.fillStyle =
               _self.colorArray[
-                Math.floor(Math.random() * (_self.colorArray.length + 1))
+                Math.floor(Math.random() * _self.colorArray.length)
               ];
             ctx.arc(
               kx * (R + 2) * index + j * 2 * (R + 1) + (R + 1),
@@ -294,6 +305,21 @@ export default {
           }
         }
       }
+    },
+    // 动画函数
+    animate(obj, target, fn) {
+      var _self = this;
+      target = target * _self.$refs.homeBk.offsetWidth;
+      clearInterval(obj.timer);
+      obj.timer = setInterval(function() {
+        var step = (target - obj.offsetLeft) / 10;
+        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+        if (obj.offsetLeft == Math.abs(target)) {
+          clearInterval(obj.timer);
+          fn && fn();
+        }
+        obj.style.left = obj.offsetLeft + step + 'px';
+      }, 15);
     }
   },
   created() {
@@ -303,11 +329,20 @@ export default {
   },
   mounted() {
     var _self = this;
+    // 右上角时间
     _self.handleCanvasTime();
-    setInterval(function() {
+    _self.canvasTimer = setInterval(function() {
       _self.handleCanvasTime();
     }, 1000);
-    // console.log(_self);
+    // bk位置 根据路由地址 改变
+    let index = _self.handleGetArrIndex(_self.$route.path);
+    _self.$refs.homeBk.style.left =
+      index * _self.$refs.homeBk.offsetWidth + 'px';
+  },
+  beforeDestroy() {
+    var _self = this;
+    _self.canvasTimer = null;
+    _self.handleCanvasTime = function() {};
   }
 };
 </script>
@@ -324,21 +359,30 @@ export default {
   height: 3.125rem;
   background: #bfab86;
   .home-menu-list {
+    position: relative;
     height: 100%;
     .home-menu-list-item {
-      min-width: 5.3125rem;
+      width: 5.3125rem;
       height: 100%;
       font-size: 1.125rem;
       color: #ffffff;
       line-height: 3.125rem;
-      margin: 0 0.3125rem 0 0;
-      border-top: 0.1875rem solid transparent;
+      transition: all 0.3s;
       &:hover,
       &.active {
         color: #222222;
-        background: #fffbf0;
-        border-top: 0.1875rem solid #f77825;
       }
+      z-index: 1;
+    }
+    .home-menu-bk {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5.3125rem;
+      height: 100%;
+      background: #fffbf0;
+      border-top: 0.1875rem solid #f77825;
+      z-index: 0;
     }
   }
 }
