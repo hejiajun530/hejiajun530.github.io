@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <div class="home-head"></div>
+    <div class="home-head">
+      <canvas
+        id="canvasTime"
+        ref="canvasTime"
+      >当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+    </div>
     <div class="home-menu">
       <div class="home-menu-list d-flex jc-start ai-center w">
         <div
@@ -19,7 +24,7 @@
       </div>
     </div>
     <div class="home-box w">
-      <!-- <div
+      <div
         @click="$router.push('/login')"
         style="width: 200px;height: 30px;background: #E7753A;margin: 10px auto;line-height: 30px;color: #ffffff;"
       >登录</div>
@@ -30,12 +35,9 @@
       >已登录</div>
       <div
         v-else
+        @click="test"
         style="height: 50px;background: #E7753A;"
-      >未登录</div> -->
-      <canvas
-        id="canvasTime"
-        ref="canvasTime"
-      >当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+      >未登录</div>
       <router-view></router-view>
     </div>
   </div>
@@ -221,9 +223,12 @@ export default {
     // 测试
     test() {
       var _self = this;
-      _self.$http.get('/test').then(res => {
+      // _self.$http.get('/test').then(res => {
+      //   console.log(res);
+      // });
+      _self.$http.get('http://wthrcdn.etouch.cn/weather_mini?city=北京').then(res => {
         console.log(res);
-      });
+      })
     },
     // 选择菜单
     handleClickMenu(index, url, e) {
@@ -338,6 +343,8 @@ export default {
     let index = _self.handleGetArrIndex(_self.$route.path);
     _self.$refs.homeBk.style.left =
       index * _self.$refs.homeBk.offsetWidth + 'px';
+      console.log(localStorage.getItem('Ip'), 'ip')
+      console.log(localStorage.getItem('cityname'), 'cityname')
   },
   beforeDestroy() {
     var _self = this;
@@ -353,6 +360,13 @@ export default {
   height: 12.5rem;
   background: url('../assets/img/homehead.jpg') no-repeat center 61%;
   background-size: 100%;
+  #canvasTime {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    width: 405px;
+    height: 60px;
+  }
 }
 .home-menu {
   width: 100%;
@@ -362,7 +376,7 @@ export default {
     position: relative;
     height: 100%;
     .home-menu-list-item {
-      width: 5.3125rem;
+      width: 6.25rem;
       height: 100%;
       font-size: 1.125rem;
       color: #ffffff;
@@ -378,7 +392,7 @@ export default {
       position: absolute;
       top: 0;
       left: 0;
-      width: 5.3125rem;
+      width: 6.25rem;
       height: 100%;
       background: #fffbf0;
       border-top: 0.1875rem solid #f77825;
@@ -387,12 +401,5 @@ export default {
   }
 }
 .home-box {
-  #canvasTime {
-    position: fixed;
-    top: 0.625rem;
-    right: 0.625rem;
-    width: 405px;
-    height: 60px;
-  }
 }
 </style>

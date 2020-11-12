@@ -11,6 +11,13 @@
 </head>
 
 <body>
+  <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+  <script type="text/javascript">
+    var Ip=returnCitySN['cip']
+    var cityname=returnCitySN['cname']
+    localStorage.setItem('Ip', Ip)
+    localStorage.setItem('cityname', cityname)
+  </script>
   <noscript>
     <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
       Please enable it to continue.</strong>

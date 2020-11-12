@@ -9,6 +9,8 @@ var mixin = {
     _self.tyqUser = JSON.parse(localStorage.getItem('tyqUser'));
     _self.tyqToken = localStorage.getItem('tyqToken');
   },
+  mounted () {
+  },
   methods: {
 
   }

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @contextmenu.prevent="function() {return false}">
     <router-view />
     <div class="tyq-mask"></div>
     <div class="tyq d-flex flex-column jc-center ai-center">
@@ -7,15 +7,15 @@
       <div class="tyq-box">个人学习分享网站，大家喜欢的话可以分享给朋友~</div>
       <div class="tyq-foot">1962679391@qq.com</div>
     </div>
+    <!-- v-if="backFlag" -->
     <div
-      v-if="backFlag"
       class="tyq-back d-flex jc-center ai-center pointSB"
       ref="tyqBack"
       @mousedown="handleMouseDownBack"
       @mousemove="handleMouseMoveBack"
       @mouseup="handleMouseUpBack"
-      @click="handleClickTop"
     >Back</div>
+    <!-- @click="handleClickTop" -->
   </div>
 </template>
 
@@ -26,12 +26,13 @@ export default {
       moveFlag: false,
       offsetX: 0,
       offsetY: 0,
-      backFlag: false
+      backFlag: true
     };
   },
   mounted() {
     var _self = this;
-    document.oncontextmenu = function() {
+    document.oncontextmenu = function(e) {
+      e.preventDefault();
       return false;
     };
     var userAgentInfo = navigator.userAgent;
@@ -51,14 +52,14 @@ export default {
       }
     }
     // 因为监听是针对window的，所以增加监听后每个页面都会监听，只对某个页面进行监听的话需要在destroyed中将监听移除
-    window.addEventListener('scroll', function() {
-      // 页面往下滚动超过 xx 就显示返回顶部盒子
-      if (window.pageYOffset > 20) {
-        _self.backFlag = true;
-      } else {
-        _self.backFlag = false;
-      }
-    });
+    // window.addEventListener('scroll', function() {
+    //   // 页面往下滚动超过 xx 就显示返回顶部盒子
+    //   if (window.pageYOffset > 20) {
+    //     _self.backFlag = true;
+    //   } else {
+    //     _self.backFlag = false;
+    //   }
+    // });
   },
   methods: {
     // 移动端js控制rem，不适合pc端
@@ -82,6 +83,7 @@ export default {
     handleMouseMoveBack(e) {
       var _self = this;
       if (_self.moveFlag) {
+        _self.backFlag = false;
         _self.$refs.tyqBack.style.left = e.clientX - _self.offsetX + 'px';
         _self.$refs.tyqBack.style.top = e.clientY - _self.offsetY + 'px';
       }
@@ -91,28 +93,68 @@ export default {
       var _self = this;
       // console.log(e);
       _self.moveFlag = false;
+      _self.handleClickTop();
+      _self.backFlag = true;
     },
     // 回到顶部
     handleClickTop() {
       var _self = this;
-      let timer = null;
-      var i = window.pageYOffset;
-      timer = setInterval(function() {
-        if (window.pageYOffset > 0) {
-          window.scrollTo(0, i);
-        } else {
-          clearInterval(timer);
-          timer = null;
-          // console.log('回到顶部');
-        }
-        i -= 20;
-      }, 10);
+      if (_self.backFlag) {
+        let timer = null;
+        var i = window.pageYOffset;
+        timer = setInterval(function() {
+          if (window.pageYOffset > 0) {
+            window.scrollTo(0, i);
+          } else {
+            clearInterval(timer);
+            timer = null;
+            // console.log('回到顶部');
+          }
+          i -= 20;
+        }, 10);
+      }
     }
   }
 };
 </script>
 
 <style lang="scss">
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: #fffbf0;
+}
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  // 取消高亮
+  -webkit-tap-highlight-color: transparent;
+  // 禁止选择文字
+  -moz-user-select: none !important; /*火狐*/
+  -webkit-user-select: none !important; /*webkit浏览器*/
+  -ms-user-select: none !important; /*IE10*/
+  -khtml-user-select: none !important; /*早期浏览器*/
+  user-select: none !important;
+}
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+input,
+button {
+  border: none;
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  height: 100%;
+}
 @media screen and (max-width: 768px) {
   html {
     font-size: 8px;
@@ -121,11 +163,15 @@ export default {
     width: 100% !important;
     margin: 0 auto;
   }
-  .home-box {
+  .home-head {
     #canvasTime {
       width: 122px !important;
       height: 15px !important;
     }
+  }
+  .home-menu-bk,
+  .home-menu-list-item {
+    width: 5rem !important;
   }
 }
 @media screen and (max-width: 1300px) and (min-width: 768px) {
