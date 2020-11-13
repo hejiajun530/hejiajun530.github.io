@@ -4,13 +4,16 @@ import router from './router'
 
 const http = axios.create({
   // baseURL: 'http://localhost:3000/web/api'// 本地地址
-  baseURL: 'http://115.159.161.66:3000/web/api'// 本地地址
+  baseURL: 'http://www.tyq121.top/web/api'// 本地地址
+  // baseURL: '/'
 })
 
 http.interceptors.request.use(config => {
   // console.log(localStorage.tyqToken, 'localStorage.tyqToken')
   if (localStorage.tyqToken) {
-    config.headers.Authorization = 'Bearer ' + (localStorage.tyqToken || '')
+    if (config.url.indexOf('https://restapi.amap.com/v3/') == -1) {
+      config.headers.Authorization = 'Bearer ' + (localStorage.tyqToken || '')
+    }
     // console.log(config.headers.Authorization, 'config.headers.Authorization');
   }
   return config

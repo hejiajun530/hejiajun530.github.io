@@ -5,6 +5,22 @@
         id="canvasTime"
         ref="canvasTime"
       >当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+      <div class="home-head-weather d-flex flex-column jc-around ai-start">
+        <div class="home-head-weather-top d-flex jc-start ai-end">
+          <div class="home-head-weather-top-temperature">{{weatherData.temperature}}&#8451;</div>
+          <div class="home-head-weather-top-city">{{weatherData.city}}</div>
+        </div>
+        <div class="home-head-weather-bottom d-flex ai-end">
+          <div class="home-head-weather-bottom-weather">{{weatherData.weather}}</div>
+          <div class="home-head-weather-bottom-windpower d-flex">
+            <div>风力 {{weatherData.windpower}}</div>
+            <div>湿度 {{weatherData.humidity}}</div>
+          </div>
+        </div>
+        {{tempdata}}
+        <!-- {{weatherData}}
+        {{addressData}} -->
+      </div>
     </div>
     <div class="home-menu">
       <div class="home-menu-list d-flex jc-start ai-center w">
@@ -49,6 +65,7 @@ export default {
   mixins: [mixin],
   data() {
     return {
+      // 菜单数组
       menuList: [
         {
           name: '首页',
@@ -214,8 +231,15 @@ export default {
           [0, 0, 0, 0, 0, 0, 0]
         ] //:
       ],
+      // 计时器颜色
       colorArray: ['#fff'],
-      canvasTimer: null
+      canvasTimer: null,
+      // 天气数据
+      weatherData: '',
+      // 地址信息
+      addressData: '',
+      // 临时数据
+      tempdata: ''
       // animationTime: null
     };
   },
@@ -226,9 +250,11 @@ export default {
       // _self.$http.get('/test').then(res => {
       //   console.log(res);
       // });
-      _self.$http.get('http://wthrcdn.etouch.cn/weather_mini?city=北京').then(res => {
-        console.log(res);
-      })
+      _self.$http
+        .get('http://wthrcdn.etouch.cn/weather_mini?city=北京')
+        .then(res => {
+          console.log(res);
+        });
     },
     // 选择菜单
     handleClickMenu(index, url, e) {
@@ -293,7 +319,7 @@ export default {
             ctx.arc(
               kx * (R + 2) * index + j * 2 * (R + 1) + (R + 1),
               i * 2 * (R + 1) + (R + 1),
-              R < 1 ? 0.6 : 2.3,
+              R < 1 ? 1 : 2.3,
               0,
               2 * Math.PI
             );
@@ -325,12 +351,96 @@ export default {
         }
         obj.style.left = obj.offsetLeft + step + 'px';
       }, 15);
+    },
+    // 高德地图 获取地址
+    getLocationPC() {
+      var _self = this;
+      _self.$http
+        .get(
+          `https://restapi.amap.com/v3/ip?ip=${localStorage.getItem(
+            'tyqIp'
+          )}&key=${localStorage.getItem('tyqKKK')}`
+        )
+        .then(res => {
+          _self.addressData = res.data;
+          console.log(_self.addressData);
+          _self.$http
+            .get(
+              `https://restapi.amap.com/v3/weather/weatherInfo?city=${
+                res.data.adcode
+              }&key=${localStorage.getItem('tyqKKK')}&extensions=base`
+            )
+            .then(result => {
+              _self.weatherData = result.data.lives[0];
+              console.log(_self.weatherData);
+            });
+        });
+    },
+    // 移动端通过高德地图获取 地址
+    getLocationPhone() {
+      const self = this;
+      var _self = this;
+      AMap.plugin('AMap.Geolocation', function() {
+        var geolocation = new AMap.Geolocation({
+          // 是否使用高精度定位，默认：true
+          enableHighAccuracy: true,
+          // 设置定位超时时间，默认：无穷大
+          timeout: 10000
+        });
+
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, 'complete', onComplete);
+        AMap.event.addListener(geolocation, 'error', onError);
+
+        function onComplete(data) {
+          // data是具体的定位信息
+          console.log('定位成功信息：', data);
+          _self.tempdata = data;
+        }
+
+        function onError(data) {
+          // 定位出错
+          console.log('定位失败错误：', data);
+          _self.tempdata = data;
+          // 调用ip定位
+          self.getLngLatLocation();
+        }
+      });
+    },
+    getLngLatLocation() {
+      var _self = this;
+      AMap.plugin('AMap.CitySearch', function() {
+        var citySearch = new AMap.CitySearch();
+        citySearch.getLocalCity(function(status, result) {
+          if (status === 'complete' && result.info === 'OK') {
+            // 查询成功，result即为当前所在城市信息
+            console.log('通过ip获取当前城市：', result);
+            _self.tempdata = result;
+            //逆向地理编码
+            AMap.plugin('AMap.Geocoder', function() {
+              var geocoder = new AMap.Geocoder({
+                // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
+                city: result.adcode
+              });
+
+              var lnglat = result.rectangle.split(';')[0].split(',');
+              geocoder.getAddress(lnglat, function(status, data) {
+                if (status === 'complete' && data.info === 'OK') {
+                  // result为对应的地理位置详细信息
+                  console.log(data);
+                  _self.tempdata = data;
+                }
+              });
+            });
+          }
+        });
+      });
     }
   },
   created() {
     var _self = this;
-    console.log(_self.tyqUser, 'parent-tyqUser');
-    console.log(_self.tyqToken, 'parent-tyqToken');
+    // console.log(_self.tyqUser, 'parent-tyqUser');
+    // console.log(_self.tyqToken, 'parent-tyqToken');
   },
   mounted() {
     var _self = this;
@@ -343,8 +453,15 @@ export default {
     let index = _self.handleGetArrIndex(_self.$route.path);
     _self.$refs.homeBk.style.left =
       index * _self.$refs.homeBk.offsetWidth + 'px';
-      console.log(localStorage.getItem('Ip'), 'ip')
-      console.log(localStorage.getItem('cityname'), 'cityname')
+    // console.log(localStorage.getItem('tyqIp'), 'ip');
+    // console.log(localStorage.getItem('tyqcityname'), 'cityname');
+    // console.log(localStorage.getItem('tyqKKK'), 'tyqKKK');
+    // 此处为调用精确定位之后，调取ip定位，可根据实际情况改写
+    if (_self.phoneFlag) {
+      _self.getLocationPhone();
+    } else {
+      _self.getLocationPC();
+    }
   },
   beforeDestroy() {
     var _self = this;
@@ -360,6 +477,42 @@ export default {
   height: 12.5rem;
   background: url('../assets/img/homehead.jpg') no-repeat center 61%;
   background-size: 100%;
+  .home-head-weather {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #ffffff;
+    width: 18.75rem;
+    height: 6.25rem;
+    .home-head-weather-top-temperature {
+      font-size: 3.75rem;
+      padding: 0 0 0 0.625rem;
+    }
+    .home-head-weather-top-city,
+    .home-head-weather-bottom-weather {
+      position: relative;
+      font-size: 1.75rem;
+      padding: 0 1.25rem 0 0.625rem;
+    }
+    .home-head-weather-top-city {
+      padding-bottom: 0.5rem;
+    }
+    .home-head-weather-bottom-weather::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0.125rem;
+      right: 0.3125rem;
+      height: 45%;
+      border-right: 0.1875rem solid #ffffff;
+    }
+    .home-head-weather-bottom-windpower {
+      font-size: 1.125rem;
+      div {
+        padding: 0 0.3125rem;
+      }
+    }
+  }
   #canvasTime {
     position: absolute;
     top: 0.625rem;

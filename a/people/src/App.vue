@@ -1,5 +1,8 @@
 <template>
-  <div id="app" @contextmenu.prevent="function() {return false}">
+  <div
+    id="app"
+    @contextmenu.prevent="function() {return false}"
+  >
     <router-view />
     <div class="tyq-mask"></div>
     <div class="tyq d-flex flex-column jc-center ai-center">
@@ -35,22 +38,6 @@ export default {
       e.preventDefault();
       return false;
     };
-    var userAgentInfo = navigator.userAgent;
-    var Agents = new Array(
-      'Android',
-      'iPhone',
-      'SymbianOS',
-      'Windows Phone',
-      'iPad',
-      'iPod'
-    );
-    for (let i = 0; i < Agents.length; i++) {
-      if (userAgentInfo.indexOf(Agents[i]) != -1) {
-        // phoneFlag = true;
-        console.log('移动端');
-        // _self.setHtmlFz();
-      }
-    }
     // 因为监听是针对window的，所以增加监听后每个页面都会监听，只对某个页面进行监听的话需要在destroyed中将监听移除
     // window.addEventListener('scroll', function() {
     //   // 页面往下滚动超过 xx 就显示返回顶部盒子
@@ -166,7 +153,10 @@ button {
   .home-head {
     #canvasTime {
       width: 122px !important;
-      height: 15px !important;
+      height: 20px !important;
+    }
+    .home-head-weather-bottom-weather::after {
+      height: 60% !important;
     }
   }
   .home-menu-bk,
@@ -194,16 +184,16 @@ button {
   .tyq-header {
     font-size: 1.25rem;
   }
-  .tyq div {
-    padding: 0.1875rem 0;
+  div {
+    padding: 0.225rem 0;
   }
 }
 .tyq-back {
   position: fixed;
-  bottom: 50px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
+  bottom: 3.125rem;
+  right: 1.875rem;
+  width: 3.425rem;
+  height: 3.425rem;
   border-radius: 50%;
   background: rgba(0, 0, 0, 1);
   color: #ffffff;

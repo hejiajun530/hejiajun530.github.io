@@ -12,11 +12,14 @@
 
 <body>
   <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+  <script type="text/javascript"
+    src="https://webapi.amap.com/maps?v=1.4.15&key=a854e5e05754704fd908693f96e745fe"></script>
   <script type="text/javascript">
-    var Ip=returnCitySN['cip']
-    var cityname=returnCitySN['cname']
-    localStorage.setItem('Ip', Ip)
-    localStorage.setItem('cityname', cityname)
+    var Ip = returnCitySN['cip']
+    var cityname = returnCitySN['cname']
+    localStorage.setItem('tyqIp', Ip)
+    localStorage.setItem('tyqcityname', cityname)
+    localStorage.setItem('tyqKKK', 'a854e5e05754704fd908693f96e745fe')
   </script>
   <noscript>
     <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
