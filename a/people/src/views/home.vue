@@ -379,61 +379,66 @@ export default {
     // 移动端通过高德地图获取 地址
     getLocationPhone() {
       const self = this;
-      var _self = this;
+      AMap.plugin('AMap.Geocoder', function() { 
+    var geocoder = new AMap.Geocoder({ 
+        // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode 
+        city: '010' 
+    }) 
+    var lnglat = [116.396574, 39.992706] 
+    geocoder.getAddress(lnglat, function(status, result) { 
+        // if (status === 'complete' && result.info === 'OK') { 
+            // result为对应的地理位置详细信息 
+            // console.log(result.regeocode.formattedAddress, '--------')
+            console.log(result, '--------')
+          self.tempdata = JSON.stringify(result)+'----resultresultresult';
+        // } 
+    }) 
+})
+return false;
       AMap.plugin('AMap.Geolocation', function() {
         var geolocation = new AMap.Geolocation({
-          // 是否使用高精度定位，默认：true
-          enableHighAccuracy: true,
-          // 设置定位超时时间，默认：无穷大
-          timeout: 10000
+          // // 是否使用高精度定位，默认：true
+          // enableHighAccuracy: true,
+          // // 设置定位超时时间，默认：无穷大
+          // timeout: 10000,
+          // // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
+          // buttonOffset: new AMap.Pixel(10, 20),
+          // //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+          // zoomToAccuracy: true,     
+          // //  定位按钮的排放位置,  RB表示右下
+          // buttonPosition: 'RB'
+          
+enableHighAccuracy: true,//是否使用高精度定位，默认:true
+timeout: 10000, //超过10秒后停止定位，默认：无穷大
+maximumAge: 0, //定位结果缓存0毫秒，默认：0
+convert: true, //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+showButton: true, //显示定位按钮，默认：true
+buttonPosition: 'LB', //定位按钮停靠位置，默认：'LB'，左下角
+buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+showMarker: true, //定位成功后在定位到的位置显示点标记，默认：true
+showCircle: true, //定位成功后用圆圈表示定位精度范围，默认：true
+panToLocation: true, //定位成功后将定位到的位置作为地图中心点，默认：true
+zoomToAccuracy:true //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
         });
 
+        // 获取当前位置信息
         geolocation.getCurrentPosition();
+        // 监听获取位置信息成功的回调函数
         AMap.event.addListener(geolocation, 'complete', onComplete);
+        // 监听获取位置信息错误的回调函数
         AMap.event.addListener(geolocation, 'error', onError);
 
         function onComplete(data) {
           // data是具体的定位信息
           console.log('定位成功信息：', data);
-          _self.tempdata = data;
+          self.tempdata = JSON.stringify(data)+'----getLocationPhone-success';
         }
 
         function onError(data) {
           // 定位出错
           console.log('定位失败错误：', data);
-          _self.tempdata = data;
-          // 调用ip定位
-          self.getLngLatLocation();
+          self.tempdata = JSON.stringify(data)+'----getLocationPhone-success';
         }
-      });
-    },
-    getLngLatLocation() {
-      var _self = this;
-      AMap.plugin('AMap.CitySearch', function() {
-        var citySearch = new AMap.CitySearch();
-        citySearch.getLocalCity(function(status, result) {
-          if (status === 'complete' && result.info === 'OK') {
-            // 查询成功，result即为当前所在城市信息
-            console.log('通过ip获取当前城市：', result);
-            _self.tempdata = result;
-            //逆向地理编码
-            AMap.plugin('AMap.Geocoder', function() {
-              var geocoder = new AMap.Geocoder({
-                // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
-                city: result.adcode
-              });
-
-              var lnglat = result.rectangle.split(';')[0].split(',');
-              geocoder.getAddress(lnglat, function(status, data) {
-                if (status === 'complete' && data.info === 'OK') {
-                  // result为对应的地理位置详细信息
-                  console.log(data);
-                  _self.tempdata = data;
-                }
-              });
-            });
-          }
-        });
       });
     }
   },
