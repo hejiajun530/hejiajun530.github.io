@@ -3,8 +3,9 @@ import Vue from 'vue'
 import router from './router'
 
 const http = axios.create({
-  baseURL: 'http://localhost:3000/web/api'// 本地地址
-  // baseURL: 'http://www.tyq121.top/web/api'// 本地地址
+  // 调用接口 添加数据，查询数据
+  // baseURL: 'http://localhost:3000/web/api'// 本地地址
+  baseURL: 'http://www.tyq121.top/web/api'// 网络地址
   // baseURL: '/'
 })
 

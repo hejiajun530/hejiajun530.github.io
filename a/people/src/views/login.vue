@@ -25,7 +25,7 @@
         <div class="login-box-form-input">
           <div class="login-box-form-checkout d-flex jc-between ai-center">
             <input
-              type="text"
+              type="number"
               v-model="checkcode"
               placeholder="验证码"
             >
@@ -87,36 +87,19 @@ export default {
     // 登录按钮
     handleClickLogin() {
       var _self = this;
+      // var regEmail = /^[_0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,5}$/; //邮箱验证
+      var regPassword = /^[0-9a-zA-Z]{6,16}$/; //密码验证
+      var regUsername = /^[\u0391-\uFFE50-9a-zA-Z]{2,10}$/; //用户名验证
       // 用户名简单验证
-      if (
-        _self.username.trim() == '' ||
-        _self.username.trim().length == 0 ||
-        _self.username.trim() == null
-      ) {
-        _self.usernameMsg = '用户名不能为空!';
-        return false;
-      } else if (
-        _self.username.trim().length < 2 ||
-        _self.username.trim().length > 10
-      ) {
-        _self.usernameMsg = '用户名的长度为2-10位!';
+      if (!regUsername.test(_self.username)) {
+        _self.usernameMsg = '用户名为长度2-10位的汉字英文数字!';
         return false;
       } else {
         _self.usernameMsg = '';
       }
       // 密码简单验证
-      if (
-        _self.password.trim() == '' ||
-        _self.password.trim().length == 0 ||
-        _self.password.trim() == null
-      ) {
-        _self.passwordMsg = '密码不能为空!';
-        return false;
-      } else if (
-        _self.password.trim().length < 6 ||
-        _self.password.trim().length > 16
-      ) {
-        _self.passwordMsg = '密码的长度为6-16位!';
+      if (!regPassword.test(_self.password)) {
+        _self.passwordMsg = '密码为长度6-16位的英文数字!';
         return false;
       } else {
         _self.passwordMsg = '';

@@ -70,64 +70,32 @@ export default {
     // 注册
     handleClickRegist() {
       var _self = this;
+      var regEmail = /^[_0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,5}$/; //邮箱验证
+      var regPassword = /^[0-9a-zA-Z]{6,16}$/; //密码验证
+      var regUsername = /^[\u0391-\uFFE50-9a-zA-Z]{2,10}$/; //用户名验证
       // 用户名简单验证
-      if (
-        _self.username.trim() == '' ||
-        _self.username.trim().length == 0 ||
-        _self.username.trim() == null
-      ) {
-        _self.usernameMsg = '用户名不能为空!';
-        return false;
-      } else if (
-        _self.username.trim().length < 2 ||
-        _self.username.trim().length > 10
-      ) {
-        _self.usernameMsg = '用户名的长度为2-10位!';
+      if (!regUsername.test(_self.username)) {
+        _self.usernameMsg = '用户名为长度2-10位的汉字英文数字!';
         return false;
       } else {
         _self.usernameMsg = '';
       }
       // 密码简单验证
-      if (
-        _self.password.trim() == '' ||
-        _self.password.trim().length == 0 ||
-        _self.password.trim() == null
-      ) {
-        _self.passwordMsg = '密码不能为空!';
-        return false;
-      } else if (
-        _self.password.trim().length < 6 ||
-        _self.password.trim().length > 16
-      ) {
-        _self.passwordMsg = '密码的长度为6-16位!';
+      if (!regPassword.test(_self.password)) {
+        _self.passwordMsg = '密码为长度6-16位的英文数字!';
         return false;
       } else {
         _self.passwordMsg = '';
       }
       // 确认密码简单验证
-      if (
-        _self.repassword.trim() == '' ||
-        _self.repassword.trim().length == 0 ||
-        _self.repassword.trim() == null
-      ) {
-        _self.repasswordMsg = '确认密码不能为空!';
-        return false;
-      } else if (_self.password != _self.repassword) {
+      if (_self.password != _self.repassword) {
         _self.repasswordMsg = '两次密码不一致!';
         return false;
       } else {
         _self.repasswordMsg = '';
       }
-      let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]/;
       // 邮箱简单验证
-      if (
-        _self.email.trim() == '' ||
-        _self.email.trim().length == 0 ||
-        _self.email.trim() == null
-      ) {
-        _self.emailMsg = '邮箱不能为空!';
-        return false;
-      } else if (!reg.test(_self.email)) {
+      if (!regEmail.test(_self.email)) {
         _self.emailMsg = '邮箱格式不正确!';
         return false;
       } else {

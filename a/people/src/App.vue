@@ -17,6 +17,9 @@
       @mousedown="handleMouseDownBack"
       @mousemove="handleMouseMoveBack"
       @mouseup="handleMouseUpBack"
+      @touchstart="handleTouchStartBack"
+      @touchmove="handleTouchMoveBack"
+      @touchend="handleTouchEndBack"
     >Back</div>
     <!-- @click="handleClickTop" -->
   </div>
@@ -29,7 +32,9 @@ export default {
       moveFlag: false,
       offsetX: 0,
       offsetY: 0,
-      backFlag: true
+      backFlag: true,
+      tyqBackLeft: '',
+      phone: false
     };
   },
   mounted() {
@@ -38,6 +43,26 @@ export default {
       e.preventDefault();
       return false;
     };
+    _self.$nextTick(() => {
+      _self.tyqBackLeft = _self.$refs.tyqBack.offsetLeft;
+      console.log(_self.$refs.tyqBack.offsetLeft);
+    });
+    var userAgentInfo = navigator.userAgent;
+    var Agents = new Array(
+      'Android',
+      'iPhone',
+      'SymbianOS',
+      'Windows Phone',
+      'iPad',
+      'iPod'
+    );
+    for (let i = 0; i < Agents.length; i++) {
+      if (userAgentInfo.indexOf(Agents[i]) != -1) {
+        // phoneFlag = true;
+        console.log('移动端');
+        _self.phone = true;
+      }
+    }
     // 因为监听是针对window的，所以增加监听后每个页面都会监听，只对某个页面进行监听的话需要在destroyed中将监听移除
     // window.addEventListener('scroll', function() {
     //   // 页面往下滚动超过 xx 就显示返回顶部盒子
@@ -58,30 +83,99 @@ export default {
       var fz = (baseVal * width) / desPage; // 设置到html标签中
       document.querySelector('html').style.fontSize = fz + 'px';
     },
-    // 鼠标按下事件
+    // 鼠标按下事件 back 自由移动
     handleMouseDownBack(e) {
       var _self = this;
-      _self.offsetX = e.offsetX; // e.offsetX 鼠标到div盒子的左侧的距离
-      _self.offsetY = e.offsetY; // e.offsetX 鼠标到div盒子的上侧的距离
-      // console.log(_self.offsetX, _self.offsetY);
-      _self.moveFlag = true;
-    },
-    // back 自由移动
-    handleMouseMoveBack(e) {
-      var _self = this;
-      if (_self.moveFlag) {
-        _self.backFlag = false;
-        _self.$refs.tyqBack.style.left = e.clientX - _self.offsetX + 'px';
-        _self.$refs.tyqBack.style.top = e.clientY - _self.offsetY + 'px';
+      if (!_self.phone) {
+        _self.offsetX = e.offsetX; // e.offsetX 鼠标到div盒子的左侧的距离
+        _self.offsetY = e.offsetY; // e.offsetX 鼠标到div盒子的上侧的距离
+        // console.log(_self.offsetX, _self.offsetY);
+        _self.moveFlag = true;
+        console.log('pc-mouseDown');
       }
     },
-    // back 自由移动
+    // 鼠标移动事件 back 自由移动
+    handleMouseMoveBack(e) {
+      var _self = this;
+      let moveX = e.clientX - _self.offsetX;
+      let moveY = e.clientY - _self.offsetY;
+      if (_self.moveFlag && !_self.phone) {
+        _self.backFlag = false;
+        if (moveX < 0) {
+          moveX = 0;
+        } else if (moveX >= document.body.offsetWidth - e.target.offsetWidth) {
+          moveX = document.body.offsetWidth - e.target.offsetWidth;
+        }
+        if (moveY < 0) {
+          moveY = 0;
+        } else if (
+          moveY >=
+          document.body.offsetHeight - e.target.clientHeight
+        ) {
+          moveY = document.body.offsetHeight - e.target.clientHeight;
+        }
+        _self.$refs.tyqBack.style.left = moveX + 'px';
+        _self.$refs.tyqBack.style.top = moveY + 'px';
+        console.log('pc-mouseMove');
+      }
+    },
+    // 鼠标弹起事件 back 自由移动
     handleMouseUpBack(e) {
       var _self = this;
-      // console.log(e);
-      _self.moveFlag = false;
+      if (!_self.phone) {
+        // console.log(e);
+        _self.moveFlag = false;
+        _self.handleClickTop();
+        _self.backFlag = true;
+        setTimeout(() => {
+          _self.handleIsRight();
+        }, 500);
+        console.log('pc-mouseUp');
+      }
+    },
+    // 手指按下事件 back 自由移动
+    handleTouchStartBack(e) {
+      var _self = this;
+      console.log('phone-touchStart');
+    },
+    // 手指移动事件 back 自由移动
+    handleTouchMoveBack(e) {
+      var _self = this;
+      e.preventDefault();
+      _self.backFlag = false;
+      let moveX = e.targetTouches[0].clientX - e.target.clientWidth / 2;
+      let moveY = e.targetTouches[0].clientY - e.target.clientHeight / 2;
+      if (moveX < 0) {
+        moveX = 0;
+      } else if (moveX >= document.body.offsetWidth - e.target.clientWidth) {
+        moveX = document.body.offsetWidth - e.target.clientWidth;
+      }
+      if (moveY < 0) {
+        moveY = 0;
+      } else if (moveY >= document.body.offsetHeight - e.target.clientWidth) {
+        moveY = document.body.offsetHeight - e.target.clientWidth;
+      }
+      _self.$refs.tyqBack.style.left = moveX + 'px';
+      _self.$refs.tyqBack.style.top = moveY + 'px';
+      console.log('phone-touchMove');
+    },
+    // 手指弹起事件 back 自由移动
+    handleTouchEndBack(e) {
+      var _self = this;
       _self.handleClickTop();
       _self.backFlag = true;
+      setTimeout(() => {
+        _self.handleIsRight();
+      }, 500);
+      console.log('phone-touchEnd');
+    },
+    // 判断back盒子是否在右侧，如果不在，移动到右侧
+    handleIsRight() {
+      var _self = this;
+      if (_self.$refs.tyqBack.style.left != _self.tyqBackLeft) {
+        _self.animate(_self.$refs.tyqBack, _self.tyqBackLeft);
+        console.log('handleIsRight');
+      }
     },
     // 回到顶部
     handleClickTop() {
@@ -100,6 +194,20 @@ export default {
           i -= 20;
         }, 10);
       }
+    },
+    // 动画函数
+    animate(obj, target, fn) {
+      var _self = this;
+      clearInterval(obj.timer);
+      obj.timer = setInterval(function() {
+        var step = (target - obj.offsetLeft) / 10;
+        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+        if (obj.offsetLeft == Math.abs(target)) {
+          clearInterval(obj.timer);
+          fn && fn();
+        }
+        obj.style.left = obj.offsetLeft + step + 'px';
+      }, 15);
     }
   }
 };
@@ -111,6 +219,7 @@ body {
   width: 100%;
   height: 100%;
   background: #fffbf0;
+  cursor: url('~@/assets/logo.png'), auto !important;
 }
 * {
   margin: 0;
@@ -152,7 +261,7 @@ button {
   }
   .home-head {
     #canvasTime {
-      width: 122px !important;
+      width: 142px !important;
       height: 20px !important;
     }
     .home-head-weather-bottom-weather::after {
@@ -162,6 +271,10 @@ button {
   .home-menu-bk,
   .home-menu-list-item {
     width: 5rem !important;
+  }
+  .tyq-back {
+    width: 40px !important;
+    height: 40px !important;
   }
 }
 @media screen and (max-width: 1300px) and (min-width: 768px) {
@@ -192,8 +305,8 @@ button {
   position: fixed;
   bottom: 3.125rem;
   right: 1.875rem;
-  width: 3.425rem;
-  height: 3.425rem;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 1);
   color: #ffffff;
