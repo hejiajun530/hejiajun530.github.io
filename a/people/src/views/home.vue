@@ -46,7 +46,8 @@
         <button @click="getLocationWeather(citySearch)">确定</button>
       </div>
     </div>
-    <div class="home-menu">
+    <div class="home-menu-mask"></div>
+    <div class="home-menu" ref="homeMenu">
       <div class="home-menu-list d-flex jc-start ai-center w">
         <div
           class="home-menu-list-item text-center pointSB text-ellipsis"
@@ -58,9 +59,13 @@
           @mouseleave="handleMouseLeaveAnimate(index, $event)"
         >{{item.name}}</div>
         <div
-          class="home-menu-bk"
+          class="home-menu-bk positionTopLeft"
           ref="homeBk"
         ></div>
+        <div class="home-menu-login positionTopRight">
+          <img src="../assets/logo.png" @click="loginFlag = !loginFlag">
+          <div class="home-menu-login-box" v-show="loginFlag" @click="handleClickLoginOut">退出登录</div>
+        </div>
       </div>
     </div>
     <div class="home-box w">
@@ -89,6 +94,7 @@ export default {
   mixins: [mixin],
   data() {
     return {
+      loginFlag: false,
       // 保存 天气接口获取的城市名称，同时搜索时使用
       citySearch: '',
       // 菜单数组
@@ -486,6 +492,13 @@ export default {
           self.locationFlag = 'error';
         }
       });
+    },
+    // 退出登录
+    handleClickLoginOut () {
+      var _self = this;
+      localStorage.removeItem('tyqUser');
+      localStorage.removeItem('tyqToken');
+      _self.$router.push('/login');
     }
   },
   created() {
@@ -513,6 +526,19 @@ export default {
         _self.getLocationPhone();
       } else {
         _self.getLocationPC();
+      }
+    });
+    console.log(_self.$refs.homeMenu.offsetTop, 'top');
+    let menuTop = _self.$refs.homeMenu.offsetTop;
+    // 因为监听是针对window的，所以增加监听后每个页面都会监听，只对某个页面进行监听的话需要在destroyed中将监听移除
+    window.addEventListener('scroll', function() {
+      // 页面往下滚动超过 xx 就显示返回顶部盒子
+      if (window.pageYOffset > menuTop) {
+        _self.$refs.homeMenu.style.position = 'fixed';
+        _self.$refs.homeMenu.style.top = '0px';
+      } else {
+        _self.$refs.homeMenu.style.position = 'absolute';
+        _self.$refs.homeMenu.style.top = menuTop + 'px';
       }
     });
   },
@@ -597,8 +623,12 @@ export default {
     height: 60px;
   }
 }
+.home-menu-mask {
+  height: 3.125rem;
+}
 .home-menu {
   position: absolute;
+  top: 12.5rem;
   width: 100%;
   height: 3.125rem;
   background: #bfab86;
@@ -619,14 +649,28 @@ export default {
       z-index: 1;
     }
     .home-menu-bk {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 6.25rem;
       height: 100%;
       background: #fffbf0;
       border-top: 0.1875rem solid #f77825;
       z-index: 0;
+    }
+    .home-menu-login {
+      width: 90px;
+      height: 100%;
+      img {
+        height: 100%;
+        border-radius: 50%;
+      }
+      .home-menu-login-box {
+        position: absolute;
+        top: 3.125rem;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: #000000;
+        color: #ffffff;
+      }
     }
   }
 }

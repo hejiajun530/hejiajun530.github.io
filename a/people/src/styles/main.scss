@@ -59,6 +59,30 @@ $algin-text: (
   left: 50%;
   transform: translate(-50%, -50%);
 }
+// 绝对定位 左上
+.positionTopLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+// 绝对定位 右上
+.positionTopRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+// 绝对定位 左下
+.positionBottomLeft {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+// 绝对定位 右下
+.positionBottomRight {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 // 遮挡层
 .mask {
   position: fixed;
