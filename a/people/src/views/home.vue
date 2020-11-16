@@ -47,7 +47,10 @@
       </div>
     </div>
     <div class="home-menu-mask"></div>
-    <div class="home-menu" ref="homeMenu">
+    <div
+      class="home-menu"
+      ref="homeMenu"
+    >
       <div class="home-menu-list d-flex jc-start ai-center w">
         <div
           class="home-menu-list-item text-center pointSB text-ellipsis"
@@ -62,9 +65,21 @@
           class="home-menu-bk positionTopLeft"
           ref="homeBk"
         ></div>
-        <div class="home-menu-login positionTopRight">
-          <img src="../assets/logo.png" @click="loginFlag = !loginFlag">
-          <div class="home-menu-login-box" v-show="loginFlag" @click="handleClickLoginOut">退出登录</div>
+        <div class="home-menu-login positionTopRight pointSB">
+          <img
+            src="../assets/logo.png"
+            @click="loginFlag = !loginFlag"
+          >
+          <div
+            class="home-menu-login-box"
+            v-show="loginFlag"
+          >
+            <div
+              class="home-menu-login-box-loginout d-flex jc-center ai-center"
+              @click="handleClickLoginOut"
+            >退出登录</div>
+            <div class="home-menu-login-box-test d-flex jc-center ai-center">测试</div>
+          </div>
         </div>
       </div>
     </div>
@@ -494,7 +509,7 @@ export default {
       });
     },
     // 退出登录
-    handleClickLoginOut () {
+    handleClickLoginOut() {
       var _self = this;
       localStorage.removeItem('tyqUser');
       localStorage.removeItem('tyqToken');
@@ -667,9 +682,11 @@ export default {
         top: 3.125rem;
         left: 0;
         width: 100%;
-        height: 30px;
         background: #000000;
         color: #ffffff;
+        div {
+          height: 30px;
+        }
       }
     }
   }
