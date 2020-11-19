@@ -201,13 +201,13 @@ export default {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  margin: 5px;
+  margin: 0.3125rem;
 }
 .upload-previewImage {
   position: relative;
-  width: 80px;
-  height: 80px;
-  margin: 0 5px 0 0;
+  width: 5rem;
+  height: 5rem;
+  margin: 0 0.3125rem 0 0;
   overflow: hidden;
 }
 .upload-previewImage span {
@@ -215,24 +215,24 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
-  width: 15px;
-  height: 15px;
-  font-size: 14px;
+  width: 0.9375rem;
+  height: 0.9375rem;
+  font-size: 0.875rem;
   color: #666666;
   text-align: center;
-  line-height: 15px;
+  line-height: 0.9375rem;
   background-color: #dddddd;
   border-radius: 50%;
   cursor: pointer;
 }
 .upload-previewImage img {
-  height: 80px;
+  height: 5rem;
 }
 .upload-file {
   position: relative;
-  width: 80px;
-  height: 80px;
-  border: 1px dashed #cccccc;
+  width: 5rem;
+  height: 5rem;
+  border: 0.0625rem dashed #cccccc;
   cursor: pointer;
   overflow: hidden;
 }
@@ -246,13 +246,13 @@ export default {
   transform: translate(-50%, -50%);
 }
 .upload-file::before {
-  width: 20px;
-  height: 2px;
+  width: 1.25rem;
+  height: 0.125rem;
   background-color: #666666;
 }
 .upload-file::after {
-  width: 2px;
-  height: 20px;
+  width: 0.125rem;
+  height: 1.25rem;
   background-color: #666666;
 }
 .upload-file-text {
@@ -260,7 +260,7 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  font-size: 14px;
+  font-size: 0.875rem;
   text-align: center;
 }
 .upload-file-input {
@@ -271,21 +271,21 @@ export default {
 }
 /* 文件 */
 .uploadFile {
-  margin: 5px;
+  margin: 0.3125rem;
 }
 .upload-filename {
   position: relative;
-  width: 300px;
-  height: 30px;
+  width: 18.75rem;
+  height: 1.875rem;
   background-color: #f5f5f5;
-  font-size: 14px;
-  line-height: 30px;
-  margin-bottom: 5px;
-  padding-right: 35px;
+  font-size: 0.875rem;
+  line-height: 1.875rem;
+  margin-bottom: 0.3125rem;
+  padding-right: 2.1875rem;
 }
 .upload-filename span:nth-child(1) {
   display: inline-block;
-  width: 260px;
+  width: 16.25rem;
   height: 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -295,14 +295,14 @@ export default {
   display: inline-block;
   position: absolute;
   top: 50%;
-  right: 5px;
+  right: 0.3125rem;
   transform: translate(0, -50%);
-  width: 15px;
-  height: 15px;
-  font-size: 14px;
+  width: 0.9375rem;
+  height: 0.9375rem;
+  font-size: 0.875rem;
   color: #666666;
   text-align: center;
-  line-height: 15px;
+  line-height: 0.9375rem;
   background-color: #dddddd;
   border-radius: 50%;
   cursor: pointer;

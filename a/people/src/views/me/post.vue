@@ -7,6 +7,7 @@
         <div class="info-edit-item-content">
           <input
             type="text"
+            v-model="model.title"
             placeholder="请输入文章标题"
             class="me-input"
           >
@@ -17,7 +18,7 @@
         <div class="info-edit-item-content">
           <g-select
             :selectList='articleList'
-            @g-selectValue="handleGetSelectValue"
+            @g-selectValue="handleGetSelectValueCategory"
             id="ceatgory"
           ></g-select>
         </div>
@@ -26,9 +27,9 @@
         <div class="info-edit-item-label">文章标签</div>
         <div class="info-edit-item-content">
           <g-select
-            :selectList='articleList'
+            :selectList='tagList'
             chooseIndex='1'
-            @g-selectValue="handleGetSelectValue"
+            @g-selectValue="handleGetSelectValueTag"
             id="tips"
           ></g-select>
         </div>
@@ -42,11 +43,11 @@
       <div class="info-edit-item">
         <div class="info-edit-item-label">文章内容</div>
         <div class="info-edit-item-content">
-          <VueEditor></VueEditor>
+          <VueEditor v-model="model.content"></VueEditor>
         </div>
       </div>
       <div class="info-edit-item">
-        <button class="me-button pointSB">提交</button>
+        <button class="me-button pointSB" @click="handleClickAddArticle">提交</button>
       </div>
     </div>
   </div>
@@ -79,19 +80,64 @@ export default {
           name: '心情随笔',
           value: 'mood'
         }
-      ]
+      ],
+      tagList: [{
+        name: 'js',
+        value: 'js'
+      },{
+        name: 'css',
+        value: 'css'
+      },{
+        name: 'html',
+        value: 'html'
+      }],
+      model: {
+        title: '',
+        category: '',
+        tag: '',
+        content: '',
+        cover: ''
+      }
     };
   },
   methods: {
     // 获取upload的数组
-    handleGetUploadList(list, name) {
+    handleGetUploadList(file) {
       var _self = this;
-      console.log(list, name);
+      // console.log(file);
+      let formData = new FormData();
+      formData.append('file', file);
+      _self.$http.post('/upload', formData).then(res => {
+        _self.$set(_self.model, 'cover', res.data.url);
+        console.log(_self.model);
+      });
     },
-    // 获取select下拉框组件选择的值 数组形式
-    handleGetSelectValue(value) {
+    // 获取select下拉框组件选择的值 数组形式  分类
+    handleGetSelectValueCategory(value) {
+      var _self = this;
+      // console.log(value);
+      _self.$set(_self.model, 'category', value[0].value);
+      console.log(_self.model);
+    },
+    // 获取select下拉框组件选择的值 数组形式  标签
+    handleGetSelectValueTag(value) {
       var _self = this;
       console.log(value);
+      var data = '';
+      value.map((item, index) => {
+        // console.log(item, index)
+        data += index == 0 ? item.value : (',' + item.value);
+      })
+      _self.$set(_self.model, 'tag', data);
+      console.log(_self.model);
+    },
+    // 添加文章
+    handleClickAddArticle() {
+      var _self = this;
+      console.log(_self.model);
+      _self.$http.post('/addArticle', _self.model).then(res => {
+        console.log(res);
+      })
     }
   },
   created() {},

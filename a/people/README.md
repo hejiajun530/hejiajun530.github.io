@@ -39,3 +39,18 @@ create table user (
 );
 添加avator字段
 alter table user add column avator varchar(150) null comment '头像';
+
+article 表
+articleid,title,category,tag,cover,content
+create table article(
+  articleid int auto_increment primary key,
+  title varchar(150) not null,
+  category varchar(50) not null,
+  tag varchar(150) not null,
+  cover varchar(150) null,
+  content varchar(225) not null
+);
+添加createTime字段
+alter table article add column createTime datetime default current_timestamp comment '创建时间';
+添加updateTime字段
+alter table article add column updateTime datetime default current_timestamp on update current_timestamp comment '更新时间';

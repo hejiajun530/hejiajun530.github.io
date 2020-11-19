@@ -186,27 +186,41 @@ module.exports = app => {
     // console.log(data);
   })
 
+  // 添加文章
+  router.post('/addArticle', auth, async (req, res) => {
+    const body = req.body
+    console.log(body);
+    let addSql = `insert into article(title, category, tag, content, cover) values(?,?,?,?,?)`
+    let addSqlParams = [body.title, body.category, body.tag, body.content, body.cover]
+    cnt.query(addSql, addSqlParams, function(err, result) {
+      if (err) return console.log(err.toString());
+      var resultObj = {
+        flag: true,
+        msg: '发表成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
 
   // 上传图片
   const multer = require('multer')
   // const upload = multer({ dest: __dirname + '/../upload' })
   var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, '/upload');
+      cb(null, 'upload');
     },
     filename: function (req, file, cb) {
-      var fileFormat = (file.originalname).split(".");
-      cb(null, file.fieldname + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1]);
+      cb(null, file.originalname);
     }
   })
   var upload = multer({ storage: storage })
-  router.use(upload.single('file'))
   // 要想使图片显示，还需要静态资源托管 express.static
   router.post('/upload', upload.single('file'), async (req, res) => {
     // res.send('ok')
     const file = req.file
-    file.url = `http://localhost:3000/upload/${file.filename}`
-    console.log(file)
+    // file.url = `http://www.top121.top/upload/${file.filename}` // 网络图片地址 目前有问题
+    file.url = `http://localhost:3000/upload/${file.filename}` // 本地图片地址
     res.send(file)
   })
 

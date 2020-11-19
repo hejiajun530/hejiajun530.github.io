@@ -2734,6 +2734,8 @@ mysql -u root -p    // mysql登录
    2.2 添加字段
    alter table user add column avator varchar(150) null comment '头像' alter email;
    alter email: 在email字段之后添加avator字段
+   2.3 删除数据库
+   drop database 数据库名;
 
 2.mysql操作
    2.1 启动mysql

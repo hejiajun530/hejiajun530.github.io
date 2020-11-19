@@ -4,10 +4,11 @@
     <div class="info-edit d-flex flex-column">
       <div class="info-edit-item">
         <div class="info-edit-item-label">修改头像</div>
-        <div class="info-edit-item-content">
+        <div class="info-edit-item-content d-flex jc-start ai-center">
           <img
             :src="tyqUser.avator"
             v-if="tyqUser && tyqUser.avator"
+            class="avator"
           >
           <g-upload @g-uploadList="handleGetUploadList"></g-upload>
         </div>
@@ -126,5 +127,9 @@ export default {
   &::-webkit-scrollbar {
     display: none;
   }
+}
+.avator {
+  width: 5rem;
+  height: 5rem;
 }
 </style>
