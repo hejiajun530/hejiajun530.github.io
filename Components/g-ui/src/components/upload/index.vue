@@ -55,7 +55,14 @@
 </template>
 <script>
 export default {
-  props: ["type", "multiple"],
+  props: {
+    type: {
+      default: 0
+    },
+    multiple: {
+      default: false
+    }
+  },
   data() {
     return {
       imglist: [],

@@ -67,6 +67,12 @@
         ></div>
         <div class="home-menu-login positionTopRight pointSB">
           <img
+            :src="tyqUser.avator"
+            @click="loginFlag = !loginFlag"
+            v-if="tyqUser && tyqUser.avator"
+          >
+          <img
+            v-else
             src="../assets/logo.png"
             @click="loginFlag = !loginFlag"
           >
@@ -75,10 +81,9 @@
             v-show="loginFlag"
           >
             <div
-              class="home-menu-login-box-loginout d-flex jc-center ai-center"
+              class="home-menu-login-box-loginout text-ellipsis"
               @click="handleClickLoginOut"
             >退出登录</div>
-            <div class="home-menu-login-box-test d-flex jc-center ai-center">测试</div>
           </div>
         </div>
       </div>
@@ -90,12 +95,10 @@
       >登录</div>
       <div
         v-if="tyqUser && tyqToken"
-        @click="test"
         style="height: 50px;background: #E7753A;"
       >已登录</div>
       <div
         v-else
-        @click="test"
         style="height: 50px;background: #E7753A;"
       >未登录</div>
       <router-view></router-view>
@@ -293,18 +296,6 @@ export default {
     };
   },
   methods: {
-    // 测试
-    test() {
-      var _self = this;
-      // _self.$http.get('/test').then(res => {
-      //   console.log(res);
-      // });
-      _self.$http
-        .get('http://wthrcdn.etouch.cn/weather_mini?city=北京')
-        .then(res => {
-          console.log(res);
-        });
-    },
     // 选择菜单
     handleClickMenu(index, url, e) {
       var _self = this;
@@ -671,7 +662,7 @@ export default {
       z-index: 0;
     }
     .home-menu-login {
-      width: 90px;
+      width: 5.625rem;
       height: 100%;
       img {
         height: 100%;
@@ -685,7 +676,9 @@ export default {
         background: #000000;
         color: #ffffff;
         div {
-          height: 30px;
+          width: 5.625rem;
+          height: 1.875rem;
+          line-height: 1.875rem;
         }
       }
     }

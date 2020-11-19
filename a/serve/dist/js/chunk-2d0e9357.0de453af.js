@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0e9357"],{"8d0e":function(n,t,e){"use strict";e.r(t);var c=function(){var n=this,t=n.$createElement,e=n._self._c||t;return e("div",{staticClass:"index"},[n._v(" 留言 ")])},u=[],a={data:function(){return{}},methods:{},created:function(){},mounted:function(){}},i=a,o=e("2877"),s=Object(o["a"])(i,c,u,!1,null,"05bf22a8",null);t["default"]=s.exports}}]);
+//# sourceMappingURL=chunk-2d0e9357.0de453af.js.map

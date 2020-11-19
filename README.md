@@ -2717,6 +2717,7 @@ mysql -u root -p    // mysql登录
    1.7 新建数据表
    create table table_name (column_name column_type ...);
    1.8 导出数据库
+   // 需要先退出mysql 在cmd中进行
    mysqldump -u 用户名 -p 数据库名 > 导出的文件名
    mysqldump -u dbuser -p dbname > dbname.sql
    1.9 导入数据库
@@ -2728,6 +2729,11 @@ mysql -u root -p    // mysql登录
    mysql>source d:/dbname.sql
    2.0 mysql修改密码
    alter user 'root'@'localhost' identified by '新密码';
+   2.1 删除数据库表
+   drop table table_name;
+   2.2 添加字段
+   alter table user add column avator varchar(150) null comment '头像' alter email;
+   alter email: 在email字段之后添加avator字段
 
 2.mysql操作
    2.1 启动mysql

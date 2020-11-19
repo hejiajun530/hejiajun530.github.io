@@ -6,7 +6,10 @@
     <router-view />
     <div class="tyq-mask"></div>
     <div class="tyq d-flex flex-column jc-center ai-center">
-      <div class="tyq-header pointSB" @click="$router.push('/')">@TYQ121</div>
+      <div
+        class="tyq-header pointSB"
+        @click="$router.push('/')"
+      >@TYQ121</div>
       <div class="tyq-box">个人学习分享网站，大家喜欢的话可以分享给朋友~</div>
       <div class="tyq-foot">1962679391@qq.com</div>
     </div>

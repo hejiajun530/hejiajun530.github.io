@@ -7,8 +7,10 @@ var mixin = {
   },
   created() {
     var _self = this;
-    _self.tyqUser = JSON.parse(localStorage.getItem('tyqUser'));
+    let tyqUser = JSON.parse(localStorage.getItem('tyqUser'));
+    _self.tyqUser = tyqUser ? tyqUser : '';
     _self.tyqToken = localStorage.getItem('tyqToken');
+    console.log(_self.tyqUser, '----tyqUser----')
     var userAgentInfo = navigator.userAgent;
     var Agents = new Array(
       'Android',

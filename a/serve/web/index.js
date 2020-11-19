@@ -146,9 +146,68 @@ module.exports = app => {
     })
     await next()
   }
-  // 测试
-  router.get('/test', auth, async (req, res) => {
-    res.send('true');
+
+  // 获取用户信息
+  router.get('/getUser', auth, async (req, res) => {
+    // 传过过来的值
+    const query = req.query
+    console.log(query);
+    cnt.query('select * from user where username = "' + query.username + '"', function (err, result) {
+      if (err) return console.log(err.toString());
+      res.send(result)
+    })
+    // console.log(data);
+  })
+
+  // 根据id获取用户信息
+  router.get('/getUserById', auth, async (req, res) => {
+    // 传过过来的值
+    const query = req.query
+    console.log(query);
+    cnt.query('select * from user where userid = "' + query.userid + '"', function (err, result) {
+      if (err) return console.log(err.toString());
+      res.send(result)
+    })
+    // console.log(data);
+  })
+
+  // 修改用户信息
+  router.post('/editUser', auth, async (req, res) => {
+    // 传过过来的值
+    const body = req.body
+    console.log(body);
+    let updateSql = 'update user set avator = ?, username = ?, tips = ?, email = ?, password = ? where userid = ?'
+    let updateParams = [body.avator, body.username, body.tips, body.email, body.password, body.userid]
+    cnt.query(updateSql, updateParams, function (err, result) {
+      if (err) return console.log(err.toString());
+      console.log(result, 'editUser')
+      res.send(result)
+    })
+    // console.log(data);
+  })
+
+
+  // 上传图片
+  const multer = require('multer')
+  // const upload = multer({ dest: __dirname + '/../upload' })
+  var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, '/upload');
+    },
+    filename: function (req, file, cb) {
+      var fileFormat = (file.originalname).split(".");
+      cb(null, file.fieldname + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1]);
+    }
+  })
+  var upload = multer({ storage: storage })
+  router.use(upload.single('file'))
+  // 要想使图片显示，还需要静态资源托管 express.static
+  router.post('/upload', upload.single('file'), async (req, res) => {
+    // res.send('ok')
+    const file = req.file
+    file.url = `http://localhost:3000/upload/${file.filename}`
+    console.log(file)
+    res.send(file)
   })
 
   app.use('/web/api', router)

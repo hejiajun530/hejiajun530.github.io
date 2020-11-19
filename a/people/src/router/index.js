@@ -65,18 +65,18 @@ const routes = [
   {
     path: '/me',
     name: 'me',
-    redirect: '/me/index',
+    redirect: '/me/info',
     component: () => import('../views/me.vue'),
     children: [
-      {
-        path: '/me/index',
-        name: 'meIndex',
-        component: () => import('../views/me/index.vue'),
-      },
       {
         path: '/me/info',
         name: 'info',
         component: () => import('../views/me/info.vue'),
+      },
+      {
+        path: '/me/password',
+        name: 'mePassword',
+        component: () => import('../views/me/password.vue'),
       },
       {
         path: '/me/post',

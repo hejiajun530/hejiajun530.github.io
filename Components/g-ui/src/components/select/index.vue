@@ -52,7 +52,21 @@
 <script>
 import { clickOutSide } from "@/commons/directive.js";
 export default {
-  props: ["selectList", "chooseIndex", "title", "id"],
+  // props: ["selectList", "chooseIndex", "title", "id"],
+  props: {
+    selectList: {
+      default: []
+    },
+    chooseIndex: {
+      default: 0
+    },
+    title: {
+      default: "请选择"
+    },
+    id: {
+      default: "test"
+    }
+  },
   data() {
     return {
       clearShow: false,
@@ -157,7 +171,7 @@ export default {
 <style scoped>
 /* select */
 .select {
-  width: 300px;
+  width: 100%;
   height: 30px;
   background-color: #ffffff;
   text-align: left;
@@ -171,7 +185,7 @@ export default {
 }
 .select-title {
   position: relative;
-  width: 300px;
+  width: 100%;
   min-height: 30px;
   border: 1px solid #dddddd;
 }

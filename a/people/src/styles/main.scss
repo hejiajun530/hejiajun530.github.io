@@ -101,3 +101,40 @@ $algin-text: (
   width: 62.5rem;
   margin: 0 auto;
 }
+// Me 页面标题
+.me-title {
+  border-left: 4px solid orangered;
+  padding: 5px 0 5px 20px;
+}
+// Me 页面表单
+.me-input {
+  width: 100%;
+  height: 35px;
+  border: 1px solid #dddddd;
+  padding: 0 0 0 0.9375rem;
+  border-radius: 10px;
+}
+// Me 页面按钮
+.me-button {
+  background: orangered;
+  border-radius: 10px;
+  padding: 10px 25px;
+  color: #ffffff;
+}
+// Me 页面
+.info-edit {
+  .info-edit-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.625rem 0;
+    .info-edit-item-label {
+      text-align: left;
+      width: 7.5rem;
+      font-weight: 600;
+    }
+    .info-edit-item-content {
+      min-width: 18.75rem;
+    }
+  }
+}
