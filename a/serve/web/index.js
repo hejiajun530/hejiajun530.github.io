@@ -27,7 +27,7 @@ module.exports = app => {
     //   return false;
     // }
     cnt.query('select * from user where username = "' + body.username + '"', function (err, result) {
-      if (err) return console.log(err.toString());
+      if (err) return res.send(err);
       console.log(result, 'result')
       if (result == '') {
         // 添加用户
@@ -78,7 +78,7 @@ module.exports = app => {
     //   return false;
     // }
     cnt.query('select * from user where username = "' + query.username + '"', function (err, result) {
-      if (err) return console.log(err.toString());
+      if (err) return res.send(err);
       console.log(result, 'result')
       if (result == '') {
         res.send({
@@ -89,7 +89,7 @@ module.exports = app => {
         // 判断用户名和密码是否正确
         var addSql = 'select * from user where username = "' + query.username + '" and password = "' + query.password + '"';
         cnt.query(addSql, function (err, result) {
-          if (err) return console.log(err.toString());
+          if (err) return res.send(err);
           // console.log(result == '');
           // console.log(result);
           // 返回的值为空，有可能是用户名或密码输入错误
@@ -135,7 +135,7 @@ module.exports = app => {
       })
     }
     await cnt.query('select * from user where userid = "' + id + '"', function (err, result) {
-      if (err) return console.log(err.toString());
+      if (err) return res.send(err);
       // console.log(result)
       if (!result) {
         return res.status(401).send({
@@ -153,7 +153,7 @@ module.exports = app => {
     const query = req.query
     console.log(query);
     cnt.query('select * from user where username = "' + query.username + '"', function (err, result) {
-      if (err) return console.log(err.toString());
+      if (err) return res.send(err);
       res.send(result)
     })
     // console.log(data);
@@ -165,7 +165,7 @@ module.exports = app => {
     const query = req.query
     console.log(query);
     cnt.query('select * from user where userid = "' + query.userid + '"', function (err, result) {
-      if (err) return console.log(err.toString());
+      if (err) return res.send(err);
       res.send(result)
     })
     // console.log(data);
@@ -179,7 +179,7 @@ module.exports = app => {
     let updateSql = 'update user set avator = ?, username = ?, tips = ?, email = ?, password = ? where userid = ?'
     let updateParams = [body.avator, body.username, body.tips, body.email, body.password, body.userid]
     cnt.query(updateSql, updateParams, function (err, result) {
-      if (err) return console.log(err.toString());
+      if (err) return res.send(err);
       console.log(result, 'editUser')
       res.send(result)
     })
@@ -190,13 +190,81 @@ module.exports = app => {
   router.post('/addArticle', auth, async (req, res) => {
     const body = req.body
     console.log(body);
-    let addSql = `insert into article(title, category, tag, content, cover) values(?,?,?,?,?)`
-    let addSqlParams = [body.title, body.category, body.tag, body.content, body.cover]
-    cnt.query(addSql, addSqlParams, function(err, result) {
-      if (err) return console.log(err.toString());
+    let addSql = `insert into article(title, category, tag, content, cover, userid) values(?,?,?,?,?,?)`
+    let addSqlParams = [body.title, body.category, body.tag, body.content, body.cover, body.userid]
+    cnt.query(addSql, addSqlParams, function (err, result) {
+      if (err) return res.send(err);
       var resultObj = {
         flag: true,
         msg: '发表成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
+  // 根据用户id获取文章列表
+  router.post('/getArticleList', auth, async (req, res) => {
+    const body = req.body
+    console.log(body);
+    let selectSql = `select article.articleid,article.title,article.category,article.tag,article.cover,article.content,article.createTime,article.userid,user.username from article,user where article.userid = user.userid and article.userid = "${body.userid}" limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+    cnt.query(selectSql, function (err, result) {
+      if (err) return res.send(err);
+      cnt.query(`select count(*) as total from article,user where article.userid = user.userid and article.userid = "${body.userid}"`, function (err, result1) {
+        if (err) return res.send(err);
+        var resultObj = {
+          flag: true,
+          msg: '获取成功!',
+          res: result,
+          total: result1
+        }
+        res.send(resultObj)
+      })
+    })
+  })
+
+  // 根据文章id修改文章内容
+  router.post('/editArticleById', auth, async (req, res) => {
+    const body = req.body
+    console.log(body)
+    let updateSql = `update article set title = ?, category = ?, tag = ?, cover = ?, content = ? where articleid = ?`;
+    let updateSqlParams = [body.title, body.category, body.tag, body.cover, body.content, body.articleid]
+    cnt.query(updateSql, updateSqlParams, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '修改文章成功',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
+  // 根据文章id获取文章内容
+  router.get('/getArticleByArticleId', async (req, res) => {
+    const query = req.query
+    console.log(query);
+    cnt.query(`select * from article where articleid = ${query.articleid}`, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '获取文章成功',
+        res: result
+      };
+      res.send(resultObj)
+    })
+  })
+
+  // 根据文章id删除文章
+  router.get('/delArticleById', auth, async (req, res) => {
+    const query = req.query
+    console.log(query)
+    let delSql = `delete from article where articleid = ${query.articleid}`;
+    cnt.query(delSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '删除成功',
         res: result
       }
       res.send(resultObj)
@@ -219,7 +287,8 @@ module.exports = app => {
   router.post('/upload', upload.single('file'), async (req, res) => {
     // res.send('ok')
     const file = req.file
-    // file.url = `http://www.top121.top/upload/${file.filename}` // 网络图片地址 目前有问题
+    console.log(file, 'file-------------------------')
+    // file.url = `http://www.tyq121.top:80/upload/${file.filename}` // 网络图片地址 目前有问题
     file.url = `http://localhost:3000/upload/${file.filename}` // 本地图片地址
     res.send(file)
   })

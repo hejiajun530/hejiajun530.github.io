@@ -59,6 +59,11 @@ export default {
           icon: 'icon-wenzhang',
           name: '文章发表',
           url: '/me/post'
+        },
+        {
+          icon: 'icon-wenzhangliebiaoxiangqing',
+          name: '文章列表',
+          url: '/me/postlist'
         }
       ],
       meIndex: 0

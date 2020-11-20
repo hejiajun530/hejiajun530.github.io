@@ -12,7 +12,7 @@
     >
       <!-- 单选 -->
       <div v-if="chooseIndex == 0">
-        <span>{{selectIndex >= 0 ? chooseList[0].name : title}}</span>
+        <span>{{selectIndex >= 0 ? chooseList[0] : (nowdata ? nowdata : title)}}</span>
         <span
           v-if="clearShow"
           class="select-title-clear"
@@ -25,12 +25,15 @@
         class="select-title-list"
       >
         <div v-if="chooseList.length == 0">{{title}}</div>
-        <div
-          class="select-title-list-item"
-          v-for="(subitem, idx) in chooseList"
-          :key="idx"
-        >
-          <span>{{subitem.name}}</span> <span @click.stop="handleClickDelChoose(idx)">×</span></div>
+        <template v-if="chooseList.length >= 1">
+          <div
+            class="select-title-list-item"
+            v-for="(subitem, idx) in chooseList"
+            :key="idx"
+          >
+            <span>{{subitem}}</span> <span @click.stop="handleClickDelChoose(idx)">×</span>
+          </div>
+        </template>
       </div>
     </div>
     <div
@@ -44,7 +47,7 @@
         @click="handleClickChooseSelect(index, $event)"
         v-for="(item, index) in selectList"
         :key="index"
-      >{{item.name}}
+      >{{item}}
       </div>
     </div>
   </div>
@@ -64,6 +67,9 @@ export default {
     },
     id: {
       default: 'test'
+    },
+    nowdata: {
+      type: String
     }
   },
   data() {
@@ -86,6 +92,27 @@ export default {
   watch: {
     chooseList() {
       var _self = this;
+      _self.handleXunRang();
+    },
+    nowdata() {
+      var _self = this;
+      // 不能放在created或mounted生命周期里，因为有可能数据还没获取到
+      if (_self.chooseIndex == 1) {
+        _self.chooseList = _self.nowdata.split(',');
+        // console.log(_self);
+      }
+    }
+  },
+  created() {
+    var _self = this;
+  },
+  mounted() {
+    var _self = this;
+  },
+  methods: {
+    // 渲染
+    handleXunRang() {
+      var _self = this;
       var options = document.querySelectorAll(`.${_self.id}.select-option`);
       // console.log(options[0]);
       for (let i = 0; i < options.length; i++) {
@@ -94,12 +121,7 @@ export default {
       _self.selectIndexList.forEach((item, index) => {
         options[item].classList.add('active');
       });
-    }
-  },
-  mounted() {
-    var _self = this;
-  },
-  methods: {
+    },
     // 清空选择的值
     handleClickClear() {
       var _self = this;

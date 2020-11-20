@@ -54,3 +54,6 @@ create table article(
 alter table article add column createTime datetime default current_timestamp comment '创建时间';
 添加updateTime字段
 alter table article add column updateTime datetime default current_timestamp on update current_timestamp comment '更新时间';
+添加userid外键字段
+alter table article add column userid int not nul comment '用户表id';
+alter table article add constraint FK_ID foreign key(userid) REFERENCES user(userid);

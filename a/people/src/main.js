@@ -7,11 +7,13 @@ import './styles/main.scss';
 import './styles/iconfont.css';
 // 导入自写组件
 import messagejs from './components/message/message.js';
+import alertjs from './components/alert/alert.js';
 
 import http from './http';
 
 Vue.config.productionTip = false;
 Vue.prototype.$gMessage = messagejs;
+Vue.prototype.$gAlert = alertjs;
 Vue.prototype.$http = http;
 
 new Vue({

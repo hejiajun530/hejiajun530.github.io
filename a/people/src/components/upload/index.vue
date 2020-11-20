@@ -4,15 +4,15 @@
       class="upload"
       v-if="type == 0"
     >
-      <!-- 预览图片 -->
-      <div
+      <!-- 预览图片  暂时不需要图片预览 -->
+      <!-- <div
         class="upload-previewImage"
         v-for="(item, index) in imglist"
         :key="index"
       >
         <img :src="item">
         <span @click="handleClickDel('img', index)">×</span>
-      </div>
+      </div> -->
       <!-- 上传图片按钮 -->
       <div class="upload-file">
         <div class="upload-file-text">上传图片</div>
@@ -30,15 +30,15 @@
       class="uploadFile"
       v-if="type == 2"
     >
-      <!-- 预览图片 -->
-      <div
+      <!-- 预览图片  暂时不需要图片预览 -->
+      <!-- <div
         class="upload-filename"
         v-for="(item, index) in fileName"
         :key="index"
       >
         <span>{{item}}</span>
         <span @click="handleClickDel('file', index)">×</span>
-      </div>
+      </div> -->
       <!-- 上传图片按钮 -->
       <div class="upload-file">
         <div class="upload-file-text">上传文件</div>
@@ -94,6 +94,7 @@ export default {
           if (/\.(jpe?g|png|gif)$/i.test(files[i].name)) {
             var reader = new FileReader();
             reader.onload = function(e) {
+              _self.imglist = [];
               // 防止重复上传
               _self.imglist.push(e.srcElement.result);
               // console.log(_self.img);

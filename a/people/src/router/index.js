@@ -83,6 +83,11 @@ const routes = [
         name: 'post',
         component: () => import('../views/me/post.vue'),
       },
+      {
+        path: '/me/postlist',
+        name: 'postlist',
+        component: () => import('../views/me/postlist.vue'),
+      },
     ]
   },
 ];

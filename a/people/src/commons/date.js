@@ -1,11 +1,3 @@
-// 调用方式  DateTime().方法名(参数)
-function DateTime(date) {
-  if (date) {
-    return new Date(date);
-  }
-  return new Date();
-}
-
 // 返回时间差
 function dateDiff(startDate, EndDate) {
   var dateStart = new Date(startDate);
@@ -63,6 +55,8 @@ function toymd(time, str) {
     return hours + ':' + min + ':' + sec;
   } else if (str.toLowerCase() == 'mm:ss') {
     return min + ':' + sec;
+  } else {
+    return year + '-' + month + '-' + day;
   }
 }
 
@@ -166,20 +160,43 @@ function monthLastDay(time) {
   return lastDay.getDay();
 }
 
-Date.prototype.dateDiff = dateDiff;//时间差
-Date.prototype.today = today;//时间差
-Date.prototype.tomonth = tomonth;//时间差
-Date.prototype.toyear = toyear;//时间差
-Date.prototype.toymd = toymd;//返回日期字符串
-Date.prototype.toTwo = toTwo;//时间少于10 前面 +0
-Date.prototype.AddDay = AddDay;//增加一天
-Date.prototype.AddWeek = AddWeek;//增加一周
-Date.prototype.AddMonth = AddMonth;//增加一月
-Date.prototype.AddYear = AddYear;//增加一年
-Date.prototype.AddH = AddH;//增加一小时
-Date.prototype.AddM = AddM;//增加一分钟
-Date.prototype.AddS = AddS;//增加一秒
-Date.prototype.AddF = AddF;//增加一毫秒
-Date.prototype.monthDays = monthDays;//获取本月的天数
-Date.prototype.monthFirstDay = monthFirstDay;//获取本月第一天在星期几
-Date.prototype.monthLastDay = monthLastDay;//获取本月最后一天在星期几
+// export {
+//   today
+// }
+export {
+  dateDiff,
+  today,
+  tomonth,
+  toyear,
+  toymd,
+  toTwo,
+  AddDay,
+  AddWeek,
+  AddMonth,
+  AddYear,
+  AddH,
+  AddM,
+  AddS,
+  AddF,
+  monthDays,
+  monthFirstDay,
+  monthLastDay,
+}
+
+// Date.prototype.dateDiff = dateDiff;//时间差
+// Date.prototype.today = today;//时间差
+// Date.prototype.tomonth = tomonth;//时间差
+// Date.prototype.toyear = toyear;//时间差
+// Date.prototype.toymd = toymd;//返回日期字符串
+// Date.prototype.toTwo = toTwo;//时间少于10 前面 +0
+// Date.prototype.AddDay = AddDay;//增加一天
+// Date.prototype.AddWeek = AddWeek;//增加一周
+// Date.prototype.AddMonth = AddMonth;//增加一月
+// Date.prototype.AddYear = AddYear;//增加一年
+// Date.prototype.AddH = AddH;//增加一小时
+// Date.prototype.AddM = AddM;//增加一分钟
+// Date.prototype.AddS = AddS;//增加一秒
+// Date.prototype.AddF = AddF;//增加一毫秒
+// Date.prototype.monthDays = monthDays;//获取本月的天数
+// Date.prototype.monthFirstDay = monthFirstDay;//获取本月第一天在星期几
+// Date.prototype.monthLastDay = monthLastDay;//获取本月最后一天在星期几

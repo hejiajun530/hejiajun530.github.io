@@ -101,15 +101,39 @@
         v-else
         style="height: 50px;background: #E7753A;"
       >未登录</div>
+      <div
+        class="home-box-swiperpc"
+        v-if="!phoneFlag"
+      >
+        <g-swiperAnimate
+          :imglist="swiperAnimaImg"
+          :configs="configs"
+        ></g-swiperAnimate>
+      </div>
+      <div
+        class="home-box-swiperphone"
+        v-else
+      >
+        <g-swiper
+          :imglist="swiperAnimaImg"
+          duration="5000"
+        ></g-swiper>
+      </div>
       <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
+import swiperAnimate from '@/components/swiper/swiperAnimation.vue';
+import swiper from '@/components/swiper/index.vue';
 import mixin from '../mixins';
 export default {
   mixins: [mixin],
+  components: {
+    'g-swiperAnimate': swiperAnimate,
+    'g-swiper': swiper
+  },
   data() {
     return {
       loginFlag: false,
@@ -291,8 +315,63 @@ export default {
       // 临时数据
       tempdata: '',
       // 判断定位是否成功
-      locationFlag: 'wait' // wait 定位中... success 定位成功，显示天气  error 定位失败 addressError 地址不存在
+      locationFlag: 'wait', // wait 定位中... success 定位成功，显示天气  error 定位失败 addressError 地址不存在
       // animationTime: null
+      // swiper
+      configs: [
+        {
+          width: 350,
+          height: 100,
+          top: 0,
+          left: -50,
+          opacity: 0,
+          transform: 'translate(-12.5%, 0) rotateY(45deg)',
+          zIndex: 2
+        }, //0
+        {
+          width: 350,
+          height: 250,
+          top: 50,
+          left: -100,
+          opacity: 0.8,
+          transform: 'translate(-12.5%, 0) rotateY(45deg)',
+          zIndex: 3
+        }, //1
+        {
+          width: 350,
+          height: 300,
+          top: 25,
+          left: 120,
+          opacity: 1,
+          transform: 'translate(-12.5%, 0) rotateY(0)',
+          zIndex: 4
+        }, //2
+        {
+          width: 350,
+          height: 250,
+          top: 50,
+          left: 250,
+          opacity: 0.8,
+          transform: 'translate(-12.5%, 0) rotateY(-45deg)',
+          zIndex: 3
+        }, //3
+        {
+          width: 350,
+          height: 100,
+          top: 0,
+          left: 450,
+          opacity: 0,
+          transform: 'translate(-12.5%, 0) rotateY(-45deg)',
+          zIndex: 2
+        } //4
+      ],
+      swiperAnimaImg: [
+        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2646629351,1830923198&fm=26&gp=0.jpg',
+        'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4184278089,1373760144&fm=26&gp=0.jpg',
+        'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1294082173,3333931346&fm=26&gp=0.jpg',
+        'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1419817777,3647793771&fm=26&gp=0.jpg',
+        'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1618453098,2599275984&fm=26&gp=0.jpg'
+      ]
     };
   },
   methods: {
@@ -685,5 +764,13 @@ export default {
   }
 }
 .home-box {
+  .home-box-swiperpc {
+    width: 500px;
+    height: 350px;
+  }
+  .home-box-swiperphone {
+    width: 31.25rem;
+    height: 21.875rem;
+  }
 }
 </style>

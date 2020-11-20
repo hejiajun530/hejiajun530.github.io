@@ -2720,6 +2720,8 @@ mysql -u root -p    // mysql登录
    // 需要先退出mysql 在cmd中进行
    mysqldump -u 用户名 -p 数据库名 > 导出的文件名
    mysqldump -u dbuser -p dbname > dbname.sql
+   mysqldump -u 用户名 -p 数据库名 表名 > 导出的文件名
+   mysqldump -u dbuser -p dbname table_name > table_name.sql
    1.9 导入数据库
    常用source 命令
    进入mysql数据库控制台，如
@@ -2770,6 +2772,11 @@ mysql -u root -p    // mysql登录
       select * from talbe_name where age between '19' and '30';
       3.4.6 as 别名
       select name as '姓名', age as '年龄' from user;
+      3.4.7 limit
+      select * from table_name limit m,n; // m 代表从m+1条记录开始检索，n 代表取出n条记录
+      select * from table_name limit 5,10; // 检索记录行 6-15
+      select * from table_name limit 10; // 检索记录行 0-10
+      select * from table_name where userid = 1 limit 5,10; // 当有其他条件时，不需要and，有and会报错
 4.1 插入数据 insert into
 insert into table_name values(列1,列2...);
 insert into table_name (列1名称, 列2名称...) values (列1,列2...);//在指定的列插入数据
@@ -2812,3 +2819,5 @@ P_Id int PRIMARY KEY IDENTITY
 ALTER TABLE Persons AUTO_INCREMENT=100  设置主键初始值为100，一般初始值为1
 12.1
 curdate timestamp not null default current_timestamp 每次添加数据会自动记录添加数据时的时间
+13.1 查询两个表
+select * from article,user where article.userid = user.userid and article.userid = "${query.userid}"
