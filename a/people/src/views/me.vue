@@ -98,6 +98,7 @@ export default {
     padding: 3.125rem 0 0 0;
     .me-left-header {
       img {
+        width: 6.25rem;
         height: 6.25rem;
         border-radius: 50%;
         transition: all 2s;

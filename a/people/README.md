@@ -57,3 +57,14 @@ alter table article add column updateTime datetime default current_timestamp on 
 添加userid外键字段
 alter table article add column userid int not nul comment '用户表id';
 alter table article add constraint FK_ID foreign key(userid) REFERENCES user(userid);
+alter table article add column count int null comment '浏览记录';
+
+alike 表
+create table alike(
+  alikeid int not null auto_increment primary key,
+  articleid int not null,
+  userid int not null,
+  status int not null,// 0 表示没有点赞， 1表示点赞
+  constraint fk_article_id foreign key(articleid) references article(articleid),
+  constraint fk_user_id foreign key(userid) references user(userid)
+);

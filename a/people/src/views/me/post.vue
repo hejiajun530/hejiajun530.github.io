@@ -51,7 +51,11 @@
       <div class="info-edit-item">
         <div class="info-edit-item-label">文章内容</div>
         <div class="info-edit-item-content">
-          <VueEditor v-model="model.content"></VueEditor>
+          <VueEditor
+            v-model="model.content"
+            useCustomImageHandler
+            @image-added="handleImageAdded"
+          ></VueEditor>
         </div>
       </div>
       <div class="info-edit-item">
@@ -86,7 +90,8 @@ export default {
         tag: '',
         content: '',
         cover: '',
-        userid: ''
+        userid: '',
+        count: 1
       },
       postFlag: true // true 为发表文章  false 为编辑文章
     };
@@ -124,10 +129,23 @@ export default {
       _self.$set(_self.model, 'tag', data);
       // console.log(_self.model);
     },
+    // 富文本添加图片
+    async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      var formData = new FormData();
+      formData.append('file', file);
+      const res = await this.$http.post('/upload', formData);
+      // console.log(res);
+      Editor.insertEmbed(cursorLocation, 'image', res.data.url);
+      resetUploader();
+    },
     // 添加文章
     handleClickAddArticle() {
       var _self = this;
       _self.$set(_self.model, 'userid', _self.tyqUser.userid);
+      // 文章的浏览记录，如果浏览记录有值，就使用原值，没有就为0
+      let count = _self.model.count ? _self.model.count : 1;
+      _self.$set(_self.model, 'count', count);
+      console.log(_self.model);
       var allFlag = true;
       Object.keys(_self.model).forEach(key => {
         console.log(_self.model[key], key);
@@ -140,6 +158,7 @@ export default {
         if (!_self.model[key]) {
           //如果有一个值为空，就不往后执行
           allFlag = false;
+          console.log('有值为空，不调用接口');
         }
       });
       if (!allFlag) {

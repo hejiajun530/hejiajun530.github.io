@@ -6,6 +6,7 @@
       <g-tableColumn
         label="标题"
         prop="title"
+        width="150"
       >
         <template slot-scope="scope">
           {{scope.row.title}}
@@ -24,13 +25,7 @@
         prop="tag"
       >
         <template slot-scope="scope">
-          <div
-            class="postlist-tag pointSB"
-            v-for="item in scope.row.tag.split(',')"
-            :key="item"
-          >
-            {{item}}
-          </div>
+          <g-tag :taglist="scope.row.tag.split(',')"></g-tag>
         </template>
       </g-tableColumn>
       <g-tableColumn
@@ -66,17 +61,26 @@
         </template>
       </g-tableColumn>
     </g-table>
+    <!-- 分页 -->
     <div class="postlist-pageing">
       <g-pageing
         :num="total"
         @g-getpage="handleClickChangePage"
       ></g-pageing>
     </div>
+    <!-- 没有文章时 -->
+    <div
+      class="postlist-noarticle text-left"
+      v-if="articleList.length == 0"
+    >
+      您还没有发表过文章，快去发表文章吧~
+    </div>
   </div>
 </template>
 
 <script>
 import { toymd } from '@/commons/date.js';
+import tag from '@/components/tag/index';
 import table from '@/components/table/index';
 import tableColumn from '@/components/table/tableColumn';
 import pageing from '@/components/pageing/index';
@@ -84,6 +88,7 @@ import mixin from '@/mixins';
 export default {
   mixins: [mixin],
   components: {
+    'g-tag': tag,
     'g-table': table,
     'g-tableColumn': tableColumn,
     'g-pageing': pageing
@@ -145,7 +150,7 @@ export default {
       // console.log(num);
       _self.$set(_self.query, 'page', num);
       _self.$set(_self.query, 'userid', _self.tyqUser.userid);
-      _self.$http.post('/getArticleList', _self.query).then(res => {
+      _self.$http.post('/getArticleListById', _self.query).then(res => {
         console.log(res.data);
         if (!res.data.flag) {
           _self.$gMessage({
@@ -177,10 +182,9 @@ export default {
     width: 500px;
     margin: 10px 0 0 0;
   }
-  .postlist-tag {
-    padding: 0.125rem 0.225rem;
-    background: skyblue;
-    margin: 0 0.1875rem;
+  .postlist-noarticle {
+    padding: 1.25rem 0;
+    font-size: 1.375rem;
   }
 }
 </style>

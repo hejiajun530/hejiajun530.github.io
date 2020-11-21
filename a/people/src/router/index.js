@@ -60,6 +60,11 @@ const routes = [
         name: 'about',
         component: () => import('../views/other/about.vue'),
       },
+      {
+        path: '/home/articledetail',
+        name: 'articledetail',
+        component: () => import('../views/other/articledetail.vue'),
+      },
     ]
   },
   {

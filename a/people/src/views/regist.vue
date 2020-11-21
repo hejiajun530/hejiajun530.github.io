@@ -106,7 +106,8 @@ export default {
       var data = {
         username: _self.username,
         password: _self.password,
-        email: _self.email
+        email: _self.email,
+        role: 'normal'
       };
       _self.$http.post('/regist', data).then(res => {
         console.log(res);
