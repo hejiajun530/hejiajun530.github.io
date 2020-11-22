@@ -87,7 +87,7 @@ export default {
             _self.locationFlag = 'error';
           }
           _self.addressData = res.data;
-          console.log(res, 'addressData');
+          // console.log(res, 'addressData');
         });
     },
     // 根据城市获取实时天气
@@ -111,7 +111,7 @@ export default {
           }
           _self.weatherData = result.data.lives[0];
           _self.citySearch = _self.weatherData.city;
-          console.log(result, 'weatherData');
+          // console.log(result, 'weatherData');
           // _self.tempdata =
           //   JSON.stringify(_self.weatherData) + '----getLocationPhone-weather';
         });
@@ -144,7 +144,7 @@ export default {
 
         function onComplete(data) {
           // data是具体的定位信息
-          console.log('定位成功信息：', data);
+          // console.log('定位成功信息：', data);
           // self.tempdata =
           //   JSON.stringify(data.position.lng) +
           //   JSON.stringify(data.position.lat) +

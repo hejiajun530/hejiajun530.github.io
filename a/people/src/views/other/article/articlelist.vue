@@ -53,7 +53,10 @@
                 <div>{{item.count ? item.count : 0}}</div>
               </div>
               <!-- 点赞数量 -->
-              <div class="articlelist-list-item-right-make-right-common d-flex jc-end ai-center pointSB">
+              <div
+                class="articlelist-list-item-right-make-right-common d-flex jc-end ai-center pointSB"
+                @click="handleClickAddLike(item)"
+              >
                 <i class="iconfont icon-dianzan"></i>
                 <div>{{item.like ? item.like : 0}}</div>
               </div>
@@ -84,7 +87,27 @@ export default {
   mounted() {},
   methods: {
     // toymd 时间转换格式
-    toymd: toymd
+    toymd: toymd,
+    // 点赞
+    handleClickAddLike(item) {
+      var _self = this;
+      let userid = JSON.parse(localStorage.getItem('tyqUser')).userid;
+      _self.$set(item, 'userid', userid);
+      _self.$set(item, 'status', 1);
+      _self.$http.post('/addLike', item).then(res => {
+        console.log(res);
+        _self.$gMessage({
+          title: res.data.msg,
+          duration: 2000,
+          type: 'success'
+        });
+        if (res.data.msg.indexOf('取消点赞') != -1) {
+          _self.$set(item, 'like', item.like - 1);
+        } else if (res.data.msg.indexOf('点赞成功') != -1) {
+          _self.$set(item, 'like', item.like + 1);
+        }
+      });
+    }
   }
 };
 </script>

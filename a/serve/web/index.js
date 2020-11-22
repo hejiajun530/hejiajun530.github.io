@@ -207,7 +207,7 @@ module.exports = app => {
   router.post('/getArticleList', async (req, res) => {
     const body = req.body
     console.log(body);
-    let selectSql = `select article.articleid,article.title,article.category,article.tag,article.cover,article.count,article.content,article.createTime,article.userid,user.username from article,user where article.userid = user.userid order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       cnt.query(`select count(*) as total from article,user where article.userid = user.userid`, function (err, result1) {
@@ -227,7 +227,7 @@ module.exports = app => {
   router.post('/getArticleListStory', async (req, res) => {
     const body = req.body
     console.log(body);
-    let selectSql = `select article.articleid,article.title,article.category,article.tag,article.cover,article.count,article.content,article.createTime,article.userid,user.username from article,user where article.userid = user.userid and article.category = "过往故事" order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.category = "过往故事" order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       cnt.query(`select count(*) as total from article,user where article.userid = user.userid and article.category = "过往故事" `, function (err, result1) {
@@ -247,7 +247,7 @@ module.exports = app => {
   router.post('/getArticleListShare', async (req, res) => {
     const body = req.body
     console.log(body);
-    let selectSql = `select article.articleid,article.title,article.category,article.tag,article.cover,article.count,article.content,article.createTime,article.userid,user.username from article,user where article.userid = user.userid and article.category = "技术分享" order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.category = "技术分享" order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       cnt.query(`select count(*) as total from article,user where article.userid = user.userid and article.category = "技术分享" `, function (err, result1) {
@@ -267,7 +267,7 @@ module.exports = app => {
   router.post('/getArticleListById', auth, async (req, res) => {
     const body = req.body
     console.log(body);
-    let selectSql = `select article.articleid,article.title,article.category,article.tag,article.cover,article.count,article.content,article.createTime,article.userid,user.username from article,user where article.userid = user.userid and article.userid = "${body.userid}" order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.userid = "${body.userid}" order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       cnt.query(`select count(*) as total from article,user where article.userid = user.userid and article.userid = "${body.userid}"`, function (err, result1) {
@@ -304,7 +304,7 @@ module.exports = app => {
   router.get('/getArticleByArticleId', async (req, res) => {
     const query = req.query
     console.log(query);
-    let selectSql = `select article.articleid,article.title,article.category,article.tag,article.cover,article.count,article.content,article.createTime,article.userid,user.username from article,user where article.userid = user.userid and articleid = ${query.articleid}`
+    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and articleid = ${query.articleid}`
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       var resultObj = {
@@ -336,32 +336,38 @@ module.exports = app => {
   router.post('/addLike', auth, async (req, res) => {
     const body = req.body
     console.log(body);
-    let addSql = `insert into alike(articleid, userid, status)`;
-    let addParams = [body.articleid, body.userid, body.status]
-    cnt.query(addSql, addParams, function (err, result) {
+    let selectSql = `select * from alike where articleid = ${body.articleid} and userid = ${body.userid}`;
+    cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
-      var resultObj = {
-        flag: true,
-        msg: '点赞成功',
-        res: result
+      console.log(result)
+      if (!result.length) {
+        console.log('空');
+        // 点赞
+        let addSql = `insert into alike(articleid, userid, status) value(?,?,?)`;
+        let addParams = [body.articleid, body.userid, body.status]
+        cnt.query(addSql, addParams, function (err, result1) {
+          if (err) return res.send(err);
+          var resultObj = {
+            flag: true,
+            msg: '点赞成功',
+            res: result1
+          }
+          res.send(resultObj)
+        })
+      } else {
+        console.log('不空');
+        // 取消点赞
+        let delSql = `delete from alike where articleid = ${body.articleid} and userid = ${body.userid}`;
+        cnt.query(delSql, function (err, result1) {
+          if (err) return res.send(err);
+          var resultObj = {
+            flag: true,
+            msg: '取消点赞',
+            res: result1
+          }
+          res.send(resultObj)
+        })
       }
-      res.send(resultObj)
-    })
-  })
-
-  // 取消点赞
-  router.get('/delLike', auth, async (req, res) => {
-    const query = req.query
-    console.log(query);
-    let delSql = `delete from alike where alikeid`;
-    cnt.query(delSql, function (err, result) {
-      if (err) return res.send(err);
-      var resultObj = {
-        flag: true,
-        msg: '取消点赞',
-        res: result
-      }
-      res.send(resultObj)
     })
   })
 
@@ -382,8 +388,8 @@ module.exports = app => {
     // res.send('ok')
     const file = req.file
     console.log(file, 'file-------------------------')
-    // file.url = `http://www.tyq121.top:80/upload/${file.filename}` // 网络图片地址 目前有问题
-    file.url = `http://localhost:3000/upload/${file.filename}` // 本地图片地址
+    file.url = `http://www.tyq121.top:80/upload/${file.filename}` // 网络图片地址 目前有问题
+    // file.url = `http://localhost:3000/upload/${file.filename}` // 本地图片地址
     res.send(file)
   })
 

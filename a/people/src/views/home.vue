@@ -10,6 +10,7 @@
     <!-- 菜单栏 -->
     <div
       class="home-menu"
+      id="home-menu"
       ref="homeMenu"
     >
       <div class="home-menu-list d-flex jc-start ai-center w">
@@ -122,7 +123,8 @@ export default {
           name: 'Me',
           url: '/me'
         }
-      ]
+      ],
+      menuTop: ''
       // animationTime: null
     };
   },
@@ -175,6 +177,21 @@ export default {
       localStorage.removeItem('tyqUser');
       localStorage.removeItem('tyqToken');
       _self.$router.push('/login');
+    },
+    // 菜单栏 固定与移动
+    homeMenuScroll() {
+      const _self = this;
+      let homeMenu = document.querySelector('#home-menu');
+      if (_self.$route.path.indexOf('/home') != -1) {
+        // 页面往下滚动超过 xx 就显示返回顶部盒子
+        if (window.pageYOffset > _self.menuTop) {
+          homeMenu.style.position = 'fixed';
+          homeMenu.style.top = '0px';
+        } else {
+          homeMenu.style.position = 'absolute';
+          homeMenu.style.top = _self.menuTop + 'px';
+        }
+      }
     }
   },
   created() {
@@ -188,25 +205,15 @@ export default {
     let index = _self.handleGetArrIndex(_self.$route.path);
     _self.$refs.homeBk.style.left =
       index * _self.$refs.homeBk.offsetWidth + 'px';
-    console.log(_self.$refs.homeMenu.offsetTop, 'top');
-    let menuTop = _self.$refs.homeMenu.offsetTop;
+    // console.log(_self.$refs.homeMenu.offsetTop, 'top');
+    _self.menuTop = _self.$refs.homeMenu.offsetTop;
     // console.log(localStorage.getItem('tyqIp'), 'ip');
     // console.log(localStorage.getItem('tyqcityname'), 'cityname');
     // console.log(localStorage.getItem('tyqKKK'), 'tyqKKK');
     // 因为监听是针对window的，所以增加监听后每个页面都会监听，只对某个页面进行监听的话需要在destroyed中将监听移除
 
-    window.addEventListener('scroll', function() {
-      if (_self.$route.path.indexOf('/home') != -1) {
-        // 页面往下滚动超过 xx 就显示返回顶部盒子
-        if (window.pageYOffset > menuTop) {
-          _self.$refs.homeMenu.style.position = 'fixed';
-          _self.$refs.homeMenu.style.top = '0px';
-        } else {
-          _self.$refs.homeMenu.style.position = 'absolute';
-          _self.$refs.homeMenu.style.top = menuTop + 'px';
-        }
-      }
-    });
+    // console.log(_self.$refs.homeMenu);
+    window.addEventListener('scroll', _self.homeMenuScroll);
   }
 };
 </script>

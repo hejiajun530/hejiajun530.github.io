@@ -23,6 +23,14 @@
         class="articledetail-box-content"
         v-html="model.content"
       ></div>
+      <!-- 点赞 -->
+      <div class="articledetail-box-make text-center">
+        <i
+          class="iconfont icon-dianzan pointSB"
+          @click="handleClickAddLike"
+        ></i>
+        <span>{{model.like}}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -82,6 +90,26 @@ export default {
         //   });
         // }
       });
+    },
+    // 点赞或取消点赞
+    handleClickAddLike() {
+      const _self = this;
+      let userid = JSON.parse(localStorage.getItem('tyqUser')).userid;
+      _self.$set(_self.model, 'userid', userid);
+      _self.$set(_self.model, 'status', 1);
+      _self.$http.post('/addLike', _self.model).then(res => {
+        console.log(res);
+        _self.$gMessage({
+          title: res.data.msg,
+          duration: 2000,
+          type: 'success'
+        });
+        if (res.data.msg.indexOf('取消点赞') != -1) {
+          _self.$set(_self.model, 'like', _self.model.like - 1);
+        } else if (res.data.msg.indexOf('点赞成功') != -1) {
+          _self.$set(_self.model, 'like', _self.model.like + 1);
+        }
+      });
     }
   }
 };
@@ -125,6 +153,13 @@ export default {
       img,
       audio {
         width: 100% !important;
+      }
+    }
+    .articledetail-box-make {
+      padding: 0.9375rem 0;
+      font-size: 1.5rem;
+      .iconfont {
+        font-size: 1.625rem;
       }
     }
   }
