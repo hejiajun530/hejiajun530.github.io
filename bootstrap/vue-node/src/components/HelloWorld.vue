@@ -49,11 +49,22 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
+@import "@/style/_handle.scss";
+.common-util {
+  font-size: 18px;
+  @include font_color("font_color1");
+  @include background_color("background_color1");
+  @include border_color("border_color1");
+}
 .el-header {
-  background-color: #b3c0d1;
+  /* background-color: #b3c0d1;
   color: #333;
   line-height: 60px;
+  font-size: 18px; */
+  @include font_color("font_color1");
+  @include background_color("background_color1");
+  @include border_color("border_color1");
 }
 
 .el-aside {

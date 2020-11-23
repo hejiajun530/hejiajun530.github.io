@@ -15,7 +15,9 @@
     "express": "^5.0.0-alpha.8",
     "mongoose": "^5.10.4",
     "mysql": "^2.18.1",
+    "node-sass": "^5.0.0",
     "querystring": "^0.2.0",
+    "sass-loader": "^10.1.0",
     "vue": "^2.6.11",
     "vue-router": "^3.4.3"
   },
