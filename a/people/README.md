@@ -68,3 +68,27 @@ create table alike(
   constraint fk_article_id foreign key(articleid) references article(articleid),
   constraint fk_user_id foreign key(userid) references user(userid)
 );
+
+comment 表
+create table comment(
+  commentid int auto_increment primary key not null,
+  articleid int not null,
+  userid int not null,
+  comment varchar(225) not null,
+  constraint fk_articleid foreign key(articleid) references article(articleid),
+  constraint fk_userid foreign key(userid) references user(userid)
+);
+添加createTime字段
+alter table comment add column createTime datetime default current_timestamp comment '创建时间';
+添加updateTime字段
+alter table comment add column updateTime datetime default current_timestamp on update current_timestamp comment '更新时间';
+
+clike 表
+create table clike(
+  clikeid int not null auto_increment primary key,
+  commentid int not null,
+  userid int not null,
+  status int not null,
+  constraint fkarticleid foreign key(commentid) references comment(commentid),
+  constraint fkuserid foreign key(userid) references user(userid)
+);

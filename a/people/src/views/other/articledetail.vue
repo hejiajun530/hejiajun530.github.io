@@ -32,12 +32,20 @@
         <span>{{model.like}}</span>
       </div>
     </div>
+    <!-- 评论 -->
+    <comment
+      :articleid="model.articleid"
+      v-if="model.articleid"
+    ></comment>
   </div>
 </template>
 
 <script>
-import { toymd } from '@/commons/date.js';
+import comment from './comment/comment';
 export default {
+  components: {
+    comment
+  },
   data() {
     return {
       model: ''
@@ -57,8 +65,6 @@ export default {
   },
   mounted() {},
   methods: {
-    // 转换时间格式
-    toymd: toymd,
     // 根据id获取文章
     handleGetArticleById() {
       var _self = this;
@@ -94,6 +100,14 @@ export default {
     // 点赞或取消点赞
     handleClickAddLike() {
       const _self = this;
+      if (!JSON.parse(localStorage.getItem('tyqUser'))) {
+        _self.$gMessage({
+          title: '请先登录!',
+          duration: 2000,
+          type: 'error'
+        });
+        return false;
+      }
       let userid = JSON.parse(localStorage.getItem('tyqUser')).userid;
       _self.$set(_self.model, 'userid', userid);
       _self.$set(_self.model, 'status', 1);
@@ -149,10 +163,9 @@ export default {
       text-indent: 2em !important;
       line-height: 1.875rem;
       overflow: hidden;
-      p img,
-      img,
-      audio {
-        width: 100% !important;
+      /deep/img,
+      /deep/audio {
+        max-height: 350px !important;
       }
     }
     .articledetail-box-make {

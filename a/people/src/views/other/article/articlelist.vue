@@ -8,89 +8,118 @@
       >
         没有文章，快去发表文章吧~
       </div>
-      <div
-        class="articlelist-list-item d-flex jc-start"
-        v-for="item in articlelist"
-        :key="item.articleid"
-      >
-        <div class="articlelist-list-item-left">
-          <!-- 文章封面图 -->
-          <img
-            class="positionCenter pointSB"
-            :src="item.cover"
-            v-if="item.cover"
-          >
-          <img
-            class="positionCenter pointSB"
-            v-else
-            src="../../../assets/logo.png"
-          >
-        </div>
-        <div class="articlelist-list-item-right text-left flex-1 d-flex flex-column jc-between ai-start">
-          <!-- 文章标题 -->
-          <div
-            class="articlelist-list-item-right-title text-ellipsis pointSB"
-            @click="$router.push(`/home/articledetail?articleid=${item.articleid}`)"
-          >{{item.title}}</div>
-          <!-- 文章内容 -->
-          <div class="articlelist-list-item-right-content flex-1">{{item.content}}</div>
-          <div class="articlelist-list-item-right-make d-flex jc-between ai-center">
-            <!-- 文章标签/发表时间 -->
-            <div class="articlelist-list-item-right-make-tagtime d-flex ai-center">
-              <g-tag :taglist="item.tag.split(',')"></g-tag>
-              <div><i class="iconfont icon-dingdanxiangqing-chuangjianshijian"></i>{{toymd(item.createTime, 'yy-mm-dd hh:mm:ss')}}</div>
-            </div>
-            <!-- 文章操作 -->
-            <div class="articlelist-list-item-right-make-right d-flex jc-end ai-center">
-              <!-- 评论数量 -->
-              <div class="articlelist-list-item-right-make-right-common d-flex jc-end ai-center pointSB">
-                <i class="iconfont icon-linedesign-01"></i>
-                <div>{{item.common ? item.common : 0}}</div>
+      <template v-for="item in articlelist">
+        <div
+          class="articlelist-list-item d-flex jc-start"
+          :key="item.articleid"
+        >
+          <div class="articlelist-list-item-left">
+            <!-- 文章封面图 -->
+            <img
+              class="positionCenter pointSB"
+              :src="item.cover"
+              v-if="item.cover"
+            >
+            <img
+              class="positionCenter pointSB"
+              v-else
+              src="../../../assets/logo.png"
+            >
+          </div>
+          <div class="articlelist-list-item-right text-left flex-1 d-flex flex-column jc-between ai-start">
+            <!-- 文章标题 -->
+            <div
+              class="articlelist-list-item-right-title text-ellipsis pointSB"
+              @click="$router.push(`/home/articledetail?articleid=${item.articleid}`)"
+            >{{item.title}}</div>
+            <!-- 文章内容 -->
+            <div class="articlelist-list-item-right-content flex-1">{{item.content}}</div>
+            <div class="articlelist-list-item-right-make d-flex jc-between ai-center">
+              <!-- 文章标签/发表时间 -->
+              <div class="articlelist-list-item-right-make-tagtime d-flex ai-center">
+                <g-tag :taglist="item.tag.split(',')"></g-tag>
+                <div><i class="iconfont icon-dingdanxiangqing-chuangjianshijian"></i>{{toymd(item.createTime, 'yy-mm-dd hh:mm:ss')}}</div>
               </div>
-              <!-- 浏览数量 -->
-              <div class="articlelist-list-item-right-make-right-count d-flex jc-end ai-center pointSB">
-                <i class="iconfont icon-xianshi"></i>
-                <div>{{item.count ? item.count : 0}}</div>
-              </div>
-              <!-- 点赞数量 -->
-              <div
-                class="articlelist-list-item-right-make-right-common d-flex jc-end ai-center pointSB"
-                @click="handleClickAddLike(item)"
-              >
-                <i class="iconfont icon-dianzan"></i>
-                <div>{{item.like ? item.like : 0}}</div>
+              <!-- 文章操作 -->
+              <div class="articlelist-list-item-right-make-right d-flex jc-end ai-center">
+                <!-- 评论数量 -->
+                <div class="articlelist-list-item-right-make-right-common d-flex jc-end ai-center pointSB">
+                  <i class="iconfont icon-linedesign-01"></i>
+                  <div>{{item.common ? item.common : 0}}</div>
+                </div>
+                <!-- 浏览数量 -->
+                <div class="articlelist-list-item-right-make-right-count d-flex jc-end ai-center pointSB">
+                  <i class="iconfont icon-xianshi"></i>
+                  <div>{{item.count ? item.count : 0}}</div>
+                </div>
+                <!-- 点赞数量 -->
+                <div
+                  class="articlelist-list-item-right-make-right-common d-flex jc-end ai-center pointSB"
+                  @click="handleClickAddLike(item)"
+                >
+                  <i class="iconfont icon-dianzan"></i>
+                  <div>{{item.like ? item.like : 0}}</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </template>
+    </div>
+    <div class="articlelist-pageing">
+      <g-pageing
+        :num="total"
+        @g-getpage="handleClickChangePage"
+      ></g-pageing>
     </div>
   </div>
 </template>
 
 <script>
-import { toymd } from '@/commons/date.js';
 import tag from '@/components/tag/index.vue';
+import pageing from '@/components/pageing/index.vue';
+import mixin from '@/mixins';
 export default {
+  mixins: [mixin],
   props: {
-    articlelist: {
-      type: Array
+    http: {
+      type: String,
+      default: 'getArticleList'
     }
   },
   components: {
-    'g-tag': tag
+    'g-tag': tag,
+    'g-pageing': pageing
   },
+  // name: 'articlelist',
   data() {
-    return {};
+    return {
+      query: {
+        page: 1,
+        num: 3,
+        userid: ''
+      },
+      total: 1,
+      articlelist: []
+    };
   },
-  created() {},
+  created() {
+    const _self = this;
+    _self.handleClickChangePage(1);
+  },
   mounted() {},
   methods: {
-    // toymd 时间转换格式
-    toymd: toymd,
     // 点赞
     handleClickAddLike(item) {
       var _self = this;
+      if (!JSON.parse(localStorage.getItem('tyqUser'))) {
+        _self.$gMessage({
+          title: '请先登录!',
+          duration: 2000,
+          type: 'error'
+        });
+        return false;
+      }
       let userid = JSON.parse(localStorage.getItem('tyqUser')).userid;
       _self.$set(item, 'userid', userid);
       _self.$set(item, 'status', 1);
@@ -105,6 +134,42 @@ export default {
           _self.$set(item, 'like', item.like - 1);
         } else if (res.data.msg.indexOf('点赞成功') != -1) {
           _self.$set(item, 'like', item.like + 1);
+        }
+      });
+    },
+    // 获取改变的页码
+    handleClickChangePage(num) {
+      // 使用$emit传值,用形参接收
+      var _self = this;
+      // console.log(num);
+      _self.$set(_self.query, 'page', num);
+      // _self.$set(_self.query, 'userid', _self.tyqUser.userid);
+      _self.$http.post(`/${_self.http}`, _self.query).then(res => {
+        // console.log(res.data);
+        if (!res.data.flag) {
+          _self.$gMessage({
+            title: '文章列表获取失败',
+            duration: 2000,
+            type: 'error'
+          });
+        } else {
+          const reg = /(<\/?.+?\/?>|&nbsp;)/g;
+          res.data.res.forEach((item, index) => {
+            // console.log(item.content);
+            // 把所有的标签都删除，并且长度超过90，只取90个字符+'...'
+            item.content =
+              item.content.length > 90
+                ? item.content
+                    .replace(reg, '')
+                    .substr(0, 90)
+                    .concat('...')
+                : item.content.replace(reg, '');
+          });
+          // Object.assign(_self.articleList, res.data.res);
+          _self.articlelist = res.data.res;
+          console.log(_self.articlelist);
+          _self.total = Math.ceil(res.data.total[0].total / _self.query.num);
+          // console.log(_self.total, 'total');
         }
       });
     }
@@ -166,6 +231,9 @@ export default {
         }
       }
     }
+  }
+  .articlelist-pageing {
+    margin: 1.25rem 0;
   }
 }
 </style>

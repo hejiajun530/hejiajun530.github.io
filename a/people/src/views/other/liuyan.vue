@@ -1,11 +1,20 @@
 <template>
-  <div class="index">
-    留言
+  <div class="liuyan">
+    <hometitle>
+      <strong>您现在的位置：</strong> <i>首页</i> > <i>留言</i>
+    </hometitle>
+    <comment :articleid="13"></comment>
   </div>
 </template>
 
 <script>
+import hometitle from '../hometitle';
+import comment from './comment/comment';
 export default {
+  components: {
+    comment,
+    hometitle
+  },
   data() {
     return {};
   },
@@ -16,4 +25,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.liuyan {
+  padding: 0 10px;
+}
 </style>

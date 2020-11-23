@@ -2,6 +2,7 @@ var mixin = {
   data() {
     return {
       tyqUser: '',
+      tyqToken: '',
       phoneFlag: false
     }
   },

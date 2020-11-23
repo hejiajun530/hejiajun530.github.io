@@ -34,6 +34,7 @@ const routes = [
         path: '/home/index',
         name: 'homeIndex',
         component: () => import('../views/other/index.vue'),
+        meta: { keepAlive: true },
       },
       {
         path: '/home/liuyan',
@@ -49,11 +50,13 @@ const routes = [
         path: '/home/share',
         name: 'share',
         component: () => import('../views/other/share.vue'),
+        meta: { keepAlive: true },
       },
       {
         path: '/home/story',
         name: 'story',
         component: () => import('../views/other/story.vue'),
+        meta: { keepAlive: true },
       },
       {
         path: '/home/about',

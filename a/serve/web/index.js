@@ -207,7 +207,7 @@ module.exports = app => {
   router.post('/getArticleList', async (req, res) => {
     const body = req.body
     console.log(body);
-    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.articleid != 13 order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       cnt.query(`select count(*) as total from article,user where article.userid = user.userid`, function (err, result1) {
@@ -227,7 +227,7 @@ module.exports = app => {
   router.post('/getArticleListStory', async (req, res) => {
     const body = req.body
     console.log(body);
-    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.category = "过往故事" order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.articleid != 13 and article.category = "过往故事" order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       cnt.query(`select count(*) as total from article,user where article.userid = user.userid and article.category = "过往故事" `, function (err, result1) {
@@ -247,7 +247,7 @@ module.exports = app => {
   router.post('/getArticleListShare', async (req, res) => {
     const body = req.body
     console.log(body);
-    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.category = "技术分享" order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.articleid != 13 and article.category = "技术分享" order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       cnt.query(`select count(*) as total from article,user where article.userid = user.userid and article.category = "技术分享" `, function (err, result1) {
@@ -267,7 +267,7 @@ module.exports = app => {
   router.post('/getArticleListById', auth, async (req, res) => {
     const body = req.body
     console.log(body);
-    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.userid = "${body.userid}" order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.articleid != 13 and article.userid = "${body.userid}" order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       cnt.query(`select count(*) as total from article,user where article.userid = user.userid and article.userid = "${body.userid}"`, function (err, result1) {
@@ -332,7 +332,7 @@ module.exports = app => {
     })
   })
 
-  // 点赞
+  // 文章点赞
   router.post('/addLike', auth, async (req, res) => {
     const body = req.body
     console.log(body);
@@ -371,6 +371,111 @@ module.exports = app => {
     })
   })
 
+  // 添加评论
+  router.post('/addComment', auth, async (req, res) => {
+    const body = req.body
+    console.log(body);
+    let addSql = `insert into comment(articleid, userid, comment) value(?,?,?)`
+    let addSqlParams = [body.articleid, body.userid, body.comment]
+    cnt.query(addSql, addSqlParams, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '评论成功!',
+        res: result
+      }
+      res.send(resultObj);
+    })
+  })
+
+  // 根据文章id查询所有评论
+  router.post('/getCommentListById', async (req, res) => {
+    const body = req.body
+    console.log(body);
+    let selectSql = `select comment.*,user.username,user.avator,(select count(*) from clike where comment.commentid = clike.commentid) as 'like',(select count(*) from comment where articleid = ${body.articleid}) as 'total' from comment,user where comment.userid = user.userid and articleid = ${body.articleid} order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`;
+    cnt.query(selectSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '查询评论列表成功',
+        res: result
+      }
+      res.send(resultObj);
+    })
+  })
+
+  // 根据文章id查询评论数量
+  router.get('/getCommentSum', async (req, res) => {
+    const query = req.query
+    console.log(query);
+    let selectSql = `select count(*) as commentSum from comment where articleid = ${query.articleid}`;
+    cnt.query(selectSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '查询评论列表成功',
+        res: result
+      }
+      res.send(resultObj);
+    })
+  })
+
+  // 根据文章id获取赞最多的评论
+  // router.post('/getCommentListRe', async (req, res) => {
+  //   const body = req.body
+  //   console.log(body);
+  //   let selectSql = `select comment.*,user.username,user.avator,(select count(*) from clike where comment.commentid = clike.commentid) as 'like' from comment,user where comment.userid = user.userid and articleid = ${body.articleid}`;
+  //   cnt.query(selectSql, function (err, result) {
+  //     if (err) return res.send(err);
+  //     var resultObj = {
+  //       flag: true,
+  //       msg: '查询评论列表成功',
+  //       res: result
+  //     }
+  //     res.send(resultObj);
+  //   })
+  // })
+
+
+  // 评论点赞
+  router.post('/addCLike', auth, async (req, res) => {
+    const body = req.body
+    console.log(body);
+    let selectSql = `select * from clike where commentid = ${body.commentid} and userid = ${body.userid}`;
+    cnt.query(selectSql, function (err, result) {
+      if (err) return res.send(err);
+      console.log(result)
+      if (!result.length) {
+        console.log('空');
+        // 点赞
+        let addSql = `insert into clike(commentid, userid, status) value(?,?,?)`;
+        let addParams = [body.commentid, body.userid, body.status]
+        cnt.query(addSql, addParams, function (err, result1) {
+          if (err) return res.send(err);
+          var resultObj = {
+            flag: true,
+            msg: '点赞成功',
+            res: result1
+          }
+          res.send(resultObj)
+        })
+      } else {
+        console.log('不空');
+        // 取消点赞
+        let delSql = `delete from clike where commentid = ${body.commentid} and userid = ${body.userid}`;
+        cnt.query(delSql, function (err, result1) {
+          if (err) return res.send(err);
+          var resultObj = {
+            flag: true,
+            msg: '取消点赞',
+            res: result1
+          }
+          res.send(resultObj)
+        })
+      }
+    })
+  })
+
   // 上传图片
   const multer = require('multer')
   // const upload = multer({ dest: __dirname + '/../upload' })
@@ -384,7 +489,7 @@ module.exports = app => {
   })
   var upload = multer({ storage: storage })
   // 要想使图片显示，还需要静态资源托管 express.static
-  router.post('/upload', upload.single('file'), async (req, res) => {
+  router.post('/upload', auth, upload.single('file'), async (req, res) => {
     // res.send('ok')
     const file = req.file
     console.log(file, 'file-------------------------')

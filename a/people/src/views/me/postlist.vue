@@ -79,7 +79,6 @@
 </template>
 
 <script>
-import { toymd } from '@/commons/date.js';
 import tag from '@/components/tag/index';
 import table from '@/components/table/index';
 import tableColumn from '@/components/table/tableColumn';
@@ -105,8 +104,6 @@ export default {
     };
   },
   methods: {
-    // 时间转换格式
-    toymd: toymd,
     // 删除数据
     handleClickDelTabelData(row) {
       var _self = this;

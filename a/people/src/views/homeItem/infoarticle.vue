@@ -30,12 +30,16 @@
     <!-- 友情链接 -->
     <div class="home-infoarticle-link">
       <div class="home-infoarticle-link-title me-title text-left">友情链接</div>
-      <div class="home-infoarticle-link-box d-flex jc-start ai-center">
+      <div class="home-infoarticle-link-box d-flex jc-start ai-center flex-wrap">
         <div
           class="home-infoarticle-link-box-item"
+          :title="item.title"
           v-for="item in linkList"
           :key="item.name"
-        ><a :href="item.url">{{item.name}}</a></div>
+        ><a
+            :href="item.url"
+            target="blank"
+          >{{item.name}}</a></div>
       </div>
     </div>
   </div>
@@ -56,11 +60,18 @@ export default {
       linkList: [
         {
           name: 'MyGit',
-          url: 'https://gitee.com/hejiajun530/dashboard/projects'
+          url: 'https://gitee.com/hejiajun530/dashboard/projects',
+          title: '码云仓库'
         },
         {
           name: 'MyGitHub',
-          url: 'https://github.com/hejiajun530'
+          url: 'https://github.com/hejiajun530',
+          title: 'Github仓库'
+        },
+        {
+          name: '叶子博客',
+          url: 'https://www.yezismile.com',
+          title: '叶子博客-大佬/页面借鉴'
         }
       ]
     };
@@ -78,7 +89,7 @@ export default {
       _self.$http.post('/getArticleList', _self.query).then(res => {
         if (res.data.flag) {
           _self.articleList = res.data.res;
-          console.log(_self.articleList);
+          // console.log(_self.articleList);
         } else {
           _self.$gMessage({
             title: '获取最新文章失败',

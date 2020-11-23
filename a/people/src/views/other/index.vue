@@ -27,13 +27,7 @@
         <div class="articlelist-title-left">最新文章</div>
         <!-- <div class="articlelist-title-right">过往故事(11) 技术分享(156)</div> -->
       </div>
-      <articlelist :articlelist="articleList"></articlelist>
-      <div class="homeindex-articlelist-pageing">
-        <g-pageing
-          :num="total"
-          @g-getpage="handleClickChangePage"
-        ></g-pageing>
-      </div>
+      <articlelist http="getArticleList"></articlelist>
     </div>
   </div>
 </template>
@@ -41,7 +35,6 @@
 <script>
 import swiperAnimate from '@/components/swiper/swiperAnimation.vue';
 import swiper from '@/components/swiper/index.vue';
-import pageing from '@/components/pageing/index.vue';
 import articlelist from './article/articlelist';
 import mixin from '@/mixins';
 export default {
@@ -49,7 +42,6 @@ export default {
   components: {
     'g-swiperAnimate': swiperAnimate,
     'g-swiper': swiper,
-    'g-pageing': pageing,
     articlelist
   },
   data() {
@@ -108,55 +100,12 @@ export default {
         'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1294082173,3333931346&fm=26&gp=0.jpg',
         'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1419817777,3647793771&fm=26&gp=0.jpg',
         'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1618453098,2599275984&fm=26&gp=0.jpg'
-      ],
-      articleList: [],
-      query: {
-        page: 1,
-        num: 3,
-        userid: ''
-      },
-      total: 1
+      ]
     };
   },
-  methods: {
-    // 获取改变的页码
-    handleClickChangePage(num) {
-      // 使用$emit传值,用形参接收
-      var _self = this;
-      // console.log(num);
-      _self.$set(_self.query, 'page', num);
-      // _self.$set(_self.query, 'userid', _self.tyqUser.userid);
-      _self.$http.post('/getArticleList', _self.query).then(res => {
-        // console.log(res.data);
-        if (!res.data.flag) {
-          _self.$gMessage({
-            title: '文章列表获取失败',
-            duration: 2000,
-            type: 'error'
-          });
-        } else {
-          const reg = /(<\/?.+?\/?>|&nbsp;)/g;
-          res.data.res.forEach((item, index) => {
-            // console.log(item.content);
-            // 把所有的标签都删除，并且长度超过90，只取90个字符+'...'
-            item.content =
-              item.content.length > 90
-                ? item.content
-                    .replace(reg, '')
-                    .substr(0, 90)
-                    .concat('...')
-                : item.content.replace(reg, '');
-          });
-          _self.articleList = res.data.res;
-          _self.total = Math.ceil(res.data.total[0].total / _self.query.num);
-          // console.log(_self.total, 'total');
-        }
-      });
-    }
-  },
+  methods: {},
   created() {
     var _self = this;
-    _self.handleClickChangePage(1);
   },
   mounted() {
     var _self = this;

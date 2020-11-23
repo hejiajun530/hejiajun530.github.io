@@ -68,7 +68,12 @@
       >未登录</div> -->
       <!-- 子页面 -->
       <div class="home-box-left flex-1">
-        <router-view></router-view>
+        <keep-alive>
+          <!-- 需要缓存 -->
+          <router-view v-if="$route.meta.keepAlive"></router-view>
+        </keep-alive>
+        <!-- 不需要缓存的 -->
+        <router-view v-if="!$route.meta.keepAlive"></router-view>
       </div>
       <!-- 头像/用户名/最新文章/友情链接 -->
       <div class="home-box-right">
@@ -127,6 +132,12 @@ export default {
       menuTop: ''
       // animationTime: null
     };
+  },
+  watch: {
+    $route(to, from) {
+      const _self = this;
+      _self.handleMouseLeaveAnimate();
+    }
   },
   methods: {
     // 选择菜单

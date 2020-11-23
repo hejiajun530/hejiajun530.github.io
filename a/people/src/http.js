@@ -24,14 +24,19 @@ http.interceptors.request.use(config => {
 http.interceptors.response.use(res => {
   return res
 }, err => {
+  if (err.response.status === 401) {
+    // router.push('/login')
+    Vue.prototype.$gMessage({
+      title: '请先登录!',
+      duration: 2000,
+      type: 'error'
+    })
+  }
   if (err.response.data.message) {
     Vue.prototype.$gMessage({
       type: 'error',
       message: err.response.data.message
     })
-    if (err.response.status === 401) {
-      router.push('/login')
-    }
   }
   return Promise.reject(err)
 })
