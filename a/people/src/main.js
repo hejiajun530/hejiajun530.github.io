@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 // 引入全局scss
-import './styles/main.scss';
+// import './styles/main.scss';
 // 引入阿里巴巴矢量图
 import './styles/iconfont.css';
 // 导入js包

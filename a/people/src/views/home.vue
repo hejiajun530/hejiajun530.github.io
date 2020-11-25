@@ -49,6 +49,10 @@
               class="home-menu-login-box-loginout text-ellipsis"
               @click="handleClickLoginOut"
             >退出登录</div>
+            <div
+              class="home-menu-login-box-loginout text-ellipsis"
+              @click="handleChangeBk"
+            >换肤</div>
           </div>
         </div>
       </div>
@@ -129,7 +133,8 @@ export default {
           url: '/me'
         }
       ],
-      menuTop: ''
+      menuTop: '',
+      theme: 'light'// 主题色
       // animationTime: null
     };
   },
@@ -203,6 +208,13 @@ export default {
           homeMenu.style.top = _self.menuTop + 'px';
         }
       }
+    },
+    // 换肤
+    handleChangeBk() {
+      const _self = this;
+      _self.theme = _self.theme == 'light' ? 'dark' : 'light';
+      // console.log(_self.theme);
+      window.document.documentElement.setAttribute("data-theme", _self.theme);
     }
   },
   created() {
@@ -230,73 +242,76 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home-head {
-  width: 100%;
-  height: 12.5rem;
-  background: url('../assets/img/homehead.jpg') no-repeat center 61%;
-  background-size: 100%;
-}
-.home-menu-mask {
-  height: 5rem;
-}
-.home-menu {
-  position: absolute;
-  top: 12.5rem;
-  width: 100%;
-  height: 3.125rem;
-  background: #bfab86;
-  z-index: 9999;
-  .home-menu-list {
-    position: relative;
-    height: 100%;
-    .home-menu-list-item {
-      width: 6.25rem;
+.home {
+  .home-head {
+    width: 100%;
+    height: 12.5rem;
+    background: url('../assets/img/homehead.jpg') no-repeat center 61%;
+    background-size: 100%;
+  }
+  .home-menu-mask {
+    height: 5rem;
+  }
+  .home-menu {
+    position: absolute;
+    top: 12.5rem;
+    width: 100%;
+    height: 3.125rem;
+    background: #bfab86;
+    z-index: 9999;
+    .home-menu-list {
+      position: relative;
       height: 100%;
-      font-size: 1.125rem;
-      color: #ffffff;
-      line-height: 3.125rem;
-      transition: all 0.3s;
-      &:hover,
-      &.active {
-        color: #222222;
-      }
-      z-index: 1;
-    }
-    .home-menu-bk {
-      width: 6.25rem;
-      height: 100%;
-      background: #fffbf0;
-      border-top: 0.1875rem solid #f77825;
-      z-index: 0;
-    }
-    .home-menu-login {
-      width: 5.625rem;
-      height: 100%;
-      img {
+      .home-menu-list-item {
+        width: 6.25rem;
         height: 100%;
-        border-radius: 50%;
-      }
-      .home-menu-login-box {
-        position: absolute;
-        top: 3.125rem;
-        left: 0;
-        width: 100%;
-        background: #000000;
+        font-size: 1.125rem;
         color: #ffffff;
-        div {
-          width: 5.625rem;
-          height: 1.875rem;
-          line-height: 1.875rem;
+        line-height: 3.125rem;
+        transition: all 0.3s;
+        &:hover,
+        &.active {
+          color: #222222;
+        }
+        z-index: 1;
+      }
+      .home-menu-bk {
+        width: 6.25rem;
+        height: 100%;
+        background: #fffbf0;
+        border-top: 0.1875rem solid #f77825;
+        z-index: 0;
+      }
+      .home-menu-login {
+        width: 5.625rem;
+        height: 100%;
+        img {
+          width: 3.125rem;
+          height: 3.125rem;
+          border-radius: 50%;
+        }
+        .home-menu-login-box {
+          position: absolute;
+          top: 3.125rem;
+          left: 0;
+          width: 100%;
+          background: #000000;
+          color: #ffffff;
+          div {
+            width: 5.625rem;
+            height: 1.875rem;
+            line-height: 1.875rem;
+          }
         }
       }
     }
   }
-}
-.home-box {
-  .home-box-right {
-    width: 15.625rem;
-    min-height: 18.75rem;
-    box-shadow: 0 0 5px #dddddd;
+  .home-box {
+    .home-box-right {
+      width: 15.625rem;
+      min-height: 18.75rem;
+      box-shadow: 0 0 5px #dddddd;
+    }
   }
 }
 </style>

@@ -80,6 +80,9 @@ export default {
   },
   mounted() {},
   methods: {
+    test(num) {
+      console.log(num, 'test')
+    },
     // 点赞
     handleClickAddLike(item) {
       var _self = this;

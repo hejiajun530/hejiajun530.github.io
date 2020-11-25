@@ -57,6 +57,7 @@
       </div>
       <!-- 最新评论列表 -->
       <commentlist
+        ref="commentlist"
         commentTitle="最新评论"
         http="getCommentListById"
       ></commentlist>
@@ -120,6 +121,8 @@ export default {
     // 发表评论
     handleClickPostComment() {
       const _self = this;
+      // _self.$refs.commentlist.test(1);
+      // return false;
       if (!_self.tyqUser && !_self.tyqToken) {
         _self.$gMessage({
           title: '请先登录!',
@@ -154,6 +157,7 @@ export default {
             title: '评论成功!',
             duration: 2000
           });
+          _self.$refs.commentlist.handleClickChangePage(1);
         }
       });
     }
@@ -173,7 +177,7 @@ export default {
 
 <style lang="scss" scoped>
 .comment {
-  background: #fffbf0;
+  // background: #fffbf0;
   .comment-post {
     position: relative;
     padding: 30px 0 0 0;

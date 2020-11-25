@@ -59,6 +59,11 @@
         </div>
       </div>
       <div class="info-edit-item">
+        <div class="info-edit-item-label">文章展示</div>
+        <div class="info-edit-item-content flex-1" v-html="model.content">
+        </div>
+      </div>
+      <div class="info-edit-item">
         <button
           class="me-button pointSB"
           @click="handleClickAddArticle"
@@ -230,6 +235,14 @@ export default {
   // 谷歌滚动条隐藏
   &::-webkit-scrollbar {
     display: none;
+  }
+  .info-edit-item-content {
+    min-height: 20px;
+    border: 0.0625rem solid #dddddd;
+    /deep/img,
+    /deep/video {
+      max-height: 21.875rem;
+    }
   }
 }
 .cover {

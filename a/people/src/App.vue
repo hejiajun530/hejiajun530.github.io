@@ -42,6 +42,7 @@ export default {
   },
   mounted() {
     var _self = this;
+    // window.document.documentElement.setAttribute( "data-theme", 'light' );
     document.oncontextmenu = function(e) {
       e.preventDefault();
       return false;
@@ -78,14 +79,14 @@ export default {
   },
   methods: {
     // 移动端js控制rem，不适合pc端
-    setHtmlFz() {
-      // 基础值
-      var baseVal = 16; // 设计稿的宽度
-      var desPage = 375; // 要适配的屏幕的宽度
-      var width = document.querySelector('html').offsetWidth; // 基础值*要适配的屏幕的宽度/设计稿的宽度
-      var fz = (baseVal * width) / desPage; // 设置到html标签中
-      document.querySelector('html').style.fontSize = fz + 'px';
-    },
+    // setHtmlFz() {
+    //   // 基础值
+    //   var baseVal = 16; // 设计稿的宽度
+    //   var desPage = 375; // 要适配的屏幕的宽度
+    //   var width = document.querySelector('html').offsetWidth; // 基础值*要适配的屏幕的宽度/设计稿的宽度
+    //   var fz = (baseVal * width) / desPage; // 设置到html标签中
+    //   document.querySelector('html').style.fontSize = fz + 'px';
+    // },
     // 鼠标按下事件 back 自由移动
     handleMouseDownBack(e) {
       var _self = this;
@@ -220,9 +221,9 @@ export default {
 html,
 body {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: #fffbf0;
-  cursor: url('~@/assets/logo.png'), auto !important;
+  // cursor: url('~@/assets/logo.png'), auto !important;
 }
 * {
   margin: 0;
@@ -251,40 +252,42 @@ button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  height: 100%;
+  min-height: 100vh;
+  @include font_color("font_color1");
+  @include background_color("background_color1");
+  @include border_color("border_color1");
 }
-@media screen and (max-width: 768px) {
-  html {
-    font-size: 8px;
-  }
-  .w {
-    width: 100% !important;
-    margin: 0 auto;
-  }
-  .home-head {
-    #canvasTime {
-      width: 142px !important;
-      height: 20px !important;
-    }
-    .home-head-weather-bottom-weather::after {
-      height: 60% !important;
-    }
-  }
-  .home-menu-bk,
-  .home-menu-list-item {
-    width: 5rem !important;
-  }
-  .tyq-back {
-    width: 40px !important;
-    height: 40px !important;
-  }
-}
-@media screen and (max-width: 1300px) and (min-width: 768px) {
-  html {
-    font-size: 14px;
-  }
-}
+// @media screen and (max-width: 768px) {
+//   html {
+//     font-size: 8px;
+//   }
+//   .w {
+//     width: 100% !important;
+//     margin: 0 auto;
+//   }
+//   .home-head {
+//     #canvasTime {
+//       width: 142px !important;
+//       height: 20px !important;
+//     }
+//     .home-head-weather-bottom-weather::after {
+//       height: 60% !important;
+//     }
+//   }
+//   .home-menu-bk,
+//   .home-menu-list-item {
+//     width: 5rem !important;
+//   }
+//   .tyq-back {
+//     width: 40px !important;
+//     height: 40px !important;
+//   }
+// }
+// @media screen and (max-width: 1300px) and (min-width: 768px) {
+//   html {
+//     font-size: 14px;
+//   }
+// }
 .tyq-mask {
   height: 6.875rem;
 }

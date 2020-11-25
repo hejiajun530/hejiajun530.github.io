@@ -90,7 +90,7 @@ export default {
 
 <style lang="scss" scoped>
 .me {
-  height: 100%;
+  height: 100vh;
   .me-left {
     width: 15.625rem;
     height: 100%;
