@@ -66,7 +66,7 @@
         </div>
       </template>
     </div>
-    <div class="articlelist-pageing">
+    <div class="articlelist-pageing" v-if="flag">
       <g-pageing
         :num="total"
         @g-getpage="handleClickChangePage"
@@ -85,6 +85,17 @@ export default {
     http: {
       type: String,
       default: 'getArticleList'
+    },
+    category: {
+      type: String,
+      default: ''
+    },
+    flag: {
+      default: true
+    },
+    text: {
+      type: String,
+      default: ''
     }
   },
   components: {
@@ -97,7 +108,8 @@ export default {
       query: {
         page: 1,
         num: 3,
-        userid: ''
+        userid: '',
+        category: ''
       },
       total: 1,
       articlelist: []
@@ -105,7 +117,9 @@ export default {
   },
   created() {
     const _self = this;
-    _self.handleClickChangePage(1);
+    if (_self.flag) {
+      _self.handleClickChangePage(1);
+    }
   },
   mounted() {},
   methods: {
@@ -143,6 +157,7 @@ export default {
       var _self = this;
       // console.log(num);
       _self.$set(_self.query, 'page', num);
+      _self.$set(_self.query, 'category', _self.category);
       // _self.$set(_self.query, 'userid', _self.tyqUser.userid);
       _self.$http.post(`/${_self.http}`, _self.query).then(res => {
         // console.log(res.data);
@@ -167,11 +182,19 @@ export default {
           });
           // Object.assign(_self.articleList, res.data.res);
           _self.articlelist = res.data.res;
-          console.log(_self.articlelist);
+          console.log(res.data);
           _self.total = Math.ceil(res.data.total[0].total / _self.query.num);
-          // console.log(_self.total, 'total');
+          console.log(_self.total, 'total');
         }
       });
+    },
+    // 搜索文章列表
+    handleSearch() {
+      const _self = this;
+      _self.$http.get(`/getArticleListByText?text=${_self.text}`).then(res => {
+        console.log(res);
+        _self.articlelist = res.data.res;
+      })
     }
   }
 };

@@ -207,10 +207,17 @@ module.exports = app => {
   router.post('/getArticleList', async (req, res) => {
     const body = req.body
     console.log(body);
-    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.articleid != 13 order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+    let selectSql = '',totalSql = '';
+    if (body.category) {
+      selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.category = "${body.category}" and article.articleid != 13 order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+      totalSql = `select count(*) as total from article,user where article.userid = user.userid and article.category = "${body.category}"`
+    } else {
+      selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.articleid != 13 order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+      totalSql = `select count(*) as total from article,user where article.userid = user.userid`
+    }
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
-      cnt.query(`select count(*) as total from article,user where article.userid = user.userid`, function (err, result1) {
+      cnt.query(totalSql, function (err, result1) {
         if (err) return res.send(err);
         var resultObj = {
           flag: true,
@@ -223,7 +230,7 @@ module.exports = app => {
     })
   })
 
-  // 获取 过往故事 文章列表
+  // 获取 过往故事 文章列表  暂时停用
   router.post('/getArticleListStory', async (req, res) => {
     const body = req.body
     console.log(body);
@@ -243,7 +250,7 @@ module.exports = app => {
     })
   })
 
-  // 获取 技术分享 文章列表
+  // 获取 技术分享 文章列表  暂时停用
   router.post('/getArticleListShare', async (req, res) => {
     const body = req.body
     console.log(body);
@@ -251,6 +258,26 @@ module.exports = app => {
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       cnt.query(`select count(*) as total from article,user where article.userid = user.userid and article.category = "技术分享" `, function (err, result1) {
+        if (err) return res.send(err);
+        var resultObj = {
+          flag: true,
+          msg: '获取成功!',
+          res: result,
+          total: result1
+        }
+        res.send(resultObj)
+      })
+    })
+  })
+
+  // 搜索获取文章列表
+  router.get('/getArticleListByText', async (req, res) => {
+    const query = req.query
+    console.log(query);
+    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.articleid != 13 and article.title like "%${query.text}%" or article.content like "%${query.text}%" order by createTime desc`//使用limit不用and
+    cnt.query(selectSql, function (err, result) {
+      if (err) return res.send(err);
+      cnt.query(`select count(*) as total from article,user where article.userid = user.userid`, function (err, result1) {
         if (err) return res.send(err);
         var resultObj = {
           flag: true,

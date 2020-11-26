@@ -4,7 +4,8 @@
     <hometitle><strong>技术分享</strong></hometitle>
     <!-- 技术分享 文章列表 -->
     <div class="homeindex-articlelist">
-      <articlelist http="getArticleListShare"></articlelist>
+      <!-- <articlelist http="getArticleListShare"></articlelist> -->
+      <articlelist http="getArticleListShare" category="技术分享"></articlelist>
     </div>
   </div>
 </template>

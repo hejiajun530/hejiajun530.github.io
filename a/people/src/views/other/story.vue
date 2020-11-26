@@ -4,7 +4,8 @@
     <hometitle><strong>过往故事</strong></hometitle>
     <!-- 过往故事 文章列表 -->
     <div class="homeindex-articlelist">
-      <articlelist http="getArticleListStory"></articlelist>
+      <!-- <articlelist http="getArticleListStory"></articlelist> -->
+      <articlelist http="getArticleList" category="过往故事"></articlelist>
     </div>
   </div>
 </template>

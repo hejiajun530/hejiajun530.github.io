@@ -271,6 +271,7 @@ export default {
       }
     }
     .articledetail-box-share {
+      margin: 10px 0;
       div {
         margin: 0 5px;
       }

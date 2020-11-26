@@ -300,6 +300,7 @@ button {
   background: dimgrey;
   font-size: 0.8rem;
   color: #ffffff;
+  z-index: 9999;
   .tyq-header {
     font-size: 1.25rem;
     &:hover {
