@@ -140,6 +140,8 @@ $algin-text: (
   }
 }
 
+
+// 定义好主题色
 $themes: (
     light: (
         //字体
@@ -169,6 +171,13 @@ $themes: (
 
 //遍历主题map
 @mixin themeify {
+  // $theme-name 'light/dark'  $theme-map 'font_color1/background_color1/...'
+  // @each
+  // @each $header, $size in (h1: 2em, h2: 1.5em, h3: 1.2em) {
+  //   #{$header} {
+  //     font-size: $size;
+  //   }
+  // }
   @each $theme-name, $theme-map in $themes {
       //!global 把局部变量强升为全局变量
       $theme-map: $theme-map !global;
@@ -182,22 +191,25 @@ $themes: (
 //声明一个根据Key获取颜色的function
 @function themed($key) {
   @return map-get($theme-map, $key);
+  // map-get($map,$key) 函数的作用是根据 $key 参数，返回 $key 在 $map 中对应的 value 值。
+  // $theme-map 为$themes中的属性，当$key等于$theme-map，就取出对应的值
+  // 例如：$key为font_color1，那么就取出#414141或者#a7a7a7
 }
 //获取背景颜色
 @mixin background_color($color) {
   @include themeify {
-      background-color: themed($color)!important;
+      background-color: themed($color)!important;// 这里的内容就是放到@content中的
   }
 }
 //获取字体颜色
 @mixin font_color($color) {
   @include themeify {
-      color: themed($color)!important;
+      color: themed($color)!important;// 这里的内容就是放到@content中的
   }
 }
 //获取边框颜色
 @mixin border_color($color) {
   @include themeify {
-      border-color: themed($color)!important;
+      border-color: themed($color)!important;// 这里的内容就是放到@content中的
   }
 }

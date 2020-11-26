@@ -60,7 +60,10 @@
       </div>
       <div class="info-edit-item">
         <div class="info-edit-item-label">文章展示</div>
-        <div class="info-edit-item-content flex-1" v-html="model.content">
+        <div
+          class="info-edit-item-content flex-1 text-left"
+          v-html="model.content"
+        >
         </div>
       </div>
       <div class="info-edit-item">
@@ -242,6 +245,9 @@ export default {
     /deep/img,
     /deep/video {
       max-height: 21.875rem;
+    }
+    /deep/p {
+      text-indent: 2em;
     }
   }
 }
