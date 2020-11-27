@@ -5,7 +5,10 @@
     <!-- 技术分享 文章列表 -->
     <div class="homeindex-articlelist">
       <!-- <articlelist http="getArticleListShare"></articlelist> -->
-      <articlelist http="getArticleListShare" category="技术分享"></articlelist>
+      <articlelist
+        http="getArticleList"
+        category="技术分享"
+      ></articlelist>
     </div>
   </div>
 </template>

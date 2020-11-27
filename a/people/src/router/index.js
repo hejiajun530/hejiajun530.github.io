@@ -59,9 +59,10 @@ const routes = [
         meta: { keepAlive: true },
       },
       {
-        path: '/home/about',
-        name: 'about',
-        component: () => import('../views/other/about.vue'),
+        path: '/home/search',
+        name: 'search',
+        component: () => import('../views/other/search.vue'),
+        meta: { keepAlive: true },
       },
       {
         path: '/home/articledetail',
@@ -95,6 +96,11 @@ const routes = [
         path: '/me/postlist',
         name: 'postlist',
         component: () => import('../views/me/postlist.vue'),
+      },
+      {
+        path: '/me/arch',
+        name: 'arch',
+        component: () => import('../views/me/arch.vue'),
       },
     ]
   },

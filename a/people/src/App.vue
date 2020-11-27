@@ -104,7 +104,7 @@ export default {
       let moveX = e.clientX - _self.offsetX;
       let moveY = e.clientY - _self.offsetY;
       if (_self.moveFlag && !_self.phone) {
-        _self.backFlag = false;
+        // _self.backFlag = false;
         if (moveX < 0) {
           moveX = 0;
         } else if (moveX >= document.body.offsetWidth - e.target.offsetWidth) {

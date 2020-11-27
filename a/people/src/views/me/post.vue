@@ -240,7 +240,7 @@ export default {
     display: none;
   }
   .info-edit-item-content {
-    min-height: 20px;
+    min-height: 1.25rem;
     border: 0.0625rem solid #dddddd;
     /deep/img,
     /deep/video {

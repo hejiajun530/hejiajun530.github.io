@@ -38,7 +38,10 @@
         class="text-center"
         placeholder="输入城市"
       >
-      <button @click="getLocationWeather(citySearch)">确定</button>
+      <button
+        @click="getLocationWeather(citySearch)"
+        class="pointSB"
+      >确定</button>
     </div>
   </div>
 </template>

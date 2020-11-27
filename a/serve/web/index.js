@@ -207,13 +207,15 @@ module.exports = app => {
   router.post('/getArticleList', async (req, res) => {
     const body = req.body
     console.log(body);
-    let selectSql = '',totalSql = '';
+    let selectSql = '', totalSql = '';
     if (body.category) {
-      selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.category = "${body.category}" and article.articleid != 13 order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
-      totalSql = `select count(*) as total from article,user where article.userid = user.userid and article.category = "${body.category}"`
+      // 获取某一分类
+      selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like',(select count(*) from comment where comment.articleid = article.articleid) as 'comment' from article,user where article.userid = user.userid and article.category = "${body.category}" and article.articleid != 13 order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+      totalSql = `select count(*) as total from article,user where article.userid = user.userid and article.category = "${body.category}" and article.articleid != 13`
     } else {
-      selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.articleid != 13 order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
-      totalSql = `select count(*) as total from article,user where article.userid = user.userid`
+      // 获取所有
+      selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like',(select count(*) from comment where comment.articleid = article.articleid) as 'comment' from article,user where article.userid = user.userid and article.articleid != 13 order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`//使用limit不用and
+      totalSql = `select count(*) as total from article,user where article.userid = user.userid and article.articleid != 13`
     }
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
@@ -274,7 +276,7 @@ module.exports = app => {
   router.get('/getArticleListByText', async (req, res) => {
     const query = req.query
     console.log(query);
-    let selectSql = `select article.*,user.username,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article,user where article.userid = user.userid and article.articleid != 13 and article.title like "%${query.text}%" or article.content like "%${query.text}%" order by createTime desc`//使用limit不用and
+    let selectSql = `select article.*,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article where article.articleid != 13 and (article.title like "%${query.text}%" or article.content like "%${query.text}%") order by createTime desc`//使用limit不用and
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       cnt.query(`select count(*) as total from article,user where article.userid = user.userid`, function (err, result1) {
@@ -307,6 +309,22 @@ module.exports = app => {
         }
         res.send(resultObj)
       })
+    })
+  })
+
+  // 根据用户id获取所有文章列表   个人归档
+  router.get('/getArticleListByIdArch', auth, async (req, res) => {
+    const query = req.query
+    console.log(query);
+    let selectSql = `select * from article where userid = "${query.userid}" order by createTime desc`//使用limit不用and
+    cnt.query(selectSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '获取成功!',
+        res: result
+      }
+      res.send(resultObj)
     })
   })
 

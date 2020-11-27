@@ -125,8 +125,8 @@ export default {
           url: '/home/liuyan'
         },
         {
-          name: '关于我',
-          url: '/home/about'
+          name: '搜索',
+          url: '/home/search'
         },
         {
           name: 'Me',
@@ -134,7 +134,7 @@ export default {
         }
       ],
       menuTop: '',
-      theme: 'light'// 主题色
+      theme: 'light' // 主题色
       // animationTime: null
     };
   },
@@ -214,7 +214,7 @@ export default {
       const _self = this;
       _self.theme = _self.theme == 'light' ? 'dark' : 'light';
       // console.log(_self.theme);
-      window.document.documentElement.setAttribute("data-theme", _self.theme);
+      window.document.documentElement.setAttribute('data-theme', _self.theme);
     }
   },
   created() {

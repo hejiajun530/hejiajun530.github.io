@@ -176,8 +176,8 @@ export default {
   position: relative;
   padding: 3.125rem 0 0 0;
   .postlist-pageing {
-    width: 500px;
-    margin: 10px 0 0 0;
+    width: 31.25rem;
+    margin: 0.625rem 0 0 0;
   }
   .postlist-noarticle {
     padding: 1.25rem 0;

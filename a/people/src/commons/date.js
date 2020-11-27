@@ -55,8 +55,10 @@ function toymd(time, str) {
     return hours + ':' + min + ':' + sec;
   } else if (str.toLowerCase() == 'mm:ss') {
     return min + ':' + sec;
-  } else {
-    return year + '-' + month + '-' + day;
+  } else if (str.toLowerCase() == 'yy') {
+    return year;
+  } else if (str.toLowerCase() == 'mm-dd') {
+    return month + '-' + day;
   }
 }
 

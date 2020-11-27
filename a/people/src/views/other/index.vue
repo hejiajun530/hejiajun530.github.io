@@ -49,7 +49,7 @@ export default {
       // swiper
       configs: [
         {
-          width: 350,
+          width: 680,
           height: 100,
           top: 0,
           left: -50,
@@ -58,7 +58,7 @@ export default {
           zIndex: 2
         }, //0
         {
-          width: 350,
+          width: 680,
           height: 250,
           top: 50,
           left: -100,
@@ -67,16 +67,16 @@ export default {
           zIndex: 3
         }, //1
         {
-          width: 350,
+          width: 680,
           height: 300,
           top: 25,
-          left: 120,
+          left: 105,
           opacity: 1,
           transform: 'translate(-12.5%, 0) rotateY(0)',
           zIndex: 4
         }, //2
         {
-          width: 350,
+          width: 680,
           height: 250,
           top: 50,
           left: 250,
@@ -85,7 +85,7 @@ export default {
           zIndex: 3
         }, //3
         {
-          width: 350,
+          width: 680,
           height: 100,
           top: 0,
           left: 450,
@@ -117,16 +117,16 @@ export default {
 .homeindex {
   min-height: 56.25rem;
   .homeindex-swiperpc {
-    width: 500px;
-    height: 350px;
+    width: 45rem;
+    height: 21.875rem;
     margin: 0 auto;
-    border: 1px solid #dddddd;
+    border: 0.0625rem solid #dddddd;
   }
   .homeindex-swiperphone {
     width: 31.25rem;
     height: 21.875rem;
     margin: 0 auto;
-    border: 1px solid #dddddd;
+    border: 0.0625rem solid #dddddd;
   }
   .homeindex-articlelist {
     margin: 1.25rem 0 0 0;

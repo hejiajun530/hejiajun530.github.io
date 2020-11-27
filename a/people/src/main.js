@@ -7,6 +7,7 @@ import router from './router';
 import './styles/iconfont.css';
 // 导入js包
 import { toymd } from './commons/date';
+import { unique } from './commons/array';
 // 导入自写组件
 import messagejs from './components/message/message.js';
 import alertjs from './components/alert/alert.js';
@@ -18,6 +19,7 @@ Vue.prototype.$gMessage = messagejs;
 Vue.prototype.$gAlert = alertjs;
 Vue.prototype.$http = http;
 Vue.prototype.toymd = toymd;
+Vue.prototype.unique = unique;
 
 new Vue({
   router,

@@ -81,7 +81,7 @@ export default {
   mounted() {},
   methods: {
     test(num) {
-      console.log(num, 'test')
+      console.log(num, 'test');
     },
     // 点赞
     handleClickAddLike(item) {
@@ -135,34 +135,34 @@ export default {
 .commentlist {
   .commentlist-title {
     position: relative;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 600;
     color: orangered;
-    padding: 0 0 0 20px;
-    margin: 10px 0 20px 0;
+    padding: 0 0 0 1.25rem;
+    margin: 0.625rem 0 1.25rem 0;
     &::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       display: block;
-      width: 6px;
-      height: 25px;
+      width: 0.375rem;
+      height: 1.5625rem;
       background: orangered;
-      border-radius: 6px;
+      border-radius: 0.375rem;
     }
   }
   .commentlist-nocomment {
-    font-size: 20px;
-    padding: 20px 0;
+    font-size: 1.25rem;
+    padding: 1.25rem 0;
   }
   .commentlist-item {
-    min-height: 110px;
-    padding: 13px 0 11px;
-    border-bottom: 1px dashed #dddddd;
+    min-height: 6.875rem;
+    padding: 0.8125rem 0 0.6875rem;
+    border-bottom: 0.0625rem dashed #dddddd;
     .commentlist-item-avator {
-      width: 62px;
-      padding: 0 20px 0 0;
+      width: 3.875rem;
+      padding: 0 1.25rem 0 0;
       img {
         width: 100%;
       }
@@ -177,9 +177,9 @@ export default {
         }
       }
       .commentlist-item-box-comment {
-        font-size: 18px;
+        font-size: 1.125rem;
         /deep/img {
-          height: 100px !important;
+          height: 6.25rem !important;
         }
       }
     }

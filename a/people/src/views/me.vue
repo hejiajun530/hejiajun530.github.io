@@ -64,6 +64,11 @@ export default {
           icon: 'icon-wenzhangliebiaoxiangqing',
           name: '文章列表',
           url: '/me/postlist'
+        },
+        {
+          icon: 'icon-guidang',
+          name: '个人归档',
+          url: '/me/arch'
         }
       ],
       meIndex: 0

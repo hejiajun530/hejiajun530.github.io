@@ -6,7 +6,7 @@
         class="articlelist-list-noarticle"
         v-if="articlelist.length <= 0"
       >
-        没有文章，快去发表文章吧~
+        {{noarticleText}}
       </div>
       <template v-for="item in articlelist">
         <div
@@ -45,7 +45,7 @@
                 <!-- 评论数量 -->
                 <div class="articlelist-list-item-right-make-right-common d-flex jc-end ai-center pointSB">
                   <i class="iconfont icon-linedesign-01"></i>
-                  <div>{{item.common ? item.common : 0}}</div>
+                  <div>{{item.comment ? item.comment : 0}}</div>
                 </div>
                 <!-- 浏览数量 -->
                 <div class="articlelist-list-item-right-make-right-count d-flex jc-end ai-center pointSB">
@@ -66,7 +66,10 @@
         </div>
       </template>
     </div>
-    <div class="articlelist-pageing" v-if="flag">
+    <div
+      class="articlelist-pageing"
+      v-if="flag"
+    >
       <g-pageing
         :num="total"
         @g-getpage="handleClickChangePage"
@@ -112,7 +115,8 @@ export default {
         category: ''
       },
       total: 1,
-      articlelist: []
+      articlelist: [],
+      noarticleText: '没有文章，快去发表文章吧~'
     };
   },
   created() {
@@ -191,10 +195,24 @@ export default {
     // 搜索文章列表
     handleSearch() {
       const _self = this;
+      if (!_self.text) return false;
       _self.$http.get(`/getArticleListByText?text=${_self.text}`).then(res => {
         console.log(res);
+        const reg = /(<\/?.+?\/?>|&nbsp;)/g;
+        res.data.res.forEach((item, index) => {
+          // console.log(item.content);
+          // 把所有的标签都删除，并且长度超过90，只取90个字符+'...'
+          item.content =
+            item.content.length > 90
+              ? item.content
+                  .replace(reg, '')
+                  .substr(0, 90)
+                  .concat('...')
+              : item.content.replace(reg, '');
+        });
         _self.articlelist = res.data.res;
-      })
+        _self.noarticleText = '搜索内容不存在~';
+      });
     }
   }
 };
@@ -208,7 +226,7 @@ export default {
       font-size: 1.375rem;
     }
     .articlelist-list-item {
-      padding: 25px 0;
+      padding: 1.5625rem 0;
       border-bottom: 0.125rem solid #bfab86;
       &:hover {
         background: #ffffff;
@@ -230,8 +248,8 @@ export default {
       .articlelist-list-item-right {
         .articlelist-list-item-right-title {
           max-width: 18.75rem;
-          padding: 0 0 8px 0;
-          font-size: 20px;
+          padding: 0 0 0.5rem 0;
+          font-size: 1.25rem;
           font-weight: 600;
           &:hover {
             color: rgb(2, 82, 82);

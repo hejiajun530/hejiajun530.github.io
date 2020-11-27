@@ -260,7 +260,7 @@ export default {
       overflow: hidden;
       /deep/img,
       /deep/audio {
-        max-height: 350px !important;
+        max-height: 21.875rem !important;
       }
     }
     .articledetail-box-make {
@@ -271,9 +271,9 @@ export default {
       }
     }
     .articledetail-box-share {
-      margin: 10px 0;
+      margin: 0.625rem 0;
       div {
-        margin: 0 5px;
+        margin: 0 0.3125rem;
       }
     }
   }

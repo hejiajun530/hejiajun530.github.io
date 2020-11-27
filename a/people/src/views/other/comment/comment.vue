@@ -180,16 +180,16 @@ export default {
   // background: #fffbf0;
   .comment-post {
     position: relative;
-    padding: 30px 0 0 0;
+    padding: 1.875rem 0 0 0;
     .comment-post-login {
       position: absolute;
       top: 0;
-      left: 10px;
-      width: 40px;
-      height: 40px;
-      border: 1px solid orangered;
+      left: 0.625rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 0.0625rem solid orangered;
       background: #fffbf0;
-      font-size: 14px;
+      font-size: 0.875rem;
       border-radius: 50%;
       z-index: 1;
       overflow: hidden;
@@ -202,43 +202,43 @@ export default {
       position: relative;
       textarea {
         width: 100%;
-        min-height: 100px;
-        padding: 20px;
+        min-height: 6.25rem;
+        padding: 1.25rem;
         background: transparent;
-        border: 1px solid orangered;
-        border-radius: 10px;
+        border: 0.0625rem solid orangered;
+        border-radius: 0.625rem;
       }
     }
     .comment-post-make {
-      height: 90px;
+      height: 5.625rem;
       img {
-        height: 80px;
-        margin: 0 10px 0 0;
+        height: 5rem;
+        margin: 0 0.625rem 0 0;
       }
       .comment-post-make-btn {
-        padding: 10px 20px;
+        padding: 0.625rem 1.25rem;
         color: #ffffff;
         background: orangered;
-        border-radius: 10px;
+        border-radius: 0.625rem;
       }
     }
     .comment-post-list {
       color: orangered;
-      border-bottom: 1px solid orangered;
-      margin: 30px 0 0 0;
+      border-bottom: 0.0625rem solid orangered;
+      margin: 1.875rem 0 0 0;
       .comment-post-list-title {
-        font-size: 20px;
-        padding: 5px 20px;
-        border: 1px solid orangered;
-        border-bottom: 1px solid #fffbf0;
-        border-radius: 10px 10px 0 0;
-        margin: 0 0 -1px 0;
+        font-size: 1.25rem;
+        padding: 0.3125rem 1.25rem;
+        border: 0.0625rem solid orangered;
+        border-bottom: 0.0625rem solid #fffbf0;
+        border-radius: 0.625rem 0.625rem 0 0;
+        margin: 0 0 -0.0625rem 0;
       }
       .comment-post-list-sum {
         span {
-          font-size: 24px;
+          font-size: 1.5rem;
           font-weight: 900;
-          margin: 0 5px 0 0;
+          margin: 0 0.3125rem 0 0;
         }
       }
     }

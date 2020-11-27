@@ -10,9 +10,9 @@ export default {};
 
 <style lang="scss" scoped>
 .hometitle {
-  border-bottom: 5px solid orangered;
-  padding: 10px 0;
-  margin: 0 0 30px 0;
-  font-size: 18px;
+  border-bottom: 0.3125rem solid orangered;
+  padding: 0.625rem 0;
+  margin: 0 0 1.875rem 0;
+  font-size: 1.125rem;
 }
 </style>
