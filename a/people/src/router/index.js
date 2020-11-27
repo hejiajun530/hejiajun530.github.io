@@ -15,6 +15,15 @@ const routes = [
     redirect: '/home'
   },
   {
+    path: '*',
+    redirect: '/error'
+  },
+  {
+    path: '/error',
+    name: 'error',
+    component: () => import('../views/error.vue'),
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('../views/login.vue'),
