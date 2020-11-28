@@ -4,12 +4,16 @@
     @contextmenu.prevent="function() {return false}"
   >
     <router-view />
+    <div
+      class="tyq-bkmusic"
+      @click="handleClickPlayMusic('http://www.tyq121.top/upload/%E5%B0%8F%E6%83%85%E6%AD%8C.m4a')"
+    >背景音乐</div>
     <div class="tyq-mask"></div>
     <div class="tyq d-flex flex-column jc-center ai-center">
       <div
         class="tyq-header pointSB"
         @click="$router.push('/')"
-      >@TYQ121</div>
+      >@TYQ121. 湘ICP备2020021274号-1</div>
       <div class="tyq-box">个人学习分享网站，大家喜欢的话可以分享给朋友~</div>
       <div class="tyq-foot">1962679391@qq.com</div>
     </div>
@@ -37,7 +41,8 @@ export default {
       offsetY: 0,
       backFlag: true,
       tyqBackLeft: '',
-      phone: false
+      phone: false,
+      mp3: null
     };
   },
   mounted() {
@@ -78,6 +83,18 @@ export default {
     // });
   },
   methods: {
+    // 播放背景音乐
+    handleClickPlayMusic(src) {
+      const _self = this;
+      // 音频播放
+      if (_self.mp3 != null) {
+        _self.mp3 = null;
+      }
+      _self.mp3 = new Audio(src); // 创建音频对象
+      console.log(_self.mp3);
+      _self.mp3.load(); // 重新加载
+      _self.mp3.play(); // 播放
+    },
     // 移动端js控制rem，不适合pc端
     // setHtmlFz() {
     //   // 基础值
@@ -311,6 +328,14 @@ button {
   div {
     padding: 0.225rem 0;
   }
+}
+.tyq-bkmusic {
+  position: fixed;
+  top: 50%;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  background: #ff0000;
 }
 .tyq-back {
   position: fixed;

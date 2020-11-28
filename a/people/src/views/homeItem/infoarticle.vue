@@ -2,7 +2,7 @@
   <div class="home-infoarticle">
     <!-- 头像 -->
     <div class="home-infoarticle-head">
-      <img
+      <!-- <img
         :src="tyqUser.avator"
         @click="loginFlag = !loginFlag"
         v-if="tyqUser && tyqUser.avator"
@@ -11,10 +11,11 @@
         v-else
         src="../../assets/logo.png"
         @click="loginFlag = !loginFlag"
-      >
+      > -->
+      <ewm></ewm>
     </div>
     <!-- 用户名 -->
-    <h3 class="home-infoarticle-name">{{tyqUser.username ? tyqUser.username : '用户名'}}</h3>
+    <!-- <h3 class="home-infoarticle-name">{{tyqUser.username ? tyqUser.username : '用户名'}}</h3> -->
     <!-- 最新文章 -->
     <div class="home-infoarticle-article">
       <div class="home-infoarticle-article-title me-title text-left">最新文章</div>
@@ -47,8 +48,12 @@
 
 <script>
 import mixins from '@/mixins.js';
+import ewm from '@/components/ewm/index';
 export default {
   mixins: [mixins],
+  components: {
+    ewm
+  },
   data() {
     return {
       query: {
@@ -106,17 +111,17 @@ export default {
 <style lang="scss" scoped>
 .home-infoarticle {
   padding: 1.875rem 0.625rem;
-  .home-infoarticle-head {
-    img {
-      width: 6.25rem;
-      height: 6.25rem;
-      border-radius: 50%;
-      transition: all 2s;
-      &:hover {
-        transform: rotate(360deg);
-      }
-    }
-  }
+  // .home-infoarticle-head {
+  //   img {
+  //     width: 6.25rem;
+  //     height: 6.25rem;
+  //     border-radius: 50%;
+  //     transition: all 2s;
+  //     &:hover {
+  //       transform: rotate(360deg);
+  //     }
+  //   }
+  // }
   .home-infoarticle-article {
     position: relative;
     margin: 1.25rem 0;

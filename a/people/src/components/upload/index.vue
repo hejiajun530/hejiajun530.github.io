@@ -30,15 +30,15 @@
       class="uploadFile"
       v-if="type == 2"
     >
-      <!-- 预览图片  暂时不需要图片预览 -->
-      <!-- <div
+      <!-- 预览文件  暂时不需要图片预览 -->
+      <div
         class="upload-filename"
         v-for="(item, index) in fileName"
         :key="index"
       >
         <span>{{item}}</span>
         <span @click="handleClickDel('file', index)">×</span>
-      </div> -->
+      </div>
       <!-- 上传图片按钮 -->
       <div class="upload-file">
         <div class="upload-file-text">上传文件</div>
@@ -116,7 +116,7 @@ export default {
         reader.onload = function(e) {
           // 防止重复上传
           _self.fileList.push(e.srcElement.result);
-          _self.$emit('g-uploadList', _self.fileList, _self.fileName);
+          _self.$emit('g-uploadList', files[i], _self.fileName);
           // console.log(_self.fileList);
         };
         reader.readAsDataURL(files[i]);

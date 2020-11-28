@@ -111,6 +111,11 @@ const routes = [
         name: 'arch',
         component: () => import('../views/me/arch.vue'),
       },
+      {
+        path: '/me/music',
+        name: 'music',
+        component: () => import('../views/me/music.vue'),
+      },
     ]
   },
 ];

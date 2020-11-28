@@ -69,6 +69,11 @@ export default {
           icon: 'icon-guidang',
           name: '个人归档',
           url: '/me/arch'
+        },
+        {
+          icon: 'icon-guidang',
+          name: '上传音乐',
+          url: '/me/music'
         }
       ],
       meIndex: 0
@@ -95,7 +100,7 @@ export default {
 
 <style lang="scss" scoped>
 .me {
-  height: 100vh;
+  height: calc(100vh - 6.875rem);
   .me-left {
     width: 15.625rem;
     height: 100%;

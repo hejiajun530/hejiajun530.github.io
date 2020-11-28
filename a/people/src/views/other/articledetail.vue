@@ -34,13 +34,18 @@
       <div class="articledetail-box-share d-flex jc-start ai-center">
         <span>分享:</span>
         <div
-          class="articledetail-box-share-qqkonjian pointSB"
+          class="articledetail-box-share-qqkonjian pointSB iconfont icon-QQzone"
           @click="handleClickShareQQKJ"
-        >QQ空间</div>
+        ></div>
         <div
-          class="articledetail-box-share-weibo pointSB"
+          class="articledetail-box-share-weibo pointSB iconfont icon-weibo"
           @click="handleClickShareWB"
-        >微博</div>
+        ></div>
+        <div class="articledetail-box-share-ewm pointSB iconfont icon-erweima">
+          <div class="articledetail-box-share-ewm-box">
+            <ewm :url="$route.fullPath"></ewm>
+          </div>
+        </div>
       </div>
     </div>
     <!-- 评论 -->
@@ -53,9 +58,11 @@
 
 <script>
 import comment from './comment/comment';
+import ewm from '@/components/ewm/index';
 export default {
   components: {
-    comment
+    comment,
+    ewm
   },
   data() {
     return {
@@ -271,9 +278,40 @@ export default {
       }
     }
     .articledetail-box-share {
-      margin: 0.625rem 0;
+      margin: 1.25rem 0;
       div {
+        font-size: 26px;
         margin: 0 0.3125rem;
+        &:nth-child(2) {
+          color: #ffcd00;
+        }
+        &:nth-child(3) {
+          color: #e52425;
+        }
+        &:nth-child(4) {
+          color: #5288f5;
+        }
+      }
+      .articledetail-box-share-ewm {
+        position: relative;
+        &:hover {
+          .articledetail-box-share-ewm-box {
+            display: block;
+          }
+        }
+        .articledetail-box-share-ewm-box {
+          display: none;
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translate(-50%, 100%);
+          width: 100px;
+          height: 100px;
+          padding: 5px;
+          border: 1px solid #dddddd;
+          background: #ffffff;
+          z-index: 999;
+        }
       }
     }
   }

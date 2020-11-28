@@ -44,7 +44,10 @@
               <div class="articlelist-list-item-right-make-right d-flex jc-end ai-center">
                 <!-- 评论数量 -->
                 <div class="articlelist-list-item-right-make-right-common d-flex jc-end ai-center pointSB">
-                  <i class="iconfont icon-linedesign-01"></i>
+                  <i
+                    class="iconfont icon-linedesign-01"
+                    @click="$router.push(`/home/articledetail?articleid=${item.articleid}`)"
+                  ></i>
                   <div>{{item.comment ? item.comment : 0}}</div>
                 </div>
                 <!-- 浏览数量 -->

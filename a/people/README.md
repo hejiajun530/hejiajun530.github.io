@@ -92,3 +92,14 @@ create table clike(
   constraint fkarticleid foreign key(commentid) references comment(commentid),
   constraint fkuserid foreign key(userid) references user(userid)
 );
+
+music 表
+create table music(
+  music int not null auto_increment primary key,
+  title varchar(50) not null,
+  auther varchar(50) not null,
+  content varchar(50) not null,
+  text varchar(50) null,
+  createTime datetime default current_timestamp comment '创建时间',
+  updateTime datetime default current_timestamp on update current_timestamp comment '更新时间'
+);

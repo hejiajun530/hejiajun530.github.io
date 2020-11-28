@@ -521,6 +521,39 @@ module.exports = app => {
     })
   })
 
+  // 添加歌曲
+  router.post('/addMusic', async (req, res) => {
+    const body = req.body
+    console.log(body);
+    let addSql = `insert into music(title, auther, content, text) values(?,?,?,?)`
+    let addSqlParams = [body.title, body.auther, body.content, body.text]
+    cnt.query(addSql, addSqlParams, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '发表成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
+  // 获取歌曲列表
+  router.post('/getMusicList', async (req, res) => {
+    const body = req.body
+    console.log(body);
+    let selectSql = `select * from music`
+    cnt.query(selectSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '获取音乐列表成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
   // 上传图片
   const multer = require('multer')
   // const upload = multer({ dest: __dirname + '/../upload' })
@@ -538,8 +571,8 @@ module.exports = app => {
     // res.send('ok')
     const file = req.file
     console.log(file, 'file-------------------------')
-    file.url = `http://www.tyq121.top:80/upload/${file.filename}` // 网络图片地址 目前有问题
-    // file.url = `http://localhost:3000/upload/${file.filename}` // 本地图片地址
+    // file.url = `http://www.tyq121.top:80/upload/${file.filename}` // 网络图片地址 目前有问题
+    file.url = `http://localhost:3000/upload/${file.filename}` // 本地图片地址
     res.send(file)
   })
 
