@@ -72,8 +72,8 @@ export default {
   justify-content: flex-start;
   align-items: center;
   border-bottom: 0.0625rem solid #dedede;
-  padding: 0 0.3125rem 0 0.625rem;
+  padding: 0.625rem 0.3125rem 0.625rem 0.625rem;
   box-sizing: border-box;
-  height: 3.125rem;
+  height: 5rem;
 }
 </style>

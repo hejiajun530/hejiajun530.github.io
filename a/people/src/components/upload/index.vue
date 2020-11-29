@@ -111,9 +111,11 @@ export default {
       var files = _self.$refs.uploadFileInput.files;
       // console.log(files);
       for (let i = 0; i < files.length; i++) {
+        _self.fileName = [];
         _self.fileName.push(files[i].name);
         var reader = new FileReader();
         reader.onload = function(e) {
+          _self.fileList = [];
           // 防止重复上传
           _self.fileList.push(e.srcElement.result);
           _self.$emit('g-uploadList', files[i], _self.fileName);

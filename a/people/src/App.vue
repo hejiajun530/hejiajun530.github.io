@@ -4,10 +4,6 @@
     @contextmenu.prevent="function() {return false}"
   >
     <router-view />
-    <div
-      class="tyq-bkmusic"
-      @click="handleClickPlayMusic('http://www.tyq121.top/upload/%E5%B0%8F%E6%83%85%E6%AD%8C.m4a')"
-    >背景音乐</div>
     <div class="tyq-mask"></div>
     <div class="tyq d-flex flex-column jc-center ai-center">
       <div
@@ -52,6 +48,18 @@ export default {
       e.preventDefault();
       return false;
     };
+    document.onkeydown = function(event) {
+      var e = event || window.event || arguments.callee.caller.arguments[0];
+      // console.log(e);
+      if (e.keyCode == 123) {
+        _self.$gMessage({
+          title: '不允许控制-控制台，感谢配合！',
+          duration: 3000,
+          type: 'error'
+        });
+        return false;
+      }
+    };
     _self.$nextTick(() => {
       _self.tyqBackLeft = _self.$refs.tyqBack.offsetLeft;
       console.log(_self.$refs.tyqBack.offsetLeft);
@@ -83,18 +91,6 @@ export default {
     // });
   },
   methods: {
-    // 播放背景音乐
-    handleClickPlayMusic(src) {
-      const _self = this;
-      // 音频播放
-      if (_self.mp3 != null) {
-        _self.mp3 = null;
-      }
-      _self.mp3 = new Audio(src); // 创建音频对象
-      console.log(_self.mp3);
-      _self.mp3.load(); // 重新加载
-      _self.mp3.play(); // 播放
-    },
     // 移动端js控制rem，不适合pc端
     // setHtmlFz() {
     //   // 基础值
@@ -328,14 +324,6 @@ button {
   div {
     padding: 0.225rem 0;
   }
-}
-.tyq-bkmusic {
-  position: fixed;
-  top: 50%;
-  left: 10px;
-  width: 50px;
-  height: 50px;
-  background: #ff0000;
 }
 .tyq-back {
   position: fixed;

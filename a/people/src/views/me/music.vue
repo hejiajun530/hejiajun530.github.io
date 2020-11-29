@@ -34,12 +34,14 @@
         </div>
       </div>
       <div class="info-edit-item">
-        <div class="info-edit-item-label">歌词文件</div>
+        <div class="info-edit-item-label">歌曲封面</div>
         <div class="info-edit-item-content d-flex jc-start ai-center">
-          <g-upload
-            @g-uploadList="handleGetUploadList"
-            type="2"
-          ></g-upload>
+          <img
+            :src="model.text"
+            v-if="model && model.text"
+            class="avator"
+          >
+          <g-upload @g-uploadList="handleGetUploadListImg"></g-upload>
         </div>
       </div>
       <div class="info-edit-item">
@@ -50,22 +52,25 @@
       </div>
     </div>
     <!-- 测试 -->
-    <div
-      class="test"
-      v-for="item in musiclist"
-      :key="item.music"
-      @click="handleClickPlayMusic(item.content)"
-    >{{item.title}}--{{item.auther}}</div>
+    <!-- <musiclist :musiclist="musiclist"></musiclist>
+    <pageing
+      :num="total"
+      @g-getpage="handleClickChangePage"
+    ></pageing> -->
   </div>
 </template>
 
 <script>
+// import pageing from '@/components/pageing/index';
+// import musiclist from '../musiclist/index';
 import upload from '@/components/upload/index';
-import mixin from '@/mixins';
+// import mixin from '@/mixins';
 export default {
-  mixins: [mixin],
+  // mixins: [mixin],
   components: {
     'g-upload': upload
+    // musiclist,
+    // pageing
   },
   data() {
     return {
@@ -74,18 +79,22 @@ export default {
         auther: '',
         content: '',
         text: ''
-      },
-      musiclist: [],
-      mp3: null
+      }
+      // musiclist: [],
+      // query: {
+      //   page: 1,
+      //   num: 3
+      // },
+      // total: 0
     };
   },
   created() {
     const _self = this;
-    _self.handleGetMusicList();
+    // _self.handleClickChangePage('1');
   },
   mounted() {},
   methods: {
-    // 获取upload的数组
+    // 获取upload的数据
     handleGetUploadList(file) {
       var _self = this;
       console.log(file);
@@ -95,6 +104,18 @@ export default {
       _self.$http.post('/upload', formData).then(res => {
         console.log(res.data.url);
         _self.$set(_self.model, 'content', res.data.url);
+      });
+    },
+    // 获取upload上传图片的数据
+    handleGetUploadListImg(file) {
+      var _self = this;
+      console.log(file);
+      let formData = new FormData();
+      formData.append('file', file);
+      console.log(formData.get('file'), '----------');
+      _self.$http.post('/upload', formData).then(res => {
+        console.log(res.data.url);
+        _self.$set(_self.model, 'text', res.data.url);
       });
     },
     // 上传音乐
@@ -117,29 +138,28 @@ export default {
             title: '发表成功',
             duration: 2000
           });
+          _self.$router.push('/home/mood');
+        } else {
+          _self.$gMessage({
+            title: '发表失败',
+            duration: 2000,
+            type: 'error'
+          });
         }
       });
-    },
-    // 获取音乐列表
-    handleGetMusicList() {
-      const _self = this;
-      _self.$http.post('/getMusicList').then(res => {
-        _self.musiclist = res.data.res;
-        console.log(_self.musiclist, 'musiclist');
-      });
-    },
-    // 播放音乐
-    handleClickPlayMusic(src) {
-      const _self = this;
-      // 音频播放
-      if (_self.mp3 != null) {
-        _self.mp3 = null;
-      }
-      _self.mp3 = new Audio(src); // 创建音频对象
-      console.log(_self.mp3);
-      _self.mp3.load(); // 重新加载
-      _self.mp3.play(); // 播放
     }
+    // 获取音乐列表
+    // handleClickChangePage(num) {
+    //   const _self = this;
+    //   _self.$set(_self.query, 'page', num);
+    //   _self.$http.post('/getMusicList', _self.query).then(res => {
+    //     _self.musiclist = res.data.res;
+    //     if (_self.musiclist[0].total) {
+    //       _self.total = Math.ceil(_self.musiclist[0].total / _self.query.num);
+    //     }
+    //     console.log(_self.musiclist, 'musiclist');
+    //   });
+    // }
   }
 };
 </script>
@@ -149,10 +169,7 @@ export default {
   position: relative;
   padding: 3.125rem 0 0 0;
 }
-.test {
-  width: 150px;
-  height: 30px;
-  background: skyblue;
-  margin: 5px 0;
+.avator {
+  height: 5rem;
 }
 </style>

@@ -54,6 +54,7 @@ const routes = [
         path: '/home/mood',
         name: 'mood',
         component: () => import('../views/other/mood.vue'),
+        meta: { keepAlive: true }
       },
       {
         path: '/home/share',

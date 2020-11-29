@@ -542,12 +542,28 @@ module.exports = app => {
   router.post('/getMusicList', async (req, res) => {
     const body = req.body
     console.log(body);
-    let selectSql = `select * from music`
+    let selectSql = `select *,(select count(*) from music) as 'total' from music order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       var resultObj = {
         flag: true,
         msg: '获取音乐列表成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
+  // 歌曲搜索
+  router.get('/getMusicByText', async (req, res) => {
+    const query = req.query
+    console.log(query);
+    let selectSql = `select * from music where title like '%${query.title}%' or auther like '%${query.title}%'`
+    cnt.query(selectSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '搜索音乐成功!',
         res: result
       }
       res.send(resultObj)

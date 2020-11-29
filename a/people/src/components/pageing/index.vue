@@ -64,6 +64,7 @@ export default {
   height: 1.875rem;
   display: flex;
   justify-content: flex-end;
+  padding: 0.3125rem 0;
   .pageing-box {
     width: 1.875rem;
     height: 1.875rem;
