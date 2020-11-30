@@ -117,6 +117,21 @@ const routes = [
         name: 'music',
         component: () => import('../views/me/music.vue'),
       },
+      {
+        path: '/me/user',
+        name: 'user',
+        component: () => import('../views/me/user.vue'),
+      },
+      {
+        path: '/me/userdetail',
+        name: 'userdetail',
+        component: () => import('../views/me/userdetail.vue'),
+      },
+      {
+        path: '/me/chat',
+        name: 'chat',
+        component: () => import('../views/me/chat.vue'),
+      },
     ]
   },
 ];

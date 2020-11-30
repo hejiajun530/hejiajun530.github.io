@@ -69,7 +69,8 @@ export default {
       default: 'test'
     },
     nowdata: {
-      type: String
+      type: String,
+      default: ''
     }
   },
   data() {

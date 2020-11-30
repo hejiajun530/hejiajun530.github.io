@@ -74,6 +74,16 @@ export default {
           icon: 'icon-guidang',
           name: '上传音乐',
           url: '/me/music'
+        },
+        {
+          icon: 'icon-guidang',
+          name: '用户列表',
+          url: '/me/user'
+        },
+        {
+          icon: 'icon-guidang',
+          name: '聊天室',
+          url: '/me/chat'
         }
       ],
       meIndex: 0

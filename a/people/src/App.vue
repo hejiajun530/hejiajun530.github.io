@@ -44,22 +44,25 @@ export default {
   mounted() {
     var _self = this;
     // window.document.documentElement.setAttribute( "data-theme", 'light' );
-    document.oncontextmenu = function(e) {
+    // 阻止右键单击事件
+    document.oncontextmenu = function(event) {
+      var e = event || window.event || arguments.callee.caller.arguments[0];
       e.preventDefault();
       return false;
     };
-    document.onkeydown = function(event) {
-      var e = event || window.event || arguments.callee.caller.arguments[0];
-      // console.log(e);
-      if (e.keyCode == 123) {
-        _self.$gMessage({
-          title: '不允许控制-控制台，感谢配合！',
-          duration: 3000,
-          type: 'error'
-        });
-        return false;
-      }
-    };
+    // 阻止F12打开控制台
+    // document.onkeydown = function(event) {
+    //   var e = event || window.event || arguments.callee.caller.arguments[0];
+    //   // console.log(e);
+    //   if (e.keyCode == 123) {
+    //     _self.$gMessage({
+    //       title: '不允许控制-控制台，感谢配合！',
+    //       duration: 3000,
+    //       type: 'error'
+    //     });
+    //     return false;
+    //   }
+    // };
     _self.$nextTick(() => {
       _self.tyqBackLeft = _self.$refs.tyqBack.offsetLeft;
       console.log(_self.$refs.tyqBack.offsetLeft);
@@ -242,6 +245,7 @@ body {
   margin: 0;
   padding: 0;
   outline: none;
+  border: none;
   box-sizing: border-box;
   // 取消高亮
   -webkit-tap-highlight-color: transparent;

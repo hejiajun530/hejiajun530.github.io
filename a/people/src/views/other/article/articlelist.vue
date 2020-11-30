@@ -102,6 +102,9 @@ export default {
     text: {
       type: String,
       default: ''
+    },
+    userid: {
+      type: String
     }
   },
   components: {
@@ -166,6 +169,9 @@ export default {
       _self.$set(_self.query, 'page', num);
       _self.$set(_self.query, 'category', _self.category);
       // _self.$set(_self.query, 'userid', _self.tyqUser.userid);
+      if (_self.userid && _self.http == 'getArticleListById') {
+        _self.$set(_self.query, 'userid', _self.userid);
+      }
       _self.$http.post(`/${_self.http}`, _self.query).then(res => {
         // console.log(res.data);
         if (!res.data.flag) {

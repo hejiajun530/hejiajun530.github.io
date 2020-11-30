@@ -7,6 +7,12 @@
       placeholder="搜索文章"
       class="search-search"
     >
+    <!-- <g-select
+      :selectList='tagList'
+      chooseIndex='1'
+      @g-selectValue="handleGetSelectValueTag"
+      id="tips"
+    ></g-select> -->
     <!-- @input="handleInputSearchDou" -->
     <!-- <button @click="handleInputSearch">搜索</button> -->
     <!-- 过往故事 文章列表 -->
@@ -22,16 +28,20 @@
 </template>
 
 <script>
+import select from '@/components/select/index';
 import articlelist from './article/articlelist';
 export default {
   components: {
-    articlelist
+    articlelist,
+    'g-select': select
   },
   data() {
     return {
       text: '',
       douTimer: null,
-      doudelay: 500
+      doudelay: 500,
+      tagList: ['js', 'css', 'html'],
+      tag: ''
     };
   },
   watch: {
@@ -63,6 +73,18 @@ export default {
         _self.handleInputSearch();
         console.log('setTimeout');
       }, _self.doudelay);
+    },
+    // 获取select下拉框组件选择的值 数组形式  标签
+    handleGetSelectValueTag(value) {
+      var _self = this;
+      console.log(value);
+      _self.tag = '';
+      value.map((item, index) => {
+        // console.log(item, index)
+        // 把数组转为逗号隔开的字符串    使用三元表达式让第一个不加逗号
+        _self.tag += index == 0 ? item : ',' + item;
+      });
+      console.log(_self.tag);
     }
   },
   created() {

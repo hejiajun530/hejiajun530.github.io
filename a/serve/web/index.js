@@ -2,13 +2,7 @@ module.exports = app => {
   const router = require('express').Router()
   const mysql = require('mysql');
   const jwt = require('jsonwebtoken')// token
-  var cnt = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '0000',
-    database: 'people'
-  });
-  cnt.connect();
+  const cnt = require('../connect/db');
 
   // 用户注册
   router.post('/regist', async (req, res) => {
@@ -152,7 +146,7 @@ module.exports = app => {
     // 传过过来的值
     const query = req.query
     console.log(query);
-    cnt.query('select * from user where username = "' + query.username + '"', function (err, result) {
+    cnt.query('select * from user where username like "%' + query.username + '%"', function (err, result) {
       if (err) return res.send(err);
       res.send(result)
     })
@@ -185,6 +179,23 @@ module.exports = app => {
     })
     // console.log(data);
   })
+
+  // 获取用户列表
+  router.post('/getUserList', async (req, res) => {
+    const body = req.body
+    console.log(body);
+    let selectSql = `select *,(select count(*) from user where userid != 3 and userid != ${body.userid}) as 'total',(select count(*) from article where article.userid = user.userid) as 'articleNum' from user where userid != 3 and userid != ${body.userid} order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`
+    cnt.query(selectSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '获取用户列表成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
 
   // 添加文章
   router.post('/addArticle', auth, async (req, res) => {
@@ -272,11 +283,11 @@ module.exports = app => {
     })
   })
 
-  // 搜索获取文章列表
+  // 搜索文章
   router.get('/getArticleListByText', async (req, res) => {
     const query = req.query
     console.log(query);
-    let selectSql = `select article.*,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article where article.articleid != 13 and (article.title like "%${query.text}%" or article.content like "%${query.text}%") order by createTime desc`//使用limit不用and
+    let selectSql = `select article.*,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article where article.articleid != 13 and (article.title like "%${query.text}%" or article.content like "%${query.text}%") order by createTime desc`
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       cnt.query(`select count(*) as total from article,user where article.userid = user.userid`, function (err, result1) {
