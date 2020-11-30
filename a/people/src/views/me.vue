@@ -71,17 +71,17 @@ export default {
           url: '/me/arch'
         },
         {
-          icon: 'icon-guidang',
+          icon: 'icon-tubiaozhizuomobanyihuifu-',
           name: '上传音乐',
           url: '/me/music'
         },
         {
-          icon: 'icon-guidang',
+          icon: 'icon-ico-',
           name: '用户列表',
           url: '/me/user'
         },
         {
-          icon: 'icon-guidang',
+          icon: 'icon-liaotian1',
           name: '聊天室',
           url: '/me/chat'
         }

@@ -61,7 +61,7 @@
       <div class="info-edit-item">
         <div class="info-edit-item-label">文章展示</div>
         <div
-          class="info-edit-item-content flex-1 text-left"
+          class="info-edit-item-content content-show flex-1 text-left"
           v-html="model.content"
         >
         </div>
@@ -241,7 +241,9 @@ export default {
   }
   .info-edit-item-content {
     min-height: 1.25rem;
-    border: 0.0625rem solid #dddddd;
+    &.content-show {
+      border: 0.0625rem solid #dddddd;
+    }
     /deep/img,
     /deep/video {
       max-height: 21.875rem;
