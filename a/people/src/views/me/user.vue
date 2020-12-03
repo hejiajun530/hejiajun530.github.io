@@ -86,7 +86,7 @@ export default {
 <style lang="scss" scoped>
 .user {
   .user-search {
-    padding: 20px 0;
+    padding: 1.25rem 0;
     .user-search-input {
       width: 18.75rem;
       height: 2.1875rem;
@@ -95,12 +95,12 @@ export default {
       padding: 0 0 0 0.9375rem;
     }
     .user-search-btn {
-      width: 80px;
+      width: 5rem;
       height: 2.1875rem;
       background: #000000;
       color: #ffffff;
       border-radius: 2.1875rem;
-      margin: 0 0 0 10px;
+      margin: 0 0 0 0.625rem;
     }
   }
 }

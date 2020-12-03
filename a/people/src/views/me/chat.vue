@@ -1,6 +1,6 @@
 
 <template>
-  <div class="chat-box">
+  <div class="chat">
     <header>聊天室人数：{{count}}</header>
     <div
       class="msg-box"
@@ -8,16 +8,20 @@
     >
       <!-- 信息列表 -->
       <div
-        v-for="(i,index) in list"
+        v-for="(item,index) in list"
         :key="index"
-        class="msg"
-        :style="i.userid == userid?'flex-direction:row-reverse':''"
+        class="msg text-left"
+        :style="item.userid == tyqUser.userid ? 'float: right;' : ''"
       >
+        <!-- 头像 -->
         <div class="user-head">
-          <div class="head"></div>
+          <div class="head">
+            <img :src="item.avator">
+          </div>
         </div>
+        <!-- 信息 -->
         <div class="user-msg">
-          <span :class="i.userid == userid?'right':'left'">{{i.msg}}</span>
+          <span>{{item.msg}}</span>
         </div>
       </div>
     </div>
@@ -37,6 +41,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import mixin from '@/mixins.js';
 export default {
@@ -115,12 +120,26 @@ export default {
         _self.ws = ws;
         ws.onopen = function(e) {
           console.log('服务器连接成功');
+          _self.$gMessage({
+            title: '服务器连接成功',
+            duration: 2000
+          });
         };
         ws.onclose = function(e) {
           console.log('服务器连接关闭');
+          _self.$gMessage({
+            title: '服务器连接关闭',
+            duration: 2000,
+            type: 'error'
+          });
         };
         ws.onerror = function() {
           console.log('服务器连接出错');
+          _self.$gMessage({
+            title: '服务器连接出错',
+            duration: 2000,
+            type: 'error'
+          });
         };
         ws.onmessage = function(e) {
           //接收服务器返回的数据
@@ -142,12 +161,18 @@ export default {
     _self.ws.close();
     _self.ws.onclose = function(e) {
       console.log('服务器连接关闭');
+      _self.$gMessage({
+        title: '服务器连接关闭',
+        duration: 2000,
+        type: 'error'
+      });
     };
   }
 };
 </script>
+
 <style lang="scss" scoped>
-.chat-box {
+.chat {
   margin: 0 auto;
   background: #fafafa;
   position: absolute;
@@ -174,7 +199,6 @@ export default {
     margin-top: 3rem;
     overflow-y: scroll;
     .msg {
-      width: 95%;
       min-height: 2.5rem;
       margin: 1rem 0.5rem;
       position: relative;
@@ -193,13 +217,15 @@ export default {
         .head {
           width: 1.2rem;
           height: 1.2rem;
+          img {
+            width: 100%;
+            height: 100%;
+          }
         }
         // position: absolute;
       }
       .user-msg {
         width: 80%;
-        // position: absolute;
-        word-break: break-all;
         position: relative;
         z-index: 5;
         span {
@@ -208,15 +234,6 @@ export default {
           border-radius: 0.5rem;
           margin-top: 0.2rem;
           font-size: 0.88rem;
-        }
-        .left {
-          background: white;
-          animation: toLeft 0.5s ease both 1;
-        }
-        .right {
-          background: #53a8ff;
-          color: white;
-          animation: toright 0.5s ease both 1;
         }
         @keyframes toLeft {
           0% {

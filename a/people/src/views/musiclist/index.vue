@@ -41,7 +41,7 @@
         prop="createTime"
       >
         <template slot-scope="scope">
-          {{toymd(scope.row.createTime, 'yy-mm-dd hh:mm:ss')}}
+          {{$parent.phoneFlag ? toymd(scope.row.createTime, 'yy-mm-dd') : toymd(scope.row.createTime, 'yy-mm-dd hh:mm:ss')}}
         </template>
       </g-tableColumn>
       <g-tableColumn
@@ -110,7 +110,8 @@ export default {
     handleClickPlayMusic(data) {
       const _self = this;
       let audio = document.querySelector('#audioTyq');
-      // console.log(data);
+      console.log(data);
+      console.log(audio);
       _self.musicid = data.music;
       if (data.content != _self.audioSrc) {
         _self.audioSrc = data.content;
@@ -150,7 +151,7 @@ export default {
     font-size: 30px;
   }
   .cover {
-    height: 100%;
+    height: 5rem;
   }
 }
 </style>

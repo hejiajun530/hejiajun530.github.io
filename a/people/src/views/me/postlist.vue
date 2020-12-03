@@ -6,7 +6,7 @@
       <g-tableColumn
         label="标题"
         prop="title"
-        width="150"
+        :width="$parent.phoneFlag ? 52 : 150"
       >
         <template slot-scope="scope">
           {{scope.row.title}}
@@ -23,6 +23,7 @@
       <g-tableColumn
         label="标签"
         prop="tag"
+        v-if="!$parent.phoneFlag"
       >
         <template slot-scope="scope">
           <g-tag :taglist="scope.row.tag.split(',')"></g-tag>
@@ -33,12 +34,13 @@
         prop="createTime"
       >
         <template slot-scope="scope">
-          {{toymd(scope.row.createTime, 'yy-mm-dd hh:mm:ss')}}
+          {{$parent.phoneFlag ? toymd(scope.row.createTime, 'yy-mm-dd') : toymd(scope.row.createTime, 'yy-mm-dd hh:mm:ss')}}
         </template>
       </g-tableColumn>
       <g-tableColumn
         label="作者"
         prop="username"
+        v-if="!$parent.phoneFlag"
       >
         <template slot-scope="scope">
           {{scope.row.username}}
@@ -47,17 +49,31 @@
       <g-tableColumn
         label="操作"
         type="make"
+        :width="$parent.phoneFlag ? 74 : ''"
       >
         <template slot-scope="scope">
-          <button
-            class="me-button pointSB"
-            style="margin-right: 5px;"
-            @click="handleClickEditTabelData(scope.row)"
-          >编辑</button>
-          <button
-            class="me-button pointSB"
-            @click="handleClickDelTabelData(scope.row)"
-          >删除</button>
+          <template v-if="!$parent.phoneFlag">
+            <button
+              class="me-button pointSB"
+              style="margin-right: 5px;"
+              @click="handleClickEditTabelData(scope.row)"
+            >编辑</button>
+            <button
+              class="me-button pointSB"
+              @click="handleClickDelTabelData(scope.row)"
+            >删除</button>
+          </template>
+          <template v-if="$parent.phoneFlag">
+            <button
+              class="me-button-icon pointSB iconfont icon-bianji"
+              style="margin-right: 0.3125rem;"
+              @click="handleClickEditTabelData(scope.row)"
+            ></button>
+            <button
+              class="me-button-icon pointSB iconfont icon-shanchukai"
+              @click="handleClickDelTabelData(scope.row)"
+            ></button>
+          </template>
         </template>
       </g-tableColumn>
     </g-table>
@@ -176,7 +192,7 @@ export default {
   position: relative;
   padding: 3.125rem 0 0 0;
   .postlist-pageing {
-    width: 31.25rem;
+    width: 250px;
     margin: 0.625rem 0 0 0;
   }
   .postlist-noarticle {

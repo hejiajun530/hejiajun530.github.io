@@ -1,27 +1,34 @@
 <template>
-  <div class="search text-left">
+  <div
+    class="search text-left"
+    :style="phoneFlag ? 'padding: 0;' : ''"
+  >
     <!-- <input type="text" @input="handleInputSearch" placeholder="搜索文章"> -->
-    <input
-      type="text"
-      v-model="text"
-      placeholder="搜索文章"
-      class="search-search"
-    >
-    <!-- <g-select
-      :selectList='tagList'
-      chooseIndex='1'
-      @g-selectValue="handleGetSelectValueTag"
-      id="tips"
-    ></g-select> -->
-    <!-- @input="handleInputSearchDou" -->
-    <!-- <button @click="handleInputSearch">搜索</button> -->
+    <div class="search-box d-flex jc-start ai-center">
+      <input
+        type="text"
+        v-model="text"
+        placeholder="搜索文章"
+        class="search-search"
+      >
+      <g-select
+        :selectList='tagList'
+        chooseIndex='1'
+        @g-selectValue="handleGetSelectValueTag"
+        id="tips"
+        class="search-select"
+      ></g-select>
+      <button
+        @click="handleInputSearchDou"
+        class="search-btn pointSB"
+      >搜索</button>
+    </div>
     <!-- 过往故事 文章列表 -->
     <div class="search-articlelist">
       <!-- <articlelist http="getArticleListStory"></articlelist> -->
       <articlelist
-        :text="text"
-        :flag="false"
-        ref="articlelistDom"
+        :articlelist="articlelist"
+        :noarticleText="noarticleText"
       ></articlelist>
     </div>
   </div>
@@ -30,40 +37,31 @@
 <script>
 import select from '@/components/select/index';
 import articlelist from './article/articlelist';
+import mixin from '@/mixins.js';
 export default {
+  mixins: [mixin],
   components: {
     articlelist,
     'g-select': select
   },
   data() {
     return {
-      text: '',
-      douTimer: null,
-      doudelay: 500,
-      tagList: ['js', 'css', 'html'],
-      tag: ''
+      text: '', // 搜索内容
+      douTimer: null, // 防抖定时器
+      doudelay: 500, // 防抖时间
+      tagList: ['js', 'css', 'html'], // 标签列表
+      tag: '', // 标签字符串
+      articlelist: [], // 文章列表
+      noarticleText: '没有文章，快去发表文章吧~' // 没有文章时，显示的文字
     };
   },
-  watch: {
-    text() {
-      const _self = this;
-      _self.handleInputSearchDou();
-    }
-  },
+  // watch: {
+  //   text() {
+  //     const _self = this;
+  //     _self.handleInputSearchDou();
+  //   }
+  // },
   methods: {
-    // 搜索功能
-    handleInputSearch() {
-      const _self = this;
-      // if (!_self.text) {
-      //   _self.$gMessage({
-      //     title: '值不能为空!',
-      //     duration: 2000,
-      //     type: 'error'
-      //   });
-      //   return false;
-      // }
-      _self.$refs.articlelistDom.handleSearch();
-    },
     // 防抖
     handleInputSearchDou() {
       const _self = this;
@@ -85,6 +83,32 @@ export default {
         _self.tag += index == 0 ? item : ',' + item;
       });
       console.log(_self.tag);
+    },
+    // 搜索文章列表
+    handleInputSearch() {
+      const _self = this;
+      if (!_self.text) return false;
+      let query = {
+        text: _self.text,
+        tag: _self.tag
+      };
+      _self.$http.post(`/getArticleListByText`, query).then(res => {
+        console.log(res);
+        const reg = /(<\/?.+?\/?>|&nbsp;)/g;
+        res.data.res.forEach((item, index) => {
+          // console.log(item.content);
+          // 把所有的标签都删除，并且长度超过90，只取90个字符+'...'
+          item.content =
+            item.content.length > 90
+              ? item.content
+                  .replace(reg, '')
+                  .substr(0, 90)
+                  .concat('...')
+              : item.content.replace(reg, '');
+        });
+        _self.articlelist = res.data.res;
+        _self.noarticleText = '搜索内容不存在！';
+      });
     }
   },
   created() {
@@ -97,13 +121,26 @@ export default {
 
 <style lang="scss" scoped>
 .search {
-  padding: 0 10px;
-  .search-search {
-    width: 18.75rem;
-    height: 2.1875rem;
-    border: 0.0625rem solid #dddddd;
-    border-radius: 2.1875rem;
-    padding: 0 0 0 0.9375rem;
+  padding: 0 0.625rem;
+  .search-box {
+    height: 4.375rem;
+    .search-search {
+      width: 18.75rem;
+      height: 35px;
+      border: 0.0625rem solid #dddddd;
+      border-radius: 2.1875rem;
+      padding: 0 0 0 0.9375rem;
+    }
+    .search-select {
+      width: 14.6875rem;
+      margin: 0 0.3125rem;
+    }
+    .search-btn {
+      padding: 0.4375rem 0.625rem;
+      border-radius: 0.3125rem;
+      background: #000000;
+      color: #ffffff;
+    }
   }
 }
 </style>

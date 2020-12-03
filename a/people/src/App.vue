@@ -25,6 +25,11 @@
       @touchend="handleTouchEndBack"
     >Back</div>
     <!-- @click="handleClickTop" -->
+    <!-- 音乐播放 -->
+    <audio
+      id="audioTyq"
+      autoplay
+    ></audio>
   </div>
 </template>
 

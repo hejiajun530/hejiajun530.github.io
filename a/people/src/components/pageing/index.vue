@@ -61,7 +61,7 @@ export default {
 <style lang="scss" scoped>
 .pageing {
   width: 100%;
-  height: 1.875rem;
+  min-height: 1.875rem;
   display: flex;
   justify-content: flex-end;
   padding: 0.3125rem 0;

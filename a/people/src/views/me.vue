@@ -1,6 +1,10 @@
 <template>
   <div class="me d-flex">
-    <div class="me-left">
+    <div
+      class="me-left"
+      :style="phoneFlag ? 'width: 6.25rem;' : ''"
+    >
+      <!-- 头像 -->
       <div class="me-left-header d-flex flex-column jc-center ai-center">
         <img
           :src="tyqUser.avator"
@@ -12,9 +16,12 @@
           src="@/assets/logo.png"
           @click="$router.push('/')"
         >
+        <!-- 用户名 -->
         <h2 class="me-left-header-username">{{tyqUser && tyqUser.username ? tyqUser.username : '用户名'}}</h2>
-        <h5 class="me-left-header-tips text-left">{{tyqUser && tyqUser.tips ? tyqUser.tips : '这个人很懒，什么都没写...'}}</h5>
+        <!-- 个性签名 -->
+        <h5 class="me-left-header-tips text-ellipsis">{{tyqUser && tyqUser.tips ? tyqUser.tips : '这个人很懒，什么都没写...'}}</h5>
       </div>
+      <!-- 侧边菜单栏 -->
       <div class="me-left-menu">
         <div
           class="me-left-menu-item d-flex jc-start ai-center pointSB"
@@ -27,11 +34,14 @@
             class="me-left-menu-item-icon text-center iconfont"
             :class="item.icon"
           ></i>
-          <div class="me-left-menu-item-name text-ellipsis">{{item.name}}</div>
+          <div
+            class="me-left-menu-item-name text-ellipsis"
+            v-if="!phoneFlag"
+          >{{item.name}}</div>
         </div>
       </div>
     </div>
-    <div class="me-right flex-1">
+    <div class="me-right">
       <router-view></router-view>
     </div>
   </div>
@@ -110,7 +120,7 @@ export default {
 
 <style lang="scss" scoped>
 .me {
-  height: calc(100vh - 6.875rem);
+  height: 100vh;
   .me-left {
     width: 15.625rem;
     height: 100%;
@@ -126,6 +136,9 @@ export default {
         &:hover {
           transform: rotate(360deg);
         }
+      }
+      .me-left-header-tips {
+        width: 100%;
       }
     }
     .me-left-menu {
@@ -152,7 +165,7 @@ export default {
   }
   .me-right {
     height: 100%;
-    padding: 1.875rem 3.125rem;
+    padding: 1.25rem 2.1875rem;
   }
 }
 </style>

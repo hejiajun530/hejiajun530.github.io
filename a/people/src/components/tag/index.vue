@@ -1,5 +1,5 @@
 <template>
-  <div class="tag d-flex jc-start ai-center">
+  <div class="tag d-flex jc-start ai-center flex-wrap">
     <div
       class="tag-item d-flex jc-start ai-center"
       v-for="item in taglist"
@@ -26,7 +26,7 @@ export default {
     min-width: 3.125rem;
     height: 1.5rem;
     background: paleturquoise;
-    margin: 0 0.3125rem 0 0;
+    margin: 0 0.3125rem 0.1rem 0;
     padding: 0 0.3125rem 0 0.0625rem;
     line-height: 1.5rem;
   }

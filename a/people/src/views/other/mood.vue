@@ -1,5 +1,8 @@
 <template>
-  <div class="mood text-left">
+  <div
+    class="mood text-left"
+    :style="phoneFlag ? 'padding: 0;' : ''"
+  >
     <!-- 搜索按钮/搜索框 -->
     <div class="mood-search">
       <input
@@ -39,7 +42,9 @@
 import musiclist from '../musiclist/index';
 import pageing from '@/components/pageing/index';
 import videoImg from '@/components/videoImg/index';
+import mixin from '@/mixins';
 export default {
+  mixins: [mixin],
   components: {
     videoImg,
     musiclist,
@@ -115,30 +120,30 @@ export default {
 
 <style lang="scss" scoped>
 .mood {
-  padding: 0 1.25rem 0 0;
+  padding: 0 0.625rem 0 0;
   .mood-search {
     input {
-      width: 350px;
-      height: 35px;
-      padding: 0 0 0 15px;
-      border: 1px solid #dddddd;
-      border-radius: 35px;
+      width: 21.875rem;
+      height: 2.1875rem;
+      padding: 0 0 0 0.9375rem;
+      border: 0.0625rem solid #dddddd;
+      border-radius: 2.1875rem;
     }
     button {
-      width: 90px;
-      height: 35px;
+      min-width: 5.625rem;
+      height: 2.1875rem;
       background: #000000;
       color: #ffffff;
-      border-radius: 35px;
-      margin: 0 0 0 20px;
+      border-radius: 2.1875rem;
+      margin: 0 0 0 1.25rem;
     }
   }
   .mood-nomusic {
-    font-size: 22px;
-    padding: 30px 0 30px 30px;
+    font-size: 1.375rem;
+    padding: 1.875rem 0 1.875rem 1.875rem;
   }
   video {
-    width: 500px;
+    width: 31.25rem;
   }
 }
 </style>

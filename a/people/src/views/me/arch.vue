@@ -45,7 +45,10 @@
                 class="arch-timelist-item-articlelist-subitem-title pointSB"
                 @click="$router.push(`/home/articledetail?articleid=${item.articleid}`)"
               >
-                <p class="text-ellipsis">{{item.title}}</p>
+                <p
+                  class="text-ellipsis"
+                  :style="$parent.phoneFlag ? 'width: 12.5rem;' : ''"
+                >{{item.title}}</p>
               </div>
             </div>
           </div>
@@ -111,12 +114,14 @@ export default {
 
 <style lang="scss" scoped>
 .arch {
+  width: 100%;
+  overflow: hidden;
   .arch-noarticle {
     padding: 1.25rem 0;
     font-size: 1.375rem;
   }
   .arch-yearlist {
-    padding: 0 6.25rem 0 0.9375rem;
+    padding: 0 1.875rem 0 0.9375rem;
     .arch-yearlist-item {
       padding: 0.625rem 0.9375rem;
       background: #ffffff;
@@ -132,13 +137,15 @@ export default {
     }
   }
   .arch-timelist {
-    background: url('../../assets/img/dian3.png') repeat-y 3.125rem;
+    background: url('../../assets/img/dian3.png') repeat-y 4.375rem;
+    background-size: 0.25rem;
     .arch-timelist-item {
       .arch-timelist-item-title {
-        background: url('../../assets/img/jian.png') no-repeat 0 -3.125rem;
+        background: url('../../assets/img/jian.png') no-repeat 1.25rem -3.125rem;
+        background-size: 2.1875rem;
         font-size: 1.5rem;
         margin: 0 0 0.625rem 2.6875rem;
-        padding: 0 0 0 1.875rem;
+        padding: 0 0 0 3.125rem;
         font-family: Georgia;
         font-style: italic;
         color: #db6d4c;
@@ -146,14 +153,16 @@ export default {
       .arch-timelist-item-articlelist {
         .arch-timelist-item-articlelist-subitem {
           height: 3.4375rem;
-          background: url('../../assets/img/jian.png') no-repeat 2.9375rem -4.625rem;
+          background: url('../../assets/img/jian.png') no-repeat 4.1875rem -4.625rem;
+          background-size: 2.1875rem;
           .arch-timelist-item-articlelist-subitem-time {
-            width: 2.5rem;
-            margin: 0 2.5rem 0 0;
+            width: 5.625rem;
+            margin: 0 1.25rem 0 0;
           }
           .arch-timelist-item-articlelist-subitem-title {
             position: relative;
-            width: 43.75rem;
+            // width: 43.75rem;
+            width: 100%;
             height: 2.8125rem;
             background: #ffffff;
             padding: 0 0 0 0.9375rem;
@@ -172,6 +181,7 @@ export default {
               height: 1.5625rem;
               background: url('../../assets/img/jian.png') -1.3125rem -0.5625rem
                 no-repeat;
+              background-size: 2.1875rem;
               transform: translate(0, -50%);
             }
           }

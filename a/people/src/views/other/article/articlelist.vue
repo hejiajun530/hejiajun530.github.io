@@ -37,8 +37,11 @@
             <div class="articlelist-list-item-right-make d-flex jc-between ai-center">
               <!-- 文章标签/发表时间 -->
               <div class="articlelist-list-item-right-make-tagtime d-flex ai-center">
-                <g-tag :taglist="item.tag.split(',')"></g-tag>
-                <div><i class="iconfont icon-dingdanxiangqing-chuangjianshijian"></i>{{toymd(item.createTime, 'yy-mm-dd hh:mm:ss')}}</div>
+                <g-tag
+                  :taglist="item.tag.split(',')"
+                  :style="phoneFlag ? 'max-width: 50px' : ''"
+                ></g-tag>
+                <div class="text-ellipsis"><i class="iconfont icon-dingdanxiangqing-chuangjianshijian"></i>{{phoneFlag ? toymd(item.createTime, 'yy-mm-dd') : toymd(item.createTime, 'yy-mm-dd hh:mm:ss')}}</div>
               </div>
               <!-- 文章操作 -->
               <div class="articlelist-list-item-right-make-right d-flex jc-end ai-center">
@@ -69,7 +72,7 @@
         </div>
       </template>
     </div>
-    <div
+    <!-- <div
       class="articlelist-pageing"
       v-if="flag"
     >
@@ -77,59 +80,69 @@
         :num="total"
         @g-getpage="handleClickChangePage"
       ></g-pageing>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import tag from '@/components/tag/index.vue';
-import pageing from '@/components/pageing/index.vue';
+// import pageing from '@/components/pageing/index.vue';
 import mixin from '@/mixins';
 export default {
   mixins: [mixin],
   props: {
-    http: {
+    // http: {
+    //   type: String,
+    //   default: 'getArticleList'
+    // },
+    // category: {
+    //   type: String,
+    //   default: ''
+    // },
+    // flag: {
+    //   default: true
+    // },
+    // text: {
+    //   type: String,
+    //   default: ''
+    // },
+    // userid: {
+    //   type: String
+    // },
+    articlelist: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    },
+    noarticleText: {
       type: String,
-      default: 'getArticleList'
-    },
-    category: {
-      type: String,
-      default: ''
-    },
-    flag: {
-      default: true
-    },
-    text: {
-      type: String,
-      default: ''
-    },
-    userid: {
-      type: String
+      default: '没有文章，快去发表文章吧~'
     }
   },
   components: {
-    'g-tag': tag,
-    'g-pageing': pageing
+    'g-tag': tag
+    // 'g-pageing': pageing
   },
   // name: 'articlelist',
   data() {
     return {
-      query: {
-        page: 1,
-        num: 3,
-        userid: '',
-        category: ''
-      },
-      total: 1,
-      articlelist: [],
-      noarticleText: '没有文章，快去发表文章吧~'
+      // query: {
+      //   page: 1,
+      //   num: 3,
+      //   userid: '',
+      //   category: ''
+      // },
+      // total: 1,
+      // articlelist: [],
+      // noarticleText: '没有文章，快去发表文章吧~'
     };
   },
   created() {
     const _self = this;
-    if (_self.flag) {
-      _self.handleClickChangePage(1);
-    }
+    // if (_self.flag) {
+    //   _self.handleClickChangePage(1);
+    // }
   },
   mounted() {},
   methods: {
@@ -200,28 +213,6 @@ export default {
           console.log(_self.total, 'total');
         }
       });
-    },
-    // 搜索文章列表
-    handleSearch() {
-      const _self = this;
-      if (!_self.text) return false;
-      _self.$http.get(`/getArticleListByText?text=${_self.text}`).then(res => {
-        console.log(res);
-        const reg = /(<\/?.+?\/?>|&nbsp;)/g;
-        res.data.res.forEach((item, index) => {
-          // console.log(item.content);
-          // 把所有的标签都删除，并且长度超过90，只取90个字符+'...'
-          item.content =
-            item.content.length > 90
-              ? item.content
-                  .replace(reg, '')
-                  .substr(0, 90)
-                  .concat('...')
-              : item.content.replace(reg, '');
-        });
-        _self.articlelist = res.data.res;
-        _self.noarticleText = '搜索内容不存在~';
-      });
     }
   }
 };
@@ -281,9 +272,6 @@ export default {
         }
       }
     }
-  }
-  .articlelist-pageing {
-    margin: 1.25rem 0;
   }
 }
 </style>

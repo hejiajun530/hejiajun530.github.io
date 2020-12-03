@@ -49,9 +49,9 @@ export default {
 <style lang="scss" scoped>
 .userlist {
   .userlist-item {
-    height: 70px;
-    padding: 5px;
-    border-bottom: 1px solid #dddddd;
+    height: 4.375rem;
+    padding: 0.3125rem;
+    border-bottom: 0.0625rem solid #dddddd;
     &:hover {
       background: #ffffff;
     }
@@ -62,8 +62,8 @@ export default {
       }
     }
     .userlist-item-info {
-      padding: 0 0 0 10px;
-      font-size: 20px;
+      padding: 0 0 0 0.625rem;
+      font-size: 1.25rem;
       .userlist-item-info-username {
         &:hover {
           color: orangered;

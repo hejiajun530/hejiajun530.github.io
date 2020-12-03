@@ -58,18 +58,6 @@
       </div>
     </div>
     <div class="home-box w d-flex jc-between ai-start">
-      <!-- <div
-        @click="$router.push('/login')"
-        style="width: 200px;height: 30px;background: #E7753A;margin: 10px auto;line-height: 30px;color: #ffffff;"
-      >登录</div>
-      <div
-        v-if="tyqUser && tyqToken"
-        style="height: 50px;background: #E7753A;"
-      >已登录</div>
-      <div
-        v-else
-        style="height: 50px;background: #E7753A;"
-      >未登录</div> -->
       <!-- 子页面 -->
       <div class="home-box-left flex-1">
         <keep-alive>
@@ -80,7 +68,10 @@
         <router-view v-if="!$route.meta.keepAlive"></router-view>
       </div>
       <!-- 头像/用户名/最新文章/友情链接 -->
-      <div class="home-box-right">
+      <div
+        class="home-box-right"
+        v-if="!phoneFlag"
+      >
         <infoarticle></infoarticle>
       </div>
     </div>

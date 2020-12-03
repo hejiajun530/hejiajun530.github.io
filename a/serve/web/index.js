@@ -196,7 +196,6 @@ module.exports = app => {
     })
   })
 
-
   // 添加文章
   router.post('/addArticle', auth, async (req, res) => {
     const body = req.body
@@ -284,10 +283,17 @@ module.exports = app => {
   })
 
   // 搜索文章
-  router.get('/getArticleListByText', async (req, res) => {
-    const query = req.query
-    console.log(query);
-    let selectSql = `select article.*,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article where article.articleid != 13 and (article.title like "%${query.text}%" or article.content like "%${query.text}%") order by createTime desc`
+  router.post('/getArticleListByText', async (req, res) => {
+    const body = req.body
+    console.log(body);
+    let arr = body.tag.split(',');
+    let str = '';
+    arr.forEach((item, index) => {
+      str += ' and article.tag like "%' + item + '%"';
+      // console.log(str);
+    })
+    let selectSql = `select article.*,(select count(*) from alike where alike.articleid = article.articleid) as 'like' from article where article.articleid != 13 and (article.title like "%${body.text}%" or article.content like "%${body.text}%") ${str} order by createTime desc`
+    // console.log(selectSql)
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       cnt.query(`select count(*) as total from article,user where article.userid = user.userid`, function (err, result1) {
