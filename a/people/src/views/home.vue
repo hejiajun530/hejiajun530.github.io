@@ -182,7 +182,9 @@ export default {
     handleClickLoginOut() {
       var _self = this;
       localStorage.removeItem('tyqUser');
+      // sessionStorage.removeItem('tyqUser');
       localStorage.removeItem('tyqToken');
+      // sessionStorage.removeItem('tyqToken');
       _self.$router.push('/login');
     },
     // 菜单栏 固定与移动
@@ -221,9 +223,6 @@ export default {
       index * _self.$refs.homeBk.offsetWidth + 'px';
     // console.log(_self.$refs.homeMenu.offsetTop, 'top');
     _self.menuTop = _self.$refs.homeMenu.offsetTop;
-    // console.log(localStorage.getItem('tyqIp'), 'ip');
-    // console.log(localStorage.getItem('tyqcityname'), 'cityname');
-    // console.log(localStorage.getItem('tyqKKK'), 'tyqKKK');
     // 因为监听是针对window的，所以增加监听后每个页面都会监听，只对某个页面进行监听的话需要在destroyed中将监听移除
 
     // console.log(_self.$refs.homeMenu);

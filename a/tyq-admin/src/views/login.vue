@@ -41,10 +41,6 @@
           class="login-box-form-button  text-center"
           @click="handleClickLogin"
         >登录</div>
-        <a
-          href="javascript:;"
-          @click="$router.push('/regist')"
-        >还未注册?</a>
       </div>
     </div>
   </div>
@@ -54,13 +50,13 @@
 export default {
   data() {
     return {
-      randomNum: '', // 1000-9999随机数
-      username: '', // 用户名
-      password: '', // 密码
-      checkcode: '', // 验证码
-      usernameMsg: '', // 用户名提示
-      passwordMsg: '', // 密码提示
-      checkcodeMsg: '' // 验证码提示
+      randomNum: "", // 1000-9999随机数
+      username: "", // 用户名
+      password: "", // 密码
+      checkcode: "", // 验证码
+      usernameMsg: "", // 用户名提示
+      passwordMsg: "", // 密码提示
+      checkcodeMsg: "" // 验证码提示
     };
   },
   methods: {
@@ -68,16 +64,16 @@ export default {
     handleLoginCheckCode() {
       var _self = this;
       var canvas = _self.$refs.loginCheckout;
-      var ctx = canvas.getContext('2d');
+      var ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       // 设置字体
-      ctx.font = '60px bold 黑体';
+      ctx.font = "60px bold 黑体";
       // 设置颜色
-      ctx.fillStyle = '#fff';
+      ctx.fillStyle = "#fff";
       // 设置水平对齐方式
-      ctx.textAlign = 'center';
+      ctx.textAlign = "center";
       // 设置垂直对齐方式
-      ctx.textBaseline = 'middle';
+      ctx.textBaseline = "middle";
       // 随机数 1000-9999
       _self.randomNum = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
       // 绘制文字（参数：要写的字，x坐标，y坐标）
@@ -92,53 +88,53 @@ export default {
       var regUsername = /^[\u0391-\uFFE50-9a-zA-Z]{2,10}$/; //用户名验证
       // 用户名简单验证
       if (!regUsername.test(_self.username)) {
-        _self.usernameMsg = '用户名为长度2-10位的汉字英文数字!';
+        _self.usernameMsg = "用户名为长度2-10位的汉字英文数字!";
         return false;
       } else {
-        _self.usernameMsg = '';
+        _self.usernameMsg = "";
       }
       // 密码简单验证
       if (!regPassword.test(_self.password)) {
-        _self.passwordMsg = '密码为长度6-16位的英文数字!';
+        _self.passwordMsg = "密码为长度6-16位的英文数字!";
         return false;
       } else {
-        _self.passwordMsg = '';
+        _self.passwordMsg = "";
       }
       // 验证码简单验证
       if (_self.randomNum != _self.checkcode) {
         // alert('验证码错误');
-        _self.checkcodeMsg = '验证码错误!';
+        _self.checkcodeMsg = "验证码错误!";
         _self.handleLoginCheckCode();
         return false;
       } else {
-        _self.checkcodeMsg = '';
+        _self.checkcodeMsg = "";
       }
       _self.handleLoginCheckCode();
+      sessionStorage.setItem("tyqAdminToken", "测试");
+      _self.$router.push("/");
 
       // 用户登录 接口
-      _self.$http
-        .get(`/login?username=${_self.username}&password=${_self.password}`)
-        .then(res => {
-          console.log(res);
-          if (res.data.flag) {
-            _self.$gMessage({
-              title: res.data.msg,
-              duration: 2000,
-              type: 'success'
-            });
-            localStorage.setItem('tyqUser', JSON.stringify(res.data.res[0]));
-            // sessionStorage.setItem('tyqUser', JSON.stringify(res.data.res[0]));
-            localStorage.setItem('tyqToken', res.data.token);
-            // sessionStorage.setItem('tyqToken', res.data.token);
-            _self.$router.push('/home');
-          } else {
-            _self.$gMessage({
-              title: res.data.msg,
-              duration: 2000,
-              type: 'error'
-            });
-          }
-        });
+      // _self.$http
+      //   .get(`/login?username=${_self.username}&password=${_self.password}`)
+      //   .then(res => {
+      //     console.log(res);
+      //     if (res.data.flag) {
+      //       _self.$gMessage({
+      //         title: res.data.msg,
+      //         duration: 2000,
+      //         type: "success"
+      //       });
+      //       sessionStorage.setItem('tyqAdminUser', JSON.stringify(res.data.res[0]));
+      //       sessionStorage.setItem('tyqAdminToken', res.data.token);
+      //       _self.$router.push("/home");
+      //     } else {
+      //       _self.$gMessage({
+      //         title: res.data.msg,
+      //         duration: 2000,
+      //         type: "error"
+      //       });
+      //     }
+      //   });
     }
   },
   created() {},
@@ -153,7 +149,7 @@ export default {
 .login {
   width: 100%;
   min-height: 100vh;
-  background: url('../assets/img/loginRegistbk.jpg') no-repeat center center;
+  background: url("../assets/img/loginRegistbk.jpg") no-repeat center center;
   background-size: cover;
 }
 .login-box {
@@ -219,10 +215,6 @@ export default {
       margin: 0 auto;
       border-radius: 0.3125rem;
       cursor: pointer;
-    }
-    a {
-      display: inline-block;
-      margin: 1.25rem 0 0 0;
     }
   }
 }

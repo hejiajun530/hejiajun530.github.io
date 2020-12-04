@@ -73,7 +73,9 @@ export default {
         console.log(res);
         if (res.data.affectedRows == 1) {
           localStorage.removeItem('tyqUser');
+          // sessionStorage.removeItem('tyqUser');
           localStorage.removeItem('tyqToken');
+          // sessionStorage.removeItem('tyqToken');
           _self.$router.push('/login');
         }
       });

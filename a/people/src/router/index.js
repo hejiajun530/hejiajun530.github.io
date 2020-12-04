@@ -142,4 +142,22 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, form, next) => {
+  // console.log(to.path.indexOf('/me'));
+  let user = localStorage.getItem('tyqUser');
+  // let user = sessionStorage.getItem('tyqUser');
+  let token = localStorage.getItem('tyqToken');
+  // let token = sessionStorage.getItem('tyqToken');
+  if (to.path.indexOf('/me') != -1 && !token && !user) {
+    // console.log(to, form, '路由拦截');
+    Vue.prototype.$gMessage({
+      title: '请先登录!',
+      duration: 2000,
+      type: 'error'
+    })
+    return false;
+  }
+  next();
+})
+
 export default router;

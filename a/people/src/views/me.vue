@@ -112,6 +112,7 @@ export default {
     //   console.log(res.data);
     //   _self.userInfo = res.data[0];
     //   localStorage.setItem('tyqUser', JSON.stringify(res.data[0]));
+    //   // sessionStorage.setItem('tyqUser', JSON.stringify(res.data[0]));
     // });
   },
   mounted() {}

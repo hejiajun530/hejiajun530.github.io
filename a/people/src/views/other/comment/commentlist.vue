@@ -87,6 +87,7 @@ export default {
     handleClickAddLike(item) {
       var _self = this;
       if (!JSON.parse(localStorage.getItem('tyqUser'))) {
+        // if (!JSON.parse(sessionStorage.getItem('tyqUser'))) {
         _self.$gMessage({
           title: '请先登录!',
           duration: 2000,
@@ -95,6 +96,7 @@ export default {
         return false;
       }
       let userid = JSON.parse(localStorage.getItem('tyqUser')).userid;
+      // let userid = JSON.parse(sessionStorage.getItem('tyqUser')).userid;
       _self.$set(item, 'userid', userid);
       _self.$set(item, 'status', 1);
       // console.log(item);

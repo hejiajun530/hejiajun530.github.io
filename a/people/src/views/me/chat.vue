@@ -10,23 +10,39 @@
       <div
         v-for="(item,index) in list"
         :key="index"
-        class="msg text-left"
-        :style="item.userid == tyqUser.userid ? 'float: right;' : ''"
+        class="msg d-flex ai-start"
+        :class="item.userid == tyqUser.userid ? 'jc-end' : 'jc-start'"
       >
+        <!-- :style="item.userid == tyqUser.userid ? 'float: right;' : ''" -->
         <!-- 头像 -->
-        <div class="user-head">
-          <div class="head">
-            <img :src="item.avator">
-          </div>
+        <div class="user-head d-flex jc-center ai-center">
+          <img
+            :src="item.avator"
+            v-if="item.avator"
+          >
+          <img
+            src="@/assets/logo.png"
+            v-else
+          >
         </div>
         <!-- 信息 -->
-        <div class="user-msg">
-          <span>{{item.msg}}</span>
+        <div
+          class="user-msg text-left"
+          :style="item.userid == tyqUser.userid ? 'order: -1' : ''"
+        >
+          <div
+            class="user-msg-info d-flex ai-center"
+            :class="item.userid == tyqUser.userid ? 'jc-end' : 'jc-start'"
+          >
+            <div class="user-msg-info-name">{{item.username}}</div>
+            <div class="user-msg-info-time">{{toymd(item.time, 'yy-mm-dd hh:mm:ss')}}</div>
+          </div>
+          <div class="user-msg-content">{{item.msg}}</div>
         </div>
       </div>
     </div>
     <!-- 信息发送框/按钮 -->
-    <div class="input-box">
+    <div class="input-box d-flex jc-between ai-center">
       <input
         type="text"
         ref="sendMsg"
@@ -34,9 +50,9 @@
         @keyup.enter="sendText()"
       />
       <div
-        class="btn"
+        class="btn text-center"
         :class="{['btn-active']:contentText}"
-        @click="sendText()"
+        @click="sendText"
       >发送</div>
     </div>
   </div>
@@ -57,33 +73,12 @@ export default {
   },
   created() {
     const _self = this;
-    // _self.getUserID();
   },
   mounted() {
     const _self = this;
     _self.initWebSocket();
   },
   methods: {
-    //根据时间戳作为当前用户ID
-    // getUserID() {
-    //   const _self = this;
-    //   let time = new Date().getTime();
-    //   _self.userId = time;
-    // },
-    //根据userID生成一个随机头像
-    // getUserHead(id, type) {
-    //   const _self = this;
-    //   let ID = String(id);
-    //   if (type == 'bck') {
-    //     return Number(ID.substring(ID.length - 3));
-    //   }
-    //   if (type == 'polygon') {
-    //     return Number(ID.substring(ID.length - 2));
-    //   }
-    //   if (type == 'rotate') {
-    //     return Number(ID.substring(ID.length - 3));
-    //   }
-    // },
     //滚动条到底部
     scrollBottm() {
       const _self = this;
@@ -173,120 +168,80 @@ export default {
 
 <style lang="scss" scoped>
 .chat {
-  margin: 0 auto;
   background: #fafafa;
   position: absolute;
   height: 590px;
-  width: 100%;
-  max-width: 700px;
+  width: 700px;
   header {
-    position: fixed;
     width: 100%;
     height: 3rem;
+    line-height: 3rem;
     background: #409eff;
-    max-width: 700px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-weight: bold;
     color: white;
-    font-size: 1rem;
   }
   .msg-box {
-    position: absolute;
     height: 500px;
     width: 100%;
-    margin-top: 3rem;
     overflow-y: scroll;
     .msg {
       min-height: 2.5rem;
       margin: 1rem 0.5rem;
-      position: relative;
-      display: flex;
-      justify-content: flex-start !important;
       .user-head {
-        min-width: 2.5rem;
-        width: 20%;
         width: 2.5rem;
         height: 2.5rem;
         border-radius: 50%;
         background: #f1f1f1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .head {
-          width: 1.2rem;
-          height: 1.2rem;
-          img {
-            width: 100%;
-            height: 100%;
-          }
+        overflow: hidden;
+        margin: 0 15px;
+        img {
+          width: 100%;
+          height: 100%;
         }
         // position: absolute;
       }
       .user-msg {
-        width: 80%;
-        position: relative;
-        z-index: 5;
-        span {
-          display: inline-block;
-          padding: 0.5rem 0.7rem;
-          border-radius: 0.5rem;
+        .user-msg-info {
+          .user-msg-info-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 20px 0 0;
+          }
+          .user-msg-info-time {
+            font-size: 14px;
+            color: #888888;
+          }
+        }
+        .user-msg-content {
+          max-width: 350px;
+          padding: 8px 10px;
           margin-top: 0.2rem;
-          font-size: 0.88rem;
-        }
-        @keyframes toLeft {
-          0% {
-            opacity: 0;
-            transform: translateX(-10px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(0px);
-          }
-        }
-        @keyframes toright {
-          0% {
-            opacity: 0;
-            transform: translateX(10px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(0px);
-          }
+          background: skyblue;
+          border-radius: 0.5rem;
+          word-break: break-all;
         }
       }
     }
   }
   .input-box {
-    padding: 0 0.5rem;
+    padding: 0 0.3125rem;
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 3.5rem;
     background: #fafafa;
     box-shadow: 0 0 5px #ccc;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     input {
       height: 2.3rem;
-      display: inline-block;
       width: 100%;
       padding: 0.5rem;
-      border: none;
-      border-radius: 0.2rem;
-      font-size: 0.88rem;
     }
     .btn {
       height: 2.3rem;
       min-width: 4rem;
       background: #e0e0e0;
       padding: 0.5rem;
-      font-size: 0.88rem;
       color: white;
-      text-align: center;
-      border-radius: 0.2rem;
       margin-left: 0.5rem;
       transition: 0.5s;
     }
