@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: #000f1f;
+  background: #000;
+  color: #ffffff;
+  text-shadow: rgba(255, 255, 255, 1) 0 0 1em;
+  font-size: 32px;
+  overflow: hidden;
+  background: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1607949652666&di=008cb7a39dec67b35870d5b6be731cd8&imgtype=0&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F43a7d933c895d143ed62789c71f082025aaf077c.jpg") no-repeat;
+  background-size: cover;
+}
+.clock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.clock-line {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(0, -50%);
+  width: 935px;
+  border: 1px solid #ffffff;
+}
+.clock-line::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: yellow;
+  border-radius: 50%;
+}
+.clock-center {
+  text-align: center;
+}
+.clock-center-hm {
+  font-size: 128px;
+}
+.clock-center-ymd {
+  font-size: 48px;
+}
+.clock-hours,
+.clock-minutes,
+.clock-seconds {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all .5s;
+}
+.clock-hours-item,
+.clock-minutes-item,
+.clock-seconds-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  text-align: right;
+}
+.clock-hours-item {
+  width: 1000px;
+}
+.clock-minutes-item {
+  width: 1500px;
+}
+.clock-seconds-item {
+  width: 1850px;
+}
