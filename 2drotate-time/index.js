@@ -38,7 +38,7 @@ initTime();
     ssDiv.className = 'clock-seconds-item';
     setTimeout(function () {
       ssDiv.style.transform = `translate(-50%, -50%) rotate(${6 * i}deg)`;
-    }, 100)
+    }, 500)
     ssDiv.innerText = Seconds[i];
     secDom.appendChild(ssDiv);
   }
@@ -48,7 +48,7 @@ initTime();
     ddDiv.className = 'clock-minutes-item';
     setTimeout(function () {
       ddDiv.style.transform = `translate(-50%, -50%) rotate(${6 * i}deg)`;
-    }, 200)
+    }, 250)
     ddDiv.innerText = Minutes[i];
     minDom.appendChild(ddDiv);
   }
@@ -58,7 +58,7 @@ initTime();
     hhDiv.className = 'clock-hours-item';
     setTimeout(function () {
       hhDiv.style.transform = `translate(-50%, -50%) rotate(${15 * i}deg)`;
-    }, 300)
+    }, 0)
     hhDiv.innerText = Hours[i];
     hourDom.appendChild(hhDiv);
   }
