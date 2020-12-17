@@ -36,7 +36,9 @@ initTime();
   for (let i = 0; i < 60; i++) {
     let ssDiv = document.createElement('div');
     ssDiv.className = 'clock-seconds-item';
-    ssDiv.style.transform = `translate(-50%, -50%) rotate(${6 * i}deg)`;
+    setTimeout(function () {
+      ssDiv.style.transform = `translate(-50%, -50%) rotate(${6 * i}deg)`;
+    }, 100)
     ssDiv.innerText = Seconds[i];
     secDom.appendChild(ssDiv);
   }
@@ -44,7 +46,9 @@ initTime();
   for (let i = 0; i < 60; i++) {
     let ddDiv = document.createElement('div');
     ddDiv.className = 'clock-minutes-item';
-    ddDiv.style.transform = `translate(-50%, -50%) rotate(${6 * i}deg)`;
+    setTimeout(function () {
+      ddDiv.style.transform = `translate(-50%, -50%) rotate(${6 * i}deg)`;
+    }, 200)
     ddDiv.innerText = Minutes[i];
     minDom.appendChild(ddDiv);
   }
@@ -52,7 +56,9 @@ initTime();
   for (let i = 0; i < 24; i++) {
     let hhDiv = document.createElement('div');
     hhDiv.className = 'clock-hours-item';
-    hhDiv.style.transform = `translate(-50%, -50%) rotate(${15 * i}deg)`;
+    setTimeout(function () {
+      hhDiv.style.transform = `translate(-50%, -50%) rotate(${15 * i}deg)`;
+    }, 300)
     hhDiv.innerText = Hours[i];
     hourDom.appendChild(hhDiv);
   }
@@ -60,9 +66,11 @@ initTime();
 
 (function () {
   // 初始化 旋转到 当前时间
-  hourDom.style.transform = `translate(-50%, -50%) rotate(${-hh * 15}deg)`;
-  minDom.style.transform = `translate(-50%, -50%) rotate(${-mm * 6}deg)`;
-  secDom.style.transform = `translate(-50%, -50%) rotate(${-ss * 6}deg)`;
+  setTimeout(function () {
+    hourDom.style.transform = `translate(-50%, -50%) rotate(${-hh * 15}deg)`;
+    minDom.style.transform = `translate(-50%, -50%) rotate(${-mm * 6}deg)`;
+    secDom.style.transform = `translate(-50%, -50%) rotate(${-ss * 6}deg)`;
+  }, 800);
   let hourCount = hh - 1;
   let minCount = mm - 1;
   let secCount = ss - 1;

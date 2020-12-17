@@ -1,0 +1,57 @@
+{
+  "manifest_version": 2,
+  "name": "关闭广告插件",
+  "version": "1.0.0",
+  "description": "关闭广告插件",
+  "icons": {
+    "16": "bk.png",
+    "48": "bk.png",
+    "128": "bk.png"
+  },
+  "background": {
+    "page": "index.html"
+  },
+  "browser_action": {
+    "default_icon": "bk.png",
+    "default_title": "关闭广告插件",
+    "default_popup": "index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "index.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "notifications",
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "web_accessible_resources": [
+    "index.js"
+  ],
+  "homepage_url": "http://www.tyq121.top",
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "options_page": "index.html",
+  "options_ui": {
+    "page": "index.html",
+    "chrome_style": true
+  },
+  "omnibox": {
+    "keyword": "go"
+  },
+  "devtools_page": "index.html"
+}
