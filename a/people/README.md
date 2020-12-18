@@ -104,6 +104,16 @@ create table music(
   updateTime datetime default current_timestamp on update current_timestamp comment '更新时间'
 );
 
+create table wait(
+  waitid int auto_increment primary key not null,
+  content varchar(50) not null,
+  time varchar(50) null,
+  userid int not null,
+  createTime datetime default current_timestamp comment '创建时间',
+  updateTime datetime default current_timestamp on update current_timestamp comment '更新时间',
+  constraint fk_wait_userid foreign key(userid) references user(userid)
+);
+
 <!-- 聊天功能 -->
 <!-- 1、点击聊天
 判断是不是第一次聊天，如果是会在主表生成一条记录返回聊天主表id，并在聊天列表表分别插入两条记录，如果不是第一次聊天进入下一步

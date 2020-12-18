@@ -132,6 +132,11 @@ const routes = [
         name: 'chat',
         component: () => import('../views/me/chat.vue'),
       },
+      {
+        path: '/me/wait',
+        name: 'wait',
+        component: () => import('../views/me/wait.vue'),
+      },
     ]
   },
 ];

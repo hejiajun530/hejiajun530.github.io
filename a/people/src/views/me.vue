@@ -94,6 +94,11 @@ export default {
           icon: 'icon-liaotian1',
           name: '聊天室',
           url: '/me/chat'
+        },
+        {
+          icon: 'icon-liaotian1',
+          name: '待做事项',
+          url: '/me/wait'
         }
       ],
       meIndex: 0

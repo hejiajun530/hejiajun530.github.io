@@ -111,7 +111,7 @@ export default {
       //判断页面有没有存在websocket连接
       if (window.WebSocket) {
         // 192.168.0.115 是我本地IP地址 此处的 :8181 端口号 要与后端配置的一致
-        let ws = new WebSocket('ws://192.168.199.172:8181');
+        let ws = new WebSocket('ws://localhost:8181');
         _self.ws = ws;
         ws.onopen = function(e) {
           console.log('服务器连接成功');
