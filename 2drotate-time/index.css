@@ -65,7 +65,7 @@ body {
   transform-origin: center center;
   transform: translate(-50%, -50%);
   text-align: right;
-  transition: all .25s;
+  transition: all 0.5s;
 }
 .clock-hours-item {
   width: 1000px;
