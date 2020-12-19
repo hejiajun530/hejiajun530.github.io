@@ -1,13 +1,13 @@
 <template>
   <div class="userdetail text-left">
     <h2><i>{{userinfo.username}}</i>的文章列表</h2>
-      <articlelist :articlelist="articlelist"></articlelist>
-      <div class="articlelist-pageing">
-        <g-pageing
-          :num="total"
-          @g-getpage="handleClickChangePage"
-        ></g-pageing>
-      </div>
+    <articlelist :articlelist="articlelist"></articlelist>
+    <div class="articlelist-pageing">
+      <g-pageing
+        :num="total"
+        @g-getpage="handleClickChangePage"
+      ></g-pageing>
+    </div>
   </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
       query: {
         page: 1,
         num: 3,
-        category: ''
+        userid: ''
       },
       total: 1,
       articlelist: []
@@ -57,9 +57,9 @@ export default {
       _self.$set(_self.query, 'page', num);
       // _self.$set(_self.query, 'category', '');
       // if (_self.userid && _self.http == 'getArticleListById') {
-      //   _self.$set(_self.query, 'userid', _self.userid);
+      _self.$set(_self.query, 'userid', _self.userid);
       // }
-      _self.$http.post(`/getArticleList`, _self.query).then(res => {
+      _self.$http.post(`/getArticleListById`, _self.query).then(res => {
         // console.log(res.data);
         if (!res.data.flag) {
           _self.$gMessage({

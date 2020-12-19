@@ -587,6 +587,72 @@ module.exports = app => {
     })
   })
 
+  // 添加待做事项
+  router.post('/addWait', auth, async (req, res) => {
+    const body = req.body;
+    console.log(body);
+    let addSql = `insert into wait(content, time, userid, istrue) values(?,?,?,?)`;
+    let addSqlParams = [body.content, body.time, body.userid, body.istrue];
+    cnt.query(addSql, addSqlParams, function (err, result) {
+      if (err) return res.send(err);
+      let resultObj = {
+        flag: true,
+        msg: '添加待做事项成功!',
+        res: result
+      }
+      res.send(resultObj);
+    });
+  })
+
+  // 获取待做事项列表
+  router.get('/getWaitList', auth, async (req, res) => {
+    const query = req.query;
+    console.log(query);
+    let selectSql = `select * from wait where userid = ${query.userid}`;
+    cnt.query(selectSql, function (err, result) {
+      if (err) return res.send(err);
+      let resultObj = {
+        flag: true,
+        msg: '获取待做事项列表成功!',
+        res: result
+      }
+      res.send(resultObj);
+    })
+  })
+
+  // 修改待做事项
+  router.post('/editWait', auth, async (req, res) => {
+    const body = req.body;
+    console.log(body);
+    let updateSql = `update wait set istrue = ? where waitid = ?`;
+    let updateSqlParams = [body.istrue, body.waitid];
+    cnt.query(updateSql, updateSqlParams, function (err, result) {
+      if (err) return res.send(err);
+      let resultObj = {
+        flag: true,
+        msg: '修改成功!',
+        res: result
+      }
+      res.send(resultObj);
+    })
+  })
+
+  // 删除待做事项
+  router.get('/delWait', auth, async (req, res) => {
+    const query = req.query;
+    console.log(query);
+    let delSql = `delete from wait where waitid = ${query.waitid}`;
+    cnt.query(delSql, function (err, result) {
+      if (err) return res.send(err);
+      let resultObj = {
+        flag: true,
+        msg: '删除成功!',
+        res: result
+      }
+      res.send(resultObj);
+    })
+  })
+
   // 上传图片
   const multer = require('multer')
   // const upload = multer({ dest: __dirname + '/../upload' })

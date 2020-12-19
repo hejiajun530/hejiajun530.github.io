@@ -113,6 +113,8 @@ create table wait(
   updateTime datetime default current_timestamp on update current_timestamp comment '更新时间',
   constraint fk_wait_userid foreign key(userid) references user(userid)
 );
+alter table wait add column istrue varchar(10) not null; // 添加字段
+alter table wait modify column istrue int not null; // 修改字段
 
 <!-- 聊天功能 -->
 <!-- 1、点击聊天

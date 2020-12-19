@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>用户查询系统</h1>
+  <input type="text" value="" placeholder="通过用户名查询用户信息" id="username">
+  <button onclick="search()">搜索</button>
+  <table>
+    <thead>
+      <tr>
+        <td>用户名</td>
+        <td>年龄</td>
+        <td>性别</td>
+        <td>邮箱</td>
+        <td>地址</td>
+      </tr>
+    </thead>
+    <tbody id="tb">
+    </tbody>
+  </table>
+  <script>
+    function search() {
+      let name = $('#username').val();
+      $('#tb').empty();
+      $.get("http://localhost:3000/getUserlist?username=" + name, function (data) {
+        console.log(data);
+        data.forEach((item, index) => {
+          $('#tb').append(`
+            <tr>
+              <td>${item.user_name}</td>
+              <td>${item.user_age}</td>
+              <td>${item.user_sex}</td>
+              <td>${item.user_email}</td>
+              <td>${item.user_address}</td>
+            </tr>
+          `)
+        })
+      });
+    }
+  </script>
+  <script src="jquery.js"></script>
+</body>
+
+</html>
