@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>性别</title>
+  <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+  <style>
+    .main {
+      width: 700px;
+      height: 500px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main"></div>
+  <script>
+    // 基于准备好的dom，初始化echarts实例
+    var main = document.querySelector('.main');
+    var myChart = echarts.init(main);
+    // 指定图表的配置项和数据
+    var option = {
+      // 鼠标触发事件 以及触发后显示内容
+      tooltip: {
+        trigger: 'item',
+        formatter: '{b}:{c}人({d}%)'
+      },
+      // 在左边10px 显示的标签
+      legend: {
+        orient: 'vertical',
+        left: 10,
+        data: ['女', '男']
+      },
+      // 颜色设置
+      color : [ 'red', 'orange' ],
+      // 具体内容
+      series: [{
+        name: '访问来源',
+        type: 'pie',// echarts图形内容
+        radius: [0, '75%'],// 占据从0到75%的面积 显示面积
+        label: {
+          formatter: '{a|{a}}\n{hr|}\n {b|{b}}:{c}人({per|{d}%})',//显示内容
+          // position: 'inner'
+          backgroundColor: '#eee',
+          borderColor: '#aaa',
+          borderWidth: 1,
+          borderRadius: 4,
+          // padding: [7, 0],
+          rich: {
+            a: {
+              color: '#f00',
+              lineHeight: 22,
+              align: 'center'
+            },
+            b: {
+              fontSize: 16,
+              lineHeight: 33,
+            },
+            hr: {
+              borderColor: '#888',
+              width: '100%',
+              borderWidth: 0.5,
+              height: 0
+            },
+            per: {
+              color: '#fff',
+              backgroundColor: '#334455',
+              padding: [5, 5],
+              borderRadius: 3
+            }
+          }
+        },
+        data: [
+          { value: 14, name: '男' },//, selected: true
+          { value: 8, name: '女' }
+        ]
+      }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+  </script>
+</body>
+
+</html>
