@@ -7,7 +7,9 @@
   <title>性别</title>
   <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
   <style>
-    .main {
+    .main,
+    .main1,
+    .main2 {
       width: 700px;
       height: 500px;
     }
@@ -16,6 +18,8 @@
 
 <body>
   <div class="main"></div>
+  <div class="main1"></div>
+  <div class="main2"></div>
   <script>
     // 基于准备好的dom，初始化echarts实例
     var main = document.querySelector('.main');
@@ -27,49 +31,18 @@
         trigger: 'item',
         formatter: '{b}:{c}人({d}%)'
       },
-      // 在左边10px 显示的标签
-      legend: {
-        orient: 'vertical',
-        left: 10,
-        data: ['女', '男']
-      },
       // 颜色设置
-      color : [ 'red', 'orange' ],
+      color: ['#536FC5', '#91CC75'],
       // 具体内容
       series: [{
         name: '访问来源',
         type: 'pie',// echarts图形内容
-        radius: [0, '75%'],// 占据从0到75%的面积 显示面积
+        radius: [0, '55%'],// 占据从0到75%的面积 显示面积
         label: {
-          formatter: '{a|{a}}\n{hr|}\n {b|{b}}:{c}人({per|{d}%})',//显示内容
-          // position: 'inner'
-          backgroundColor: '#eee',
-          borderColor: '#aaa',
-          borderWidth: 1,
-          borderRadius: 4,
-          // padding: [7, 0],
-          rich: {
-            a: {
-              color: '#f00',
-              lineHeight: 22,
-              align: 'center'
-            },
-            b: {
-              fontSize: 16,
-              lineHeight: 33,
-            },
-            hr: {
-              borderColor: '#888',
-              width: '100%',
-              borderWidth: 0.5,
-              height: 0
-            },
-            per: {
-              color: '#fff',
-              backgroundColor: '#334455',
-              padding: [5, 5],
-              borderRadius: 3
-            }
+          formatter: '{b} : {c}人({d}%)',//显示内容
+          position: 'inner',
+          textStyle: {
+            color: '#000' // 改变标示文字的颜色
           }
         },
         data: [
@@ -78,9 +51,92 @@
         ]
       }]
     };
-
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
+
+
+    // 基于准备好的dom，初始化echarts实例
+    var main1 = document.querySelector('.main1');
+    var myChart1 = echarts.init(main1);
+    // 指定图表的配置项和数据
+    var option1 = {
+      // 鼠标触发事件 以及触发后显示内容
+      tooltip: {
+        trigger: 'item',
+        formatter: '{b}:{c}人({d}%)'
+      },
+      // 颜色设置
+      color: ['#EE6666', '#F9C757', '#90CB74', '#536FC5'],
+      // 具体内容
+      series: [{
+        name: '访问来源',
+        type: 'pie',// echarts图形内容
+        radius: [0, '55%'],// 占据从0到75%的面积 显示面积
+        clockwise: false,
+        label: {
+          formatter: '{b} : {c}人({d}%)',//显示内容
+          position: 'inner',
+          textStyle: {
+            color: '#000' // 改变标示文字的颜色
+          }
+        },
+        data: [
+          { value: 3, name: '50岁以上' },//, selected: true
+          { value: 1, name: '40-50岁' },
+          { value: 1, name: '30-40岁' },
+          { value: 12, name: '20-30岁' },
+        ]
+      }]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart1.setOption(option1);
+
+
+    // 基于准备好的dom，初始化echarts实例
+    var main2 = document.querySelector('.main2');
+    var myChart2 = echarts.init(main2);
+    // 指定图表的配置项和数据
+    var option2 = {
+      // 鼠标触发事件 以及触发后显示内容
+      tooltip: {
+        trigger: 'axis',
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['09:00', '09:30', '10:00', '10:30']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      // 颜色设置
+      // color: ['#EE6666', '#F9C757', '#90CB74', '#536FC5'],
+      // 具体内容
+      series: [
+        {
+          name: '09:00',
+          type: 'line',
+          data: [15, 2, 32, 45]
+        },
+        {
+          name: '09:30',
+          type: 'line',
+          data: [11, 25, 2, 35]
+        },
+        {
+          name: '10:00',
+          type: 'line',
+          data: [18, 16, 24, 30]
+        },
+        {
+          name: '10:30',
+          type: 'line',
+          data: [1, 9, 32, 12]
+        },
+      ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart2.setOption(option2);
   </script>
 </body>
 
