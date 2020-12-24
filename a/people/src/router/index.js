@@ -149,10 +149,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, form, next) => {
   // console.log(to.path.indexOf('/me'));
-  let user = localStorage.getItem('tyqUser');
-  // let user = sessionStorage.getItem('tyqUser');
-  let token = localStorage.getItem('tyqToken');
-  // let token = sessionStorage.getItem('tyqToken');
+  // let user = localStorage.getItem('tyqUser');
+  let user = sessionStorage.getItem('tyqUser');
+  // let token = localStorage.getItem('tyqToken');
+  let token = sessionStorage.getItem('tyqToken');
   if (to.path.indexOf('/me') != -1 && !token && !user) {
     // console.log(to, form, '路由拦截');
     Vue.prototype.$gMessage({

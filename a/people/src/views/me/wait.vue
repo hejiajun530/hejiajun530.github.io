@@ -38,14 +38,17 @@
         @g-waitlist="handleGetWaitList"
       ></waitlist>
     </div>
+    <g-dateTime></g-dateTime>
   </div>
 </template>
 
 <script>
 import waitlist from './waitlist';
+import dateTime from '@/components/dateTime';
 export default {
   components: {
-    waitlist
+    waitlist,
+    'g-dateTime': dateTime
   },
   data() {
     return {

@@ -11,6 +11,7 @@
             type="text"
             v-model="username"
             placeholder="用户名"
+            @keyup.enter="handleClickRegist"
           >
           <p>{{usernameMsg}}</p>
         </div>
@@ -19,6 +20,7 @@
             type="password"
             v-model="password"
             placeholder="密码"
+            @keyup.enter="handleClickRegist"
           >
           <p>{{passwordMsg}}</p>
         </div>
@@ -27,6 +29,7 @@
             type="password"
             v-model="repassword"
             placeholder="确认密码"
+            @keyup.enter="handleClickRegist"
           >
           <p>{{repasswordMsg}}</p>
         </div>
@@ -35,6 +38,7 @@
             type="text"
             v-model="email"
             placeholder="邮箱"
+            @keyup.enter="handleClickRegist"
           >
           <p>{{emailMsg}}</p>
         </div>
@@ -138,7 +142,7 @@ export default {
 <style lang="scss" scoped>
 .login {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: url('../assets/img/loginRegistbk.jpg') no-repeat center center;
   background-size: cover;
 }

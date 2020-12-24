@@ -10,12 +10,11 @@ const http = axios.create({
 })
 
 http.interceptors.request.use(config => {
-  // console.log(localStorage.tyqToken, 'localStorage.tyqToken')
-  if (localStorage.tyqToken) {
-    // if (sessionStorage.tyqToken) {
+  // if (localStorage.tyqToken) {
+  if (sessionStorage.tyqToken) {
     if (config.url.indexOf('https://restapi.amap.com/v3/') == -1) {
-      config.headers.Authorization = 'Bearer ' + (localStorage.tyqToken || '')
-      // config.headers.Authorization = 'Bearer ' + (sessionStorage.tyqToken || '')
+      // config.headers.Authorization = 'Bearer ' + (localStorage.tyqToken || '')
+      config.headers.Authorization = 'Bearer ' + (sessionStorage.tyqToken || '')
     }
     // console.log(config.headers.Authorization, 'config.headers.Authorization');
   }

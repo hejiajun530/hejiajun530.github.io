@@ -11,6 +11,7 @@
             type="text"
             v-model="username"
             placeholder="用户名"
+            @keyup.enter="handleClickLogin"
           >
           <p>{{usernameMsg}}</p>
         </div>
@@ -19,6 +20,7 @@
             type="password"
             v-model="password"
             placeholder="密码"
+            @keyup.enter="handleClickLogin"
           >
           <p>{{passwordMsg}}</p>
         </div>
@@ -28,6 +30,7 @@
               type="number"
               v-model="checkcode"
               placeholder="验证码"
+              @keyup.enter="handleClickLogin"
             >
             <canvas
               id="loginCheckout"
@@ -126,10 +129,10 @@ export default {
               duration: 2000,
               type: 'success'
             });
-            localStorage.setItem('tyqUser', JSON.stringify(res.data.res[0]));
-            // sessionStorage.setItem('tyqUser', JSON.stringify(res.data.res[0]));
-            localStorage.setItem('tyqToken', res.data.token);
-            // sessionStorage.setItem('tyqToken', res.data.token);
+            // localStorage.setItem('tyqUser', JSON.stringify(res.data.res[0]));
+            sessionStorage.setItem('tyqUser', JSON.stringify(res.data.res[0]));
+            // localStorage.setItem('tyqToken', res.data.token);
+            sessionStorage.setItem('tyqToken', res.data.token);
             _self.$router.push('/home');
           } else {
             _self.$gMessage({

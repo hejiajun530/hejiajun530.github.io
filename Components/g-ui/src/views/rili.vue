@@ -3,6 +3,7 @@
     <!-- 日历 -->
     <g-rili
       class="home-rili"
+      :oneSelect="false"
       @g-riliStartTime="handleGetTime"
     ></g-rili>
     <g-rili

@@ -8,6 +8,10 @@
       > ❮ </div>
       <div class="calendar-ym">{{currentYear}}年{{currentMonth}}月</div>
       <div
+        class="calendar-now"
+        @click="changeMonth('today')"
+      >本月</div>
+      <div
         class="calendar-right"
         @click="changeMonth('next')"
       > ❯ </div>
@@ -26,6 +30,29 @@
       <!-- 日期 -->
       <ul class="calendar-days flex-around-center">
         <li
+          v-for='(item,index) in daylist'
+          :key="index"
+          class="flex-around-center"
+        >
+          <div
+            class="calendar-days-list flex-column-around-center"
+            v-for="(val, key) in item"
+            :key="key"
+            @click="handleClickTime(val, key)"
+            :class="chooseClass(val.day)"
+          >
+            <h4 v-if="val">
+              {{val.day.getDate() | twoNumber}}
+            </h4>
+            <template v-if="!oneSelect">
+              <h4 v-if="chooseClass(val.day) == 'active'">入住</h4>
+              <h4 v-else-if="chooseClass(val.day) == 'tuifang'">离店</h4>
+            </template>
+          </div>
+        </li>
+      </ul>
+      <!-- <ul class="calendar-days flex-around-center">
+        <li
           v-for='(val,key) in daylist'
           :key="key"
           @click="handleClickTime(val, key)"
@@ -36,22 +63,25 @@
             v-if="val"
           >
             <h4 v-if="val">
-              <!-- {{currentYear.toString()}}-{{val.day.getMonth() + 1 | twoNumber}}- -->
               {{val.day.getDate() | twoNumber}}
             </h4>
-            <!-- 星期几 -->
-            <!-- <h4 v-if="val" :class="chooseClass(val.day)">
-                  {{showWeeks[val.week]}}</h4> -->
-            <h4 v-if="chooseClass(val.day) == 'active'">入住</h4>
-            <h4 v-else-if="chooseClass(val.day) == 'tuifang'">离店</h4>
+            <template v-if="!oneSelect">
+              <h4 v-if="chooseClass(val.day) == 'active'">入住</h4>
+              <h4 v-else-if="chooseClass(val.day) == 'tuifang'">离店</h4>
+            </template>
           </div>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </div>
 </template>
 <script>
 export default {
+  props: {
+    oneSelect: {
+      default: true
+    }
+  },
   data() {
     return {
       // 日历
@@ -135,6 +165,19 @@ export default {
               week: d.getDay()
             });
           }
+          // console.log(this.daylist);
+          let list = [];
+          let sublist = [];
+          this.daylist.map((item, index) => {
+            sublist.push(item);
+            if ((index + 1) % 7 == 0) {
+              // console.log(item);
+              list.push(sublist);
+              sublist = [];
+            }
+          });
+          this.daylist = list;
+          // console.log(this.daylist);
         }
       } else {
         // 判断本月第一天在星期几，在数组前加几个空值
@@ -160,6 +203,17 @@ export default {
         for (let z = 1; z <= 7 - lastDay; z++) {
           this.daylist.push(null);
         }
+        let list = [];
+        let sublist = [];
+        this.daylist.map((item, index) => {
+          sublist.push(item);
+          if ((index + 1) % 7 == 0) {
+            // console.log(item);
+            list.push(sublist);
+            sublist = [];
+          }
+        });
+        this.daylist = list;
         // 把空余的空间加上值
         // if (this.daylist.length <= 28) {
         //   console.log(this.daylist.length);
@@ -186,7 +240,7 @@ export default {
         return "other";
       }
       // 少于今天的
-      else if (this.dateDiff(new Date(), day).day < 0) {
+      else if (!this.oneSelect && this.dateDiff(new Date(), day).day < 0) {
         // 所有少于本天的(包括之前月份的)
         // else if (day.getDate() < new Date().getDate() && day.getMonth() == new Date().getMonth() && day.getFullYear() == new Date().getFullYear()) {  // 本月少于本天的
         return "hui";
@@ -197,7 +251,7 @@ export default {
         return "active";
       }
       // 离店
-      else if (this.dateDiff(day, this.endTime).Today) {
+      else if (!this.oneSelect && this.dateDiff(day, this.endTime).Today) {
         // console.log('lidian');
         return "tuifang";
       }
@@ -206,6 +260,7 @@ export default {
       //   return "active"
       // }
       else if (
+        !this.oneSelect &&
         this.dateDiff(this.startTime, day).day > 0 &&
         this.dateDiff(this.endTime, day).day < 0
       ) {
@@ -216,6 +271,12 @@ export default {
     changeMonth(a) {
       let d = new Date(this.formDate(this.currentYear, this.currentMonth, 1));
 
+      if (a === "today") {
+        this.init(
+          this.formDate(new Date().getFullYear(), new Date().getMonth() + 1, 1)
+        );
+        return false;
+      }
       // setDate(0); 上月最后一天
       // setDate(-1); 上月倒数第二天
       // setDate(n) 参数n为 上月最后一天的前后n天
@@ -235,6 +296,7 @@ export default {
     // 选择日期
     handleClickTime(val, index) {
       var _self = this;
+      if (this.oneSelect) return false;
       if (val == null || _self.dateDiff(new Date(), val.day).day < 0)
         return false;
       // console.log(val);
@@ -340,7 +402,13 @@ ul {
   font-weight: bold;
   cursor: pointer;
 }
-
+.calendar-now {
+  position: absolute;
+  top: 50%;
+  right: 18%;
+  transform: translate(0, -50%);
+  font-size: 16px;
+}
 .calendar-weekdays {
   width: 100%;
   height: 50px;
@@ -365,28 +433,29 @@ ul {
   padding: 0;
   background: #ffffff;
   margin: 0;
+  width: 100%;
   height: 90%;
   font-size: 12px;
   border-radius: 15px;
 }
 
 .calendar-days li {
-  display: inline-block;
-  width: 10%;
-  height: 35px;
+  width: 100%;
   box-sizing: border-box;
-  border-radius: 50%;
   overflow: hidden;
   transition: 0.3s;
-  margin: 0 7.5px;
 }
 .calendar-days-li-item-one {
   position: relative;
   height: 100%;
   cursor: pointer;
 }
-
-.calendar-days li:hover {
+.calendar-days-list {
+  flex: 1;
+  height: 35px;
+  border-radius: 5px;
+}
+.calendar-days-list:hover {
   color: #62aba0;
   background-color: #e6f8fa;
 }
@@ -395,23 +464,23 @@ ul {
 }
 
 /* 不是本月的日期 */
-.calendar-days li.other {
+.calendar-days li .calendar-days-list.other {
   color: #ccc;
 }
 
 /* 今日 */
-.calendar-days li.active,
-.calendar-days li.tuifang {
+.calendar-days li .calendar-days-list.active,
+.calendar-days li .calendar-days-list.tuifang {
   background-color: #62aba0;
   color: #ffffff;
 }
-.calendar-days li.activeColor {
+.calendar-days li .calendar-days-list.activeColor {
   background-color: #e6f8fa;
   color: #62aba0;
 }
 
 /* 今日之前的日期 */
-.calendar-days li.hui {
+.calendar-days li .calendar-days-list.hui {
   color: #ccc;
 }
 </style>

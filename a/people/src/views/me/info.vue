@@ -99,10 +99,12 @@ export default {
           .then(result => {
             console.log(result);
             _self.tyqUser = result.data[0];
-            localStorage.setItem('tyqUser', JSON.stringify(result.data[0]));
-            // sessionStorage.setItem('tyqUser', JSON.stringify(result.data[0]));
-            _self.$parent.tyqUser = JSON.parse(localStorage.getItem('tyqUser'));
-            // _self.$parent.tyqUser = JSON.parse(sessionStorage.getItem('tyqUser'));
+            // localStorage.setItem('tyqUser', JSON.stringify(result.data[0]));
+            sessionStorage.setItem('tyqUser', JSON.stringify(result.data[0]));
+            // _self.$parent.tyqUser = JSON.parse(localStorage.getItem('tyqUser'));
+            _self.$parent.tyqUser = JSON.parse(
+              sessionStorage.getItem('tyqUser')
+            );
           });
       }
     }

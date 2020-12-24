@@ -12,7 +12,8 @@
         src="../../assets/logo.png"
         @click="loginFlag = !loginFlag"
       > -->
-      <ewm></ewm>
+      <g-rili class="home-rili"></g-rili>
+      <!-- <ewm></ewm> -->
     </div>
     <!-- 用户名 -->
     <!-- <h3 class="home-infoarticle-name">{{tyqUser.username ? tyqUser.username : '用户名'}}</h3> -->
@@ -49,10 +50,12 @@
 <script>
 import mixins from '@/mixins.js';
 import ewm from '@/components/ewm/index';
+import rili from '@/components/rili/index';
 export default {
   mixins: [mixins],
   components: {
-    ewm
+    ewm,
+    'g-rili': rili
   },
   data() {
     return {

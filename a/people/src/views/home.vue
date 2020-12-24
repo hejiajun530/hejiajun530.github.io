@@ -53,6 +53,12 @@
               class="home-menu-login-box-loginout text-ellipsis"
               @click="handleChangeBk"
             >换肤</div>
+            <div
+              class="home-menu-login-box-loginout-ewm"
+              @click="handleChangeBk"
+            >
+              <ewm></ewm>
+            </div>
           </div>
         </div>
       </div>
@@ -81,6 +87,7 @@
 <script>
 import timecanvs from './homeItem/timecanvs';
 import infoarticle from './homeItem/infoarticle';
+import ewm from '@/components/ewm/index';
 import weather from './homeItem/weather';
 import mixin from '@/mixins';
 export default {
@@ -88,7 +95,8 @@ export default {
   components: {
     timecanvs,
     weather,
-    infoarticle
+    infoarticle,
+    ewm
   },
   data() {
     return {

@@ -56,6 +56,9 @@ wss.on('connection', function (ws) {
 console.log('服务器创建成功')
 
 // const server = https.createServer(options, app);
+// app.listen(80, () => {
+//   console.log('http://www.tyq121.top')
+// })
 app.listen(3000, () => {
   console.log('http://localhost:3000')
 })
