@@ -7,6 +7,18 @@ window.onload = function () {
   if (rrDom) {
     rrDom.parentNode.remove();
   }
+  let runDom = document.querySelector('#HMRichBox'); // Runing Man电影网右下角广告
+  let runLeftDom = document.querySelector('#HMcoupletDivleft');
+  let runRightDom = document.querySelector('#HMcoupletDivright');
+  if (runDom) {
+    runDom.remove();
+  }
+  if (runLeftDom) {
+    runLeftDom.remove();
+  }
+  if (runRightDom) {
+    runRightDom.remove();
+  }
   console.log('111');
   // }, 1000);
 }
