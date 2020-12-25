@@ -1,7 +1,7 @@
 <template>
   <div class="table-column">
-    <th class="table-column-label">{{label}}</th>
-    <td
+    <div class="table-column-label">{{label}}</div>
+    <div
       class="table-column-item"
       :style="'width: '+width+'px;'"
       v-for="(item,index) in $parent.data"
@@ -13,7 +13,7 @@
       <template v-else>
         {{item[prop]}}
       </template>
-    </td>
+    </div>
   </div>
 </template>
 <script>
@@ -27,34 +27,34 @@ export default {
   },
   mounted() {
     var _self = this;
-    // _self.$nextTick(() => {
-    //   var doms = document.querySelectorAll(".table-column-item");
-    //   var num = 0;
-    //   for (let i = 0; i < doms.length; i++) {
-    //     _self.arr.push(doms[i].clientHeight);
-    //   }
-    //   _self.getMax(_self.arr);
-    // });
+    _self.$nextTick(() => {
+      var doms = document.querySelectorAll(".table-column-item");
+      var num = 0;
+      for (let i = 0; i < doms.length; i++) {
+        _self.arr.push(doms[i].clientHeight);
+      }
+      _self.getMax(_self.arr);
+    });
   },
   methods: {
     // 取两数之中最大值
-    // getMax(arr) {
-    //   var _self = this;
-    //   arr.forEach((item, index) => {
-    //     if (item > _self.max) {
-    //       _self.max = item;
-    //     }
-    //   });
-    //   var doms = document.querySelectorAll(".table-column-item");
-    //   for (let i = 0; i < doms.length; i++) {
-    //     doms[i].style.height = _self.max + 5 + "px";
-    //   }
-    //   // console.log(_self.max);
-    // }
+    getMax(arr) {
+      var _self = this;
+      arr.forEach((item, index) => {
+        if (item > _self.max) {
+          _self.max = item;
+        }
+      });
+      var doms = document.querySelectorAll(".table-column-item");
+      for (let i = 0; i < doms.length; i++) {
+        doms[i].style.height = _self.max + 5 + "px";
+      }
+      // console.log(_self.max);
+    }
   }
 };
 </script>
-<style scoped>
+<style>
 .table-column {
   min-width: 100px;
   text-align: left;
@@ -64,6 +64,7 @@ export default {
 }
 .table-column-label,
 .table-column-item {
+  /* height: 35px; */
   display: flex;
   justify-content: flex-start;
   align-items: center;

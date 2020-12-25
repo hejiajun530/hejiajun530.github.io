@@ -1,7 +1,7 @@
 <template>
-  <table class="table-tyq">
+  <div class="table">
     <slot></slot>
-  </table>
+  </div>
 </template>
 <script>
 import tableColumn from "./tableColumn";
@@ -21,20 +21,11 @@ export default {
   }
 };
 </script>
-<style>
-.table-tyq {
+<style scoped>
+.table {
   display: flex;
   justify-content: flex-start;
   background-color: #ffffff;
   overflow-x: auto;
-}
-.table-tyq .table-column td {
-  height: 60px;
-}
-.table-tyq .table-column td:nth-child(even) {
-  background: #ffffff;
-}
-.table-tyq .table-column td:nth-child(odd) {
-  background: pink;
 }
 </style>
