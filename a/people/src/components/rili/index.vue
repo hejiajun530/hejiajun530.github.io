@@ -343,18 +343,24 @@ export default {
             ? '0' + _self.currentMonth
             : _self.currentMonth;
         _self.currentDay = date.getDate();
-        let currentEndDay = date.getDate() + 1;
-        _self.currentDay =
-          _self.currentDay < 10 ? '0' + _self.currentDay : _self.currentDay;
-        currentEndDay =
-          currentEndDay < 10 ? '0' + currentEndDay : currentEndDay;
+        // 结束时间
+        let currentEndDay = _self.AddDay(_self.startTime, 1);
+        _self.endTime = _self.formDate(
+          currentEndDay.getFullYear(),
+          currentEndDay.getMonth() + 1,
+          currentEndDay.getDate()
+        );
         _self.startTime =
           _self.currentYear + '-' + _self.currentMonth + '-' + _self.currentDay;
-        _self.endTime =
-          _self.currentYear + '-' + _self.currentMonth + '-' + currentEndDay;
         // console.log(_self.startTime);
         // console.log(_self.endTime);
       }
+    },
+    // 增加一天
+    AddDay(time, num) {
+      var date = new Date(time);
+      date = date.setDate(date.getDate() + num);
+      return new Date(date);
     },
     // 计算时间差
     dateDiff(startDate, EndDate) {

@@ -67,7 +67,7 @@ export default {
     return {
       query: {
         page: 1,
-        num: 2,
+        num: 7,
         articleid: ''
       },
       total: 0,

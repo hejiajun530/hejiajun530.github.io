@@ -25,7 +25,7 @@
         class="select-title-list"
       >
         <div v-if="chooseList.length == 0">{{title}}</div>
-        <template v-if="chooseList.length >= 1">
+        <template v-if="chooseList.length > 0">
           <div
             class="select-title-list-item"
             v-for="(subitem, idx) in chooseList"

@@ -154,22 +154,13 @@ export default {
       let count = _self.model.count ? _self.model.count : 1;
       _self.$set(_self.model, 'count', count);
       console.log(_self.model);
-      var allFlag = true;
-      Object.keys(_self.model).forEach(key => {
-        console.log(_self.model[key], key);
-        // '测试' title
-        // '心情随笔'  category
-        // 'js,css'  tag
-        // 'ceshitest'  content
-        // 'http://localhost:3000/upload/33.jpg'  cover
-        // 1 'userid'
-        if (!_self.model[key]) {
-          //如果有一个值为空，就不往后执行
-          allFlag = false;
-          console.log('有值为空，不调用接口');
-        }
-      });
-      if (!allFlag) {
+      if (
+        !_self.model.title ||
+        !_self.model.category ||
+        !_self.model.tag ||
+        !_self.model.content ||
+        !_self.model.cover
+      ) {
         _self.$gMessage({
           title: '请填写内容，不要缺失!',
           duration: 2000,
@@ -177,6 +168,29 @@ export default {
         });
         return false;
       }
+      // var allFlag = true;
+      // Object.keys(_self.model).forEach(key => {
+      //   console.log(_self.model[key], key);
+      //   // '测试' title
+      //   // '心情随笔'  category
+      //   // 'js,css'  tag
+      //   // 'ceshitest'  content
+      //   // 'http://localhost:3000/upload/33.jpg'  cover
+      //   // 1 'userid'
+      //   if (!_self.model[key]) {
+      //     //如果有一个值为空，就不往后执行
+      //     allFlag = false;
+      //     console.log('有值为空，不调用接口');
+      //   }
+      // });
+      // if (!allFlag) {
+      //   _self.$gMessage({
+      //     title: '请填写内容，不要缺失!',
+      //     duration: 2000,
+      //     type: 'error'
+      //   });
+      //   return false;
+      // }
       // console.log(_self.model);
       if (_self.postFlag) {
         // postFlag 为true，添加文章

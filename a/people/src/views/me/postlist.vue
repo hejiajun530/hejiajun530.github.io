@@ -1,6 +1,19 @@
 <template>
   <div class="postlist">
-    <h3 class="me-title positionTopLeft">文章列表</h3>
+    <h3 class="me-title positionTopLeft d-flex jc-between ai-center">
+      文章列表
+      <div
+        class="me-title-btn pointSB"
+        @click="handleClickOutExecl"
+      >
+        导出execl文件
+        <a
+          href=""
+          style="display: none;"
+          id="exportToExcel"
+        ></a>
+      </div>
+    </h3>
     <!-- table 表格 -->
     <g-table :data="articleList">
       <g-tableColumn
@@ -113,7 +126,7 @@ export default {
       articleList: [],
       query: {
         page: 1,
-        num: 3,
+        num: 7,
         userid: ''
       },
       total: 1
@@ -177,6 +190,40 @@ export default {
           // console.log(_self.total, 'total');
         }
       });
+    },
+    // 导出为execl表格
+    handleClickOutExecl() {
+      const _self = this;
+      // _self.articleList
+      // 导出前把数据转为表格形式
+      let str = `<tr><td>标题</td><td>分类</td><td>标签</td><td>内容</td><td>图片地址</td><td>作者</td><td>点赞数</td><td>阅读量</td><td>创建时间</td></tr>`;
+      _self.articleList.map((item, index) => {
+        str += `<tr><td>${item.title}</td><td>${item.category}</td><td>${item.tag}</td><td>${item.content}</td><td>${item.cover}</td><td>${item.username}</td><td>${item.like}</td><td>${item.count}</td><td>${item.createTime}</td></tr>`;
+        // 快速遍历， 无法控制显示位置
+        // for (let key in item) {
+        //   str += `<td>${item[key]}</td>`;
+        // }
+      });
+      // Worksheet名字
+      const worksheet = 'Sheet1';
+      const uri = 'data:application/vnd.ms-excel;base64,';
+      // 表格模板数据
+      const template = `<html xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:x="urn:schemas-microsoft-com:office:excel"
+        xmlns="http://www.w3.org/TR/REC-html40">
+        <head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>
+        <x:Name>${worksheet}</x:Name>
+        <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet>
+        </x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->
+        </head><body><table>${str}</table></body></html>`;
+      // window.location.href =
+      //   uri + window.btoa(unescape(encodeURIComponent(template)));
+      // 补后缀
+      document.getElementById('exportToExcel').href =
+        uri + window.btoa(unescape(encodeURIComponent(template)));
+      const name = `文章列表.xls`;
+      document.getElementById('exportToExcel').download = name;
+      document.getElementById('exportToExcel').click();
     }
   },
   created() {
@@ -191,6 +238,16 @@ export default {
 .postlist {
   position: relative;
   padding: 3.125rem 0 0 0;
+  .me-title {
+    width: 100%;
+    .me-title-btn {
+      padding: 5px 15px;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #ffffff;
+      background: pink;
+    }
+  }
   .postlist-pageing {
     width: 250px;
     margin: 0.625rem 0 0 0;

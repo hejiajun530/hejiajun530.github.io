@@ -34,7 +34,7 @@ export default {
     return {
       query: {
         page: 1,
-        num: 3,
+        num: 7,
         category: '过往故事'
       },
       total: 1,

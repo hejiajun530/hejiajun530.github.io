@@ -114,7 +114,7 @@ export default {
       ],
       query: {
         page: 1,
-        num: 3,
+        num: 7,
         category: ''
       },
       total: 1,

@@ -34,7 +34,7 @@ export default {
     return {
       query: {
         page: 1,
-        num: 3,
+        num: 7,
         category: '技术分享'
       },
       total: 1,

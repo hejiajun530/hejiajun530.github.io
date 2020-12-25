@@ -55,7 +55,7 @@ export default {
       musiclist: [],
       query: {
         page: 1,
-        num: 3
+        num: 7
       },
       total: 0,
       title: ''

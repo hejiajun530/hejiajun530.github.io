@@ -39,7 +39,7 @@ export default {
       userlist: [],
       query: {
         page: 1,
-        num: 2,
+        num: 7,
         userid: ''
       },
       total: 0,

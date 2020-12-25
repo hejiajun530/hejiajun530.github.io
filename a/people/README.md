@@ -58,6 +58,9 @@ alter table article add column updateTime datetime default current_timestamp on 
 alter table article add column userid int not nul comment '用户表id';
 alter table article add constraint FK_ID foreign key(userid) REFERENCES user(userid);
 alter table article add column count int null comment '浏览记录';
+// 问题： Data too long for column 'content' at row 1
+// 解决办法:
+alter table article modify column content mediumtext not null;//修改content字段
 
 alike 表
 create table alike(
@@ -115,6 +118,7 @@ create table wait(
 );
 alter table wait add column istrue varchar(10) not null; // 添加字段
 alter table wait modify column istrue int not null; // 修改字段
+alter table wait modify column content mediumtext not null;
 
 <!-- 聊天功能 -->
 <!-- 1、点击聊天

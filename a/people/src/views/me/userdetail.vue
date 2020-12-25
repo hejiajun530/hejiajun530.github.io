@@ -25,7 +25,7 @@ export default {
       userinfo: '',
       query: {
         page: 1,
-        num: 3,
+        num: 7,
         userid: ''
       },
       total: 1,

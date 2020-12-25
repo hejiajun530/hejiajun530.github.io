@@ -184,8 +184,9 @@ export default {
 
 .alert {
   position: fixed;
-  top: 37%;
-  left: 37%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   min-width: 18.75rem;
   height: 12.5rem;
   background-color: #ffffff;

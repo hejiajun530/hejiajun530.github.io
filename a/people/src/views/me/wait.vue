@@ -1,22 +1,17 @@
 <template>
   <div class="wait">
     <!-- 添加待做事项 -->
-    <div class="wait-header d-flex jc-start ai-center">
+    <div class="wait-header d-flex flex-column jc-center ai-start">
       <div class="wait-header-content">
-        <input
+        <textarea
           type="text"
           class="me-input"
           v-model="model.content"
           placeholder="待做事项内容"
-        >
+        ></textarea>
       </div>
       <div class="wait-header-time">
-        <input
-          type="text"
-          class="me-input"
-          v-model="model.time"
-          placeholder="待做事项时间"
-        >
+        <g-dateTime @g-dateTime="handleClickChooseTime">{{model.time ? model.time : '请选择时间'}}</g-dateTime>
       </div>
       <div
         class="wait-header-btn me-button"
@@ -38,7 +33,6 @@
         @g-waitlist="handleGetWaitList"
       ></waitlist>
     </div>
-    <g-dateTime></g-dateTime>
   </div>
 </template>
 
@@ -82,6 +76,14 @@ export default {
         });
         return false;
       }
+      if (_self.model.content.length >= 50) {
+        _self.$gMessage({
+          title: '内容过长，不能超过50字',
+          duration: 2000,
+          type: 'error'
+        });
+        return false;
+      }
       _self.$set(_self.model, 'userid', _self.$parent.tyqUser.userid);
       _self.$http.post('/addWait', _self.model).then(res => {
         console.log(res);
@@ -116,6 +118,11 @@ export default {
             return item.istrue == 1;
           });
         });
+    },
+    // 选择时间
+    handleClickChooseTime(date) {
+      const _self = this;
+      _self.$set(_self.model, 'time', date);
     }
   }
 };
@@ -136,12 +143,19 @@ export default {
     .wait-header-content,
     .wait-header-time,
     .wait-header-btn {
-      margin-right: 0.3125rem;
+      margin-bottom: 0.3125rem;
+      textarea {
+        min-height: 3.125rem;
+        padding: 0.625rem;
+      }
+    }
+    .wait-header-time {
+      width: 13.75rem;
     }
   }
   .wait-content {
     h2 {
-      padding: 20px 0 5px 0;
+      padding: 1.25rem 0 0.3125rem 0;
     }
   }
 }
