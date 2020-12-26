@@ -16,25 +16,46 @@
       <div class="info-edit-item">
         <div class="info-edit-item-label">文章分类</div>
         <div class="info-edit-item-content">
-          <g-select
+          <!-- <g-select
             :selectList='articleList'
             chooseIndex='0'
             :nowdata="model.category"
             @g-selectValue="handleGetSelectValueCategory"
             id="ceatgory"
-          ></g-select>
+          ></g-select> -->
+          <g-select
+            v-model="model.category"
+            placeholder="请选择文章分类"
+          >
+            <g-options
+              v-for="item in articleList"
+              :key="item.id"
+              :value="item"
+            ></g-options>
+          </g-select>
         </div>
       </div>
       <div class="info-edit-item">
         <div class="info-edit-item-label">文章标签</div>
         <div class="info-edit-item-content">
-          <g-select
+          <!-- <g-select
             :selectList='tagList'
             chooseIndex='1'
             :nowdata="model.tag"
             @g-selectValue="handleGetSelectValueTag"
             id="tips"
-          ></g-select>
+          ></g-select> -->
+          <g-select
+            v-model="tag"
+            placeholder="请选择文章标签"
+            multiple
+          >
+            <g-options
+              v-for="item in tagList"
+              :key="item.id"
+              :value="item"
+            ></g-options>
+          </g-select>
         </div>
       </div>
       <div class="info-edit-item">
@@ -79,6 +100,7 @@
 <script>
 import upload from '@/components/upload/index';
 import select from '@/components/select/index';
+import options from '@/components/select/options';
 import { VueEditor } from 'vue2-editor';
 import mixin from '@/mixins';
 export default {
@@ -86,12 +108,14 @@ export default {
   components: {
     VueEditor,
     'g-upload': upload,
-    'g-select': select
+    'g-select': select,
+    'g-options': options
   },
   data() {
     return {
       articleList: ['技术分享', '过往故事', '心情随笔'],
       tagList: ['js', 'css', 'html'],
+      tag: [],
       model: {
         title: '',
         category: '',
@@ -117,26 +141,6 @@ export default {
         console.log(_self.model);
       });
     },
-    // 获取select下拉框组件选择的值 数组形式  分类
-    handleGetSelectValueCategory(value) {
-      var _self = this;
-      // console.log(value);
-      _self.$set(_self.model, 'category', value[0]);
-      console.log(_self.model);
-    },
-    // 获取select下拉框组件选择的值 数组形式  标签
-    handleGetSelectValueTag(value) {
-      var _self = this;
-      console.log(value);
-      var data = '';
-      value.map((item, index) => {
-        // console.log(item, index)
-        // 把数组转为逗号隔开的字符串    使用三元表达式让第一个不加逗号
-        data += index == 0 ? item : ',' + item;
-      });
-      _self.$set(_self.model, 'tag', data);
-      // console.log(_self.model);
-    },
     // 富文本添加图片
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       var formData = new FormData();
@@ -153,6 +157,7 @@ export default {
       // 文章的浏览记录，如果浏览记录有值，就使用原值，没有就为0
       let count = _self.model.count ? _self.model.count : 1;
       _self.$set(_self.model, 'count', count);
+      _self.$set(_self.model, 'tag', _self.tag);
       console.log(_self.model);
       if (
         !_self.model.title ||
@@ -234,6 +239,7 @@ export default {
         .then(res => {
           console.log(res.data);
           _self.model = res.data.res[0];
+          _self.tag = _self.model.tag.split(',');
         });
     }
   }

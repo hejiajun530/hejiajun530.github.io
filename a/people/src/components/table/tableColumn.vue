@@ -2,7 +2,7 @@
   <div class="table-column">
     <th class="table-column-label">{{label}}</th>
     <td
-      class="table-column-item"
+      class="table-column-item text-ellipsis"
       :style="'width: '+width+'px;'"
       v-for="(item,index) in $parent.data"
       :key="index"
@@ -18,7 +18,7 @@
 </template>
 <script>
 export default {
-  props: ["label", "prop", "type", "width"], // "tableData",
+  props: ['label', 'prop', 'type', 'width'], // "tableData",
   data() {
     return {
       max: 0,

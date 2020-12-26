@@ -1,26 +1,32 @@
 <template>
   <div class="home-alert">
-    <!-- select 下拉选择框
-    title/id/chooseIndex必填 chooseIndex 0 单选  1 多选
-    @g-selectValue是获取选择的值的方法 -->
+    <!-- select 下拉选择框 -->
     <g-select
-      title="请选择学校"
-      id="school"
-      :selectList="selectList"
-      chooseIndex="0"
-      @g-selectValue="handleGetSelectValue"
-    ></g-select>
+      v-model="value1"
+      placeholder="请选择专业单选"
+    >
+      <g-options
+        v-for="item in selectList1"
+        :key="item.id"
+        :value="item"
+      ></g-options>
+    </g-select>
     <g-select
-      title="请选择领域"
-      id="domain"
-      :selectList="selectList1"
-      chooseIndex="1"
-      @g-selectValue="handleGetSelectValue"
-    ></g-select>
+      v-model="value2"
+      placeholder="请选择专业多选"
+      multiple
+    >
+      <g-options
+        v-for="item in selectList1"
+        :key="item.id"
+        :value="item"
+      ></g-options>
+    </g-select>
   </div>
 </template>
 <script>
 import select from "@/components/select/index";
+import options from "@/components/select/options";
 export default {
   data() {
     return {
@@ -34,11 +40,14 @@ export default {
         "湖南工商",
         "湖南农业大学"
       ],
-      selectList1: ["软件技术", "会计专业", "英语专业", "历史专业", "教师"]
+      selectList1: ["软件技术", "会计专业", "英语专业", "历史专业", "教师"],
+      value1: "历史专业",
+      value2: ["软件技术", "会计专业", "历史专业"]
     };
   },
   components: {
-    "g-select": select
+    "g-select": select,
+    "g-options": options
   },
   methods: {
     // 获取select下拉框组件选择的值 数组形式
