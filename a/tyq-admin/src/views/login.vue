@@ -9,16 +9,18 @@
         <div class="login-box-form-input">
           <input
             type="text"
-            v-model="username"
+            v-model="adminname"
             placeholder="用户名"
+            @keyup.enter="handleClickLogin"
           >
-          <p>{{usernameMsg}}</p>
+          <p>{{adminnameMsg}}</p>
         </div>
         <div class="login-box-form-input">
           <input
             type="password"
             v-model="password"
             placeholder="密码"
+            @keyup.enter="handleClickLogin"
           >
           <p>{{passwordMsg}}</p>
         </div>
@@ -28,6 +30,7 @@
               type="number"
               v-model="checkcode"
               placeholder="验证码"
+              @keyup.enter="handleClickLogin"
             >
             <canvas
               id="loginCheckout"
@@ -51,10 +54,10 @@ export default {
   data() {
     return {
       randomNum: "", // 1000-9999随机数
-      username: "", // 用户名
+      adminname: "", // 用户名
       password: "", // 密码
       checkcode: "", // 验证码
-      usernameMsg: "", // 用户名提示
+      adminnameMsg: "", // 用户名提示
       passwordMsg: "", // 密码提示
       checkcodeMsg: "" // 验证码提示
     };
@@ -87,11 +90,11 @@ export default {
       var regPassword = /^[0-9a-zA-Z]{6,16}$/; //密码验证
       var regUsername = /^[\u0391-\uFFE50-9a-zA-Z]{2,10}$/; //用户名验证
       // 用户名简单验证
-      if (!regUsername.test(_self.username)) {
-        _self.usernameMsg = "用户名为长度2-10位的汉字英文数字!";
+      if (!regUsername.test(_self.adminname)) {
+        _self.adminnameMsg = "用户名为长度2-10位的汉字英文数字!";
         return false;
       } else {
-        _self.usernameMsg = "";
+        _self.adminnameMsg = "";
       }
       // 密码简单验证
       if (!regPassword.test(_self.password)) {
@@ -110,31 +113,26 @@ export default {
         _self.checkcodeMsg = "";
       }
       _self.handleLoginCheckCode();
-      sessionStorage.setItem("tyqAdminToken", "测试");
-      _self.$router.push("/");
+      // sessionStorage.setItem("tyqAdminToken", "测试");
+      // _self.$router.push("/");
 
       // 用户登录 接口
-      // _self.$http
-      //   .get(`/login?username=${_self.username}&password=${_self.password}`)
-      //   .then(res => {
-      //     console.log(res);
-      //     if (res.data.flag) {
-      //       _self.$gMessage({
-      //         title: res.data.msg,
-      //         duration: 2000,
-      //         type: "success"
-      //       });
-      //       sessionStorage.setItem('tyqAdminUser', JSON.stringify(res.data.res[0]));
-      //       sessionStorage.setItem('tyqAdminToken', res.data.token);
-      //       _self.$router.push("/home");
-      //     } else {
-      //       _self.$gMessage({
-      //         title: res.data.msg,
-      //         duration: 2000,
-      //         type: "error"
-      //       });
-      //     }
-      //   });
+      _self.$http
+        .get(`/login?adminname=${_self.adminname}&password=${_self.password}`)
+        .then(res => {
+          console.log(res);
+          if (res.data.flag) {
+            _self.$message.success(res.data.msg, 2);
+            sessionStorage.setItem(
+              "tyqAdminUser",
+              JSON.stringify(res.data.res[0])
+            );
+            sessionStorage.setItem("tyqAdminToken", res.data.token);
+            _self.$router.push("/home");
+          } else {
+            _self.$message.error(res.data.msg, 2);
+          }
+        });
     }
   },
   created() {},

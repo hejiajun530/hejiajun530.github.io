@@ -21,6 +21,7 @@ app.use('/', express.static(__dirname + '/dist'));
 app.use('/upload', express.static(__dirname + '/upload'));
 
 require('./web/index')(app);
+require('./admin/index')(app);
 
 // websocket
 var userNum = 0; //统计在线人数

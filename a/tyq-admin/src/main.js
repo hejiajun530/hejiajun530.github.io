@@ -5,9 +5,11 @@ import http from './http';
 // 引入ant-design-vue
 // import Button from 'ant-design-vue/lib/button';
 // import 'ant-design-vue/dist/antd.css';
-import { Button } from 'ant-design-vue';
-
-Vue.component(Button.name, Button);
+// import { Button } from 'ant-design-vue';
+// Vue.component(Button.name, Button);
+import Antd from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css'
+Vue.use(Antd)
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = http;

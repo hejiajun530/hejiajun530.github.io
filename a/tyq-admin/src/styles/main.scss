@@ -146,6 +146,19 @@ $algin-text: (
     }
   }
 }
+// 取消type=number 时的右侧加减
+/* 谷歌 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none; 
+    margin: 0; 
+}
+/* 火狐 */
+input{
+    -moz-appearance:textfield;
+}
+
 
 
 // 定义好主题色

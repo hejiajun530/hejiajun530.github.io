@@ -87,11 +87,18 @@ module.exports = app => {
           // console.log(result == '');
           // console.log(result);
           // 返回的值为空，有可能是用户名或密码输入错误
-          if (result == '') {
+          if (!result) {
             var resultObj = {
               flag: false,
               msg: '用户名或密码错误!',
               res: result
+            }
+            res.send(resultObj)
+          } else if (result[0].role == 0) {
+            var resultObj = {
+              flag: false,
+              msg: '您已经被禁用，请联系博主!',
+              res: '您已经被禁用，请联系博主!',
             }
             res.send(resultObj)
           } else if (result[0].username == query.username) {
