@@ -129,7 +129,7 @@ export default {
             );
             sessionStorage.setItem("tyqAdminToken", res.data.token);
             console.log(11);
-            _self.$router.push("/home");
+            // _self.$router.push("/home");
             console.log(22);
             let list = [
               {
@@ -148,6 +148,25 @@ export default {
             ];
             // _self.$router.addRoutes([...list]);
             sessionStorage.setItem("routes", JSON.stringify(list));
+            
+    _self.$router.addRoutes([{
+      path: '/category',
+      name: '',
+      component: () => import('@/views/home/category')
+    }, {
+        path: '*',
+        redirect: '/error'
+    }])
+    // 可以不加，只是用于显示，不会影响效果  待测试
+    _self.$router.options.routes = _self.$router.options.routes.concat([{
+      path: '/category',
+      name: '',
+      component: () => import('@/views/home/category')
+    }, {
+      path: '*',
+      redirect: '/error'
+    }]);
+            _self.$router.push("/home");
           } else {
             _self.$message.error(res.data.msg, 2);
           }

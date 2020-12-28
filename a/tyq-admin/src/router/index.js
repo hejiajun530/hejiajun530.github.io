@@ -92,12 +92,24 @@ router.beforeEach((to, from, next) => {
     // console.log(newR);
     // router.addRoutes(newR);
     // console.log(router)
-    router.addRoutes([{
-      name: 'category',
-      path: '/category',
-      component: () => import('@/views/home/category')
-    }])
-    next();
+    // router.options.routes = routes.concat([{
+    //   path: '/category',
+    //   name: '',
+    //   component: () => import('@/views/home/category')
+    // }, {
+    //   path: '*',
+    //   redirect: '/error'
+    // }]);
+    // router.addRoutes([{
+    //   path: '/category',
+    //   name: '',
+    //   component: () => import('@/views/home/category')
+    // }, {
+    //     path: '*',
+    //     redirect: '/error'
+    // }])
+    // console.log(router.options.routes);
+    // next();
   }
   // }
   next();

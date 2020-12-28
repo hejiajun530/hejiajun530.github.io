@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    首页2332
+    <div @click="$router.push('/category')">首页2332</div>
   </div>
 </template>
 
