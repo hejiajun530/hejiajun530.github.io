@@ -3,7 +3,8 @@
     <hometitle>
       <strong>您现在的位置：</strong> <i>首页</i> > <i>留言</i>
     </hometitle>
-    <comment :articleid="13"></comment>
+    <!-- <comment :articleid="13"></comment> -->
+    <comment :articleid="20"></comment>
   </div>
 </template>
 

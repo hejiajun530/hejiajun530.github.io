@@ -3,26 +3,31 @@
     <div class="articledetail-title">
       <strong>您当前的位置：</strong><i>首页</i><span>&gt;</span><i>文章详情</i>
     </div>
+
     <div class="articledetail-box">
       <!-- 文章标题 -->
       <div class="articledetail-box-title">{{model.title}}</div>
       <div class="articledetail-box-tag d-flex jc-start ai-center">
+
         <!-- 作者 -->
         <div class="articledetail-box-tag-name">
           <i class="iconfont icon-gerenxinxi"></i>
           <span>{{model.username}}</span>
         </div>
+
         <!-- 发表时间 -->
         <div class="articledetail-box-tag-time">
           <i class="iconfont icon-dingdanxiangqing-chuangjianshijian"></i>
           <span>{{toymd(model.createTime, 'yy-mm-dd hh:mm:ss')}}</span>
         </div>
       </div>
+
       <!-- 文章内容 -->
       <div
         class="articledetail-box-content"
         v-html="model.content"
       ></div>
+
       <!-- 点赞 -->
       <div class="articledetail-box-make text-center">
         <i
@@ -31,16 +36,47 @@
         ></i>
         <span>{{model.like}}</span>
       </div>
+
+      <!-- 上一章/本章/下一章 -->
+      <div class="articledetail-box-column d-flex jc-between ai-center">
+
+        <div
+          class="d-flex ai-center"
+          v-if="articleColumn[0]"
+        >
+          上一章：
+          <span
+            class="articledetail-box-column-prev pointSB text-ellipsis"
+            @click="$router.push(`/home/articledetail?articleid=${articleColumn[0].articleid}`)"
+          >{{articleColumn[0].title}}</span>
+        </div>
+
+        <div
+          class="d-flex ai-center"
+          v-if="articleColumn[2]"
+        >
+          下一章：
+          <span
+            class="articledetail-box-column-next pointSB text-ellipsis"
+            @click="$router.push(`/home/articledetail?articleid=${articleColumn[2].articleid}`)"
+          >{{articleColumn[2].title}}
+          </span>
+        </div>
+      </div>
+
       <div class="articledetail-box-share d-flex jc-start ai-center">
         <span>分享:</span>
+
         <div
           class="articledetail-box-share-qqkonjian pointSB iconfont icon-QQzone"
           @click="handleClickShareQQKJ"
         ></div>
+
         <div
           class="articledetail-box-share-weibo pointSB iconfont icon-weibo"
           @click="handleClickShareWB"
         ></div>
+
         <div class="articledetail-box-share-ewm pointSB iconfont icon-erweima">
           <div class="articledetail-box-share-ewm-box">
             <ewm :url="$route.fullPath"></ewm>
@@ -66,7 +102,8 @@ export default {
   },
   data() {
     return {
-      model: ''
+      model: '',
+      articleColumn: ''
     };
   },
   watch: {
@@ -74,11 +111,13 @@ export default {
       var _self = this;
       // console.log(to);
       // console.log(from);
+      // 获取文章信息
       _self.handleGetArticleById();
     }
   },
   created() {
     var _self = this;
+    // 获取文章信息
     _self.handleGetArticleById();
   },
   mounted() {},
@@ -95,7 +134,10 @@ export default {
           .then(res => {
             console.log(res.data);
             _self.model = res.data.res[0];
+            // 添加文章浏览记录
             _self.handleAddArticleCount();
+            // 获取包括本条数据在内的三条数据 上/本/下
+            _self.handleGetArticleColumn();
           });
       }
     },
@@ -228,6 +270,18 @@ export default {
         ' http://connect.qq.com/widget/shareqq/index.html?summary=js分享到qq好友测试&url=http://www.tyq121.top';
       window.open(shareqqzonestring, 'newwindow');
       console.log(_self.$route);
+    },
+    // 获取数据 上一章/本章/下一章
+    handleGetArticleColumn() {
+      const _self = this;
+      _self.$http
+        .get(`/getArticleColumn?articleid=${_self.$route.query.articleid}`)
+        .then(res => {
+          console.log(res);
+          // _self.model = res.data.res[1];
+          _self.articleColumn = res.data.res;
+          _self.handleAddArticleCount();
+        });
     }
   }
 };
@@ -245,6 +299,18 @@ export default {
     }
   }
   .articledetail-box {
+    .articledetail-box-column {
+      padding: 0.625rem 0;
+      font-size: 0.875rem;
+      .articledetail-box-column-prev,
+      .articledetail-box-column-next {
+        width: 150px;
+        &:hover {
+          color: #e52425;
+          text-decoration: underline;
+        }
+      }
+    }
     .articledetail-box-title {
       font-size: 1.375rem;
       font-weight: 600;

@@ -1,23 +1,23 @@
 <template>
-  <table class="table-tyq">
+  <div class="table-tyq">
     <slot></slot>
-  </table>
+  </div>
 </template>
 <script>
-import tableColumn from "./tableColumn";
+import tableColumn from './tableColumn';
 export default {
-  props: ["data"],
+  props: ['data'],
   watch: {
     data() {
       // console.log(this.tableData);
-      console.log("tableData-chage");
+      console.log('tableData-chage');
     }
   },
   data() {
     return {};
   },
   components: {
-    "g-tableColumn": tableColumn
+    'g-tableColumn': tableColumn
   }
 };
 </script>
@@ -25,16 +25,16 @@ export default {
 .table-tyq {
   display: flex;
   justify-content: flex-start;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   overflow-x: auto;
 }
-.table-tyq .table-column td {
+.table-tyq .table-column-item {
   height: 60px;
 }
-.table-tyq .table-column td:nth-child(even) {
+/* .table-tyq .table-column-item:nth-child(even) {
   background: #ffffff;
 }
-.table-tyq .table-column td:nth-child(odd) {
+.table-tyq .table-column-item:nth-child(odd) {
   background: pink;
-}
+} */
 </style>

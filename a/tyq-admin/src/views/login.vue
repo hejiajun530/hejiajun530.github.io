@@ -128,7 +128,26 @@ export default {
               JSON.stringify(res.data.res[0])
             );
             sessionStorage.setItem("tyqAdminToken", res.data.token);
+            console.log(11);
             _self.$router.push("/home");
+            console.log(22);
+            let list = [
+              {
+                name: "category",
+                path: "/home/category",
+                component: "home/category",
+                meta: {
+                  icon: "",
+                  text: "分页"
+                }
+              },
+              {
+                path: "*",
+                redirect: "/error"
+              }
+            ];
+            // _self.$router.addRoutes([...list]);
+            sessionStorage.setItem("routes", JSON.stringify(list));
           } else {
             _self.$message.error(res.data.msg, 2);
           }

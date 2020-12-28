@@ -401,6 +401,22 @@ module.exports = app => {
     })
   })
 
+  // 文章 上一章/本章/下一章 共三条数据
+  router.get('/getArticleColumn', async (req, res) => {
+    let query = req.query;
+    console.log(query);
+    let selectSql = `select * from article where articleid in((select articleid from article where articleid != 13 and articleid < ${query.articleid} order by articleid desc limit 1), ${query.articleid}, (select articleid from article where articleid != 13 and articleid > ${query.articleid} order by articleid limit 1)) order by articleid;`;
+    cnt.query(selectSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '获取成功',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
   // 文章点赞
   router.post('/addLike', auth, async (req, res) => {
     const body = req.body

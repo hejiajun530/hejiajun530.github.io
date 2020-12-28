@@ -11,13 +11,19 @@
         placeholder="搜索文章"
         class="search-search"
       >
-      <g-select
-        :selectList='tagList'
-        chooseIndex='1'
-        @g-selectValue="handleGetSelectValueTag"
-        id="tips"
-        class="search-select"
-      ></g-select>
+      <div style="width: 15.625rem;">
+        <g-select
+          v-model="tag"
+          placeholder="请选择文章标签"
+          multiple
+        >
+          <g-options
+            v-for="item in tagList"
+            :key="item.id"
+            :value="item"
+          ></g-options>
+        </g-select>
+      </div>
       <button
         @click="handleInputSearchDou"
         class="search-btn pointSB"
@@ -36,13 +42,15 @@
 
 <script>
 import select from '@/components/select/index';
+import options from '@/components/select/options';
 import articlelist from './article/articlelist';
 import mixin from '@/mixins.js';
 export default {
   mixins: [mixin],
   components: {
     articlelist,
-    'g-select': select
+    'g-select': select,
+    'g-options': options
   },
   data() {
     return {
@@ -50,7 +58,7 @@ export default {
       douTimer: null, // 防抖定时器
       doudelay: 500, // 防抖时间
       tagList: ['js', 'css', 'html'], // 标签列表
-      tag: '', // 标签字符串
+      tag: [], // 标签字符串
       articlelist: [], // 文章列表
       noarticleText: '没有文章，快去发表文章吧~' // 没有文章时，显示的文字
     };
@@ -88,9 +96,15 @@ export default {
     handleInputSearch() {
       const _self = this;
       if (!_self.text) return false;
+      let tag = '';
+      _self.tag.map((item, index) => {
+        // console.log(item, index)
+        // 把数组转为逗号隔开的字符串    使用三元表达式让第一个不加逗号
+        tag += index == 0 ? item : ',' + item;
+      });
       let query = {
         text: _self.text,
-        tag: _self.tag
+        tag: tag
       };
       _self.$http.post(`/getArticleListByText`, query).then(res => {
         console.log(res);

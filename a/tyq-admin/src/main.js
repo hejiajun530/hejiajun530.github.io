@@ -1,4 +1,6 @@
 import Vue from 'vue';
+// import ROUTER_ from './router/router'
+// Vue.prototype.ROUTER = ROUTER_;
 import App from './App.vue';
 import router from './router';
 import http from './http';

@@ -1,19 +1,20 @@
 <template>
   <div class="table-column">
-    <th class="table-column-label">{{label}}</th>
-    <td
+    <div class="table-column-label">{{label}}</div>
+    <div
       class="table-column-item text-ellipsis"
       :style="'width: '+width+'px;'"
       v-for="(item,index) in $parent.data"
       :key="index"
     >
-      <template v-if="type">
+      <template>
+        <!--  v-if="type" -->
         <slot :row="item"></slot>
       </template>
-      <template v-else>
+      <!-- <template v-else>
         {{item[prop]}}
-      </template>
-    </td>
+      </template> -->
+    </div>
   </div>
 </template>
 <script>
@@ -68,7 +69,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   border-bottom: 1px solid #dedede;
-  padding: 0 5px 0 10px;
+  padding: 10px 10px 10px 5px;
   box-sizing: border-box;
 }
 .table-column-label {
