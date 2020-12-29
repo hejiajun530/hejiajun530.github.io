@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>教务管理系统-首页</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+      <h1>教务管理系统</h1>
+      <div class="box">
+        <div class="search">
+          <input type="text" placeholder="请输入教师姓名" class="name">
+          <button onclick="search()">搜索</button>
+          <button onclick="toAdd()">添加教师</button>
+          <button onclick="toLogin()">登录</button>
+          <table class="teacherTable">
+            <thead>
+              <tr>
+                <td>头像</td>
+                <td>姓名</td>
+                <td>教师编号</td>
+                <td>手机号</td>
+                <td>年级</td>
+                <td>职务</td>
+                <td>操作</td>
+              </tr>
+            </thead>
+            <tbody id="tb">
+            </tbody>
+          </table>
+        </div>
+      </div>
+</body>
+
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/index.js">
+        
+    </script>
+</html>
