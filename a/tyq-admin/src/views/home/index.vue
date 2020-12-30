@@ -1,6 +1,23 @@
 <template>
   <div class="index">
-    <div @click="$router.push('/category')">首页2332</div>
+    <a-tabs
+      default-active-key="1"
+      @change="handleChangeTab"
+    >
+      <a-tab-pane
+        key="1"
+        tab="菜单拦"
+      >
+        菜单拦
+      </a-tab-pane>
+      <a-tab-pane
+        key="2"
+        tab="用户权限"
+        force-render
+      >
+        用户权限
+      </a-tab-pane>
+    </a-tabs>
   </div>
 </template>
 
@@ -12,7 +29,11 @@ export default {
   created() {
     const _self = this;
   },
-  methods: {}
+  methods: {
+    handleChangeTab(key) {
+      console.log(key);
+    }
+  }
 };
 </script>
 

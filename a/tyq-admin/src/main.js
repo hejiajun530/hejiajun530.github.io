@@ -4,6 +4,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import http from './http';
+import store from './store/index.js';
 // 引入ant-design-vue
 // import Button from 'ant-design-vue/lib/button';
 // import 'ant-design-vue/dist/antd.css';
@@ -18,5 +19,6 @@ Vue.prototype.$http = http;
 
 new Vue({
   router,
+  store,
   render: (h) => h(App),
 }).$mount('#app');

@@ -11,6 +11,7 @@
       <a-menu-item
         :key="item.path"
         v-if="!item.children"
+        @click="handleClickPath(item.path)"
       >
         {{item.meta.text}}
       </a-menu-item>
@@ -23,7 +24,10 @@
         <span slot="title">
           <a-icon type="mail" /><span>{{item.name + ' ' + item.path}}</span></span>
         <!-- 二级菜单 -->
-        <a-menu-item :key="item.path">
+        <a-menu-item
+          :key="item.path"
+          @click="handleClickPath(item.path)"
+        >
           {{item.meta.text}}
         </a-menu-item>
         <homeMenu :menus="item.children"></homeMenu>
@@ -45,7 +49,13 @@ export default {
     return {};
   },
   created() {
-    console.log(this.menus);
+    // console.log(this.menus);
+  },
+  methods: {
+    handleClickPath(item) {
+      const _self = this;
+      _self.$router.push(item);
+    }
   }
 };
 </script>

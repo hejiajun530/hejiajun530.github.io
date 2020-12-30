@@ -4,7 +4,7 @@ module.exports = app => {
   const jwt = require('jsonwebtoken')// token
   const cnt = require('../connect/db');
 
-  // 用户注册
+  // 添加用户
   router.post('/regist', async (req, res) => {
     // 传过来的值
     const body = req.body
@@ -95,7 +95,7 @@ module.exports = app => {
             }
             res.send(resultObj)
           } else if (result[0].username == query.username) {
-            const token = jwt.sign({ id: result[0].userid }, app.get('secret'))
+            const token = jwt.sign({ id: result[0].adminid }, app.get('secret'))
             var resultObj = {
               flag: true,
               msg: '登录成功!',
@@ -112,7 +112,7 @@ module.exports = app => {
   // 判断是否登录
   async function auth(req, res, next) {
     const token = (req.headers.authorization || '').toString().split(' ').pop()
-    // console.log(token)
+    console.log(token)
     if (!token) {
       return res.status(401).send({
         flag: false,
@@ -121,16 +121,16 @@ module.exports = app => {
     }
     // console.log(req.app.get('secret'))
     let { id } = jwt.verify(token, req.app.get('secret'))
-    // console.log(id)
+    console.log(id)
     if (!id) {
       return res.status(401).send({
         flag: false,
         msg: '请先登录!'
       })
     }
-    await cnt.query('select * from user where userid = "' + id + '"', function (err, result) {
+    await cnt.query('select * from admin where adminid = "' + id + '"', function (err, result) {
       if (err) return res.send(err);
-      // console.log(result)
+      console.log(result)
       if (!result) {
         return res.status(401).send({
           flag: false,
@@ -140,6 +140,104 @@ module.exports = app => {
     })
     await next()
   }
+
+  // 添加分类
+  router.post('/addCategory', auth, async (req, res) => {
+    const body = req.body
+    console.log(body);
+    let addSql = `insert into category(text) values(?)`
+    let addSqlParams = [body.text]
+    cnt.query(addSql, addSqlParams, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '添加成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
+  // 获取分类
+  router.get('/getCategory', auth, async (req, res) => {
+    const query = req.query
+    console.log(query);
+    let getSql = `select * from category`
+    cnt.query(getSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '获取成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
+  // 删除分类
+  router.get('/delCategory', auth, async (req, res) => {
+    const query = req.query
+    console.log(query);
+    let delSql = `delete from category where categoryid = ${query.categoryid}`
+    cnt.query(delSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '删除成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
+  // 添加标签
+  router.post('/addTag', auth, async (req, res) => {
+    const body = req.body
+    console.log(body);
+    let addSql = `insert into tag(text) values(?)`
+    let addSqlParams = [body.text]
+    cnt.query(addSql, addSqlParams, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '添加成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
+  // 获取标签
+  router.get('/getTag', auth, async (req, res) => {
+    const query = req.query
+    console.log(query);
+    let getSql = `select * from tag`
+    cnt.query(getSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '获取成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
+  // 删除标签
+  router.get('/delTag', auth, async (req, res) => {
+    const query = req.query
+    console.log(query);
+    let delSql = `delete from tag where tagid = ${query.categoryid}`
+    cnt.query(delSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '删除成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
 
   // 获取用户信息
   router.get('/getUser', auth, async (req, res) => {
