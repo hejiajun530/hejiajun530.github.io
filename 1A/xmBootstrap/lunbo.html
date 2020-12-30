@@ -1,183 +1,198 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<style>
-      .jq-swiper-box {
-        position: relative;
-        width: 600px;
-        height: 350px;
-        border: 1px solid #dddddd;
-        overflow: hidden;
-      }
-      .jq-swiper {
-        position: relative;
-        height: 100%;
-        display: flex;
-        justify-content: flex-start;
-      }
-      .jq-swiper-item {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        border: 1px solid #f00;
-        overflow: hidden;
-      }
-      .jq-swiper-item img {
-        height: 100%;
-      }
-      .jq-swiper-prev,
-      .jq-swiper-next {
-        position: absolute;
-        top: 50%;
-        transform: translate(0, -50%);
-        width: 30px;
-        height: 50px;
-        background: rgba(0, 0, 0, 0.6);
-        color: #ffffff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-      }
-      .jq-swiper-prev {
-        left: 0;
-      }
-      .jq-swiper-next {
-        right: 0;
-      }
-      .jq-swiper-cricle {
-        position: absolute;
-        left: 50%;
-        bottom: 20px;
-        transform: translate(-50%, 0);
-        border: 1px solid #dddddd;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .jq-swiper-cricle-item {
-        width: 20px;
-        height: 20px;
-        background: #ff0;
-        border-radius: 50%;
-        margin: 0 5px;
-      }
-      .jq-swiper-cricle-item.active {
-        background: #f00;
-      }
-		</style>
-	</head>
-	<body>
-    <div class="jq-swiper-box">
-      <div class="jq-swiper">
-        <div class="jq-swiper-item"><img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1279093904,613738352&fm=26&gp=0.jpg"></div>
-        <div class="jq-swiper-item"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=976475679,941371991&fm=26&gp=0.jpg"></div>
-        <div class="jq-swiper-item"><img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2893059160,2329152283&fm=26&gp=0.jpg"></div>
-      </div>
-      <div class="jq-swiper-prev">&lt;</div>
-      <div class="jq-swiper-next">&gt;</div>
-      <div class="jq-swiper-cricle"></div>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style>
+    .jq-swiper-box {
+      position: relative;
+      width: 600px;
+      height: 350px;
+      border: 1px solid #dddddd;
+      overflow: hidden;
+    }
+
+    .jq-swiper {
+      position: relative;
+      height: 100%;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .jq-swiper-item {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #f00;
+      overflow: hidden;
+    }
+
+    .jq-swiper-item img {
+      height: 100%;
+    }
+
+    .jq-swiper-prev,
+    .jq-swiper-next {
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+      width: 30px;
+      height: 50px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .jq-swiper-prev {
+      left: 0;
+    }
+
+    .jq-swiper-next {
+      right: 0;
+    }
+
+    .jq-swiper-cricle {
+      position: absolute;
+      left: 50%;
+      bottom: 20px;
+      transform: translate(-50%, 0);
+      border: 1px solid #dddddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .jq-swiper-cricle-item {
+      width: 20px;
+      height: 20px;
+      background: #ff0;
+      border-radius: 50%;
+      margin: 0 5px;
+    }
+
+    .jq-swiper-cricle-item.active {
+      background: #f00;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="jq-swiper-box">
+    <div class="jq-swiper">
+      <div class="jq-swiper-item"><img
+          src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1279093904,613738352&fm=26&gp=0.jpg"></div>
+      <div class="jq-swiper-item"><img
+          src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=976475679,941371991&fm=26&gp=0.jpg"></div>
+      <div class="jq-swiper-item"><img
+          src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2893059160,2329152283&fm=26&gp=0.jpg"></div>
     </div>
+    <div class="jq-swiper-prev">&lt;</div>
+    <div class="jq-swiper-next">&gt;</div>
+    <div class="jq-swiper-cricle"></div>
+  </div>
 
-    <script src="jquery-3.4.1.min.js"></script>
-    <script>
-      let swiperItems = document.querySelectorAll('.jq-swiper-item');
-      let swiperWidth = document.querySelector('.jq-swiper-box').clientWidth;
-      $('.jq-swiper').css('width', (swiperItems.length + 2) * swiperWidth);
-      let timer = null;
+  <script src="jquery-3.4.1.min.js"></script>
+  <script>
+    let swiperItems = document.querySelectorAll('.jq-swiper-item');
+    let swiperWidth = document.querySelector('.jq-swiper-box').clientWidth;
+    $('.jq-swiper').css('width', (swiperItems.length + 2) * swiperWidth);
+    let timer = null;
 
-      // 复制节点 为无缝轮播做准备
-      var clonedNodeLast = swiperItems[0].cloneNode(true); // 克隆节点  
-      var clonedNodeFirst = swiperItems[swiperItems.length - 1].cloneNode(true); // 克隆节点  
-      $('.jq-swiper').append(clonedNodeLast);
-      $('.jq-swiper').prepend(clonedNodeFirst);
-      $('.jq-swiper').css('left', -swiperWidth + 'px');
+    // 复制节点 为无缝轮播做准备
+    var clonedNodeLast = swiperItems[0].cloneNode(true); // 克隆节点  
+    var clonedNodeFirst = swiperItems[swiperItems.length - 1].cloneNode(true); // 克隆节点  
+    $('.jq-swiper').append(clonedNodeLast);
+    $('.jq-swiper').prepend(clonedNodeFirst);
+    $('.jq-swiper').css('left', -swiperWidth + 'px');
 
-      // 生成下方小圆点
-      for(let i = 0; i < swiperItems.length; i++) {
-        let div = `<div class="jq-swiper-cricle-item" data-index="${i + 1}"></div>`;
-        $('.jq-swiper-cricle').append(div);
+    // 生成下方小圆点
+    for (let i = 0; i < swiperItems.length; i++) {
+      let div = `<div class="jq-swiper-cricle-item" data-index="${i + 1}"></div>`;
+      $('.jq-swiper-cricle').append(div);
+    }
+
+    // 上一张
+    let moveFlag = true;
+    let index = 1;
+    $('.jq-swiper-cricle-item').eq(index - 1).addClass('active').siblings().removeClass('active');
+    $('.jq-swiper-prev').on('click', function () {
+      if (!moveFlag) {
+        return false;
       }
-
-      // 上一张
-      let moveFlag = true;
-      let index = 1;
+      moveFlag = false;
+      index--;
       $('.jq-swiper-cricle-item').eq(index - 1).addClass('active').siblings().removeClass('active');
-      $('.jq-swiper-prev').on('click', function() {
-        if (!moveFlag) {
-          return false;
+      // console.log($('.jq-swiper-cricle-item').eq(index - 1));
+      $('.jq-swiper').stop().animate({ left: -(swiperWidth * index) + 'px' }, function () {
+        console.log(index, swiperItems.length)
+        moveFlag = true;
+        console.log(moveFlag)
+        if (index < 1) {
+          console.log('111')
+          index = swiperItems.length;
+          $('.jq-swiper').css('left', -swiperItems.length * swiperWidth + 'px');
         }
-        moveFlag = false;
-        index--;
-        $('.jq-swiper-cricle-item').eq(index - 1).addClass('active').siblings().removeClass('active');
-        // console.log($('.jq-swiper-cricle-item').eq(index - 1));
-        $('.jq-swiper').stop().animate({left: -(swiperWidth * index) + 'px'}, function() {
-          console.log(index, swiperItems.length)
-          moveFlag = true;
-          console.log(moveFlag)
-          if (index < 1) {
-            console.log('111')
-            index=swiperItems.length;
-            $('.jq-swiper').css('left', -swiperItems.length * swiperWidth + 'px');
-          }
-        })
       })
-      // 下一张
-      $('.jq-swiper-next').on('click', next);
-      function next() {
-        if (!moveFlag) {
-          return false;
+    })
+    // 下一张
+    $('.jq-swiper-next').on('click', next);
+    function next() {
+      if (!moveFlag) {
+        return false;
+      }
+      moveFlag = false;
+      index++;
+      $('.jq-swiper-cricle-item').eq(index - 1).addClass('active').siblings().removeClass('active');
+      // console.log($('.jq-swiper-cricle-item').eq(index - 1));
+      $('.jq-swiper').stop().animate({ left: -swiperWidth * index + 'px' }, function () {
+        console.log(index, swiperItems.length)
+        moveFlag = true;
+        console.log(moveFlag)
+        if (index >= swiperItems.length) {
+          index = 0;
+          console.log('111')
+          $('.jq-swiper').css('left', '0px');
         }
-        moveFlag = false;
-        index++;
-        $('.jq-swiper-cricle-item').eq(index - 1).addClass('active').siblings().removeClass('active');
-        // console.log($('.jq-swiper-cricle-item').eq(index - 1));
-        $('.jq-swiper').stop().animate({left: -swiperWidth * index + 'px'}, function() {
-          console.log(index, swiperItems.length)
-          moveFlag = true;
-          console.log(moveFlag)
-          if (index >= swiperItems.length) {
-            index=0;
-            console.log('111')
-            $('.jq-swiper').css('left', '0px');
-          }
-        })
-      }
-
-      // 点击小圆点
-      $('.jq-swiper-cricle-item').on('click', function() {
-        console.log($(this).attr('data-index'));
-        index = $(this).attr('data-index');
-        $('.jq-swiper-cricle-item').eq(index - 1).addClass('active').siblings().removeClass('active');
-        $('.jq-swiper').stop().animate({left: -swiperWidth * index + 'px'}, function() {
-          console.log(index, swiperItems.length)
-          moveFlag = true;
-          console.log(moveFlag)
-          if (index >= swiperItems.length) {
-            index=0;
-            console.log('111')
-            $('.jq-swiper').css('left', '0px');
-          }
-        })
       })
+    }
 
-      // 自动轮播
-      function autoplay() {
-        timer = setInterval(function() {
-          next();
-        }, 2000);
-      }
+    // 点击小圆点
+    $('.jq-swiper-cricle-item').on('click', function () {
+      console.log($(this).attr('data-index'));
+      index = $(this).attr('data-index');
+      $('.jq-swiper-cricle-item').eq(index - 1).addClass('active').siblings().removeClass('active');
+      $('.jq-swiper').stop().animate({ left: -swiperWidth * index + 'px' }, function () {
+        console.log(index, swiperItems.length)
+        moveFlag = true;
+        console.log(moveFlag)
+        if (index >= swiperItems.length) {
+          index = 0;
+          console.log('111')
+          $('.jq-swiper').css('left', '0px');
+        }
+      })
+    })
+
+    // 自动轮播
+    function autoplay() {
+      timer = setInterval(function () {
+        next();
+      }, 2000);
+    }
+    autoplay()
+
+    // 鼠标进入 取消自动播放
+    $('.jq-swiper').on('mouseenter', function () {
+      clearInterval(timer);
+    })
+    $('.jq-swiper').on('mouseleave', function () {
       autoplay()
+    })
+  </script>
+</body>
 
-      // 鼠标进入 取消自动播放
-      $('.jq-swiper').on('mouseenter', function() {
-        clearInterval(timer);
-      })
-      $('.jq-swiper').on('mouseleave', function() {
-        autoplay()
-      })
-    </script>
-	</body>
 </html>
