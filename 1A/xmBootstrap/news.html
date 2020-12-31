@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新闻列表</title>
+  <!-- 引入jquery 使用bootstrap需要jquery -->
+  <script src="./js/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <!-- 引入bootstrap项目 css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <!-- 引入bootstrap项目 js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="./css/news.css">
+  <style>
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <!-- 顶部导航条 -->
+    <nav class="navbar navbar-expand-lg w">
+      <!-- logo -->
+      <a class="navbar-brand flex" href="#">
+        <img class="rounded d-block navbar-brand-img" src="./img/logo.png">
+        <span style="color: #fff;margin-left: 10px;">保护环境</span>
+      </a>
+
+      <!-- 导航栏内容 菜单 -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <!-- 菜单一 -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="index.html" id="navbarDropdown" role="button">
+              首页
+            </a>
+          </li>
+          <!-- 菜单二 -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button">
+              新闻列表
+            </a>
+          </li>
+          <!-- 菜单三 -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              绿色出行
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">绿色出行</a>
+            </div>
+          </li>
+          <!-- 菜单四 -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              回收资源
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">回收资源</a>
+            </div>
+          </li>
+          <!-- 菜单五 -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="login.html" id="navbarDropdown" role="button">
+              登录
+            </a>
+          </li>
+      </div>
+    </nav>
+  </div>
+
+
+  <!-- 环保展会 -->
+  <div class="com w">
+    <div class="com-title">
+      <img src="./img/comtitle.png">
+      <span>环保展会</span>
+    </div>
+    <div class="com-content">
+      <div class="com-content-item">
+        <div class="com-content-item-img">
+          <img src="./img/news1.png">
+        </div>
+        <div class="com-content-item-right">
+          <div class="com-content-item-title">2020第七届中国合肥国际环保产业展览会</div>
+          <div class="com-content-item-box">...</div>
+        </div>
+      </div>
+
+      <div class="com-content-item">
+        <div class="com-content-item-img">
+          <img src="./img/news2.jpg">
+        </div>
+        <div class="com-content-item-right">
+          <div class="com-content-item-title">疫情过后，混凝土展汇聚行业全产业链，促进交流与合作</div>
+          <div class="com-content-item-box">...</div>
+        </div>
+      </div>
+
+      <div class="com-content-item">
+        <div class="com-content-item-img">
+          <img src="./img/news3.jpg">
+        </div>
+        <div class="com-content-item-right">
+          <div class="com-content-item-title">第30届中国国际测量控制与仪器仪表展览会，逸云天诚邀品鉴！</div>
+          <div class="com-content-item-box">...</div>
+        </div>
+      </div>
+
+      <div class="com-content-item">
+        <div class="com-content-item-img">
+          <img src="./img/news4.png">
+        </div>
+        <div class="com-content-item-right">
+          <div class="com-content-item-title">院士泰斗齐聚鹭岛，厦门国际环保展12月7日即将盛大启幕</div>
+          <div class="com-content-item-box">...</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <!-- 环保热点 -->
+  <div class="news w">
+    <div class="news-title">
+      <img src="./img/newstitle.png">
+      <span>环保热点</span>
+    </div>
+    <div class="news-list">
+      <div class="news-list-item">
+        <div class="news-list-item-img">
+          <div class="news-list-item-img-tag">环保公益</div>
+          <img src="./img/news5.jpg">
+        </div>
+        <div class="news-list-item-right">
+          <div>
+            <div class="news-list-item-title">UNDP-GEF加强青海湖-祁连山景观区保</div>
+            <div class="news-list-item-content">
+              近日，在省林草局党组的领导下，由青海省林草局、祁连山国家公园青海省管理局、三江源国家公园管理局和青海湖景区保护利用管理局联合主办，由青海省林草项目服务中心（UNDP...
+            </div>
+          </div>
+          <div class="news-list-item-tag">
+            <span>阅读： 34</span>
+            <span>2020-09-29 10:58:55</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-list-item">
+        <div class="news-list-item-img">
+          <div class="news-list-item-img-tag">环保公益</div>
+          <img src="./img/news6.jpeg">
+        </div>
+        <div class="news-list-item-right">
+          <div>
+            <div class="news-list-item-title">农村安全取暖大喇叭 公益宣传片在泰</div>
+            <div class="news-list-item-content">
+              9月28日，由中国农村能源行业协会出品的《农村安全取暖大喇叭：三项八条要记牢》公益宣传片在山东泰安召开的“晋城优质无烟煤推介会暨燃料适配炉具技术与售后服务宣讲...
+            </div>
+          </div>
+          <div class="news-list-item-tag">
+            <span>阅读： 43</span>
+            <span>2020-09-21 15:34:16</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-list-item">
+        <div class="news-list-item-img">
+          <div class="news-list-item-img-tag">环保公益</div>
+          <img src="./img/news7.jpg">
+        </div>
+        <div class="news-list-item-right">
+          <div>
+            <div class="news-list-item-title">2020全国净滩公益活动日照分会场成</div>
+            <div class="news-list-item-content">
+              2020年，“疫情”席卷全球，各种自然灾害频发，让这一年注定是不平凡的一年。“健康”“自然”等，成为今年人民群众较多关注的话题，&ldquo...
+            </div>
+          </div>
+          <div class="news-list-item-tag">
+            <span>阅读： 54</span>
+            <span>2020-09-21 15:34:16</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-list-item">
+        <div class="news-list-item-img">
+          <div class="news-list-item-img-tag">环保公益</div>
+          <img src="./img/news5.jpg">
+        </div>
+        <div class="news-list-item-right">
+          <div>
+            <div class="news-list-item-title">UNDP-GEF加强青海湖-祁连山景观区保</div>
+            <div class="news-list-item-content">
+              近日，在省林草局党组的领导下，由青海省林草局、祁连山国家公园青海省管理局、三江源国家公园管理局和青海湖景区保护利用管理局联合主办，由青海省林草项目服务中心（UNDP...
+            </div>
+          </div>
+          <div class="news-list-item-tag">
+            <span>阅读： 34</span>
+            <span>2020-09-29 10:58:55</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-list-item">
+        <div class="news-list-item-img">
+          <div class="news-list-item-img-tag">环保公益</div>
+          <img src="./img/news6.jpeg">
+        </div>
+        <div class="news-list-item-right">
+          <div>
+            <div class="news-list-item-title">农村安全取暖大喇叭 公益宣传片在泰</div>
+            <div class="news-list-item-content">
+              9月28日，由中国农村能源行业协会出品的《农村安全取暖大喇叭：三项八条要记牢》公益宣传片在山东泰安召开的“晋城优质无烟煤推介会暨燃料适配炉具技术与售后服务宣讲...
+            </div>
+          </div>
+          <div class="news-list-item-tag">
+            <span>阅读： 43</span>
+            <span>2020-09-21 15:34:16</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-list-item">
+        <div class="news-list-item-img">
+          <div class="news-list-item-img-tag">环保公益</div>
+          <img src="./img/news7.jpg">
+        </div>
+        <div class="news-list-item-right">
+          <div>
+            <div class="news-list-item-title">2020全国净滩公益活动日照分会场成</div>
+            <div class="news-list-item-content">
+              2020年，“疫情”席卷全球，各种自然灾害频发，让这一年注定是不平凡的一年。“健康”“自然”等，成为今年人民群众较多关注的话题，&ldquo...
+            </div>
+          </div>
+          <div class="news-list-item-tag">
+            <span>阅读： 54</span>
+            <span>2020-09-21 15:34:16</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <!-- 底部 -->
+  <div class="footer">
+    <div class="footer-box w">
+      <div class="footer-box-list">
+        <!-- 友情链接 -->
+        <div class="footer-box-list-item">
+          <h4>关于我们</h4>
+          <div>保护环境</div>
+          <div>保护环境</div>
+          <div>保护环境</div>
+          <div>保护环境</div>
+          <div>保护环境</div>
+        </div>
+        <div class="footer-box-list-item">
+          <h4>关于我们</h4>
+          <div>保护环境</div>
+          <div>保护环境</div>
+          <div>保护环境</div>
+          <div>保护环境</div>
+          <div>保护环境</div>
+        </div>
+        <div class="footer-box-list-item">
+          <h4>关于我们</h4>
+          <div>保护环境</div>
+          <div>保护环境</div>
+          <div>保护环境</div>
+          <div>保护环境</div>
+          <div>保护环境</div>
+        </div>
+        <div class="footer-box-list-item">
+          <h4>关于我们</h4>
+          <div>保护环境</div>
+          <div>保护环境</div>
+          <div>保护环境</div>
+          <div>保护环境</div>
+          <div>保护环境</div>
+        </div>
+      </div>
+
+
+      <div class="footer-beian">
+        环保网-爱护环境
+        Copyright © 2010-2020 16sucai.com 鄂ICP备19029494号
+      </div>
+    </div>
+  </div>
+
+  <!-- <script src="./js/index.js"></script> -->
+</body>
+
+</html>
