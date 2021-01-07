@@ -17,6 +17,20 @@ function onMouseScroll(e) {
   }
 }
 
+<<<<<<< HEAD
+=======
+// 移动端头部下拉
+$('.header-menu').on('click', function() {
+  var navFlag = $('.header-m-nav').css('display');
+  console.log(navFlag)
+  if (navFlag == 'none') {
+    $('.header-m-nav').show();
+  } else {
+    $('.header-m-nav').hide();
+  }
+})
+
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
 // 侧边固定小按钮事件
 $('.slider1-item').on('mouseenter', function () {
   $(this).css({
@@ -45,7 +59,24 @@ $('.slider2-item.back').on('click', function () {
   $('body,html').animate({ scrollTop: 0 });
 })
 
+<<<<<<< HEAD
 
+=======
+let bodyWidth = document.querySelector('body').clientWidth;
+console.log(bodyWidth);
+if (bodyWidth < 554) {
+  $('.banner').css({
+    height: '111px',
+    marginTop: '50px',
+  })
+  $('.banner h2').css({
+    fontSize: '16px',
+    marginTop: '30px',
+    height: '118px',
+    lineHeight: '118px'
+  })
+}
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
 // 轮播图
 let swiperItems = document.querySelectorAll('.jq-swiper-item');
 let swiperWidth = document.querySelector('.jq-swiper-box').clientWidth;
@@ -63,7 +94,12 @@ $('.jq-swiper').css('left', -swiperWidth + 'px');
 let moveFlag = true;
 let index = 1;
 $('.jq-swiper-cricle-item').eq(index - 1).addClass('active').siblings().removeClass('active');
+<<<<<<< HEAD
 $('.jq-swiper-prev').on('click', function () {
+=======
+$('.jq-swiper-prev').on('click', prev)
+function prev() {
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
   if (!moveFlag) {
     return false;
   }
@@ -83,7 +119,11 @@ $('.jq-swiper-prev').on('click', function () {
     animRemove(index);
     animAdd(index);
   })
+<<<<<<< HEAD
 })
+=======
+}
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
 // 下一张
 $('.jq-swiper-next').on('click', next);
 function next() {
@@ -152,6 +192,38 @@ function animRemove(idx) {
   $('.jq-swiper-item .a3').find('h3').removeClass('fadeInRight')
   $('.jq-swiper-item .a3').find('h4').removeClass('fadeInUp')
 }
+<<<<<<< HEAD
+=======
+
+// jquery移动轮播
+var startX=0,moveX=0,swiperLeft=0;
+$('.jq-swiper').on('touchstart', function(e) {
+  // console.log(e.targetTouches[0]);
+  startX = e.targetTouches[0].screenX;
+  console.log(startX);
+  swiperLeft = Number($(this).css('left').slice(0, $(this).css('left').length - 2));
+  console.log(swiperLeft);
+})
+$('.jq-swiper').on('touchmove', function(e) {
+  // console.log(e.targetTouches[0]);
+  moveX = startX - e.targetTouches[0].screenX;
+  console.log(moveX);
+  $(this).css({left: -moveX + swiperLeft + 'px'})
+})
+$('.jq-swiper').on('touchend', function(e) {
+  // console.log(e.targetTouches[0]);
+  // console.log(e.targetTouches[0].screenX);
+  if (moveX>0) {
+    // 向左滑
+    console.log('向左滑')
+    next();
+  } else {
+    // 向右滑
+    console.log('向右滑')
+    prev();
+  }
+})
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
 // 自动轮播
 // function autoplay() {
 //   timer = setInterval(function () {
