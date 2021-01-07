@@ -56,6 +56,10 @@ index.js：
   }).$mount('#app');
 
 
+antd table
+:rowKey="record => record.categoryid"
+record.categoryid  categoryid 必须是data数据中有得值
+
 
 
 admin 创建管理员表
@@ -82,4 +86,11 @@ tag 标签表
   tagid int auto_increment primary key not null,
   createTime datetime default current_timestamp comment '创建时间',
   updateTime datetime default current_timestamp on update current_timestamp comment '更新时间'
+);
+
+swiper 轮播图表
+create table swiper(
+  swiperid int auto_increment primary key,
+  src mediumtext not null,
+  createTime datetime default current_timestamp comment '创建时间'
 );

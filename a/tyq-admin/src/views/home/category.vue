@@ -9,14 +9,28 @@
     </h1>
 
     <!-- 分类列表 -->
-    <a-table rowkey={record=> record.id}
+    <!-- :rowKey="record => record.categoryid" -->
+    <a-table
+      :rowKey="(record, index) => index"
       :columns="columnList"
       :data-source="categoryList"
-      >
+    >
       <a
         slot="text"
-        slot-scope="item"
-      >{{ item }}</a>
+        slot-scope="text"
+      >{{ text }}</a>
+      <a
+        slot="createTime"
+        slot-scope="createTime"
+      >{{ toymd(createTime, 'yy-mm-dd hh:mm:ss') }}</a>
+      <a-button
+        class="editable-add-btn"
+        slot="make"
+        slot-scope="text, record"
+        @click="() => handleClickDelCategory(record)"
+      >
+        删除
+      </a-button>
     </a-table>
 
     <!-- 添加分类 弹出框 -->
@@ -43,13 +57,19 @@ export default {
       columnList: [
         {
           dataIndex: "text",
-          key: "name",
+          key: "text",
           title: "名称"
         },
         {
           dataIndex: "createTime",
-          key: "time",
-          title: "创建时间"
+          key: "createTime",
+          title: "创建时间",
+          scopedSlots: { customRender: "createTime" }
+        },
+        {
+          dataIndex: "make",
+          title: "操作",
+          scopedSlots: { customRender: "make" }
         }
       ]
     };
@@ -57,6 +77,12 @@ export default {
   created() {
     const _self = this;
     _self.handleGetCategory();
+  },
+  watch: {
+    visible() {
+      const _self = this;
+      _self.text = "";
+    }
   },
   methods: {
     // 获取分类列表
@@ -79,6 +105,33 @@ export default {
           _self.visible = false;
           _self.$message.success(res.data.msg, 2);
           _self.handleGetCategory();
+        }
+      });
+    },
+    // 删除分类
+    handleClickDelCategory(item) {
+      const _self = this;
+      // console.log(item);
+      _self.$confirm({
+        title: "删除",
+        content: `您确定要删除 '${item.text}' 吗?`,
+        okText: "确定",
+        okType: "danger",
+        cancelText: "取消",
+        onOk() {
+          console.log("OK");
+          _self.$http
+            .get(`/delCategory?categoryid=${item.categoryid}`)
+            .then(res => {
+              console.log(res);
+              if (res.data.res.protocol41) {
+                _self.$message.success(`删除 '${item.text}' 成功`, 2);
+                _self.handleGetCategory();
+              }
+            });
+        },
+        onCancel() {
+          console.log("Cancel");
         }
       });
     }

@@ -65,6 +65,30 @@ export default {
             icon: "",
             text: "标签"
           }
+        },
+        {
+          name: "swiper",
+          path: "/home/swiper",
+          meta: {
+            icon: "",
+            text: "轮播图"
+          }
+        },
+        {
+          name: "article",
+          path: "/home/article",
+          meta: {
+            icon: "",
+            text: "文章列表"
+          }
+        },
+        {
+          name: "user",
+          path: "/home/user",
+          meta: {
+            icon: "",
+            text: "用户列表"
+          }
         }
       ]
     };

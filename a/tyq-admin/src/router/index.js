@@ -47,6 +47,21 @@ const routes = [
         name: 'tag',
         component: load('home/tag'),
       },
+      {
+        path: '/home/swiper',
+        name: 'swiper',
+        component: load('home/swiper'),
+      },
+      {
+        path: '/home/article',
+        name: 'article',
+        component: load('home/article'),
+      },
+      {
+        path: '/home/user',
+        name: 'user',
+        component: load('home/user'),
+      },
     ]
   },
   {

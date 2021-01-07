@@ -29,4 +29,7 @@
   -khtml-user-select: none !important; /*早期浏览器*/
   user-select: none !important;
 }
+.ant-table-title {
+  display: none !important;
+}
 </style>

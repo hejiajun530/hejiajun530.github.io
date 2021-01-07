@@ -227,7 +227,56 @@ module.exports = app => {
   router.get('/delTag', auth, async (req, res) => {
     const query = req.query
     console.log(query);
-    let delSql = `delete from tag where tagid = ${query.categoryid}`
+    let delSql = `delete from tag where tagid = ${query.tagid}`
+    cnt.query(delSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '删除成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
+  // 添加轮播图
+  router.post('/addSwiper', auth, async (req, res) => {
+    const body = req.body
+    console.log(body);
+    let addSql = `insert into swiper(src) values(?)`
+    let addSqlParams = [body.src]
+    cnt.query(addSql, addSqlParams, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '添加成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
+  // 获取轮播图
+  router.get('/getSwiper', auth, async (req, res) => {
+    const query = req.query
+    console.log(query);
+    let getSql = `select * from swiper`
+    cnt.query(getSql, function (err, result) {
+      if (err) return res.send(err);
+      var resultObj = {
+        flag: true,
+        msg: '获取成功!',
+        res: result
+      }
+      res.send(resultObj)
+    })
+  })
+
+  // 删除轮播图
+  router.get('/delSwiper', auth, async (req, res) => {
+    const query = req.query
+    console.log(query);
+    let delSql = `delete from swiper where swiperid = ${query.swiperid}`
     cnt.query(delSql, function (err, result) {
       if (err) return res.send(err);
       var resultObj = {
@@ -282,7 +331,7 @@ module.exports = app => {
   router.post('/getUserList', async (req, res) => {
     const body = req.body
     console.log(body);
-    let selectSql = `select *,(select count(*) from user where userid != 3 and userid != ${body.userid}) as 'total',(select count(*) from article where article.userid = user.userid) as 'articleNum' from user where userid != 3 and userid != ${body.userid} order by createTime desc limit ${(body.page - 1) * body.num}, ${body.num}`
+    let selectSql = `select *,(select count(*) from user where userid != 3) as 'total' from user where userid != 3 limit ${(body.page - 1) * body.num}, ${body.num}`
     cnt.query(selectSql, function (err, result) {
       if (err) return res.send(err);
       var resultObj = {
