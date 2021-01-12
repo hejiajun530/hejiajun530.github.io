@@ -39,7 +39,7 @@ export default {
   props: {
     menus: {
       type: Array
-    }
+    },
   },
   data() {
     return {};
