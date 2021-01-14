@@ -1,5 +1,6 @@
 <template>
   <div class="articledetail text-left">
+    <breadcrumb></breadcrumb>
     <div class="articledetail-title">
       <strong>您当前的位置：</strong><i>首页</i><span>&gt;</span><i>文章详情</i>
     </div>
@@ -95,10 +96,12 @@
 <script>
 import comment from './comment/comment';
 import ewm from '@/components/ewm/index';
+import breadcrumb from '@/components/breadcrumb/index';
 export default {
   components: {
     comment,
-    ewm
+    ewm,
+    breadcrumb
   },
   data() {
     return {
