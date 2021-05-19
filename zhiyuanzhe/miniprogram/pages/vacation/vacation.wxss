@@ -123,12 +123,16 @@ image {
     z-index: 2;
 }
 
+.van-circle {
+    position: relative;
+}
+
 .circle-start {
     position: absolute;
-    top: 23rpx;
-    left: 107rpx;
-    width: 22rpx;
-    height: 22rpx;
+    top: -79rpx;
+    left: 69rpx;
+    width: 23rpx;
+    height: 23rpx;
     border: 2rpx solid #f7b38e;
     border-radius: 50%;
     background: #fff;
@@ -137,10 +141,10 @@ image {
 
 .circle-start0 {
     position: absolute;
-    top: 23rpx;
-    left: 107rpx;
-    width: 22rpx;
-    height: 22rpx;
+    top: -81rpx;
+    left: 68rpx;
+    width: 25rpx;
+    height: 24rpx;
     border: 2rpx solid #878c90;
     border-radius: 50%;
     background: #686463;

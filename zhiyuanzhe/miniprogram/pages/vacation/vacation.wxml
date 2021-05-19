@@ -22,9 +22,10 @@
                 </view>
             </view>
             <view class="list-echarts">
-                <van-circle value="{{ item.value }}" color="{{ item.gradientColor }}" text="" stroke-width="10" size="80"/>
+                <van-circle class="van-circle" value="{{ item.value }}" color="{{ item.gradientColor }}" text="" stroke-width="10" size="80">
+                    <view class="{{item.status == 1? 'circle-start' : 'circle-start0'}}"></view>
+                </van-circle>
                 <text class="{{item.status == 1 ? 'text-1' : 'text-0'}}">{{item.status == 1 ? '假期中' : '已销假'}}</text>
-                <view class="{{item.status == 1? 'circle-start' : 'circle-start0'}}"></view>
             </view>
         </view>
 
