@@ -19,11 +19,11 @@ const routes = [
     path: '/',
     redirect: '/home'
   },
-  // {
-  //   path: '/error',
-  //   name: 'error',
-  //   component: load('error'),
-  // },
+  {
+    path: '/error',
+    name: 'error',
+    component: load('error'),
+  },
   {
     path: '/home',
     name: 'home',
@@ -36,7 +36,32 @@ const routes = [
         path: '/home/index',
         name: 'homeIndex',
         component: load('home/index'),
-      }
+      },
+      {
+        path: '/home/category',
+        name: 'category',
+        component: load('home/category'),
+      },
+      {
+        path: '/home/tag',
+        name: 'tag',
+        component: load('home/tag'),
+      },
+      {
+        path: '/home/swiper',
+        name: 'swiper',
+        component: load('home/swiper'),
+      },
+      {
+        path: '/home/article',
+        name: 'article',
+        component: load('home/article'),
+      },
+      {
+        path: '/home/user',
+        name: 'user',
+        component: load('home/user'),
+      },
     ]
   },
   {
@@ -44,10 +69,10 @@ const routes = [
     name: 'login',
     component: load('login'),
   },
-  // {
-  //   path: '*',
-  //   redirect: '/error'
-  // },
+  {
+    path: '*',
+    redirect: '/error'
+  },
 ];
 
 let router = new VueRouter({
@@ -56,62 +81,11 @@ let router = new VueRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.path.indexOf('/login') == -1 && !sessionStorage.tyqAdminToken) {
-//     console.log(to, from);
-//     next({ path: '/login' });
-//   }
-//   next();
-// })
-function fillRoutes(rout) {
-  // console.log(rout);
-  let newRoutes = [];
-  rout.forEach((item, index) => {
-    console.log(item)
-    item.component = load(item.component);
-    newRoutes.push(item);
-    if (item.children && item.children.length) {
-      item.children = fillRoutes(item.children);
-    }
-  })
-  console.log(newRoutes)
-  return newRoutes;
-}
-// 路由拦截器
 router.beforeEach((to, from, next) => {
   if (to.path.indexOf('/login') == -1 && !sessionStorage.tyqAdminToken) {
     console.log(to, from);
     next({ path: '/login' });
   }
-  // if (to.path.indexOf('/login') == -1) {
-  let r = JSON.parse(sessionStorage.getItem('routes'));
-  console.log(r);
-  if (r) {
-    // let newR = fillRoutes(r);
-    // // newR = newR ? [...newR, ...routes] : routes;
-    // console.log(newR);
-    // router.addRoutes(newR);
-    // console.log(router)
-    // router.options.routes = routes.concat([{
-    //   path: '/category',
-    //   name: '',
-    //   component: () => import('@/views/home/category')
-    // }, {
-    //   path: '*',
-    //   redirect: '/error'
-    // }]);
-    // router.addRoutes([{
-    //   path: '/category',
-    //   name: '',
-    //   component: () => import('@/views/home/category')
-    // }, {
-    //     path: '*',
-    //     redirect: '/error'
-    // }])
-    // console.log(router.options.routes);
-    // next();
-  }
-  // }
   next();
 })
 

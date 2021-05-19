@@ -46,69 +46,55 @@ export default {
           path: "/home/index",
           meta: {
             icon: "",
-            text: "首页"
+            text: "权限设置",
+            role: "superadmin"
           }
         },
         {
-          name: "admin",
-          path: "/admin",
+          name: "category",
+          path: "/home/category",
           meta: {
             icon: "",
-            text: "管理员"
-          },
-          children: [
-            {
-              name: "list",
-              path: "/list",
-              meta: {
-                icon: "",
-                text: "列表"
-              },
-              children: [
-                {
-                  name: "test",
-                  path: "/test",
-                  meta: {
-                    icon: "",
-                    text: "测试"
-                  }
-                }
-              ]
-            }
-          ]
+            text: "分类"
+          }
+        },
+        {
+          name: "tag",
+          path: "/home/tag",
+          meta: {
+            icon: "",
+            text: "标签"
+          }
+        },
+        {
+          name: "swiper",
+          path: "/home/swiper",
+          meta: {
+            icon: "",
+            text: "轮播图"
+          }
+        },
+        {
+          name: "article",
+          path: "/home/article",
+          meta: {
+            icon: "",
+            text: "文章列表"
+          }
+        },
+        {
+          name: "user",
+          path: "/home/user",
+          meta: {
+            icon: "",
+            text: "用户列表"
+          }
         }
       ]
     };
   },
   created() {
     const _self = this;
-    // console.log(_self.$router.options.routes);
-    // let list = [
-    //   {
-    //     name: "category",
-    //     path: "/home/category",
-    //     // component: "category",
-    //     meta: {
-    //       icon: "",
-    //       text: "分页"
-    //     }
-    //   },
-    //   {
-    //     path: "*",
-    //     redirect: "/error",
-    //     meta: {
-    //       icon: "",
-    //       text: "分页"
-    //     }
-    //   }
-    // ];
-    // _self.$router.addRoutes([...list]);
-    // sessionStorage.setItem("routes", JSON.stringify(list));
-    // let list = JSON.parse(sessionStorage.getItem("routes"));
-    // if (list) {
-    //   _self.menus = [..._self.menus, ...list];
-    // }
-    console.log(_self.$router);
   }
 };
 </script>

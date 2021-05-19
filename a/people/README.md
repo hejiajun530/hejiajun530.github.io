@@ -32,7 +32,7 @@ create table user (
   username varchar(50) not null unique,
   password varchar(50) not null,
   email varchar(50) null,
-  role varchar(10) null,
+  role varchar(10) null,//是否被禁用
   tips varchar(150) null,
   createTime datetime default current_timestamp comment '创建时间',
   updateTime datetime default current_timestamp on update current_timestamp comment '更新时间'

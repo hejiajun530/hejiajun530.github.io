@@ -30,11 +30,10 @@ $('.loginBtn').on('click', function () {
     $('.errmsg').text('密码长度为5-10位!');
     return false;
   }
-  if (username != 'admin' || password !== 'admin') {
+  if (username != 'admin' && password != 'admin') {
     $('.errmsg').text('用户名或密码不正确!');
     return false;
   }
-  // console.log(username, password);
   window.location.href = "index.html";
   $('.errmsg').text('');
 })

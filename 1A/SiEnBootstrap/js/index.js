@@ -17,6 +17,8 @@ function onMouseScroll(e) {
   }
 }
 
+<<<<<<< HEAD
+=======
 // 移动端头部下拉
 $('.header-menu').on('click', function() {
   var navFlag = $('.header-m-nav').css('display');
@@ -28,6 +30,7 @@ $('.header-menu').on('click', function() {
   }
 })
 
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
 // 侧边固定小按钮事件
 $('.slider1-item').on('mouseenter', function () {
   $(this).css({
@@ -56,6 +59,9 @@ $('.slider2-item.back').on('click', function () {
   $('body,html').animate({ scrollTop: 0 });
 })
 
+<<<<<<< HEAD
+
+=======
 let bodyWidth = document.querySelector('body').clientWidth;
 console.log(bodyWidth);
 if (bodyWidth < 554) {
@@ -70,6 +76,7 @@ if (bodyWidth < 554) {
     lineHeight: '118px'
   })
 }
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
 // 轮播图
 let swiperItems = document.querySelectorAll('.jq-swiper-item');
 let swiperWidth = document.querySelector('.jq-swiper-box').clientWidth;
@@ -87,8 +94,12 @@ $('.jq-swiper').css('left', -swiperWidth + 'px');
 let moveFlag = true;
 let index = 1;
 $('.jq-swiper-cricle-item').eq(index - 1).addClass('active').siblings().removeClass('active');
+<<<<<<< HEAD
+$('.jq-swiper-prev').on('click', function () {
+=======
 $('.jq-swiper-prev').on('click', prev)
 function prev() {
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
   if (!moveFlag) {
     return false;
   }
@@ -108,7 +119,11 @@ function prev() {
     animRemove(index);
     animAdd(index);
   })
+<<<<<<< HEAD
+})
+=======
 }
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
 // 下一张
 $('.jq-swiper-next').on('click', next);
 function next() {
@@ -177,6 +192,8 @@ function animRemove(idx) {
   $('.jq-swiper-item .a3').find('h3').removeClass('fadeInRight')
   $('.jq-swiper-item .a3').find('h4').removeClass('fadeInUp')
 }
+<<<<<<< HEAD
+=======
 
 // jquery移动轮播
 var startX=0,moveX=0,swiperLeft=0;
@@ -206,6 +223,7 @@ $('.jq-swiper').on('touchend', function(e) {
     prev();
   }
 })
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
 // 自动轮播
 // function autoplay() {
 //   timer = setInterval(function () {

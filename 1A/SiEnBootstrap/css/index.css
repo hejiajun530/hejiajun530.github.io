@@ -165,6 +165,8 @@ a {
   color: #e4392a;
   font-size: 18px;;
 }
+<<<<<<< HEAD
+=======
 .header-m {
   position: fixed;
   top: 0;
@@ -217,6 +219,7 @@ a {
   font-size: 14px;
   border-bottom: 1px solid #fff;
 }
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
 
 
 
@@ -531,6 +534,19 @@ a {
   color: #e4392a;
 }
 .serve-list {
+<<<<<<< HEAD
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.serve-list-item {
+  position: relative;
+  width: 25%;
+  text-align: center;
+  padding: 0 40px 70px 40px;
+  margin-bottom: 55px;
+=======
   /* display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -542,6 +558,7 @@ a {
   text-align: center;
   padding: 0 40px;
   margin-bottom: 45px;
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
   overflow: hidden;
 }
 .serve-list-item a {
@@ -614,7 +631,11 @@ a {
 
 /* 思恩案例 */
 .exmp {
+<<<<<<< HEAD
+  height: 760px;
+=======
   /* height: 760px; */
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
   background: url(../img/bg_1.png) center top no-repeat;
   padding-top: 20px;
 }
@@ -639,6 +660,16 @@ a {
   color: #e4392a;
 }
 .exmp-list {
+<<<<<<< HEAD
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.exmp-list-item {
+  width: 25%;
+  padding: 0 15px;
+=======
   /* display: flex;
   justify-content: space-between;
   align-items: center;
@@ -647,6 +678,7 @@ a {
 .exmp-list-item {
   /* width: 25%; */
   padding: 0 10px;
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
   margin-bottom: 30px;
   overflow: hidden;
 }
@@ -702,6 +734,11 @@ a {
 
 /* 思恩动态 */
 .done {
+<<<<<<< HEAD
+  height: 675px;
+  background: url(../img/bg_2.png) center top no-repeat;
+  padding-top: 20px;
+=======
   /* height: 675px; */
   background: url(../img/bg_2.png) center top no-repeat;
   padding-top: 20px;
@@ -716,6 +753,7 @@ a {
   height: 100%;
   background: #16182c;
   z-index: -1;
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
 }
 .done-title {
   text-align: center;
@@ -738,18 +776,29 @@ a {
   color: #e4392a;
 }
 .done-list {
+<<<<<<< HEAD
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+=======
   /* display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap; */
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
 }
 .done-list-item {
   position: relative;
   width: 24.5%;
   color: #fff;
   position: relative;
+<<<<<<< HEAD
+  height: 295px;
+=======
   height: 300px;
   margin-top: 10px;
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
   overflow: hidden;
   cursor: pointer;
 }
@@ -809,7 +858,11 @@ a {
 	background-color: #000022;
 }
 .done-btn {
+<<<<<<< HEAD
+  margin: 70px auto 0 auto;
+=======
   margin: 55px auto 0 auto;
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
   width: 178px;
   height: 48px;
   border: 1px solid #fff;
@@ -825,7 +878,11 @@ a {
 
 /* 联系我们 */
 .call {
+<<<<<<< HEAD
+  height: 417px;
+=======
   /* height: 417px; */
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
   padding-top: 20px;
   margin-bottom: 50px;
 }
@@ -879,6 +936,10 @@ a {
 	background-position: 0 -184px;
 }
 .call-content-right-title input {
+<<<<<<< HEAD
+  width: 49%;
+=======
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
   border: 1px solid #6d6d88;
   height: 33px;
   padding: 0 10px;
@@ -938,10 +999,17 @@ a {
   color: #A8A8AF;
 }
 .footer-copy {
+<<<<<<< HEAD
+	height: 40px;
+	line-height: 40px;
+	color: #a3a3a9;
+	background-color: #000022;
+=======
   padding: 15px 0;
 	color: #a3a3a9;
 	background-color: #000022;
 }
 .footer-copy p {
   margin: 0;
+>>>>>>> 7c99d345e4f03e3c4cf806228ca41790a7ae5772
 }
