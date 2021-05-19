@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="https://duimianimg.loovee.com/lib/h5Console/debugLog.js"></script>
+</head>
+<body>
+
+    11111
+    <button onclick="openWx()">openWx</button>
+</body>
+<script>
+    console.log(11)
+    function openWx(){
+        console.log(11, navigator.userAgent)
+
+locatUrl = "weixin://";
+
+if(/ipad|iphone|mac/i.test(navigator.userAgent)) {
+
+var ifr =document.createElement("iframe");
+
+ifr.src = locatUrl;
+
+ifr.style.display = "none";
+
+document.body.appendChild(ifr);
+
+}else{
+
+window.location.href = locatUrl;
+
+}
+
+}
+</script>
+</html>

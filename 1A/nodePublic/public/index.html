@@ -1,478 +1,622 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>思恩科技</title>
-  <!-- 引入jquery 使用bootstrap需要jquery -->
-  <script src="./js/jquery-3.4.1.min.js"></script>
-  <script src="./js/popper.min.js"></script>
-  <!-- 引入bootstrap项目 css -->
-  <link rel="stylesheet" href="./css/bootstrap.min.css">
-  <!-- 引入bootstrap项目 js -->
-  <script src="./js/bootstrap.min.js"></script>
+    <title>邀请好友</title>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no, email=no, adress=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="https://duimianimg.loovee.com/lib/minireset.css/0.0.2/minireset.min.css" rel="stylesheet">
+    <script>
+        // 屏幕适配
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    var clientHeight = docEl.clientHeight;
+                    if (!clientWidth) return;
+                    clientWidth = clientWidth >= 750 ? 750 : clientWidth;
+                    var rem = clientWidth / 10;
+                    docEl.style.fontSize = rem + 'px';
+                    var dpr = parseInt(window.devicePixelRatio);
+                    docEl.setAttribute('dpr', dpr);
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
 
-  <link rel="stylesheet" href="./css/index.css">
+            // 解决个别浏览器不支持meta标签设置, 阻止手势和快速点击缩放的功能
+            doc.addEventListener('touchstart', function (e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            });
+            var lastTouchEnd = 0;
+            doc.addEventListener('touchend', function (e) {
+                var now = +(new Date());
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+
+            // 禁用浏览器长按出现菜单弹框
+            doc.addEventListener('contextmenu', function (e) {
+                e.preventDefault();
+            });
+        })(document, window);
+    </script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            -webkit-tap-highlight-color: transparent;
+            /* background-color: #FF4653; */
+            background-color: #FFA1D6;
+        }
+
+        .wrap {
+            width: 100%;
+            min-height: 100%;
+            max-width: 750px;
+            min-width: 320px;
+            margin: 0 auto;
+            padding-bottom: 0.4000rem;
+            box-sizing: border-box;
+            background: url('./bg.png') no-repeat;
+            background-size: 100% auto;
+        }
+
+        /*广播S*/
+        .broadcast-wrap {
+            width: 9.2000rem;
+            height: 0.8533rem;
+            line-height: 0.8533rem;
+            background: #EB3434;
+            border-radius: 20px;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0.1333rem;
+            margin: auto;
+        }
+
+        .broadcast {
+            width: 0.8000rem;
+            height: 0.8533rem;
+            background-image: url("<?= base_url('img/client/mentor_ship/cash/yaoqing_icon_tongzhi.png')?>");
+            background-size: 0.5333rem 0.5333rem;
+            background-repeat: no-repeat;
+            position: absolute;
+            left: 0.2rem;
+            top: 0.16rem;
+        }
+
+        .broadcast-ul li {
+            width: 100%;
+            height: 0.8533rem;
+            line-height: 0.8533rem;
+            font-size: 0.4000rem;
+            color: #FFF;
+            letter-spacing: 0.0107rem;
+            padding: 0 0.2667rem 0 0.9333rem;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .broadcast-ul li span {
+            font-size: 0.4000rem;
+        }
+
+        /*广播E*/
+        .banner {
+            margin-top: 0.6667rem;
+        }
+
+        .my-info {
+            width: 8.5600rem;
+            height: 1.0667rem;
+            line-height: 1.0667rem;
+            background-color: #FFF;
+            border-radius: 50px;
+            position: relative;
+            text-align: center;
+            margin: 0 auto 0.6400rem;
+        }
+
+        .my-info i {
+            width: 1.3333rem;
+            height: 1.3333rem;
+            position: absolute;
+            left: -0.1333rem;
+            bottom: 0;
+            border: 1px solid #fff;
+            border-radius: 50%;
+        }
+
+        .my-info-desc {
+            font-size: 0.4000rem;
+            color: #333;
+        }
+
+        .red {
+            font-size: 0.4000rem;
+            color: #ff1f1f;
+        }
+
+        .content {
+            width: 9.2000rem;
+            height: 9.3067rem;
+            background: #FFF;
+            border-radius: 9px;
+            margin: 0 auto;
+        }
+
+        .content-icon {
+            width: 7.0933rem;
+            height: 6.8000rem;
+            margin: 0 auto;
+            background-image: url("<?= base_url('img/client/mentor_ship/cash/pic_hongbao@2x.png')?>");
+            position: relative;
+        }
+
+        .rmb-box {
+            position: absolute;
+            text-align: center;
+            width: 3.6267rem;
+            top: 3.7600rem;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        .rmb {
+            font-size: 0.9067rem;
+            color: #FEF157;
+            letter-spacing: 0.0427rem;
+        }
+
+        .rmb-desc {
+            font-size: 0.4533rem;
+            color: #FEF157;
+        }
+
+        .download {
+            width: 8.1600rem;
+            height: 1.1733rem;
+            line-height: 1.1733rem;
+            margin: -0.1333rem auto 0.2667rem;
+            background: #FFE129;
+            border-radius: 7px;
+            font-size: 0.4800rem;
+            color: #4A4A4A;
+            letter-spacing: 0.0200rem;
+            text-align: center;
+        }
+
+        .download-desc {
+            text-align: center;
+        }
+
+        .download-desc p {
+            font-size: 0.3200rem;
+            color: #9B9B9B;
+        }
+
+    </style>
+    <style>
+        body {
+            /* background: #fe5251; */
+            background: #FFA1D6;
+        }
+
+        .banner_bg {
+            /*position: relative;*/
+            width: 10rem;
+            /* height: 17.4rem; */
+            height: 19.4rem;
+            /*height: auto;*/
+            /*margin-bottom: 0.8rem;*/
+            padding-top: 9.33rem;
+            background: url("<?= base_url('img/client/mentor_ship/bg.png')?>") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .header_banner {
+            position: absolute;
+            width: 8.96rem;
+            height: 5.16rem;
+            top: 1.45333333rem;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            background: url("<?= base_url('img/client/mentor_ship/toububiaoti.png')?>") no-repeat;
+            background-size: 100%;
+        }
+
+        .show_box {
+            margin: 0 auto;
+            width: 9.2rem;
+            /* background: #FFFFFF; */
+            border-radius: 0.26666667rem;
+            padding-top: 1.28rem;
+            padding-bottom: .4rem;
+            z-index: 2;
+        }
+
+        .user_box {
+            display: flex;
+            /* justify-content: space-between; */
+            justify-content: flex-start;
+            margin: 0 auto;
+            width: 8rem;
+            height: 2.26666667rem;
+            /*line-height: 2.26666667rem;*/
+            /* background: #FFEFEF; */
+            border-radius: 0.26666667rem;
+            padding-top: 0.03rem;
+        }
+
+        .user_avart {
+            display: inline-block;
+            float: left;
+            width: 1.72rem;
+            height: 1.72rem;
+            border: 0.01333333rem solid #f5f5f5;
+            border-radius: 100%;
+            margin-top: 0.26666667rem;
+            margin-left: 0.27333rem;
+            margin-right: 0.1rem;
+        }
+
+        .user_info {
+            display: inline-block;
+            margin-top: 0.52rem;
+            /* margin-left: 0.26666667rem; */
+            line-height: 0.6rem;
+        }
+
+        .user_name {
+            font-size: 0.50666667rem;
+            color: #303030;
+            letter-spacing: 0;
+        }
+
+        .show_box_msg {
+            font-size: 0.37333333rem;
+            color: #686868;
+            letter-spacing: 0;
+            line-height: 0.70666667rem;
+        }
+
+        .user_name > span {
+            float: left;
+            max-width: 3.3rem;
+            font-size: 0.50666667rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            vertical-align: top;
+        }
+
+        .bg_coin {
+            /*position: absolute;*/
+            top: 6.4rem;
+            left: 0;
+            margin-top: -8.4rem;
+            width: 9.69333333rem;
+            height: 6.14666667rem;
+            background: url("<?= base_url('img/client/mentor_ship/coin.png')?>") no-repeat;
+            background-size: 100%;
+        }
+
+        .code_box {
+            margin: 0 auto;
+            width: 9.2rem;
+            border-radius: 0.26666667rem;
+            font-size: 0;
+            overflow: hidden;
+        }
+
+        .code_box .Qcode {
+            /* width: 2.6rem;
+            height: 2.6rem; */
+            width: 3.6rem;
+            height: 3.6rem;
+            /* margin-top: 0.4rem;
+            margin-left: 1.32rem; */
+            margin: 0.4rem auto 0;
+            display: block;
+        }
+
+        .code_box .code_title {
+            margin-top: 0.59333333rem;
+            margin-left: 0.26666667rem;
+            width: 3.90666667rem;
+            height: 2.30666667rem;
+            background: url("<?= base_url('img/client/mentor_ship/xiazaiapp.png')?>") no-repeat;
+            background-size: 100%;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .zc_code {
+            font-size: .4rem;
+            color: #303030;
+            margin: .32rem auto;
+            text-align: center;
+        }
+        .zc_code span{
+            text-decoration: underline;
+        }
+
+        .get_btn {
+            position: fixed;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0 auto;
+            width: 8rem;
+            height: 1.17333333rem;
+            background: #F2F2F2;
+            background-image: linear-gradient(90deg, #ff8b33 4%, #ff4529 100%);
+            border-radius: 1.33333333rem;
+            font-size: 0.45333333rem;
+            color: #FFFFFF;
+            letter-spacing: 0.00693333rem;
+            text-align: center;
+            line-height: 1.17333333rem;
+            font-weight: 700;
+            z-index: 100;
+        }
+
+        .ad_box {
+            margin: 0.3rem auto 0;
+            /* margin-top: -1.2rem; */
+            /* width: 9.2rem; */
+            width: 6.9rem;
+            height: 11.6rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            align-content: flex-start;
+        }
+
+        .ad_box .ad_item_box {
+            position: relative;
+            /* float: left; */
+            /* margin-right: 0.4rem; */
+            /* width: 4.4rem; */
+            width: 2.8rem;
+            /* height: 5.01333333rem; */
+            height: 3.98rem;
+            /* background: #FFFFFF; */
+            border-radius: 0.13333333rem;
+        }
+
+        .ad_item_box:nth-child(2n) {
+            margin-right: 0;
+        }
+
+        .ad_box .ad_item_box:nth-last-child(1) {
+            /* margin-top: 0.8rem; */
+        }
+
+        .ad_box .ad_item_box:nth-last-child(2) {
+            /* margin-top: 0.8rem; */
+        }
+
+        /* .ad_box .ad_item_title {
+            position: absolute;
+            top: -0.4rem;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 3.86666667rem;
+            height: 0.8rem;
+            line-height: 0.8rem;
+            font-size: 0.4rem;
+            color: #927400;
+            letter-spacing: 0.00613333rem;
+            text-align: center;
+            background: url("<?= base_url('img/client/mentor_ship/tittle2.png')?>") no-repeat;
+            background-size: 100%;
+            font-weight: 600;
+        } */
+        .ad_box .ad_item_title {
+            position: absolute;
+            bottom: 0.4rem;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 100%;
+            height: 0.8rem;
+            line-height: 0.8rem;
+            font-size: 0.4rem;
+            /* color: #927400; */
+            color: #3A3A3A;
+            letter-spacing: 0.00613333rem;
+            text-align: center;
+            /* background: url("<?= base_url('img/client/mentor_ship/tittle2.png')?>") no-repeat; */
+            background-size: 100%;
+            font-weight: 600;
+        }
+
+        .ad_box .ad_item_doc {
+            margin-top: 0.66666667rem;
+            font-size: 0.32rem;
+            color: #303030;
+            letter-spacing: 0.0048rem;
+            text-align: center;
+        }
+
+        .ad_box .ad_item_avater {
+            margin: 0 auto;
+            /* margin-top: 0.26666667rem;
+            margin-left: 0.73333333rem; */
+            width: 2.8rem;
+            height: 2.8rem;
+        }
+
+    </style>
 </head>
-
 <body>
-  <!-- 导航栏 -->
-  <div class="header d-none d-sm-block">
-    <div class="wp d-flex jc-between ai-center">
-      <div class="header-logo"><a href="#"><img src="img/logo.png"></a></div>
-      <div class="header-nav d-flex jc-between ai-center">
-        <div><a href="index.html" style="color:#e4392a; border-bottom:3px solid #e4392a;">首页</a></div>
-        <div><a href="about.html">关于思恩</a></div>
-        <div><a href="service.html">思恩服务</a></div>
-        <div><a href="case.html">思恩案例</a></div>
-        <div><a href="news.html">思恩动态</a></div>
-        <div><a href="contact.html">联系我们</a></div>
-      </div>
-      <div class="tel">400-008-0408</div>
-    </div>
-  </div>
-  <div class="header-m d-block d-sm-none">
-    <div class="header-logo"><a href="#"><img src="img/logo.png"></a></div>
-    <div class="header-menu"></div>
-    <div class="header-m-nav row">
-      <div class="col-12"><a href="index.html">首页</a></div>
-      <div class="col-12"><a href="about.html">关于思恩</a></div>
-      <div class="col-12"><a href="service.html">思恩服务</a></div>
-      <div class="col-12"><a href="case.html">思恩案例</a></div>
-      <div class="col-12"><a href="news.html">思恩动态</a></div>
-      <div class="col-12"><a href="contact.html">联系我们</a></div>
-    </div>
-  </div>
+<div class="wrap">
+    <!--广播-->
+    <!--  <div class="broadcast-wrap none">-->
+    <!--      <i class="broadcast icon"></i>-->
+    <!--      <ul class="broadcast-ul"></ul>-->
+    <!--  </div>-->
 
-  <!-- 右侧固定小按钮 -->
-  <div class="slider1 d-none d-sm-block">
-    <div class="slider1-item"><img src="img/side_icon02.png">在线咨询</div>
-    <div class="slider1-item"><img src="img/side_icon01.png">在线咨询</div>
-    <div class="slider1-item"><img src="img/side_icon03.png">4000080408</div>
-  </div>
-  <div class="slider2 d-none d-sm-block">
-    <div class="slider2-item wei">
-      <img src="img/r_icon1.png">
-      <div class="weixin"><em></em><img src="img/ewm.jpg"></div>
-    </div>
-    <div class="slider2-item back"><img src="img/r_icon2.png"></div>
-  </div>
-
-  <!-- banner -->
-  <div class="banner">
-    <div class="banner-bg"></div>
-    <!-- 轮播图 -->
-    <div class="jq-swiper-box">
-      <div class="jq-swiper">
-        <div class="jq-swiper-item">
-          <img src="img/banner1.jpg">
-          <div class="banner-txt a1">
-            <h5 data-animate="fadeInDown" class="animated d-none d-sm-block">innovating for you</h5>
-            <h2 data-animate="fadeInRight" class="animated">用整合的思想做互动</h2>
-            <h3 data-animate="fadeInUp" class="animated d-none d-sm-block">不只是建站，更提供有价值的思路和整体服务</h3>
-          </div>
-        </div>
-
-        <div class="jq-swiper-item">
-          <img src="img/banner2.jpg">
-          <div class="banner-txt a2">
-            <h2 data-animate="fadeInRight" class="animated">9年资深网站建设经验</h2>
-            <h3 data-animate="fadeInDown" class="animated d-none d-sm-block">WEBSITE DESIGN</h3>
-            <h4 data-animate="fadeInUp" class="animated d-none d-sm-block">
-              我们专注于品质化高端网站构建，企业品牌在网站中的整体树立，网络互动的体验，以及在手机等移动端的优质呈现。</h4>
-            <h6 data-animate="fadeInUp" class="animated d-none d-sm-block">www.sien.com.cn</h6>
-          </div>
-        </div>
-
-        <div class="jq-swiper-item">
-          <img src="img/banner3.jpg">
-          <div class="banner-txt a3">
-            <h2 data-animate="fadeInDown" class="animated">高端定制 品牌设计</h2>
-            <h3 data-animate="fadeInRight" class="animated d-none d-sm-block">Corporate website</h3>
-            <h4 data-animate="fadeInUp" class="animated d-none d-sm-block">思恩致力于为客户提供最具有竞争力的网站，将每个案例都做成经典。</h4>
-          </div>
-        </div>
-      </div>
-      <div class="jq-swiper-prev d-none d-sm-block"><img src="img/ban_prev.png"></div>
-      <div class="jq-swiper-next d-none d-sm-block"><img src="img/ban_next.png"></div>
-    </div>
-  </div>
-
-
-  <!-- 思恩服务 -->
-  <div class="serve">
-    <div class="serve-title wp">
-      <h3>思恩服务</h3>
-      <h5>WEBTHINK <span>SERVICE</span></h5>
-    </div>
-    <div class="serve-list wp row">
-      <div class="serve-list-item col-lg-3 col-12">
-        <a href="">
-          <span></span>
-          <h3>高端网站建设</h3>
-          <em></em>
-          <p>根据用户的需求、市场状况、企业情况提供专业化的网站策划、交互设计、技术和营销解决方案。</p>
-          <div class="pic">
-            <img src="img/m1.png" alt="">
-            <img src="img/m2.png" alt="" class="pic-icon">
-          </div>
-        </a>
-      </div>
-
-      <div class="serve-list-item col-lg-3 col-12">
-        <a href="">
-          <span></span>
-          <h3>手机网站建设</h3>
-          <em></em>
-          <p>在移动互联时代，我们得出“简单使用，精彩体验”的移动应用开发理念，创造属于无线时代的精彩互联。</p>
-          <div class="pic">
-            <img src="img/m3.png" alt="">
-            <img src="img/m4.png" alt="" class="pic-icon">
-          </div>
-        </a>
-      </div>
-
-      <div class="serve-list-item col-lg-3 col-12">
-        <a href="">
-          <span></span>
-          <h3>微信应用开发</h3>
-          <em></em>
-          <p>为客户提供全方位的移动端营销服务，微信公众平台开发，微站设计。</p>
-          <div class="pic">
-            <img src="img/m5.png" alt="">
-            <img src="img/m6.png" alt="" class="pic-icon">
-          </div>
-        </a>
-      </div>
-
-      <div class="serve-list-item col-lg-3 col-12">
-        <a href="">
-          <span></span>
-          <h3>手机APP开发</h3>
-          <em></em>
-          <p>按客户意图来定制开发app系统，IOS 安卓任您挑选，持续为企业无线创造新价值。</p>
-          <div class="pic">
-            <img src="img/m7.png" alt="">
-            <img src="img/m8.png" alt="" class="pic-icon">
-          </div>
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-
-
-  <!-- 思恩案例 -->
-  <div class="exmp">
-    <div class="exmp-title wp">
-      <h3>思恩案例</h3>
-      <h5><span>case</span> of webthink</h5>
-    </div>
-    <div class="exmp-list wp row">
-      <div class="exmp-list-item col-lg-3 col-12">
-        <a href="case_info_4_110.html">
-          <div class="pic"><img src="img/14429937588106.jpg"></div>
-          <div class="hover">
-            <div class="txt">
-              <img src="img/logo_small.png" alt="">
-              <h3>LMP品牌站官网</h3>
+    <div class="banner_bg">
+        <!-- <div class="header_banner"></div> -->
+        <div class="show_box">
+            <div class="user_box">
+                <img src="<?= touxiang_real($info['avatar']) ?>" alt="" class="user_avart">
+                <div class="user_info">
+                    <p class="user_name"><span class="user_name_limt"><?= ($info['nick']) ?></span>邀请你</p>
+                    <p class="show_box_msg">下载乐萌夹(抓)娃娃，免费抓娃娃</p>
+                </div>
             </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="exmp-list-item col-lg-3 col-12">
-        <a href="case_info_4_54.html">
-          <div class="pic"><img src="img/14425590613750.jpg"></div>
-          <div class="hover">
-            <b></b>
-            <div class="txt">
-              <img src="img/logo_small.png" alt="">
-              <h3>连洋鞋业网站</h3>
+            <div class="code_box">
+                <img class="Qcode" src="<?= base_url('img/client/mentor_ship/qrcode.jpg') ?>">
+                <!-- <div class="code_title"></div> -->
+                <p class="zc_code" id="copy" data-clipboard-text="<?= ($info['invite_code']) ?>" onclick="">
+                    点击复制邀请码: <span><?= ($info['invite_code']) ?></span></p>
             </div>
-          </div>
-        </a>
-      </div>
 
-      <div class="exmp-list-item col-lg-3 col-12">
-        <a href="case_info_4_52.html">
-          <div class="pic"><img src="img/14423045107241.jpg"></div>
-          <div class="hover">
-            <b></b>
-            <div class="txt">
-              <img src="img/logo_small.png" alt="">
-              <h3>礼悦利达</h3>
+            <!--    <a href="--><? //= $info['down']?><!--" style="text-decoration: none">-->
+            <a href="https://ksw.loovee.com/open/link?id=117" style="text-decoration: none">
+                <div class="get_btn">仅限5人注册</div>
+            </a>
+            <!--      <div class="reg_box">-->
+            <!--        <div class="reg_box_title">-->
+            <!--          <p>立即下载可获得29+乐币</p>-->
+            <!--          <div class="reg_box_bg"></div>-->
+            <!--        </div>-->
+            <!--        <input type="tel" class="input_phone" placeholder="输入你的手机号码领取乐币" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');">-->
+            <!--        <div class="phonemsg_box">-->
+            <!--          <input type="tel" placeholder="输入验证码" class="msg_code">-->
+            <!--          <div class="setmsg_btn">获取验证码</div>-->
+            <!--        </div>-->
+            <!--        <div class="get_btn">领取</div>-->
+            <!--      </div>-->
+        </div>
+        <div class="bg_coin"></div>
+
+
+    </div>
+
+    <div class="ad_box">
+        <div class="ad_item_box">
+            <!-- <div class="ad_item_title">超大公子直接抓</div>
+            <div class="ad_item_doc">打破常规，全网独有<br>超大公仔直接抓</div> -->
+            <img src="<?= base_url('img/client/mentor_ship/icon_dagongzai.png') ?>" alt="" class="ad_item_avater">
+            <div class="ad_item_title">超大公子</div>
+        </div>
+        <div class="ad_item_box">
+            <!-- <div class="ad_item_title">正版蒙奇奇专场</div>
+            <div class="ad_item_doc">超全系列蒙奇奇专场<br>等你带回家</div> -->
+            <img src="<?= base_url('img/client/mentor_ship/icon_mengqiqi.png') ?>" alt="" class="ad_item_avater">
+            <div class="ad_item_title">正版蒙奇奇</div>
+        </div>
+        <div class="ad_item_box">
+            <!-- <div class="ad_item_title">免费送币</div>
+            <div class="ad_item_doc">签到&邀请&任务<br>免费送乐币</div> -->
+            <img src="<?= base_url('img/client/mentor_ship/icon_jinbi.png') ?>" alt="" class="ad_item_avater">
+            <div class="ad_item_title">免费送币</div>
+        </div>
+        <div class="ad_item_box">
+            <!-- <div class="ad_item_title">全国包邮</div>
+            <div class="ad_item_doc">娃娃全国包邮<br>撩妹惊喜不能停</div> -->
+            <img src="<?= base_url('img/client/mentor_ship/icon_baoyou.png') ?>" alt="" class="ad_item_avater">
+            <div class="ad_item_title">全国包邮</div>
+        </div>
+    </div>
+    <!-- 老版本
+    <img class="banner" src="<?= base_url('img/client/mentor_ship/cash/banner.png') ?>" width="100%">
+
+    <div class="my-info">
+        <i class="bg" style="background-image: url('<?= touxiang_real($info['avatar']) ?>')"></i>
+        <span class="my-info-desc">我已经领取了<span class="red"><?= $info['rmb'] ?>元</span>，秒到账</span>
+    </div>
+
+    <div class="content">
+        <div class="content-icon icon">
+            <div class="rmb-box">
+                <span class="rmb">1.50</span>
+                <span class="rmb-desc">元</span>
             </div>
-          </div>
+        </div>
+        <a href="<?= $info['down'] ?>">
+            <div class="download icon">获得更多现金</div>
         </a>
-      </div>
-
-      <div class="exmp-list-item col-lg-3 col-12">
-        <a href="case_info_4_49.html">
-          <div class="pic"><img src="img/14423036593132.jpg"></div>
-          <div class="hover">
-            <b></b>
-            <div class="txt">
-              <img src="img/logo_small.png" alt="">
-              <h3>竣腾影业网站</h3>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="exmp-list-item col-lg-3 col-12">
-        <a href="case_info_4_20.html">
-          <div class="pic"><img src="img/14422959085097.jpg"></div>
-          <div class="hover">
-            <b></b>
-            <div class="txt">
-              <img src="img/logo_small.png" alt="">
-              <h3>国家信息安全中心网站</h3>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="exmp-list-item col-lg-3 col-12">
-        <a href="case_info_4_102.html">
-          <div class="pic"><img src="img/14429911135818.jpg"></div>
-          <div class="hover">
-            <b></b>
-            <div class="txt">
-              <img src="img/logo_small.png" alt="">
-              <h3>中亿行官网</h3>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="exmp-list-item col-lg-3 col-12">
-        <a href="case_info_4_100.html">
-          <div class="pic"><img src="img/14429905909518.jpg"></div>
-          <div class="hover">
-            <b></b>
-            <div class="txt">
-              <img src="img/logo_small.png" alt="">
-              <h3>中粮集团</h3>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="exmp-list-item col-lg-3 col-12">
-        <a href="case_info_4_70.html">
-          <div class="pic"><img src="img/14429012824914.jpg"></div>
-          <div class="hover">
-            <b></b>
-            <div class="txt">
-              <img src="img/logo_small.png" alt="">
-              <h3>十方天使基金</h3>
-            </div>
-          </div>
-        </a>
-      </div>
-
+        <div class="download-desc">
+            <p>来就送1.5元现金可提现，秒到账</p>
+            <p>下载APP每天都能赚钱</p>
+        </div>
     </div>
+  -->
 
-    <div class="exmp-down wp">
-      <a href="#"></a>
-    </div>
-  </div>
+</div>
+<!--<script src="--><? //= base_url('js/doT.min.js');?><!--"></script>-->
+<script src="<?= base_url('js/jquery-2.0.3.min.js'); ?>"></script>
+<script src="<?= base_url('js/layer-v2.0.js'); ?>"></script>
+<script src="<?= base_url('js/clipboard.min.js') ?>"></script>
 
+<!--<!--    广播模板-->
+<!--<script id="template-scroll" type="text/x-dot-template">-->
+<!--    {{~it:val:index}}-->
+<!--    <li>{{= val.nick}}</li>-->
+<!--    {{~}}-->
+<!--</script>-->
+<script>
+    $(function () {
+        console.log(<?php echo json_encode($info)?>);
+        var clipboard = new Clipboard('#copy');
+        clipboard.on('success', function (e) {
+            layer.open({content: "已复制邀请码！", time: 2, skin: 'msg'});
+        });
 
-
-  <!-- 思恩动态 -->
-  <div class="done">
-    <div class="done-bg col-12"></div>
-    <div class="done-title wp">
-      <h3>思恩动态</h3>
-      <h5>webthink <span>news</span></h5>
-    </div>
-    <div class="done-list wp row">
-      <div class="done-list-item col-lg-3 col-12">
-        <div class="txt">
-          <span><em>03/01</em>2016</span>
-          <h3><a href="news_info_5_313.html">给设计师的网页动画设计基础</a></h3>
-          <p>随着技术的积累，网页中的动画也已经是遍地开花，它时尚，有趣，也人性化。不断涌现的新技术和新工</p>
-          <a href="news_info_5_313.html" class="more"></a>
-        </div>
-        <div class="hover">
-          <div class="img"
-            style="background: url(img/14568143499060.jpg) 0 0 /100% 100% no-repeat;background: url(images/14568143499060.jpg) 0 0 no-repeat\9;">
-          </div>
-          <div class="pad">
-            <h3><a href="news_info_5_313.html">给设计师的网页动画设计基础</a></h3>
-            <p>随着技术的积累，网页中的动画也已经是遍地开花，它时尚，有趣，也人性化。不断涌现的新技术和新工</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="done-list-item col-lg-3 col-12">
-        <div class="txt">
-          <span><em>02/22</em>2016</span>
-          <h3><a href="news_info_5_310.html">常见的网站交互设计错误</a></h3>
-          <p>好的交互设计可以区分开有质量的网站和其他普通网站。然而，如果有明显的设计错误，它只会给予你本</p>
-          <a href="news_info_5_310.html" class="more"></a>
-        </div>
-        <div class="hover">
-          <div class="img"
-            style="background: url(img/14561176714477.png) 0 0 /100% 100% no-repeat;background: url(images/14561176714477.png) 0 0 no-repeat\9;">
-          </div>
-          <div class="pad">
-            <h3><a href="news_info_5_310.html">常见的网站交互设计错误</a></h3>
-            <p>好的交互设计可以区分开有质量的网站和其他普通网站。然而，如果有明显的设计错误，它只会给予你本</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="done-list-item col-lg-3 col-12">
-        <div class="txt">
-          <span><em>02/15</em>2016</span>
-          <h3><a href="news_info_5_305.html">聊聊WEB网站和移动APP的六大交</a></h3>
-          <p>交互设计中的Web网站和移动App的设计，前者依托于PC的浏览器，后者则是依托于手机/平板电脑。不同的设</p>
-          <a href="news_info_5_305.html" class="more"></a>
-        </div>
-        <div class="hover">
-          <div class="img"
-            style="background: url(img/14555070718366.jpg) 0 0 /100% 100% no-repeat;background: url(images/14555070718366.jpg) 0 0 no-repeat\9;">
-          </div>
-          <div class="pad">
-            <h3><a href="news_info_5_305.html">聊聊WEB网站和移动APP的六大交</a></h3>
-            <p>交互设计中的Web网站和移动App的设计，前者依托于PC的浏览器，后者则是依托于手机/平板电脑。不同的设</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="done-list-item col-lg-3 col-12">
-        <div class="txt">
-          <span><em>01/26</em>2016</span>
-          <h3><a href="news_info_5_299.html">设计注册/登录界面时注意的常</a></h3>
-          <p>随着时代的发展，新用户注册、登录到真正加入一个网站的过程一直在变化，从简单的信息填写发展到全</p>
-          <a href="news_info_5_299.html" class="more"></a>
-        </div>
-        <div class="hover">
-          <div class="img"
-            style="background: url(img/14537972384811.jpg) 0 0 /100% 100% no-repeat;background: url(images/14537972384811.jpg) 0 0 no-repeat\9;">
-          </div>
-          <div class="pad">
-            <h3><a href="news_info_5_299.html">设计注册/登录界面时注意的常</a></h3>
-            <p>随着时代的发展，新用户注册、登录到真正加入一个网站的过程一直在变化，从简单的信息填写发展到全</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="done-btn d-flex jc-center ai-center"><span>LOAD MORE</span></div>
-  </div>
-
-
-
-
-  <!-- 联系我们 -->
-  <div class="call">
-    <div class="call-title wp">
-      <h3>联系我们</h3>
-      <h5><span>contact</span> webthink</h5>
-    </div>
-    <div class="call-content row wp">
-      <div class="call-content-left col-lg-5 col-12">
-        <ul class="ul-contact">
-          <li class="li1">北京市朝阳区建国路88号SOHO现代城6#3208</li>
-          <li class="li2"><a href="tel:010-51265006">010-51265006 (咨询) / <a href="tel:010-52459737">52459737
-                (售后)<br /><a href="tel:400-008-0408">400-008-0408
-                  (咨询)</a><br /><a href="tel:13581789985">13581789985 (咨询)</li>
-          <li class="li3"><a href="mailto:sales@webthink.com.cn">sales@webthink.com.cn</a></li>
-        </ul>
-      </div>
-      <div class="call-content-right col-lg-7 col-12">
-        <div class="call-content-right-title row jc-around">
-          <input class="col-lg-5 col-11" type="text" placeholder="您的姓名">
-          <input class="col-lg-6 col-11" type="text" placeholder="您的联系方式">
-        </div>
-        <textarea></textarea>
-        <button>提交您的需求</button>
-      </div>
-    </div>
-  </div>
-
-
-
-  <!-- 底部 -->
-  <div class="footer">
-    <div class="d-none d-sm-block">
-      <div class="footer-box wp d-flex jc-between ai-start">
-        <dl>
-          <dt>关于思恩</dt>
-          <dd>
-            <ul class="ul-fd">
-              <li><a href="">我们是谁</a></li>
-              <li><a href="">我们服务的客户</a></li>
-              <li><a href="">我们的团队</a></li>
-              <li><a href="">客户监控系统</a></li>
-            </ul>
-          </dd>
-        </dl>
-        <dl>
-          <dt>思恩服务</dt>
-          <dd>
-            <ul class="ul-fd">
-              <li><a href="">网站建设</a></li>
-              <li><a href="">H5响应式 交互网站</a></li>
-              <li><a href="">移动端 & 微网站定制</a></li>
-              <li><a href="">服务流程</a></li>
-              <li><a href="">行业解决方案</a></li>
-            </ul>
-          </dd>
-        </dl>
-        <dl>
-          <dt>思恩案例</dt>
-          <dd>
-            <ul class="ul-fd">
-              <li><a href="">移动微站</a></li>
-              <li><a href="">平台电商</a></li>
-              <li><a href="">HTML5</a></li>
-              <li><a href="">企业网站</a></li>
-              <li><a href="">集团公司</a></li>
-              <li><a href="">加工制造</a></li>
-              <li><a href="">酒店餐饮</a></li>
-            </ul>
-          </dd>
-        </dl>
-        <dl>
-          <dt>思恩动态</dt>
-          <dd>
-            <ul class="ul-fd">
-              <li><a href="">公司动态</a></li>
-            </ul>
-          </dd>
-        </dl>
-        <dl>
-          <dt>联系我们</dt>
-          <dd class="pr">
-            <p><span class="weixin-pic"><img src="img/fd_icon1.png"></span><span class="weixin-pic"><img
-                  src="img/fd_icon2.png"></span></p>
-            <p><b class="tel">400-008-0408</b></p>
-            <h5>思恩服务热线</h5>
-          </dd>
-        </dl>
-      </div>
-    </div>
-    <div class="footer-copy">
-      <div class="wp">
-        <p>
-          <span>思恩网络技术（北京）有限公司 Copyright&copy; 2007-2015 </span><a href="" style="text-decoration: none;"><span
-              style="color: #333333;font-size: 14px;">京ICP备07017583号-1</span></a>
-          <a href=""></a>
-        </p>
-      </div>
-    </div>
-  </div>
-
-
-
-  <script src="./js/index.js"></script>
+        clipboard.on('error', function (e) {
+            layer.open({content: "您的浏览器不支持复制功能！", time: 2, skin: 'msg'});
+        });
+        //var g = g || {};
+        ////广播信息
+        //g.autoScroll = function (obj) {
+        //	$(obj).find("ul").animate({
+        //		marginTop : "-0.8rem"
+        //	}, 500, function() {
+        //		$(this).css({marginTop : "0"}).find("li:first").appendTo(this);
+        //	})
+        //};
+        //$.ajax({
+        // //url: '<?////= base_url('client/share_act/ajax_plaza');?>////',
+        // url: '<?//= base_url('client/share_act/game_record');?>//',
+        //	dataType: 'json',
+        //	type: 'post',
+        //	success: function (data) {
+        //		if (data.code == 1) {
+        //			if(data.data.length > 0) {
+        //				$('.broadcast-wrap').show();
+        //				//渲染广播模板
+        //				var dataArr = data.data;
+        //				var arrText = doT.template($("#template-scroll").text());
+        //				$(".broadcast-ul").html(arrText(dataArr));
+        //				setInterval(function () {
+        //					g.autoScroll(".broadcast-wrap");
+        //				}, 2000);
+        //			}
+        //		}
+        //	},
+        //});
+    })
+</script>
 </body>
-
 </html>

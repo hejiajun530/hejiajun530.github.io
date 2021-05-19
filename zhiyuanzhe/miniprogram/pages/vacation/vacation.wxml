@@ -1,0 +1,46 @@
+<view class="tab">
+    <view class="tab1">请假记录</view>
+    <view class="tab2" bindtap="toUrl">提交请假</view>
+</view>
+<view class="list">
+    <view class="list-item" wx:for="{{vacationList}}">
+        <view class="list-top">
+            <view class="list-box">
+                <view class="item-title">{{item.title}}</view>
+                <view class="item-type f-start-center">
+                    <image src="{{item.status == 1 ? '../../images/type-1.png' : '../../images/type-0.png'}}"/>
+                    {{item.type}}
+                </view>
+                <view class="item-time f-start-center">
+                    <image src="{{item.status == 1 ? '../../images/time-1.png' : '../../images/time-0.png'}}"/>
+                    {{item.startTime}}
+                </view>
+                <!-- #FEAA0E -->
+                <view class="item-time f-start-center">
+                    <image src="{{item.status == 1 ? '../../images/time-1.png' : '../../images/time-0.png'}}"/>
+                    {{item.endTime}}
+                </view>
+            </view>
+            <view class="list-echarts">
+                <van-circle value="{{ item.value }}" color="{{ item.gradientColor }}" text="" stroke-width="10" size="80"/>
+                <text class="{{item.status == 1 ? 'text-1' : 'text-0'}}">{{item.status == 1 ? '假期中' : '已销假'}}</text>
+                <view class="{{item.status == 1? 'circle-start' : 'circle-start0'}}"></view>
+            </view>
+        </view>
+
+        <view class="list-bottom {{item.status == 1 ? '' : 'gray'}}">
+            <view class="bottom-item f-start-center">
+                <image src="../../images/bottom1.png" wx:if="{{item.status == 1}}"/>
+                <view class="text" wx:if="{{item.status == 1}}">电子假条</view>
+            </view>
+            <view class="bottom-item f-start-center">
+                <image src="{{item.status == 1 ? '../../images/bottom2.png' : '../../images/bottom2-0.png'}}"/>
+                <view class="text">留言</view>
+            </view>
+            <view class="bottom-item f-start-center" wx:if="{{item.status == 1}}">
+                <image src="../../images/bottom3.png"/>
+                <view class="text">销假</view>
+            </view>
+        </view>
+    </view>
+</view>

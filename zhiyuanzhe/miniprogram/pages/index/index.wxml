@@ -1,0 +1,43 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 用户 openid -->
+  <view class="userinfo">
+    <image bindtap="bindViewTap" class="userinfo-block-avatar" src="{{avatarUrl}}" mode="cover"></image>
+    <view class="userinfo-nickname-wrapper">
+      <button class="userinfo-nickname" bindtap="getUserProfile">点击获取 openid</button>
+    </view>
+  </view>
+
+  <button class="userinfo-nickname" bindtap="updateUser">修改信息</button>
+  <button class="userinfo-nickname" bindtap="getRank">获取排名</button>
+  <button class="userinfo-nickname" bindtap="release">发布活动</button>
+  <button class="userinfo-nickname" bindtap="getActive">活动列表</button>
+  <button class="userinfo-nickname" bindtap="delActive">删除活动</button>
+  <button class="userinfo-nickname" bindtap="updateActive">修改活动</button>
+  <button class="userinfo-nickname" bindtap="getDetail">活动详情</button>
+  <button class="userinfo-nickname" bindtap="join">参加活动</button>
+  <button class="userinfo-nickname" bindtap="out">退出活动</button>
+  <button class="userinfo-nickname" bindtap="mejoin">我参加的活动</button>
+  <button class="userinfo-nickname" bindtap="relActive">我发布的活动</button>
+  <button class="userinfo-nickname" bindtap="toVacation">请假页面</button>
+
+  <image bindtap='doUpload'  src='{{bigImg}}'></image>
+
+
+  <!-- 上传图片 -->
+  <!-- <view class="uploader">
+    <view class="uploader-text" bindtap="doUpload">
+      <text>上传图片</text>
+    </view>
+    <view class="uploader-container" wx:if="{{imgUrl}}">
+      <image class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
+    </view>
+  </view> -->
+
+  <!-- 即时通信 -->
+  <!-- <view class="uploader">
+    <navigator url="../im/im" open-type="navigate" class="uploader-text">
+      <text>即时通信 Demo</text>
+    </navigator>
+  </view> -->
+</view>

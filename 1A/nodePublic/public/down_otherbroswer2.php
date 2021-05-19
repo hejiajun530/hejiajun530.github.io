@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>邀请好友</title>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no, email=no, adress=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="https://duimianimg.loovee.com/lib/minireset.css/0.0.2/minireset.min.css" rel="stylesheet">
+    <script>
+        // 屏幕适配
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    var clientHeight = docEl.clientHeight;
+                    if (!clientWidth) return;
+                    clientWidth = clientWidth >= 750 ? 750 : clientWidth;
+                    var rem = clientWidth / 10;
+                    docEl.style.fontSize = rem + 'px';
+                    var dpr = parseInt(window.devicePixelRatio);
+                    docEl.setAttribute('dpr', dpr);
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+
+            // 解决个别浏览器不支持meta标签设置, 阻止手势和快速点击缩放的功能
+            doc.addEventListener('touchstart', function (e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            });
+            var lastTouchEnd = 0;
+            doc.addEventListener('touchend', function (e) {
+                var now = +(new Date());
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+
+            // 禁用浏览器长按出现菜单弹框
+            doc.addEventListener('contextmenu', function (e) {
+                e.preventDefault();
+            });
+        })(document, window);
+    </script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            -webkit-tap-highlight-color: transparent;
+            /* background-color: #FF4653; */
+            background-color: #FFA1D6;
+        }
+
+        .wrap {
+            width: 100%;
+            min-height: 100%;
+            max-width: 750px;
+            min-width: 320px;
+            margin: 0 auto;
+            padding-bottom: 0.4000rem;
+            box-sizing: border-box;
+            background: url('./bg.png') no-repeat;
+            background-size: 100% auto;
+        }
+
+        /*广播S*/
+        .broadcast-wrap {
+            width: 9.2000rem;
+            height: 0.8533rem;
+            line-height: 0.8533rem;
+            background: #EB3434;
+            border-radius: 20px;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0.1333rem;
+            margin: auto;
+        }
+
+        .broadcast {
+            width: 0.8000rem;
+            height: 0.8533rem;
+            background-image: url("<?= base_url('img/client/mentor_ship/cash/yaoqing_icon_tongzhi.png')?>");
+            background-size: 0.5333rem 0.5333rem;
+            background-repeat: no-repeat;
+            position: absolute;
+            left: 0.2rem;
+            top: 0.16rem;
+        }
+
+        .broadcast-ul li {
+            width: 100%;
+            height: 0.8533rem;
+            line-height: 0.8533rem;
+            font-size: 0.4000rem;
+            color: #FFF;
+            letter-spacing: 0.0107rem;
+            padding: 0 0.2667rem 0 0.9333rem;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .broadcast-ul li span {
+            font-size: 0.4000rem;
+        }
+
+        /*广播E*/
+        .banner {
+            margin-top: 0.6667rem;
+        }
+
+        .my-info {
+            width: 8.5600rem;
+            height: 1.0667rem;
+            line-height: 1.0667rem;
+            background-color: #FFF;
+            border-radius: 50px;
+            position: relative;
+            text-align: center;
+            margin: 0 auto 0.6400rem;
+        }
+
+        .my-info i {
+            width: 1.3333rem;
+            height: 1.3333rem;
+            position: absolute;
+            left: -0.1333rem;
+            bottom: 0;
+            border: 1px solid #fff;
+            border-radius: 50%;
+        }
+
+        .my-info-desc {
+            font-size: 0.4000rem;
+            color: #333;
+        }
+
+        .red {
+            font-size: 0.4000rem;
+            color: #ff1f1f;
+        }
+
+        .content {
+            width: 9.2000rem;
+            height: 9.3067rem;
+            background: #FFF;
+            border-radius: 9px;
+            margin: 0 auto;
+        }
+
+        .content-icon {
+            width: 7.0933rem;
+            height: 6.8000rem;
+            margin: 0 auto;
+            background-image: url("<?= base_url('img/client/mentor_ship/cash/pic_hongbao@2x.png')?>");
+            position: relative;
+        }
+
+        .rmb-box {
+            position: absolute;
+            text-align: center;
+            width: 3.6267rem;
+            top: 3.7600rem;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        .rmb {
+            font-size: 0.9067rem;
+            color: #FEF157;
+            letter-spacing: 0.0427rem;
+        }
+
+        .rmb-desc {
+            font-size: 0.4533rem;
+            color: #FEF157;
+        }
+
+        .download {
+            width: 8.1600rem;
+            height: 1.1733rem;
+            line-height: 1.1733rem;
+            margin: -0.1333rem auto 0.2667rem;
+            background: #FFE129;
+            border-radius: 7px;
+            font-size: 0.4800rem;
+            color: #4A4A4A;
+            letter-spacing: 0.0200rem;
+            text-align: center;
+        }
+
+        .download-desc {
+            text-align: center;
+        }
+
+        .download-desc p {
+            font-size: 0.3200rem;
+            color: #9B9B9B;
+        }
+
+    </style>
+    <style>
+        body {
+            /* background: #fe5251; */
+            background: #FFA1D6;
+        }
+
+        .banner_bg {
+            /*position: relative;*/
+            width: 10rem;
+            /* height: 17.4rem; */
+            height: 19.4rem;
+            /*height: auto;*/
+            /*margin-bottom: 0.8rem;*/
+            padding-top: 9.33rem;
+            background: url("<?= base_url('img/client/mentor_ship/bg.png')?>") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .header_banner {
+            position: absolute;
+            width: 8.96rem;
+            height: 5.16rem;
+            top: 1.45333333rem;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            background: url("<?= base_url('img/client/mentor_ship/toububiaoti.png')?>") no-repeat;
+            background-size: 100%;
+        }
+
+        .show_box {
+            margin: 0 auto;
+            width: 9.2rem;
+            /* background: #FFFFFF; */
+            border-radius: 0.26666667rem;
+            padding-top: 1.28rem;
+            padding-bottom: .4rem;
+            z-index: 2;
+        }
+
+        .user_box {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+            width: 8rem;
+            height: 2.26666667rem;
+            /*line-height: 2.26666667rem;*/
+            /* background: #FFEFEF; */
+            border-radius: 0.26666667rem;
+        }
+
+        .user_avart {
+            display: inline-block;
+            float: left;
+            width: 1.72rem;
+            height: 1.72rem;
+            border: 0.01333333rem solid #f5f5f5;
+            border-radius: 100%;
+            margin-top: 0.26666667rem;
+            margin-left: 0.57333rem;
+        }
+
+        .user_info {
+            display: inline-block;
+            margin-top: 0.52rem;
+            /* margin-left: 0.26666667rem; */
+            line-height: 0.6rem;
+        }
+
+        .user_name {
+            font-size: 0.50666667rem;
+            color: #303030;
+            letter-spacing: 0;
+        }
+
+        .show_box_msg {
+            font-size: 0.37333333rem;
+            color: #686868;
+            letter-spacing: 0;
+            line-height: 0.70666667rem;
+        }
+
+        .user_name > span {
+            float: left;
+            max-width: 3.3rem;
+            font-size: 0.50666667rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            vertical-align: top;
+        }
+
+        .bg_coin {
+            /*position: absolute;*/
+            top: 6.4rem;
+            left: 0;
+            margin-top: -8.4rem;
+            width: 9.69333333rem;
+            height: 6.14666667rem;
+            background: url("<?= base_url('img/client/mentor_ship/coin.png')?>") no-repeat;
+            background-size: 100%;
+        }
+
+        .code_box {
+            margin: 0 auto;
+            width: 9.2rem;
+            border-radius: 0.26666667rem;
+            font-size: 0;
+            overflow: hidden;
+        }
+
+        .code_box .Qcode {
+            /* width: 2.6rem;
+            height: 2.6rem; */
+            width: 3.6rem;
+            height: 3.6rem;
+            /* margin-top: 0.4rem;
+            margin-left: 1.32rem; */
+            margin: 0.4rem auto 0;
+            display: block;
+        }
+
+        .code_box .code_title {
+            margin-top: 0.59333333rem;
+            margin-left: 0.26666667rem;
+            width: 3.90666667rem;
+            height: 2.30666667rem;
+            background: url("<?= base_url('img/client/mentor_ship/xiazaiapp.png')?>") no-repeat;
+            background-size: 100%;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .zc_code {
+            font-size: .4rem;
+            color: #303030;
+            margin: .32rem auto;
+            text-align: center;
+        }
+        .zc_code span{
+            text-decoration: underline;
+        }
+
+        .get_btn {
+            position: fixed;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0 auto;
+            width: 8rem;
+            height: 1.17333333rem;
+            background: #F2F2F2;
+            background-image: linear-gradient(90deg, #ff8b33 4%, #ff4529 100%);
+            border-radius: 1.33333333rem;
+            font-size: 0.45333333rem;
+            color: #FFFFFF;
+            letter-spacing: 0.00693333rem;
+            text-align: center;
+            line-height: 1.17333333rem;
+            font-weight: 700;
+            z-index: 100;
+        }
+
+        .ad_box {
+            margin: 0.3rem auto 0;
+            /* margin-top: -1.2rem; */
+            /* width: 9.2rem; */
+            width: 6.9rem;
+            height: 11.6rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            align-content: flex-start;
+        }
+
+        .ad_box .ad_item_box {
+            position: relative;
+            /* float: left; */
+            /* margin-right: 0.4rem; */
+            /* width: 4.4rem; */
+            width: 2.8rem;
+            /* height: 5.01333333rem; */
+            height: 3.98rem;
+            /* background: #FFFFFF; */
+            border-radius: 0.13333333rem;
+        }
+
+        .ad_item_box:nth-child(2n) {
+            margin-right: 0;
+        }
+
+        .ad_box .ad_item_box:nth-last-child(1) {
+            /* margin-top: 0.8rem; */
+        }
+
+        .ad_box .ad_item_box:nth-last-child(2) {
+            /* margin-top: 0.8rem; */
+        }
+
+        /* .ad_box .ad_item_title {
+            position: absolute;
+            top: -0.4rem;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 3.86666667rem;
+            height: 0.8rem;
+            line-height: 0.8rem;
+            font-size: 0.4rem;
+            color: #927400;
+            letter-spacing: 0.00613333rem;
+            text-align: center;
+            background: url("<?= base_url('img/client/mentor_ship/tittle2.png')?>") no-repeat;
+            background-size: 100%;
+            font-weight: 600;
+        } */
+        .ad_box .ad_item_title {
+            position: absolute;
+            bottom: 0.4rem;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 100%;
+            height: 0.8rem;
+            line-height: 0.8rem;
+            font-size: 0.4rem;
+            /* color: #927400; */
+            color: #3A3A3A;
+            letter-spacing: 0.00613333rem;
+            text-align: center;
+            background: url("<?= base_url('img/client/mentor_ship/tittle2.png')?>") no-repeat;
+            background-size: 100%;
+            font-weight: 600;
+        }
+
+        .ad_box .ad_item_doc {
+            margin-top: 0.66666667rem;
+            font-size: 0.32rem;
+            color: #303030;
+            letter-spacing: 0.0048rem;
+            text-align: center;
+        }
+
+        .ad_box .ad_item_avater {
+            margin: 0 auto;
+            /* margin-top: 0.26666667rem;
+            margin-left: 0.73333333rem; */
+            width: 2.8rem;
+            height: 2.8rem;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <!--广播-->
+    <!--  <div class="broadcast-wrap none">-->
+    <!--      <i class="broadcast icon"></i>-->
+    <!--      <ul class="broadcast-ul"></ul>-->
+    <!--  </div>-->
+
+    <div class="banner_bg">
+        <!-- <div class="header_banner"></div> -->
+        <div class="show_box">
+            <div class="user_box">
+                <img src="<?= touxiang_real($info['avatar']) ?>" alt="" class="user_avart">
+                <div class="user_info">
+                    <p class="user_name"><span class="user_name_limt"><?= ($info['nick']) ?></span>邀请你</p>
+                    <p class="show_box_msg">下载乐萌夹(抓)娃娃，免费抓娃娃</p>
+                </div>
+            </div>
+            <div class="code_box">
+                <img class="Qcode" src="<?= base_url('img/client/mentor_ship/qrcode.jpg') ?>">
+                <!-- <div class="code_title"></div> -->
+                <p class="zc_code" id="copy" data-clipboard-text="<?= ($info['invite_code']) ?>" onclick="">
+                    点击复制邀请码: <span><?= ($info['invite_code']) ?></span></p>
+            </div>
+
+            <!--    <a href="--><? //= $info['down']?><!--" style="text-decoration: none">-->
+            <a href="https://ksw.loovee.com/open/link?id=117" style="text-decoration: none">
+                <div class="get_btn">仅限5人注册</div>
+            </a>
+            <!--      <div class="reg_box">-->
+            <!--        <div class="reg_box_title">-->
+            <!--          <p>立即下载可获得29+乐币</p>-->
+            <!--          <div class="reg_box_bg"></div>-->
+            <!--        </div>-->
+            <!--        <input type="tel" class="input_phone" placeholder="输入你的手机号码领取乐币" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');">-->
+            <!--        <div class="phonemsg_box">-->
+            <!--          <input type="tel" placeholder="输入验证码" class="msg_code">-->
+            <!--          <div class="setmsg_btn">获取验证码</div>-->
+            <!--        </div>-->
+            <!--        <div class="get_btn">领取</div>-->
+            <!--      </div>-->
+        </div>
+        <div class="bg_coin"></div>
+
+
+    </div>
+
+    <div class="ad_box">
+        <div class="ad_item_box">
+            <!-- <div class="ad_item_title">超大公子直接抓</div>
+            <div class="ad_item_doc">打破常规，全网独有<br>超大公仔直接抓</div> -->
+            <img src="<?= base_url('img/client/mentor_ship/icon_dagongzai.png') ?>" alt="" class="ad_item_avater">
+            <div class="ad_item_title">超大公子</div>
+        </div>
+        <div class="ad_item_box">
+            <!-- <div class="ad_item_title">正版蒙奇奇专场</div>
+            <div class="ad_item_doc">超全系列蒙奇奇专场<br>等你带回家</div> -->
+            <img src="<?= base_url('img/client/mentor_ship/icon_mengqiqi.png') ?>" alt="" class="ad_item_avater">
+            <div class="ad_item_title">正版蒙奇奇</div>
+        </div>
+        <div class="ad_item_box">
+            <!-- <div class="ad_item_title">免费送币</div>
+            <div class="ad_item_doc">签到&邀请&任务<br>免费送乐币</div> -->
+            <img src="<?= base_url('img/client/mentor_ship/icon_jinbi.png') ?>" alt="" class="ad_item_avater">
+            <div class="ad_item_title">免费送币</div>
+        </div>
+        <div class="ad_item_box">
+            <!-- <div class="ad_item_title">全国包邮</div>
+            <div class="ad_item_doc">娃娃全国包邮<br>撩妹惊喜不能停</div> -->
+            <img src="<?= base_url('img/client/mentor_ship/icon_baoyou.png') ?>" alt="" class="ad_item_avater">
+            <div class="ad_item_title">全国包邮</div>
+        </div>
+    </div>
+    <!-- 老版本
+    <img class="banner" src="<?= base_url('img/client/mentor_ship/cash/banner.png') ?>" width="100%">
+
+    <div class="my-info">
+        <i class="bg" style="background-image: url('<?= touxiang_real($info['avatar']) ?>')"></i>
+        <span class="my-info-desc">我已经领取了<span class="red"><?= $info['rmb'] ?>元</span>，秒到账</span>
+    </div>
+
+    <div class="content">
+        <div class="content-icon icon">
+            <div class="rmb-box">
+                <span class="rmb">1.50</span>
+                <span class="rmb-desc">元</span>
+            </div>
+        </div>
+        <a href="<?= $info['down'] ?>">
+            <div class="download icon">获得更多现金</div>
+        </a>
+        <div class="download-desc">
+            <p>来就送1.5元现金可提现，秒到账</p>
+            <p>下载APP每天都能赚钱</p>
+        </div>
+    </div>
+  -->
+
+</div>
+<!--<script src="--><? //= base_url('js/doT.min.js');?><!--"></script>-->
+<script src="<?= base_url('js/jquery-2.0.3.min.js'); ?>"></script>
+<script src="<?= base_url('js/layer-v2.0.js'); ?>"></script>
+<script src="<?= base_url('js/clipboard.min.js') ?>"></script>
+
+<!--<!--    广播模板-->
+<!--<script id="template-scroll" type="text/x-dot-template">-->
+<!--    {{~it:val:index}}-->
+<!--    <li>{{= val.nick}}</li>-->
+<!--    {{~}}-->
+<!--</script>-->
+<script>
+    $(function () {
+        console.log(<?php echo json_encode($info)?>);
+        var clipboard = new Clipboard('#copy');
+        clipboard.on('success', function (e) {
+            layer.open({content: "已复制邀请码！", time: 2, skin: 'msg'});
+        });
+
+        clipboard.on('error', function (e) {
+            layer.open({content: "您的浏览器不支持复制功能！", time: 2, skin: 'msg'});
+        });
+        //var g = g || {};
+        ////广播信息
+        //g.autoScroll = function (obj) {
+        //	$(obj).find("ul").animate({
+        //		marginTop : "-0.8rem"
+        //	}, 500, function() {
+        //		$(this).css({marginTop : "0"}).find("li:first").appendTo(this);
+        //	})
+        //};
+        //$.ajax({
+        // //url: '<?////= base_url('client/share_act/ajax_plaza');?>////',
+        // url: '<?//= base_url('client/share_act/game_record');?>//',
+        //	dataType: 'json',
+        //	type: 'post',
+        //	success: function (data) {
+        //		if (data.code == 1) {
+        //			if(data.data.length > 0) {
+        //				$('.broadcast-wrap').show();
+        //				//渲染广播模板
+        //				var dataArr = data.data;
+        //				var arrText = doT.template($("#template-scroll").text());
+        //				$(".broadcast-ul").html(arrText(dataArr));
+        //				setInterval(function () {
+        //					g.autoScroll(".broadcast-wrap");
+        //				}, 2000);
+        //			}
+        //		}
+        //	},
+        //});
+    })
+</script>
+</body>
+</html>
